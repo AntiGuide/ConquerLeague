@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Mainly a normal installation of Unity (tested on 2017.4.0f1)
+Mainly a normal installation of Unity (tested on 2017.4.12f1)
 
 ## Authors
 
