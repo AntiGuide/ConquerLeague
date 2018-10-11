@@ -5,6 +5,7 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 Assets/AmplifyShaderEditor*
+Assets/ProCore*
 
 # Visual Studio cache directory
 .vs/
