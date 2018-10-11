@@ -8,15 +8,15 @@ using UnityEngine;
 public class TurretController : MonoBehaviour {
     /// <summary>The bullet prefab to spawn</summary>
     [SerializeField]
-    private readonly GameObject bulletPrefab;
+    private GameObject bulletPrefab;
 
     /// <summary>Force for bullets is multiplied by this</summary>
     [SerializeField]
-    private readonly float bulletForce;
+    private float bulletForce;
 
     /// <summary>The time it takes for the turret to shoot again</summary>
     [SerializeField]
-    private readonly float shootingTime;
+    private float shootingTime;
 
     /// <summary>The transform from which the turret shoots and the range calculation is done</summary>
     [SerializeField]
@@ -46,7 +46,7 @@ public class TurretController : MonoBehaviour {
     void Update() {
         // Sort Players by Magnitude
         OrderByMagnitude(ref players, shootingPoint);
-        aktShootingTime -= Time.deltaTime;
+        aktShootingTime -= Mathf.Min(Time.deltaTime, shootingTime);
         if (aktShootingTime <= 0f) {
             // Target (nearest)
             ShootAtEnemy(players[0]);
