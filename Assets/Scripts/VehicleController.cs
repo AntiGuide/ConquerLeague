@@ -3,20 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
+/// <summary>
+/// The vehicles controller, which defines how fast its moving and rotating
+/// </summary>
 public class VehicleController : MonoBehaviour
 {
+    /// <summary>Defines how fast the vehicle moves</summary>
     [SerializeField]
     private float movementSpeed;
 
+    /// <summary>The vehicles rigidbody</summary>
     [SerializeField]
     private Rigidbody rb;
 
-    // Use this for initialization
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>    
     void Start() {
 
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>    
     void Update() {
         Movement();
     }
@@ -36,6 +45,6 @@ public class VehicleController : MonoBehaviour
         }
 
         this.transform.localEulerAngles = new Vector3(0, rotate, 0);
-        this.rb.velocity = this.transform.forward * rotation.magnitude;
+        this.rb.velocity = this.transform.forward * rotation.magnitude * movementSpeed;
     }
 }
