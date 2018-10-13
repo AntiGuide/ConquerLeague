@@ -20,7 +20,6 @@ public class VehicleController : MonoBehaviour
     /// Use this for initialization
     /// </summary>    
     void Start() {
-
     }
 
     /// <summary>
@@ -30,18 +29,21 @@ public class VehicleController : MonoBehaviour
         Movement();
     }
 
+    /// <summary>
+    /// Uses CrossplatformInput to move and rotate player vehicle
+    /// </summary>
     void Movement() {
         Vector2 rotation = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
+        if (rotation == Vector2.zero) {
+            return;
+        }
 
-        if (rotation == Vector2.zero) return;
-        
         var rotate = Vector2.Angle(Vector2.up, rotation);
-        var sRotate = rotate;
-
-        if(CrossPlatformInputManager.GetAxis("Horizontal") <= 0) {
+        var saveRotate = rotate;
+        if (CrossPlatformInputManager.GetAxis("Horizontal") <= 0) {
             rotate = -rotate;
         } else {
-            rotate = sRotate;
+            rotate = saveRotate;
         }
 
         this.transform.localEulerAngles = new Vector3(0, rotate, 0);

@@ -38,18 +38,18 @@ public class VehicleWeapon : MonoBehaviour {
     /// </summary>
     void Update() {
         Shoot(this.weaponType);
-	}
+    }
 
     /// <summary>
     /// Instantiate Bullet and applies force
     /// </summary>
     /// <param name="ammo"></param>
     void Shoot(GameObject ammo) {
-        if(aktShootingTime <= 0f && (CrossPlatformInputManager.GetButton("Shoot"))) {
-            var shot = Instantiate(ammo, shotSpawn.position, new Quaternion(90,this.transform.rotation.y,0,0));
-            shot.GetComponent<Rigidbody>().AddForce(this.transform.forward*projectileSpeed);
+        if (aktShootingTime <= 0f && CrossPlatformInputManager.GetButton("Shoot")) {
+            var shot = Instantiate(ammo, shotSpawn.position, new Quaternion(90, this.transform.rotation.y, 0, 0));
+            shot.GetComponent<Rigidbody>().AddForce(this.transform.forward * projectileSpeed);
             aktShootingTime += shootingTime;
-        }else if (CrossPlatformInputManager.GetButton("Shoot")) {
+        } else if (CrossPlatformInputManager.GetButton("Shoot")) {
             aktShootingTime -= Time.deltaTime;
         }
     }
