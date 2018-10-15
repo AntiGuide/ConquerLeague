@@ -7,21 +7,21 @@ using UnityEngine;
 /// Used to let the player auto-aim in a certain range
 /// </summary>
 public class VehicleAim : MonoBehaviour {
-    /// <summary>Tags that are recognized as shootables</summary>
-    [SerializeField]
-    private string[] shootablesTags;
-
     /// <summary>The range to target shootables in</summary>
-    [SerializeField]
+    [SerializeField, Header("Customizable"), Tooltip("The Range in UnityUnits/meters that a player is allowed to target")]
     private float targetRange;
 
-    /// <summary>The player GameObject. Used for orientation checks.</summary>
-    [SerializeField]
-    private GameObject player;
+    /// <summary>The "shooting FOV". For example 180° would cover the whole front.</summary>
+    [SerializeField, Range(0, 360), Tooltip("The \"shooting FOV\". For example 180° would cover the whole front.")]
+    private float coneDegrees;
+
+    /// <summary>Tags that are recognized as shootables. Priority top to bottom.</summary>
+    [SerializeField, Tooltip("Tags that are recognized as shootables. Priority top to bottom.")]
+    private string[] shootablesTags;
 
     /// <summary>The player GameObject. Used for orientation checks.</summary>
-    [SerializeField]
-    private float coneDegrees;
+    [SerializeField, Header("References")]
+    private GameObject player;
 
     /// <summary>Converted cone limits</summary>
     private float coneCosLimit;
@@ -61,6 +61,9 @@ public class VehicleAim : MonoBehaviour {
     private void Update() {
         OrderByMagnitude(ref shootablesInRange, gameObject.transform);
         IsInCone(shootablesInRange, ref shootablesInConeAndRange);
+        if (shootablesInConeAndRange.Count > 1) {
+            OrderByPriority(ref shootablesInConeAndRange);
+        }
         if (lastTargeted == AktAimingAt) { // Situation didnt change
             return;
         }
@@ -116,6 +119,25 @@ public class VehicleAim : MonoBehaviour {
             var dotResult = Vector3.Dot(player.transform.forward, Vector3.Normalize(gameObjects[i].transform.position - player.transform.position));
             if (dotResult > coneCosLimit) {
                 filteredGameObjects.Add(gameObjects[i]);
+            }
+        }
+    }
+
+    private void OrderByPriority(ref List<GameObject> shootablesInConeAndRange) {
+        var hasSorted = true;
+        GameObject switchGameObject;
+        for (int i = 0; hasSorted; i++) {
+            hasSorted = false;
+            if (shootablesInConeAndRange.Count <= 1) return;
+            for (int i2 = 1; i2 < shootablesInConeAndRange.Count; i2++) {
+                var intComp1 = Array.IndexOf(shootablesTags, shootablesInConeAndRange[i2 - 1].tag);
+                var intComp2 = Array.IndexOf(shootablesTags, shootablesInConeAndRange[i2].tag);
+                if (intComp1 > intComp2) {
+                    switchGameObject = shootablesInConeAndRange[i2 - 1];
+                    shootablesInConeAndRange[i2 - 1] = shootablesInConeAndRange[i2];
+                    shootablesInConeAndRange[i2] = switchGameObject;
+                    hasSorted = true;
+                }
             }
         }
     }
