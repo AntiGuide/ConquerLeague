@@ -2246,11 +2246,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22300000, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 2}
       propertyPath: m_RenderMode
@@ -2420,8 +2420,8 @@ Transform:
   m_GameObject: {fileID: 1765612221}
   m_LocalRotation: {x: -0.00000002878683, y: -6.066371e-16, z: -0.000000021073424,
     w: 1}
-  m_LocalPosition: {x: -0.23162535, y: 1.5154121, z: -1.3675514}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.23, y: 1.26, z: -1}
+  m_LocalScale: {x: 1.878284, y: 1.8782834, z: 1.8782834}
   m_Children:
   - {fileID: 738925125}
   m_Father: {fileID: 1200187203}
@@ -2454,7 +2454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aedf5929fe67fc408c5621e7a4c4740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetRange: 15
+  targetRange: 30
   coneDegrees: 30
   shootablesTags:
   - Turret
