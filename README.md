@@ -12,8 +12,12 @@ Mainly a normal installation of Unity (tested on 2017.4.12f1)
 
 ## Authors
 
-* **Lukas Wiedemann** - *Coding* - [AntiGuide](https://github.com/AntiGuide)
-* **Janik Hofmann** - *Coding* - [Cravox](https://github.com/Cravox)
+* **Lukas Wiedemann**   - *Coding* - [AntiGuide](https://github.com/AntiGuide)
+* **Janik Hofmann**     - *Coding* - [Cravox](https://github.com/Cravox)
 * **Serkan Beyazkilic** - *Game Design, Production* - [Skerxan](https://github.com/Skerxan)
+* **Andrej Breidt**     - *Production*
+* **Max Gmeiner**       - *Game Design*
+* **Georgij Krutikov**  - *Game Design*
+* **Jörg Leusing**      - *Digital Art*
 
 See also the list of [contributors](https://github.com/AntiGuide/ConquerLeague/contributors) who participated in this project.
