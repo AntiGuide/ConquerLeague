@@ -53,7 +53,6 @@ public class VehicleWeapon : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        //OrderByMagnitude(ref turrets, shotSpawn);
         if (vehicleAim.AktAimingAt != null) {
             transform.LookAt(vehicleAim.AktAimingAt.transform);
             Shoot(this.weaponType, vehicleAim.AktAimingAt.transform);

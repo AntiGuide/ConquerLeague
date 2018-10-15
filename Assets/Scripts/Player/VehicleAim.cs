@@ -23,6 +23,7 @@ public class VehicleAim : MonoBehaviour {
     [SerializeField]
     private float coneDegrees;
 
+    /// <summary>Converted cone limits</summary>
     private float coneCosLimit;
 
     /// <summary>List of all the GameObjects tagged with a shootable tag in range</summary>
@@ -42,7 +43,7 @@ public class VehicleAim : MonoBehaviour {
     /// <summary>Use this for initialization</summary>
     private void Start() {
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
-        coneCosLimit = -Mathf.Cos(coneDegrees/2);
+        coneCosLimit = -Mathf.Cos(coneDegrees / 2);
     }
 
     /// <summary>Update is called once per frame</summary>
@@ -52,16 +53,19 @@ public class VehicleAim : MonoBehaviour {
         if (lastTargeted == AktAimingAt) { // Situation didnt change
             return;
         }
+
         if (AktAimingAt == null && lastTargeted != null) { // Not targeting anything anymore
             lastTargeted.GetComponent<Renderer>().material.color = Color.red;
             lastTargeted = null;
             return;
         }
+
         if (AktAimingAt != null) { // Changed target
             
             if (lastTargeted != null) {
                 lastTargeted.GetComponent<Renderer>().material.color = Color.red;
             }
+
             AktAimingAt.GetComponent<Renderer>().material.color = Color.gray;
             lastTargeted = AktAimingAt;
         }
@@ -99,6 +103,11 @@ public class VehicleAim : MonoBehaviour {
         });
     }
 
+    /// <summary>
+    /// Filters out all GameObjects that are not in the cone
+    /// </summary>
+    /// <param name="gameObjects">The List to filter</param>
+    /// <param name="filteredGameObjects">The result of the filtration</param>
     void IsInCone(List<GameObject> gameObjects, ref List<GameObject> filteredGameObjects) {
         Debug.DrawLine(player.transform.position, player.transform.position + (Quaternion.AngleAxis(coneDegrees / 2, player.transform.up) * player.transform.forward * targetRange));
         Debug.DrawLine(player.transform.position, player.transform.position + (Quaternion.AngleAxis(-coneDegrees / 2, player.transform.up) * player.transform.forward * targetRange));
@@ -110,6 +119,5 @@ public class VehicleAim : MonoBehaviour {
                 filteredGameObjects.Add(gameObjects[i]);
             }
         }
-        
     }
 }
