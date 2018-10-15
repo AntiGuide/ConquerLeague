@@ -97,7 +97,7 @@ public class VehicleAim : MonoBehaviour {
     /// </summary>
     /// <param name="transforms">Transforms to order</param>
     /// <param name="referenceTransform">Transform for magnitude check</param>
-    void OrderByMagnitude(ref List<GameObject> gameObjects, Transform referenceTransform) {
+    public static void OrderByMagnitude(ref List<GameObject> gameObjects, Transform referenceTransform) {
         gameObjects.Sort(delegate(GameObject a, GameObject b) {
             return Vector3.SqrMagnitude(referenceTransform.position - a.transform.position).CompareTo(Vector3.SqrMagnitude(referenceTransform.position - b.transform.position));
         });
@@ -115,7 +115,6 @@ public class VehicleAim : MonoBehaviour {
         for (int i = 0; i < gameObjects.Count; i++) {
             var dotResult = Vector3.Dot(player.transform.forward, Vector3.Normalize(gameObjects[i].transform.position - player.transform.position));
             if (dotResult > coneCosLimit) {
-                Debug.Log(gameObjects[i].name + ": " + dotResult);
                 filteredGameObjects.Add(gameObjects[i]);
             }
         }
