@@ -40,6 +40,17 @@ public class VehicleAim : MonoBehaviour {
         get { return shootablesInConeAndRange.Count >= 1 ? shootablesInConeAndRange[0] : null; }
     }
 
+    /// <summary>
+    /// Orders given transforms by magnitude to another transform
+    /// </summary>
+    /// <param name="transforms">Transforms to order</param>
+    /// <param name="referenceTransform">Transform for magnitude check</param>
+    public static void OrderByMagnitude(ref List<GameObject> gameObjects, Transform referenceTransform) {
+        gameObjects.Sort(delegate(GameObject a, GameObject b) {
+            return Vector3.SqrMagnitude(referenceTransform.position - a.transform.position).CompareTo(Vector3.SqrMagnitude(referenceTransform.position - b.transform.position));
+        });
+    }
+
     /// <summary>Use this for initialization</summary>
     private void Start() {
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
@@ -90,17 +101,6 @@ public class VehicleAim : MonoBehaviour {
             other.gameObject.GetComponent<Renderer>().material.color = Color.red;
             shootablesInRange.Remove(other.gameObject);
         }
-    }
-
-    /// <summary>
-    /// Orders given transforms by magnitude to another transform
-    /// </summary>
-    /// <param name="transforms">Transforms to order</param>
-    /// <param name="referenceTransform">Transform for magnitude check</param>
-    public static void OrderByMagnitude(ref List<GameObject> gameObjects, Transform referenceTransform) {
-        gameObjects.Sort(delegate(GameObject a, GameObject b) {
-            return Vector3.SqrMagnitude(referenceTransform.position - a.transform.position).CompareTo(Vector3.SqrMagnitude(referenceTransform.position - b.transform.position));
-        });
     }
 
     /// <summary>
