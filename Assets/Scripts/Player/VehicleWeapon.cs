@@ -23,6 +23,10 @@ public class VehicleWeapon : MonoBehaviour {
     [SerializeField]
     private float shootingTime = 0.5f;
 
+    /// <summary>Reference to the VehicleAim script on AimRange</summary>
+    [SerializeField]
+    private VehicleAim vehicleAim;
+
     /// <summary>The shootingtimer</summary>
     private float aktShootingTime;
 
@@ -49,9 +53,11 @@ public class VehicleWeapon : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        OrderByMagnitude(ref turrets, shotSpawn);
-        Shoot(this.weaponType, turrets[0]);
-        transform.LookAt(turrets[0]);
+        //OrderByMagnitude(ref turrets, shotSpawn);
+        if (vehicleAim.AktAimingAt != null) {
+            transform.LookAt(vehicleAim.AktAimingAt.transform);
+            Shoot(this.weaponType, vehicleAim.AktAimingAt.transform);
+        }
     }
 
     /// <summary>
