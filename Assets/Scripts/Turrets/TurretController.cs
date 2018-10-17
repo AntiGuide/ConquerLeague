@@ -25,7 +25,11 @@ public class TurretController : MonoBehaviour {
     /// <summary>Reference to the TurretAim script</summary>
     [SerializeField]
     private TurretAim turretAim;
-    
+
+    /// <summary>Reference to the TurretAim script</summary>
+    [SerializeField]
+    private TurretConquer turretConquer;
+
     /// <summary>The transform off all GameObjects with a player tag</summary>
     private List<GameObject> players;
 
@@ -40,10 +44,12 @@ public class TurretController : MonoBehaviour {
     /// <summary>Update is called once per frame</summary>
     void Update() {
         // Sort Players by Magnitude
-        if(turretAim.AktAimingAt != null) {
-            ShootAtEnemy(turretAim.AktAimingAt.transform);
-        } else {
-            return;
+        if(!turretConquer.conquerable) {
+            if (turretAim.AktAimingAt != null) {
+                ShootAtEnemy(turretAim.AktAimingAt.transform);
+            } else {
+                return;
+            }
         }
     }
 

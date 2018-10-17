@@ -76,11 +76,11 @@ public class VehicleAim : MonoBehaviour {
 
         if (AktAimingAt != null) { // Changed target
             
-            if (lastTargeted != null) {
-                lastTargeted.GetComponent<Renderer>().material.color = Color.red;
-            }
-
-            AktAimingAt.GetComponent<Renderer>().material.color = Color.gray;
+            //if (lastTargeted != null) {
+            //    lastTargeted.GetComponent<Renderer>().material.color = Color.red;
+            //}
+            //
+            //AktAimingAt.GetComponent<Renderer>().material.color = Color.gray;
             lastTargeted = AktAimingAt;
         }
     }
