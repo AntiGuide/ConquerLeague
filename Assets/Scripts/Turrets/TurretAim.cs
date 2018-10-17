@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Used to make the turret aim at his prioritized target
+/// </summary>
 public class TurretAim : MonoBehaviour {
     /// <summary>The range to target shootables in</summary>
     [SerializeField, Header("Customizable"), Tooltip("The Range in UnityUnits/meters that the turret is allowed to target")]

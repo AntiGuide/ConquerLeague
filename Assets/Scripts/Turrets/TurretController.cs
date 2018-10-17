@@ -30,7 +30,7 @@ public class TurretController : MonoBehaviour {
     [SerializeField]
     private TurretConquer turretConquer;
 
-    /// <summary>The transform off all GameObjects with a player tag</summary>
+    /// <summary>The transform of all GameObjects with a player tag</summary>
     private List<GameObject> players;
 
     /// <summary>The time until the next shot occurs</summary>

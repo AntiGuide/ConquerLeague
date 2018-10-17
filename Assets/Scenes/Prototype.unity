@@ -2102,7 +2102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  degreePerSecond: 100
+  degreePerSecond: 150
 --- !u!54 &1519327974
 Rigidbody:
   m_ObjectHideFlags: 0

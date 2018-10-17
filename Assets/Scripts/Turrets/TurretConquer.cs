@@ -17,7 +17,7 @@ public class TurretConquer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         gameObject.GetComponent<Renderer>().material.color = Color.gray;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,13 +25,23 @@ public class TurretConquer : MonoBehaviour {
 	}
 
     void OnTriggerStay(Collider other) {
+        if(conquerable && other.gameObject.tag == "Player") {
+            GetComponent<Renderer>().material.color = Color.white;
+        }
+
         if(other.gameObject.tag == "Player" && CrossPlatformInputManager.GetButtonDown("Action")) {
             BuildTurret(teamColor);
         }
     }
 
+    void OnTriggerExit(Collider other) {
+        if(other.gameObject.tag == "Player" && conquerable) {
+            gameObject.GetComponent<Renderer>().material.color = Color.gray;
+        }
+    }
+
     /// <summary>
-    /// Swap the turrets color and makes it not conquerable
+    /// Swap the turrets color and makes it not conquerable, which makes it attack enemy units
     /// </summary>
     /// <param name="teamColor"></param>
     void BuildTurret(Color teamColor) {

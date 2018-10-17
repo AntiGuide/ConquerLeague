@@ -69,7 +69,7 @@ public class VehicleAim : MonoBehaviour {
         }
 
         if (AktAimingAt == null && lastTargeted != null) { // Not targeting anything anymore
-            lastTargeted.GetComponent<Renderer>().material.color = Color.red;
+            //lastTargeted.GetComponent<Renderer>().material.color = Color.red;
             lastTargeted = null;
             return;
         }
@@ -101,7 +101,7 @@ public class VehicleAim : MonoBehaviour {
     /// <param name="other">The collider that left the collider</param>
     private void OnTriggerExit(Collider other) {
         if (Array.IndexOf(shootablesTags, other.tag) > -1) {
-            other.gameObject.GetComponent<Renderer>().material.color = Color.red;
+            //other.gameObject.GetComponent<Renderer>().material.color = Color.red;
             shootablesInRange.Remove(other.gameObject);
         }
     }
