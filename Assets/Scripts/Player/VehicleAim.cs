@@ -111,7 +111,7 @@ public class VehicleAim : MonoBehaviour {
     /// </summary>
     /// <param name="gameObjects">The List to filter</param>
     /// <param name="filteredGameObjects">The result of the filtration</param>
-    void IsInCone(List<GameObject> gameObjects, ref List<GameObject> filteredGameObjects) {
+    private void IsInCone(List<GameObject> gameObjects, ref List<GameObject> filteredGameObjects) {
         Debug.DrawLine(player.transform.position, player.transform.position + (Quaternion.AngleAxis(coneDegrees / 2, player.transform.up) * player.transform.forward * targetRange));
         Debug.DrawLine(player.transform.position, player.transform.position + (Quaternion.AngleAxis(-coneDegrees / 2, player.transform.up) * player.transform.forward * targetRange));
         filteredGameObjects.Clear();
