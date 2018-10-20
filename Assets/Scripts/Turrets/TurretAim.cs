@@ -29,7 +29,7 @@ public class TurretAim : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        targetRange = gameObject.GetComponent<SphereCollider>().radius;
+        gameObject.GetComponent<SphereCollider>().radius = targetRange;
 	}
 	
 	// Update is called once per frame
