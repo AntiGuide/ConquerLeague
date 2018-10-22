@@ -51,6 +51,7 @@ public class VehicleController : MonoBehaviour
         var quat = new Quaternion {
             eulerAngles = new Vector3(0, rotate, 0)
         };
+
         transform.rotation = Quaternion.RotateTowards(transform.rotation, quat, degreePerSecond * rotation.magnitude * Time.deltaTime);
         rb.velocity = transform.forward * rotation.magnitude * movementSpeed;
     }
