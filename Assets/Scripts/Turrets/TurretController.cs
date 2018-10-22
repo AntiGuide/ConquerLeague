@@ -22,7 +22,15 @@ public class TurretController : MonoBehaviour {
     [SerializeField]
     private Transform shootingPoint;
 
-    /// <summary>The transform off all GameObjects with a player tag</summary>
+    /// <summary>Reference to the TurretAim script</summary>
+    [SerializeField]
+    private TurretAim turretAim;
+
+    /// <summary>Reference to the TurretAim script</summary>
+    [SerializeField]
+    private TurretConquer turretConquer;
+
+    /// <summary>The transform of all GameObjects with a player tag</summary>
     private List<GameObject> players;
 
     /// <summary>The time until the next shot occurs</summary>
@@ -30,27 +38,18 @@ public class TurretController : MonoBehaviour {
 
     /// <summary>Use this for initialization</summary>
     void Start() {
-        GameObject[] playersGameObjects;
         aktShootingTime = shootingTime;
-        playersGameObjects = GameObject.FindGameObjectsWithTag("Player");
-        players = new List<GameObject>(playersGameObjects.Length);
-        for (int i = 0; i < playersGameObjects.Length; i++) {
-            players.Add(playersGameObjects[i]);
-        }
-
-        // Sort Players by Magnitude
-        VehicleAim.OrderByMagnitude(ref players, shootingPoint);
     }
 
     /// <summary>Update is called once per frame</summary>
     void Update() {
         // Sort Players by Magnitude
-        VehicleAim.OrderByMagnitude(ref players, shootingPoint);
-        aktShootingTime -= Mathf.Min(Time.deltaTime, shootingTime);
-        if (aktShootingTime <= 0f) {
-            // Target (nearest)
-            ShootAtEnemy(players[0].transform);
-            aktShootingTime += shootingTime;
+        if(!turretConquer.conquerable) {
+            if (turretAim.AktAimingAt != null) {
+                ShootAtEnemy(turretAim.AktAimingAt.transform);
+            } else {
+                return;
+            }
         }
     }
 

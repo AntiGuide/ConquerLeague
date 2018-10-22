@@ -69,18 +69,18 @@ public class VehicleAim : MonoBehaviour {
         }
 
         if (AktAimingAt == null && lastTargeted != null) { // Not targeting anything anymore
-            lastTargeted.GetComponent<Renderer>().material.color = Color.red;
+            //lastTargeted.GetComponent<Renderer>().material.color = Color.red;
             lastTargeted = null;
             return;
         }
 
         if (AktAimingAt != null) { // Changed target
             
-            if (lastTargeted != null) {
-                lastTargeted.GetComponent<Renderer>().material.color = Color.red;
-            }
-
-            AktAimingAt.GetComponent<Renderer>().material.color = Color.gray;
+            //if (lastTargeted != null) {
+            //    lastTargeted.GetComponent<Renderer>().material.color = Color.red;
+            //}
+            //
+            //AktAimingAt.GetComponent<Renderer>().material.color = Color.gray;
             lastTargeted = AktAimingAt;
         }
     }
@@ -101,7 +101,7 @@ public class VehicleAim : MonoBehaviour {
     /// <param name="other">The collider that left the collider</param>
     private void OnTriggerExit(Collider other) {
         if (Array.IndexOf(shootablesTags, other.tag) > -1) {
-            other.gameObject.GetComponent<Renderer>().material.color = Color.red;
+            //other.gameObject.GetComponent<Renderer>().material.color = Color.red;
             shootablesInRange.Remove(other.gameObject);
         }
     }
@@ -111,7 +111,7 @@ public class VehicleAim : MonoBehaviour {
     /// </summary>
     /// <param name="gameObjects">The List to filter</param>
     /// <param name="filteredGameObjects">The result of the filtration</param>
-    void IsInCone(List<GameObject> gameObjects, ref List<GameObject> filteredGameObjects) {
+    private void IsInCone(List<GameObject> gameObjects, ref List<GameObject> filteredGameObjects) {
         Debug.DrawLine(player.transform.position, player.transform.position + (Quaternion.AngleAxis(coneDegrees / 2, player.transform.up) * player.transform.forward * targetRange));
         Debug.DrawLine(player.transform.position, player.transform.position + (Quaternion.AngleAxis(-coneDegrees / 2, player.transform.up) * player.transform.forward * targetRange));
         filteredGameObjects.Clear();
