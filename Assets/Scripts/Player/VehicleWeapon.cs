@@ -55,7 +55,10 @@ public class VehicleWeapon : MonoBehaviour {
     void Update() {
         if (vehicleAim.AktAimingAt != null) {
             transform.LookAt(vehicleAim.AktAimingAt.transform);
-            Shoot(this.weaponType, vehicleAim.AktAimingAt.transform);
+            Shoot(weaponType);
+        } else {
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            Shoot(weaponType);
         }
     }
 
@@ -63,10 +66,10 @@ public class VehicleWeapon : MonoBehaviour {
     /// Instantiate Bullet and applies force
     /// </summary>
     /// <param name="ammo"></param>
-    void Shoot(GameObject ammo, Transform target) {
+    void Shoot(GameObject ammo) {
         if (aktShootingTime <= 0f && CrossPlatformInputManager.GetButton("Shoot")) {
             var shot = Instantiate(ammo, shotSpawn.position, new Quaternion(90, this.transform.rotation.y, 0, 0));
-            shot.GetComponent<Rigidbody>().AddForce((target.position - shot.transform.position) * projectileSpeed);
+            shot.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed);
             aktShootingTime += shootingTime;
         } else if (CrossPlatformInputManager.GetButton("Shoot")) {
             aktShootingTime -= Time.deltaTime;

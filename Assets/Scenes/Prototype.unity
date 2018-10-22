@@ -2654,7 +2654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRange: 30
-  coneDegrees: 30
+  coneDegrees: 180
   shootablesTags:
   - Turret
   - Enemy
