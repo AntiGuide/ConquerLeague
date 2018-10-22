@@ -1211,6 +1211,7 @@ GameObject:
   - component: {fileID: 976668111}
   - component: {fileID: 976668110}
   - component: {fileID: 976668109}
+  - component: {fileID: 976668114}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1301,6 +1302,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &976668114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 976668108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be51375c455771149860d5393d0f160f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 1
 --- !u!1 &995780437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,6 +1479,7 @@ GameObject:
   - component: {fileID: 1125381335}
   - component: {fileID: 1125381339}
   - component: {fileID: 1125381340}
+  - component: {fileID: 1125381341}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Turret
@@ -1552,6 +1566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamColor: {r: 0.19999981, g: 0, b: 1, a: 0}
+  teamHandler: {fileID: 1125381341}
 --- !u!135 &1125381340
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1564,6 +1579,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.32
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1125381341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1125381334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be51375c455771149860d5393d0f160f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 2
 --- !u!1 &1129111330
 GameObject:
   m_ObjectHideFlags: 0
@@ -2023,6 +2050,7 @@ GameObject:
   - component: {fileID: 1519327974}
   - component: {fileID: 1519327973}
   - component: {fileID: 1519327972}
+  - component: {fileID: 1519327976}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2084,6 +2112,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1519327976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1519327971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be51375c455771149860d5393d0f160f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 0
 --- !u!1 &1576183698
 GameObject:
   m_ObjectHideFlags: 0

@@ -84,7 +84,7 @@ public class VehicleAim : MonoBehaviour {
     /// </summary>
     /// <param name="other">The collider that entered the collider</param>
     private void OnTriggerEnter(Collider other) {
-        if (Array.IndexOf(shootablesTags, other.tag) > -1) {
+        if (Array.IndexOf(shootablesTags, other.tag) > -1 && other.gameObject.GetComponent<TeamHandler>().teamID == 1) {
             shootablesInRange.Add(other.gameObject);
         }
     }
