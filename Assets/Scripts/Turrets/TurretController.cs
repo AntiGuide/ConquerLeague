@@ -44,7 +44,7 @@ public class TurretController : MonoBehaviour {
     /// <summary>Update is called once per frame</summary>
     void Update() {
         // Sort Players by Magnitude
-        if(!turretConquer.conquerable) {
+        if (!turretConquer.Conquerable) {
             if (turretAim.AktAimingAt != null) {
                 ShootAtEnemy(turretAim.AktAimingAt.transform);
             } else {
@@ -58,8 +58,13 @@ public class TurretController : MonoBehaviour {
     /// </summary>
     /// <param name="target">The target to shoot at</param>
     void ShootAtEnemy(Transform target) {
-        Debug.DrawLine(shootingPoint.position, target.position, Color.red, 0.05f);
-        var bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
-        bullet.GetComponent<Rigidbody>().AddForce((target.position - bullet.transform.position) * bulletForce);
+        aktShootingTime -= Time.deltaTime;
+        if (aktShootingTime <= 0f) {
+            Debug.DrawLine(shootingPoint.position, target.position, Color.red, 0.05f);
+            var bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
+            bullet.GetComponent<Rigidbody>().AddForce((target.position - bullet.transform.position) * bulletForce);
+            aktShootingTime += shootingTime;
+            aktShootingTime = Mathf.Min(aktShootingTime, shootingTime / 2f);
+        }
     }
 }
