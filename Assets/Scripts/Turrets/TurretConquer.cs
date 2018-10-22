@@ -41,7 +41,7 @@ public class TurretConquer : MonoBehaviour {
         }
 
         if (other.gameObject.tag == "Player" && CrossPlatformInputManager.GetButtonDown("Action")) {
-            BuildTurret(teamColor, other.gameObject.GetComponent<TeamHandler>().teamID);
+            BuildTurret(teamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
         }
     }
 
@@ -59,8 +59,8 @@ public class TurretConquer : MonoBehaviour {
     /// Swap the turrets color and makes it not conquerable, which makes it attack enemy units
     /// </summary>
     /// <param name="teamColor"></param>
-    void BuildTurret(Color teamColor, byte teamID) {
-        teamHandler.teamID = teamID;
+    void BuildTurret(Color teamColor, TeamHandler.TeamState teamID) {
+        teamHandler.TeamID = teamID;
         gameObject.GetComponent<Renderer>().material.color = teamColor;
         Conquerable = false;
     }
