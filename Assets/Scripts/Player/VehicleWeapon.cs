@@ -21,7 +21,7 @@ public class VehicleWeapon : MonoBehaviour {
 
     /// <summary>The players shootfrequency</summary>
     [SerializeField]
-    private float shootingTime = 0.5f;
+    private float shootingTime = 0.1f;
 
     /// <summary>Reference to the VehicleAim script on AimRange</summary>
     [SerializeField]

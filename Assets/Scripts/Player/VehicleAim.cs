@@ -62,25 +62,19 @@ public class VehicleAim : MonoBehaviour {
         OrderByMagnitude(ref shootablesInRange, gameObject.transform);
         IsInCone(shootablesInRange, ref shootablesInConeAndRange);
         if (shootablesInConeAndRange.Count > 1) {
-            OrderByPriority(ref shootablesInConeAndRange);
+            OrderByPriority(ref shootablesInConeAndRange, shootablesTags);
         }
+
         if (lastTargeted == AktAimingAt) { // Situation didnt change
             return;
         }
 
         if (AktAimingAt == null && lastTargeted != null) { // Not targeting anything anymore
-            lastTargeted.GetComponent<Renderer>().material.color = Color.red;
             lastTargeted = null;
             return;
         }
 
         if (AktAimingAt != null) { // Changed target
-            
-            if (lastTargeted != null) {
-                lastTargeted.GetComponent<Renderer>().material.color = Color.red;
-            }
-
-            AktAimingAt.GetComponent<Renderer>().material.color = Color.gray;
             lastTargeted = AktAimingAt;
         }
     }
@@ -101,7 +95,6 @@ public class VehicleAim : MonoBehaviour {
     /// <param name="other">The collider that left the collider</param>
     private void OnTriggerExit(Collider other) {
         if (Array.IndexOf(shootablesTags, other.tag) > -1) {
-            other.gameObject.GetComponent<Renderer>().material.color = Color.red;
             shootablesInRange.Remove(other.gameObject);
         }
     }
@@ -111,7 +104,7 @@ public class VehicleAim : MonoBehaviour {
     /// </summary>
     /// <param name="gameObjects">The List to filter</param>
     /// <param name="filteredGameObjects">The result of the filtration</param>
-    void IsInCone(List<GameObject> gameObjects, ref List<GameObject> filteredGameObjects) {
+    private void IsInCone(List<GameObject> gameObjects, ref List<GameObject> filteredGameObjects) {
         Debug.DrawLine(player.transform.position, player.transform.position + (Quaternion.AngleAxis(coneDegrees / 2, player.transform.up) * player.transform.forward * targetRange));
         Debug.DrawLine(player.transform.position, player.transform.position + (Quaternion.AngleAxis(-coneDegrees / 2, player.transform.up) * player.transform.forward * targetRange));
         filteredGameObjects.Clear();
@@ -123,15 +116,23 @@ public class VehicleAim : MonoBehaviour {
         }
     }
 
-    private void OrderByPriority(ref List<GameObject> shootablesInConeAndRange) {
+    /// <summary>
+    /// Orders GameObjects in referenced array shootablesInConeAndRange by priority obtained trough tags from tagsByPriority
+    /// </summary>
+    /// <param name="shootablesInConeAndRange">These GameObjects are ordered</param>
+    /// <param name="tagsByPriority">GameObjects are orderd by this list</param>
+    private void OrderByPriority(ref List<GameObject> shootablesInConeAndRange, string[] tagsByPriority) {
         var hasSorted = true;
         GameObject switchGameObject;
         for (int i = 0; hasSorted; i++) {
             hasSorted = false;
-            if (shootablesInConeAndRange.Count <= 1) return;
+            if (shootablesInConeAndRange.Count <= 1) {
+                return;
+            }
+
             for (int i2 = 1; i2 < shootablesInConeAndRange.Count; i2++) {
-                var intComp1 = Array.IndexOf(shootablesTags, shootablesInConeAndRange[i2 - 1].tag);
-                var intComp2 = Array.IndexOf(shootablesTags, shootablesInConeAndRange[i2].tag);
+                var intComp1 = Array.IndexOf(tagsByPriority, shootablesInConeAndRange[i2 - 1].tag);
+                var intComp2 = Array.IndexOf(tagsByPriority, shootablesInConeAndRange[i2].tag);
                 if (intComp1 > intComp2) {
                     switchGameObject = shootablesInConeAndRange[i2 - 1];
                     shootablesInConeAndRange[i2 - 1] = shootablesInConeAndRange[i2];
