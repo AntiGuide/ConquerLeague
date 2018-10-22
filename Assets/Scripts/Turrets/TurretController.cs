@@ -44,7 +44,7 @@ public class TurretController : MonoBehaviour {
     /// <summary>Update is called once per frame</summary>
     void Update() {
         // Sort Players by Magnitude
-        if(!turretConquer.conquerable) {
+        if (!turretConquer.Conquerable) {
             if (turretAim.AktAimingAt != null) {
                 ShootAtEnemy(turretAim.AktAimingAt.transform);
             } else {

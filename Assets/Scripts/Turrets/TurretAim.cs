@@ -27,18 +27,23 @@ public class TurretAim : MonoBehaviour {
         get { return shootablesInRange.Count >= 1 ? shootablesInRange[0] : null; }
     }
 
-    // Use this for initialization
-    void Start () {
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start() {
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update() {
         OrderByPriority(ref shootablesInRange);
 
         if (shootablesInRange.Count > 1) {
             OrderByPriority(ref shootablesInRange);
         }
+
         if (lastTargeted == AktAimingAt) { // Situation didnt change
             return;
         }
@@ -53,24 +58,39 @@ public class TurretAim : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Triggered if something enters an attached collider set to IsTrigger
+    /// </summary>
+    /// <param name="other">The collider that entered the collider</param>
     private void OnTriggerEnter(Collider other) {
-        if(Array.IndexOf(shootablesTags, other.tag) > -1) {
+        if (Array.IndexOf(shootablesTags, other.tag) > -1) {
             shootablesInRange.Add(other.gameObject);
         }
     }
 
+    /// <summary>
+    /// Triggered if something exits an attached collider set to IsTrigger
+    /// </summary>
+    /// <param name="other">The collider that exited the collider</param>
     private void OnTriggerExit(Collider other) {
-        if(Array.IndexOf(shootablesTags, other.tag) > -1) {
+        if (Array.IndexOf(shootablesTags, other.tag) > -1) {
             shootablesInRange.Remove(other.gameObject);
         }
     }
 
+    /// <summary>
+    /// Orders GameObjects in referenced List shootablesInRange by priority obtained trough tags from shootablesTags
+    /// </summary>
+    /// <param name="shootablesInRange">These GameObjects are ordered</param>
     private void OrderByPriority(ref List<GameObject> shootablesInRange) {
         var hasSorted = true;
         GameObject switchGameObject;
         for (int i = 0; hasSorted; i++) {
             hasSorted = false;
-            if (shootablesInRange.Count <= 1) return;
+            if (shootablesInRange.Count <= 1) {
+                return;
+            }
+
             for (int i2 = 1; i2 < shootablesInRange.Count; i2++) {
                 var intComp1 = Array.IndexOf(shootablesTags, shootablesInRange[i2 - 1].tag);
                 var intComp2 = Array.IndexOf(shootablesTags, shootablesInRange[i2].tag);
