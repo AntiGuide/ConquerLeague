@@ -7,31 +7,15 @@ using UnityEngine;
 /// </summary>
 public class HitPoints : MonoBehaviour {
     /// <summary>The units current hitpoints</summary>
-    public int hitPoints;
+    public int hp;
 
-    private int hp;
 
     /// <summary>
-    /// The units category, which decides the amount of hp it has
+    /// Update is called once per frame
     /// </summary>
-    public enum UnitCategory
-    {
-        STANDARD_PLAYER = 0,
-        MINION = 1,
-        TOWER = 2
+    void Update() {
+        if(hp <= 0) {
+            Destroy(gameObject);
+        }
     }
-
-	/// <summary>
-    /// 
-    /// </summary>
-	void Start () {
-		
-	}
-	
-	/// <summary>
-    /// 
-    /// </summary>
-	void Update () {
-
-	}
 }

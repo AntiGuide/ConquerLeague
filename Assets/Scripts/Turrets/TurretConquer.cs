@@ -15,6 +15,9 @@ public class TurretConquer : MonoBehaviour {
     [SerializeField]
     private TeamHandler teamHandler;
 
+    [SerializeField]
+    private Renderer renderer;
+
     /// <summary>Determines if the turret is conquerable by the player</summary>
     private bool conquerable = true;
 
@@ -28,7 +31,7 @@ public class TurretConquer : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
-        gameObject.GetComponent<Renderer>().material.color = Color.gray;
+        renderer.material.color = Color.gray;
     }
 
     /// <summary>
@@ -37,7 +40,7 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="other">The colliding object</param>
     void OnTriggerStay(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player") {
-            GetComponent<Renderer>().material.color = Color.white;
+            renderer.material.color = Color.white;
         }
 
         if (other.gameObject.tag == "Player" && CrossPlatformInputManager.GetButtonDown("Action")) {
@@ -51,7 +54,7 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="other">The colliding object</param>
     void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Player" && Conquerable) {
-            gameObject.GetComponent<Renderer>().material.color = Color.gray;
+            renderer.material.color = Color.gray;
         }
     }
 
@@ -61,7 +64,7 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="teamColor"></param>
     void BuildTurret(Color teamColor, TeamHandler.TeamState teamID) {
         teamHandler.TeamID = teamID;
-        gameObject.GetComponent<Renderer>().material.color = teamColor;
+        renderer.material.color = teamColor;
         Conquerable = false;
     }
 }

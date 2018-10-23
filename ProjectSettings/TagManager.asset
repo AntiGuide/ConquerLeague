@@ -16,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - NotShootable
+  - HideInCamera
   - 
   - 
   - 
@@ -43,7 +43,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: New Layer
-    uniqueID: 4280155099
     locked: 0
