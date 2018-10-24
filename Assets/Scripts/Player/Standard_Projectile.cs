@@ -29,7 +29,7 @@ public class Standard_Projectile : MonoBehaviour {
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
-            other.GetComponent<HitPoints>().hp -= damage;
+            other.GetComponent<HitPoints>().Hp -= damage;
             Destroy(gameObject);
         }
     }
