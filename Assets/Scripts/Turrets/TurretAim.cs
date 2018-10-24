@@ -67,7 +67,7 @@ public class TurretAim : MonoBehaviour {
     /// </summary>
     /// <param name="other">The collider that entered the collider</param>
     private void OnTriggerEnter(Collider other) {
-        if (Array.IndexOf(shootablesTags, other.tag) > -1 && other.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID) {
+        if (Array.IndexOf(shootablesTags, other.tag) > -1 && other.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID && other.gameObject.GetComponent<TeamHandler>().TeamID != TeamHandler.TeamState.NEUTRAL) {
             shootablesInRange.Add(other.gameObject);
         }
     }

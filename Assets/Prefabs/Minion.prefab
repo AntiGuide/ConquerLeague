@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4168294663562412}
   - component: {fileID: 33956889909609150}
   - component: {fileID: 23307492843621142}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Soba_2_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4226988942611382}
   - component: {fileID: 33997474094524490}
   - component: {fileID: 23866701393669314}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tank_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4489437897596780}
   - component: {fileID: 33447556895592114}
   - component: {fileID: 23378051964543366}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: diken_3_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4335802812328594}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_3_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4020962232117020}
   - component: {fileID: 33355400904146516}
   - component: {fileID: 23332444457238178}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: diken_2_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4704167394615094}
   - component: {fileID: 33705728309448798}
   - component: {fileID: 23705407440349956}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Truck_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 4759128463265234}
   - component: {fileID: 33666184643518600}
   - component: {fileID: 23798483756582856}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_2_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 4684548882891410}
   - component: {fileID: 33189990579431316}
   - component: {fileID: 23070753544560296}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_3_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 4069838926431280}
   - component: {fileID: 33191605285425378}
   - component: {fileID: 23268699194968482}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 4198483191656936}
   - component: {fileID: 33433443311081286}
   - component: {fileID: 23946876765486742}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: egzoz_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 4182311300576118}
   - component: {fileID: 33845787799010402}
   - component: {fileID: 23546736872105600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Silah_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 4833864493395342}
   - component: {fileID: 33364863200459346}
   - component: {fileID: 23905930122321558}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: "T\xFCp_1"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 65275350030904550}
   - component: {fileID: 114769131902855430}
   - component: {fileID: 54674233383088054}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Minion
   m_TagString: Minion
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 4960373425930432}
   - component: {fileID: 33153409635853382}
   - component: {fileID: 23536590852797524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Soba_3_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 4611715806260120}
   - component: {fileID: 33149226965642772}
   - component: {fileID: 23614711961077192}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 4332449192713782}
   - component: {fileID: 33391372151818520}
   - component: {fileID: 23392570913009946}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 4966960342044386}
   - component: {fileID: 33229315766994104}
   - component: {fileID: 23967812109091672}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 4109459840733098}
   - component: {fileID: 33863729702900066}
   - component: {fileID: 23941402124612414}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tank_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4133054989200462}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Oil_Tank_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 4241696445321346}
   - component: {fileID: 33978641865088610}
   - component: {fileID: 23885739188856304}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: diken_1_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4404484319066992}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Apparatius_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 4500757979186646}
   - component: {fileID: 33642491093109942}
   - component: {fileID: 23336355160673438}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Soba_5_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 4216508689823890}
   - component: {fileID: 33793937375409302}
   - component: {fileID: 23702239234127436}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lam_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 4634190302490734}
   - component: {fileID: 33181036103583420}
   - component: {fileID: 23848586276425434}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tank_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 4442314314472888}
   - component: {fileID: 33356314888801772}
   - component: {fileID: 23635885775046098}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: diken_2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 4849590874273390}
   - component: {fileID: 33314755640124792}
   - component: {fileID: 23411536993006764}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 4848603941593606}
   - component: {fileID: 33457984740187820}
   - component: {fileID: 23464441157209108}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 4528181128000270}
   - component: {fileID: 33554907014691806}
   - component: {fileID: 23542865826860512}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Egine_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,7 +494,7 @@ GameObject:
   - component: {fileID: 4743909776593252}
   - component: {fileID: 33021664331260678}
   - component: {fileID: 23924810732652896}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ar_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 4510882294747098}
   - component: {fileID: 33499775246525878}
   - component: {fileID: 23095724111096794}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Egine_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 4041246340515594}
   - component: {fileID: 33732892525384070}
   - component: {fileID: 23893914318513648}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: arm_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 4811853690733646}
   - component: {fileID: 33680777193368074}
   - component: {fileID: 23104579144750916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_2_2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +562,7 @@ GameObject:
   - component: {fileID: 4882394935710406}
   - component: {fileID: 33614003650452554}
   - component: {fileID: 23459109669771388}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: "T\xFCp"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,7 +579,7 @@ GameObject:
   - component: {fileID: 4141058231796204}
   - component: {fileID: 33860722038765620}
   - component: {fileID: 23163669728822096}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ar_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 4714212126503976}
   - component: {fileID: 33892821837063732}
   - component: {fileID: 23191743682926848}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: "vin\xE7"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 4615516809578330}
   - component: {fileID: 33306000054884808}
   - component: {fileID: 23726018635608722}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Soba_4_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,7 +630,7 @@ GameObject:
   - component: {fileID: 4219201006681810}
   - component: {fileID: 33083201523552426}
   - component: {fileID: 23007078065954082}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: skul_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +647,7 @@ GameObject:
   - component: {fileID: 4739897995112136}
   - component: {fileID: 33275852375443808}
   - component: {fileID: 23879116387753724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tekerr_7_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 4172400636535126}
   - component: {fileID: 33260351843356970}
   - component: {fileID: 23997213443532166}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ar_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 4663524167723934}
   - component: {fileID: 33141869880899838}
   - component: {fileID: 23315077537682040}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Oil_Tank_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +698,7 @@ GameObject:
   - component: {fileID: 4099156063579840}
   - component: {fileID: 33646403712048872}
   - component: {fileID: 23912290222389118}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: "vin\xE7_2"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +715,7 @@ GameObject:
   - component: {fileID: 4718960710502500}
   - component: {fileID: 33455268433275376}
   - component: {fileID: 23661722846784472}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_1_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 4602720898885830}
   - component: {fileID: 33427225850834416}
   - component: {fileID: 23021922665044994}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Soba_3_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -749,7 +749,7 @@ GameObject:
   - component: {fileID: 4916464528067644}
   - component: {fileID: 33300845747254586}
   - component: {fileID: 23708278581390868}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Soba_1_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,7 +766,7 @@ GameObject:
   - component: {fileID: 4296193134309280}
   - component: {fileID: 33536207693495886}
   - component: {fileID: 23496836682128018}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tekerr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -783,7 +783,7 @@ GameObject:
   - component: {fileID: 4426962907702132}
   - component: {fileID: 33704007345407052}
   - component: {fileID: 23957789846051852}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teker_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -798,7 +798,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4823109197255566}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Minion
   m_TagString: Minion
   m_Icon: {fileID: 0}
@@ -1260,8 +1260,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1223543560484158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.99, y: 0, z: -2.48}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.654, y: -0.5, z: -0.161}
+  m_LocalScale: {x: 0.4517159, y: 0.4517159, z: 0.4517159}
   m_Children:
   - {fileID: 4823109197255566}
   m_Father: {fileID: 0}
@@ -3224,12 +3224,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1223543560484158}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a7598b735480ee469102700e14cd5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movementOrder:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   speed: 5.01
