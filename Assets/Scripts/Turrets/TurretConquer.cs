@@ -7,13 +7,17 @@ using UnityStandardAssets.CrossPlatformInput;
 /// This class lets players conquer a tower for their team
 /// </summary>
 public class TurretConquer : MonoBehaviour {
-    /// <summary>The color of the players team</summary>
-    [SerializeField]
-    private Color teamColor;
+    ///// <summary>The color of the players team</summary>
+    //[SerializeField]
+    //private Color teamColor;
 
     /// <summary>References the TeamHandler script</summary>
     [SerializeField]
     private TeamHandler teamHandler;
+
+    /// <summary>The towers top renderer</summary>
+    [SerializeField]
+    private Renderer towerTopRenderer;
 
     /// <summary>Determines if the turret is conquerable by the player</summary>
     private bool conquerable = true;
@@ -28,7 +32,7 @@ public class TurretConquer : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
-        gameObject.GetComponent<Renderer>().material.color = Color.gray;
+        towerTopRenderer.material.color = Color.gray;
     }
 
     /// <summary>
@@ -37,11 +41,11 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="other">The colliding object</param>
     void OnTriggerStay(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player") {
-            GetComponent<Renderer>().material.color = Color.white;
+            towerTopRenderer.material.color = Color.white;
         }
 
         if (other.gameObject.tag == "Player" && CrossPlatformInputManager.GetButtonDown("Action")) {
-            BuildTurret(teamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
+            BuildTurret(other.gameObject.GetComponent<VehicleController>().TeamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
         }
     }
 
@@ -51,7 +55,7 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="other">The colliding object</param>
     void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Player" && Conquerable) {
-            gameObject.GetComponent<Renderer>().material.color = Color.gray;
+            towerTopRenderer.material.color = Color.gray;
         }
     }
 
@@ -61,7 +65,7 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="teamColor"></param>
     void BuildTurret(Color teamColor, TeamHandler.TeamState teamID) {
         teamHandler.TeamID = teamID;
-        gameObject.GetComponent<Renderer>().material.color = teamColor;
+        towerTopRenderer.material.color = teamColor;
         Conquerable = false;
     }
 }
