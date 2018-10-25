@@ -59,6 +59,13 @@ public class VehicleAim : MonoBehaviour {
 
     /// <summary>Update is called once  per frame</summary>
     private void Update() {
+        // Checks if gameobjects in the shootablesInRange-List are destroyed and removes them
+        for (int i = 0; i < shootablesInRange.Count; i++) {
+            if (shootablesInRange[i] == null || shootablesInRange[i].Equals(null)) {
+                shootablesInRange.RemoveAt(i);
+            }
+        }
+
         OrderByMagnitude(ref shootablesInRange, gameObject.transform);
         IsInCone(shootablesInRange, ref shootablesInConeAndRange);
         if (shootablesInConeAndRange.Count > 1) {

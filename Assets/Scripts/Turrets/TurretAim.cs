@@ -6,7 +6,8 @@ using UnityEngine;
 /// <summary>
 /// Used to make the turret aim at his prioritized target
 /// </summary>
-public class TurretAim : MonoBehaviour {
+public class TurretAim : MonoBehaviour
+{
     /// <summary>The range to target shootables in</summary>
     [SerializeField, Header("Customizable"), Tooltip("The Range in UnityUnits/meters that the turret is allowed to target")]
     private float targetRange;
@@ -42,7 +43,13 @@ public class TurretAim : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        OrderByPriority(ref shootablesInRange);
+        // Checks if gameobjects in the shootablesInRange-List are destroyed and removes them
+        for (int i = 0; i < shootablesInRange.Count; i++) {
+            if (shootablesInRange[i] == null || shootablesInRange[i].Equals(null)) {
+                shootablesInRange.RemoveAt(i);
+            }
+        }
+
 
         if (shootablesInRange.Count > 1) {
             OrderByPriority(ref shootablesInRange);
