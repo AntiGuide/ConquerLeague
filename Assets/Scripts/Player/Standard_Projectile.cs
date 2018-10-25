@@ -10,6 +10,10 @@ public class Standard_Projectile : MonoBehaviour {
     [SerializeField]
     private int damage = 2;
 
+    ///<summary>References the bullets attached Teamhandler</summary>
+    [SerializeField]
+    private TeamHandler teamHandler;
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
@@ -21,6 +25,7 @@ public class Standard_Projectile : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
+
     }
 
     /// <summary>
@@ -29,7 +34,9 @@ public class Standard_Projectile : MonoBehaviour {
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
-            other.GetComponent<HitPoints>().Hp -= damage;
+            if(other.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID) {
+                other.GetComponent<HitPoints>().Hp -= damage;
+            }
             Destroy(gameObject);
         }
     }

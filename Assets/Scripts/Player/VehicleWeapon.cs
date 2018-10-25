@@ -27,6 +27,10 @@ public class VehicleWeapon : MonoBehaviour {
     [SerializeField]
     private VehicleAim vehicleAim;
 
+    ///<summary>References the vehicles TeamHandler script</summary>
+    [SerializeField]
+    private TeamHandler teamHandler;
+
     /// <summary>The shootingtimer</summary>
     private float aktShootingTime;
 
@@ -69,6 +73,7 @@ public class VehicleWeapon : MonoBehaviour {
     void Shoot(GameObject ammo) {
         if (aktShootingTime <= 0f && CrossPlatformInputManager.GetButton("Shoot")) {
             var shot = Instantiate(ammo, shotSpawn.position, new Quaternion(90, this.transform.rotation.y, 0, 0));
+            shot.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             shot.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed);
             aktShootingTime += shootingTime;
         } else if (CrossPlatformInputManager.GetButton("Shoot")) {

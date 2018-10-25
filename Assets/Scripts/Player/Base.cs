@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
+/// <summary>
+/// The players base, which spawns minion
+/// </summary>
 public class Base : MonoBehaviour {
     /// <summary>How much currency it costs to build minion</summary>
     [SerializeField]
     private short minionCost = 20;
-
-    /// <summary>The bases attached renderer</summary>
-    [SerializeField]
-    private Renderer renderer;
 
     /// <summary>Toplane, midlane, botlane minion</summary>
     [SerializeField]
@@ -20,38 +19,51 @@ public class Base : MonoBehaviour {
     [SerializeField]
     private Transform spawnPoint;
 
+    /// <summary>The bases attached renderer</summary>
+    private Renderer renderer;
+
+    /// <summary>References the Bases attached Teamhandler</summary>
     private TeamHandler teamHandler;
 
     /// <summary>The bases normal color</summary>
     private Color startColor;
 
-    /// <summary>Decides which minion will spawn</summary>
-    private int random;
-
+    /// <summary>Counts to 2, spawns minions if reached</summary>
     private float spawnTimer;
 
-	// Use this for initialization
-	void Start () {
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start() {
+        renderer = gameObject.GetComponent<MeshRenderer>();
         teamHandler = gameObject.GetComponent<TeamHandler>();
         startColor = renderer.material.color;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update() {
         spawnTimer += Time.deltaTime;
-        if(spawnTimer >= 2) {
+        if (spawnTimer >= 2) {
             var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
             spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             spawnTimer -= 2;
         }
-	}
+    }
 
-    /// <summary>When the players enters the trigger-collider he can build minions</summary>
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "Player") {
+            renderer.material.color = Color.green;
+        }
+    }
+
+    /// <summary>
+    /// When the players enters the trigger-collider he can build minions
+    /// </summary>
     /// <param name="other"></param>
     void OnTriggerStay(Collider other) {
-        if(other.tag == "Player") {
-            renderer.material.color =  Color.green;
-
+        if (other.tag == "Player") {
             if (CrossPlatformInputManager.GetButtonDown("Action") && other.GetComponent<CurrencyHandler>().AktCurrency >= minionCost) {
                 var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
                 spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
@@ -60,8 +72,12 @@ public class Base : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// When the players leaves the Base-Trigger change material color back to startcolor
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerExit(Collider other) {
-        if(other.tag == "Player") {
+        if (other.tag == "Player") {
             renderer.material.color = startColor;
         }
     }

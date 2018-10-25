@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23135173298916486}
   - component: {fileID: 54416584505595914}
   - component: {fileID: 114002620939130510}
+  - component: {fileID: 114803016779649060}
   m_Layer: 0
   m_Name: Standard_Projectile
   m_TagString: Untagged
@@ -112,6 +113,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 4
+  teamHandler: {fileID: 114803016779649060}
+--- !u!114 &114803016779649060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1989244659898142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be51375c455771149860d5393d0f160f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 2
 --- !u!136 &136967451663122508
 CapsuleCollider:
   m_ObjectHideFlags: 1

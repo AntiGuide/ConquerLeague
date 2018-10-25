@@ -50,7 +50,6 @@ public class TurretAim : MonoBehaviour
             }
         }
 
-
         if (shootablesInRange.Count > 1) {
             OrderByPriority(ref shootablesInRange);
         }
