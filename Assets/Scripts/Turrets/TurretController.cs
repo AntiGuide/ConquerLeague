@@ -26,11 +26,11 @@ public class TurretController : MonoBehaviour {
     [SerializeField]
     private TurretAim turretAim;
 
-    /// <summary>Reference to the TurretAim script</summary>
+    /// <summary>Reference to the TurretConquer script</summary>
     [SerializeField]
     private TurretConquer turretConquer;
 
-    /// <summary>References the turrets Teamhandler</summary>
+    /// <summary>References the turrets Teamhandler script</summary>
     [SerializeField]
     private TeamHandler teamHandler;
 

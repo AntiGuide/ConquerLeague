@@ -122,9 +122,10 @@ GameObject:
   - component: {fileID: 114549844261573228}
   - component: {fileID: 114136716198125448}
   - component: {fileID: 65050525673355762}
+  - component: {fileID: 114207971176459070}
   m_Layer: 0
   m_Name: Tower_v2
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1373,7 +1374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72256d8a4d812584a84fb6eaeca5c4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 100
+  saveHp: 100
   teamHandler: {fileID: 114549844261573228}
 --- !u!114 &114137964553959346
 MonoBehaviour:
@@ -1388,6 +1389,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamHandler: {fileID: 114549844261573228}
   towerTopRenderer: {fileID: 23273033421046728}
+--- !u!114 &114207971176459070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1122409727820924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a485136df734594f8b14f920a73ac60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: {fileID: 114136716198125448}
+  currencyKillGain: 2
+  currencyCaptureGain: 3
+  turretConquer: {fileID: 114137964553959346}
+  teamHandler: {fileID: 114549844261573228}
 --- !u!114 &114549844261573228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1399,7 +1416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be51375c455771149860d5393d0f160f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamID: 1
+  teamID: 2
 --- !u!114 &114842834365385402
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -7,20 +7,29 @@ using UnityEngine;
 /// </summary>
 public class HitPoints : MonoBehaviour {
     /// <summary>The units current hitpoints</summary>
-    public int Hp;
+    private int aktHp;
 
     /// <summary>Saves the units hp so that it can reset it if a tower gets destroyed</summary>
+    [SerializeField]
     private int saveHp;
 
     /// <summary>References the Team Handler script</summary>
     [SerializeField]
     private TeamHandler teamHandler;
 
+    /// <summary>References the Turretcontroller</summary>
+    TurretCurrency turretCurrency;
+
+    public int AktHp { get; set; }
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start() {
-        saveHp = Hp;
+        if(gameObject.tag == "Turret") {
+            turretCurrency = gameObject.GetComponent<TurretCurrency>();
+        }
+        AktHp = saveHp;
     }
 
 
@@ -28,7 +37,7 @@ public class HitPoints : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        if (Hp <= 0) {
+        if (AktHp < 0) {
             OnDeath(gameObject.tag);
         }
     }
@@ -42,7 +51,8 @@ public class HitPoints : MonoBehaviour {
             Destroy(gameObject);
         } else {
             teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-            Hp = saveHp;
+            AktHp = saveHp;
+            turretCurrency.CurrencyGained = false;
         }
     }
 }

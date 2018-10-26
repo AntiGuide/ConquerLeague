@@ -4,41 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CurrencyHandler : MonoBehaviour {
-
-    /// <summary>the players current currency</summary>
-    private int aktCurrency;
-
-    /// <summary></summary>
-    private float currencyTimer;
-
-    /// <summary></summary>
-    [SerializeField]
-    private float currencyFrequency = 3f;
-
-    /// <summary></summary>
-    [SerializeField]
-    private int currencyFrequencyAmount = 10;
-
     /// <summary>The players currency UI text</summary>
     [SerializeField]
     private Text currencyText;
 
+    /// <summary>the players current currency</summary>
+    private int aktCurrency;
+
     public int AktCurrency { get; set; }
 
-    // Use this for initialization
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
     void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        currencyTimer += Time.deltaTime;
         
-        if(currencyTimer >= currencyFrequency) {
-            AktCurrency += currencyFrequencyAmount;
-            currencyTimer -= currencyFrequency;
-        }
+	}
 
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update () {
         currencyText.text = "Currency :" + AktCurrency;
 	}
 }

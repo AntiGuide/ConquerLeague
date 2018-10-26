@@ -45,10 +45,12 @@ public class Base : MonoBehaviour {
     /// </summary>
     void Update() {
         spawnTimer += Time.deltaTime;
-        if (spawnTimer >= 2) {
-            var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
-            spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
-            spawnTimer -= 2;
+        if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
+            if (spawnTimer >= 10) {
+                var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
+                spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+                spawnTimer -= 10;
+            }
         }
     }
 
