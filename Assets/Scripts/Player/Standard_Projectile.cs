@@ -22,20 +22,12 @@ public class Standard_Projectile : MonoBehaviour {
     }
 
     /// <summary>
-    /// Update is called once per frame
-    /// </summary>
-    void Update() {
-
-    }
-
-    /// <summary>
     /// Deals damage if gameobject has hitpoints script, gets destroyed if not
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
             if(other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
-                print("hit");
                 other.GetComponent<HitPoints>().AktHp -= damage;
             }
             Destroy(gameObject);

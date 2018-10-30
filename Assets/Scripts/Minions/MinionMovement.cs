@@ -55,8 +55,6 @@ public class MinionMovement : MonoBehaviour {
             wayPointTarget = GameObject.Find("Waypoint_E" + Random.Range(0, 3));
         }
 
-        print(wayPointTarget.name);
-
         movementOrder = wayPointTarget.GetComponentsInChildren<Transform>();
 
         startPosition = transform.position;
