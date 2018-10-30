@@ -19,6 +19,10 @@ public class Base : MonoBehaviour {
     [SerializeField]
     private Transform spawnPoint;
 
+    /// <summary>References the MoneyManagement script</summary>
+    [SerializeField]
+    private MoneyManagement moneyManagement;
+
     /// <summary>The bases attached renderer</summary>
     private Renderer renderer;
 
@@ -45,6 +49,9 @@ public class Base : MonoBehaviour {
     /// </summary>
     void Update() {
         spawnTimer += Time.deltaTime;
+
+
+        // Let minions spawn every 10 seconds on enemy base, used for testing purposes
         if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
             if (spawnTimer >= 10) {
                 var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
@@ -66,10 +73,10 @@ public class Base : MonoBehaviour {
     /// <param name="other"></param>
     void OnTriggerStay(Collider other) {
         if (other.tag == "Player") {
-            if (CrossPlatformInputManager.GetButtonDown("Action") && other.GetComponent<CurrencyHandler>().AktCurrency >= minionCost) {
+            if (CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
                 var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
                 spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
-                other.GetComponent<CurrencyHandler>().AktCurrency -= minionCost;
+                moneyManagement.SubMoney(minionCost);
             }
         }
     }

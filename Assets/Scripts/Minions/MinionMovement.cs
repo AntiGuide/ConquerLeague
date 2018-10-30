@@ -56,7 +56,6 @@ public class MinionMovement : MonoBehaviour {
         }
         print(wayPointTarget.name);
 
-
         movementOrder = wayPointTarget.GetComponentsInChildren<Transform>();
 
         startPosition = transform.position;

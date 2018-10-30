@@ -7,10 +7,6 @@ using UnityStandardAssets.CrossPlatformInput;
 /// This class lets players conquer a tower for their team
 /// </summary>
 public class TurretConquer : MonoBehaviour {
-    ///// <summary>The color of the players team</summary>
-    //[SerializeField]
-    //private Color teamColor;
-
     /// <summary>References the TeamHandler script</summary>
     [SerializeField]
     private TeamHandler teamHandler;
