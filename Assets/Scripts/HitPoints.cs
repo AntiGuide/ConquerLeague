@@ -25,9 +25,6 @@ public class HitPoints : MonoBehaviour {
     [SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     private short[] moneyValue = new short[3];
 
-    /// <summary>References the Turretcontroller</summary>
-    TurretCurrency turretCurrency;
-
     public int AktHp { get; set; }
 
     /// <summary>
@@ -74,7 +71,6 @@ public class HitPoints : MonoBehaviour {
         } else {
             teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
             AktHp = saveHp;
-            turretCurrency.CurrencyGained = false;
         }
     }
 }

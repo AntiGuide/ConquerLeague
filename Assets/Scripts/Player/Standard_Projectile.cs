@@ -34,7 +34,7 @@ public class Standard_Projectile : MonoBehaviour {
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
-            if(other.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID) {
+            if(other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
                 print("hit");
                 other.GetComponent<HitPoints>().AktHp -= damage;
             }

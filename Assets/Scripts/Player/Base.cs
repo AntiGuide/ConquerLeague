@@ -50,7 +50,6 @@ public class Base : MonoBehaviour {
     void Update() {
         spawnTimer += Time.deltaTime;
 
-
         // Let minions spawn every 10 seconds on enemy base, used for testing purposes
         if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
             if (spawnTimer >= 10) {
