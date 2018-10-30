@@ -18,9 +18,9 @@ TagManager:
   - 
   - HideInCamera
   - Minion
-  - 
-  - 
-  - 
+  - PlayerBullet
+  - TurretBullet
+  - Turret
   - 
   - 
   - 
