@@ -8,27 +8,22 @@ using UnityStandardAssets.CrossPlatformInput;
 /// </summary>
 public class VehicleWeapon : MonoBehaviour {
     /// <summary>The Weapontype the Vehicle is using</summary>
-    [SerializeField]
-    private GameObject weaponType;
+    [SerializeField] private GameObject weaponType;
 
     /// <summary>The position where the bullet spawns</summary>
-    [SerializeField]
-    private Transform shotSpawn;
+    [SerializeField] private Transform shotSpawn;
 
     /// <summary>The magnitude of force which will be applied to the bullet</summary>
-    [SerializeField]
-    private float projectileSpeed;
+    [SerializeField] private float projectileSpeed;
 
     /// <summary>The players shootfrequency</summary>
-    [SerializeField]
-    private float shootingTime = 0.1f;
+    [SerializeField] private float shootingTime = 0.1f;
 
     /// <summary>Reference to the VehicleAim script on AimRange</summary>
-    [SerializeField]
-    private VehicleAim vehicleAim;
+    [SerializeField] private VehicleAim vehicleAim;
 
-    [SerializeField]
-    private TeamHandler teamHandler;
+    /// <summary>Reference to the TeamHandler of this player</summary>
+    [SerializeField] private TeamHandler teamHandler;
 
     /// <summary>The shootingtimer</summary>
     private float aktShootingTime;
@@ -36,6 +31,7 @@ public class VehicleWeapon : MonoBehaviour {
     /// <summary>The transform off all GameObjects with a turret tag</summary>
     private List<GameObject> turrets;
 
+    /// <summary>Determines if the player that this weapon belongs to is an enemy</summary>
     private bool IsEnemy {
         get { return teamHandler.TeamID == TeamHandler.TeamState.ENEMY; }
     }

@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class handles the positioning of the camera
+/// </summary>
 public class CameraController : MonoBehaviour {
-    [SerializeField]
-    private Transform playerVehicleTransform;
+    /// <summary>Refernce to the players transform</summary>
+    [SerializeField] private Transform playerVehicleTransform;
 
-    [SerializeField]
-    private float camDistance;
+    /// <summary>The distance from player to cam</summary>
+    [SerializeField] private float camDistance;
 
-    // Update is called once per frame
-    void Update () {
-	    transform.position = playerVehicleTransform.position + (-transform.forward * camDistance);
-
-	}
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update() {
+        transform.position = playerVehicleTransform.position + (-transform.forward * camDistance);
+    }
 }
