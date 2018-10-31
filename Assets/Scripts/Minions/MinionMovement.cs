@@ -18,6 +18,9 @@ public class MinionMovement : MonoBehaviour {
     [SerializeField]
     private float turnSpeed = 2;
 
+    /// <summary>The minions Teamhandler</summary>
+    private TeamHandler teamHandler;
+    
     /// <summary>The progress of the minions current journey</summary>
     private float progress = 0;
 
@@ -28,7 +31,7 @@ public class MinionMovement : MonoBehaviour {
     private float distanceBetweenPoints;
 
     /// <summary>The array index of the currently chased target</summary>
-    private int currTarget = 0;
+    private int currTarget = 1;
 
     /// <summary>The progress of the minions turn</summary>
     private float turnProgress = 0;
@@ -43,9 +46,20 @@ public class MinionMovement : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        teamHandler = gameObject.GetComponent<TeamHandler>();
+        GameObject wayPointTarget;
+
+        if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+            wayPointTarget = GameObject.Find("Waypoint_F" + Random.Range(0, 3));
+        } else {
+            wayPointTarget = GameObject.Find("Waypoint_E" + Random.Range(0, 3));
+        }
+
+        movementOrder = wayPointTarget.GetComponentsInChildren<Transform>();
+
         startPosition = transform.position;
-        distanceBetweenPoints = Vector3.Distance(startPosition, movementOrder[0].position);
-        transform.rotation = Quaternion.LookRotation(movementOrder[0].position - transform.position);
+        distanceBetweenPoints = Vector3.Distance(startPosition, movementOrder[currTarget].position);
+        transform.rotation = Quaternion.LookRotation(movementOrder[currTarget].position - transform.position);
     }
 
     /// <summary>
@@ -60,6 +74,7 @@ public class MinionMovement : MonoBehaviour {
             turning = true;
         } else if (progress >= 1f) {
             currTarget++;
+
             if (movementOrder.Length == currTarget) {
                 Destroy(gameObject);
                 return;

@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 65340512551445886}
   - component: {fileID: 114816480462887092}
   - component: {fileID: 114421183319604472}
+  - component: {fileID: 136621285828070770}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -688,7 +689,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1936182393684680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.19, y: 0, z: -6.91}
+  m_LocalPosition: {x: 5.573787, y: -0.5, z: 2.4723415}
   m_LocalScale: {x: 0.14340258, y: 0.14340264, z: 0.14340264}
   m_Children:
   - {fileID: 4877605101701978}
@@ -1618,13 +1619,13 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1936182393684680}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 8
-  m_AngularDrag: 8
-  m_UseGravity: 0
+  m_Mass: 20
+  m_Drag: 1
+  m_AngularDrag: 1
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 64
   m_CollisionDetection: 0
 --- !u!65 &65340512551445886
 BoxCollider:
@@ -1634,7 +1635,7 @@ BoxCollider:
   m_GameObject: {fileID: 1936182393684680}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 3.695727, y: 3.541977, z: 10.497849}
   m_Center: {x: -0.1333875, y: 1.7258496, z: 0.465408}
@@ -1667,7 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72256d8a4d812584a84fb6eaeca5c4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 100
+  saveHp: 100
   teamHandler: {fileID: 114816480462887092}
 --- !u!114 &114816480462887092
 MonoBehaviour:
@@ -1694,6 +1695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   degreePerSecond: 150
+  teamColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114862931745931112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1707,9 +1709,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6, type: 2}
   shotSpawn: {fileID: 4554015658319332}
-  projectileSpeed: 500
+  projectileSpeed: 5000
   shootingTime: 0.2
   vehicleAim: {fileID: 114361342179302712}
+  teamHandler: {fileID: 114816480462887092}
 --- !u!135 &135456983157548690
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1722,3 +1725,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136621285828070770
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1936182393684680}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.24
+  m_Height: 12.24
+  m_Direction: 2
+  m_Center: {x: 0, y: 2.31, z: 0.33}

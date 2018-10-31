@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4764231794496898}
   - component: {fileID: 33296772963725784}
   - component: {fileID: 23601694899103036}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4968127872662768}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: full_tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4385811295296774}
   - component: {fileID: 33252027949856628}
   - component: {fileID: 23285912805132868}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4455251954451110}
   - component: {fileID: 33711826446347804}
   - component: {fileID: 23332974233722798}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4407399584791832}
   - component: {fileID: 33084103626911078}
   - component: {fileID: 23389932884855328}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4544749310364658}
   - component: {fileID: 33977457563808790}
   - component: {fileID: 23928074514873054}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,9 +122,11 @@ GameObject:
   - component: {fileID: 114549844261573228}
   - component: {fileID: 114136716198125448}
   - component: {fileID: 65050525673355762}
-  m_Layer: 0
+  - component: {fileID: 114534500187642942}
+  - component: {fileID: 135325627282829946}
+  m_Layer: 12
   m_Name: Tower_v2
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,7 +141,7 @@ GameObject:
   - component: {fileID: 4584325628556406}
   - component: {fileID: 33550396961918104}
   - component: {fileID: 23870094122550490}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +158,7 @@ GameObject:
   - component: {fileID: 4510268831010562}
   - component: {fileID: 33755806055393424}
   - component: {fileID: 23137754434408672}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +175,7 @@ GameObject:
   - component: {fileID: 4394014582950608}
   - component: {fileID: 33773557965578490}
   - component: {fileID: 23537115602857554}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +190,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4072903098634672}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ShotSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +207,7 @@ GameObject:
   - component: {fileID: 4451435294235980}
   - component: {fileID: 33457703081222320}
   - component: {fileID: 23531664744221040}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +224,7 @@ GameObject:
   - component: {fileID: 4500413632211666}
   - component: {fileID: 33157489593051612}
   - component: {fileID: 23508590506551754}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +241,7 @@ GameObject:
   - component: {fileID: 4729932560036928}
   - component: {fileID: 33476959606728690}
   - component: {fileID: 23957426623059272}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +258,7 @@ GameObject:
   - component: {fileID: 4324366478164158}
   - component: {fileID: 33080370157753682}
   - component: {fileID: 23869612581080368}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +275,7 @@ GameObject:
   - component: {fileID: 4512276325834400}
   - component: {fileID: 33108354535333288}
   - component: {fileID: 23558824323103698}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +292,7 @@ GameObject:
   - component: {fileID: 4968814209016948}
   - component: {fileID: 33730347221383924}
   - component: {fileID: 23976072335931876}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,9 +311,8 @@ GameObject:
   - component: {fileID: 23434242903090080}
   - component: {fileID: 114042740801877548}
   - component: {fileID: 114842834365385402}
-  - component: {fileID: 114137964553959346}
   - component: {fileID: 135703632249789626}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ShootingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +329,7 @@ GameObject:
   - component: {fileID: 4228447440426922}
   - component: {fileID: 33445491178876258}
   - component: {fileID: 23273033421046728}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +346,7 @@ GameObject:
   - component: {fileID: 4235151037463862}
   - component: {fileID: 33318318544322200}
   - component: {fileID: 23172646929767374}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tower11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,14 +564,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1122409727820924}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.8900013, y: -1.663, z: 1.447}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.21999931, y: -0.543, z: 5.661}
+  m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children:
   - {fileID: 4968127872662768}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4729932560036928
 Transform:
   m_ObjectHideFlags: 1
@@ -1341,8 +1342,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 3.632882, z: 1.2580419}
-  m_Center: {x: 0, y: 1.316441, z: 0.3566544}
+  m_Size: {x: 1, y: 3.632882, z: 1.129219}
+  m_Center: {x: 6.003092e-16, y: 1.316441, z: 0.29224294}
 --- !u!114 &114042740801877548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1360,7 +1361,8 @@ MonoBehaviour:
   shootingTime: 1
   shootingPoint: {fileID: 4072903098634672}
   turretAim: {fileID: 114842834365385402}
-  turretConquer: {fileID: 114137964553959346}
+  turretConquer: {fileID: 114534500187642942}
+  teamHandler: {fileID: 114549844261573228}
 --- !u!114 &114136716198125448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1372,21 +1374,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72256d8a4d812584a84fb6eaeca5c4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 100
+  saveHp: 100
   teamHandler: {fileID: 114549844261573228}
---- !u!114 &114137964553959346
+  moneyManagement: {fileID: 0}
+  moneyValue: 1e0014000a00
+--- !u!114 &114534500187642942
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1822618284006530}
+  m_GameObject: {fileID: 1122409727820924}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1b0a9f446d4b464998ed0e372a9b29b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   teamHandler: {fileID: 114549844261573228}
-  towerTopRenderer: {fileID: 23273033421046728}
+  towerRenderer: []
 --- !u!114 &114549844261573228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1398,7 +1402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be51375c455771149860d5393d0f160f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamID: 1
+  teamID: 2
 --- !u!114 &114842834365385402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1415,6 +1419,18 @@ MonoBehaviour:
   - Minion
   - Player
   teamHandler: {fileID: 114549844261573228}
+--- !u!135 &135325627282829946
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1122409727820924}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.87
+  m_Center: {x: 0.06, y: 0.45, z: 0.38}
 --- !u!135 &135703632249789626
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1426,4 +1442,4 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2.87
-  m_Center: {x: 0, y: 0, z: -0.008326856}
+  m_Center: {x: 0, y: 0, z: -1.69}

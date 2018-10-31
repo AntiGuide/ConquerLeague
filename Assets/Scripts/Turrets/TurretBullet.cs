@@ -8,6 +8,10 @@ public class TurretBullet : MonoBehaviour {
     [SerializeField]
     private int damage = 15;
 
+    /// <summary>References the Bullets attached Teamhandler script</summary>
+    [SerializeField]
+    private TeamHandler teamHandler;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -19,6 +23,12 @@ public class TurretBullet : MonoBehaviour {
 	}
 
     void OnTriggerEnter(Collider other) {
+        if (other.GetComponent<HitPoints>() != null) {
+            if (other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
+                other.GetComponent<HitPoints>().AktHp -= damage;
+            }
+        }
 
+        Destroy(gameObject);
     }
 }

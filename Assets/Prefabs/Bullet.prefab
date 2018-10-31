@@ -24,7 +24,9 @@ GameObject:
   - component: {fileID: 23032409967909806}
   - component: {fileID: 54264124784684590}
   - component: {fileID: 114796253077189966}
-  m_Layer: 0
+  - component: {fileID: 114133309407208918}
+  - component: {fileID: 114651499269998368}
+  m_Layer: 11
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,6 +102,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114133309407208918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449689328079212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0edca3eadb635941ac9a0757b0e24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 15
+  teamHandler: {fileID: 114651499269998368}
+--- !u!114 &114651499269998368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449689328079212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be51375c455771149860d5393d0f160f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamID: 2
 --- !u!114 &114796253077189966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,8 +146,8 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1449689328079212}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
