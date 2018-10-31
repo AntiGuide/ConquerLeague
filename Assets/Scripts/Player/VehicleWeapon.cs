@@ -25,10 +25,6 @@ public class VehicleWeapon : MonoBehaviour {
     /// <summary>Reference to the TeamHandler of this player</summary>
     [SerializeField] private TeamHandler teamHandler;
 
-    ///<summary>References the vehicles TeamHandler script</summary>
-    [SerializeField]
-    private TeamHandler teamHandler;
-
     /// <summary>The shootingtimer</summary>
     private float aktShootingTime;
 
