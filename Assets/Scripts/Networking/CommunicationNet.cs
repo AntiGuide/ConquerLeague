@@ -6,59 +6,78 @@ using UnityEngine;
 
 public class CommunicationNet : MonoBehaviour {
     public static CommunicationNet FakeStatic;
+
     [SerializeField]
-    private PlayerNet playerNet;
+    private PlayerNet enemyPlayerNet;
+
+    [SerializeField]
+    private PlayerNet friendlyPlayerNet;
+
     [SerializeField]
     private NetDeliveryMethod deliveryMethod;
+
+    [SerializeField]
+    private Transform StartPointLeft;
+
+    [SerializeField]
+    private Transform StartPointRight;
+
     private NetClient client;
     private NetConnection connection;
     private List<byte[]> sendQueue = new List<byte[]>();
     private List<NetDeliveryMethod> sendMethodQueue = new List<NetDeliveryMethod>();
+    private bool isLeft;
 
     public bool ConnectedToServer { get; set; }
 
     private enum GameMessageType : byte {
-        PLAYER_MOVEMENT = 0
+        PLAYER_MOVEMENT = 0,
+        SESSION_INITIALITZE = 1
     }
 
     public void RecievePlayerMovement(byte[] input) {
-        Vector3 position;
-        Quaternion quaternion;
-        Vector3 velocity;
-        byte hp;
-
         // 0 = GameMessageType
         // 1 - 12 = position
-        position = ByteArrayToVector3(input, 1);
+        var position = ByteArrayToVector3(input, 1);
         // 13 - 28 = rotation
-        quaternion = ByteArrayToQuaternion(input, 13);
+        var quaternion = ByteArrayToQuaternion(input, 13);
         // 29 - 40
-        velocity = ByteArrayToVector3(input, 29);
+        var velocity = ByteArrayToVector3(input, 29);
         // 41 = hp
-        hp = input[41];
+        var hp = input[41];
 
-        playerNet.SetNewMovementPack(position, quaternion, velocity, hp);
+        enemyPlayerNet.SetNewMovementPack(position, quaternion, velocity, hp);
+    }
+
+    public void RecieveSessionInitialize(byte[] input) {
+        // 0 = GameMessageType
+        // 1 = Left or Right
+        isLeft = BitConverter.ToBoolean(input, 1);
+        // Vehicle type (To be included)
+        // Weapon type (To be included)
+        var startFriendly = isLeft ? StartPointLeft : StartPointRight;
+        var startEnemy = isLeft ? StartPointRight : StartPointLeft;
+
+        friendlyPlayerNet.SetNewMovementPack(startFriendly.position, startFriendly.rotation, Vector3.zero);
+        enemyPlayerNet.SetNewMovementPack(startEnemy.position, startEnemy.rotation, Vector3.zero);
     }
 
     private Vector3 ByteArrayToVector3(byte[] input, int startIndex) {
-        float x, y, z;
-        x = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 0));
-        y = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 1));
-        z = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 2));
+        var x = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 0));
+        var y = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 1));
+        var z = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 2));
         return new Vector3(x,y,z);
     }
 
     private Quaternion ByteArrayToQuaternion(byte[] input, int startIndex) {
-        //Debug.Log(startIndex + " + " + (sizeof(float) * 3) + " = " + (startIndex + (sizeof(float) * 3)));
         if (startIndex + (sizeof(float) * 3) > input.Length) {
             Debug.Log("Array to small");
         }
-
-        float x, y, z, w;
-        x = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 0));
-        y = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 1));
-        z = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 2));
-        w = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 3));
+        
+        var x = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 0));
+        var y = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 1));
+        var z = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 2));
+        var w = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 3));
         return new Quaternion(x, y, z, w);
     }
 
@@ -91,19 +110,16 @@ public class CommunicationNet : MonoBehaviour {
 
     private byte[] MergeArrays(byte[][] input) {
         var output = new byte[GetLength(input)];
-        int x = 0;
-        int y = 0;
+        var x = 0;
+        var y = 0;
 
-        for (int i = 0; i < output.Length; i++) {
+        for (var i = 0; i < output.Length; i++) {
             while (y >= input[x].Length) {
                 x++;
                 y = 0;
             }
-            output[i] = input[x][y];
-            //if (output.Length >= 30) {
-            //    Debug.Log(output[i]);
-            //}
 
+            output[i] = input[x][y];
             y++;
         }
 
@@ -112,8 +128,8 @@ public class CommunicationNet : MonoBehaviour {
 
     private int GetLength(byte[][] input) {
         var output = 0;
-        for (int i = 0; i < input.Length; i++) {
-            output += input[i].Length;
+        foreach (var t in input) {
+            output += t.Length;
         }
 
         return output;
@@ -130,7 +146,7 @@ public class CommunicationNet : MonoBehaviour {
         client = new NetClient(config);
         client.Start();
         //connection = client.Connect(host: "192.168.0.100", port: 47410);
-        connection = client.Connect(host: "192.168.0.104", port: 47410);
+        connection = client.Connect(host: "192.168.1.2", port: 47410);
     }
 
     // Update is called once per frame
@@ -166,7 +182,7 @@ public class CommunicationNet : MonoBehaviour {
         }
 
         var newByteArray = new byte[indexTo - indexFrom];
-        for (int i = indexFrom; i < indexTo; i++) {
+        for (var i = indexFrom; i < indexTo; i++) {
             newByteArray[i - indexFrom] = data[i];
         }
 
@@ -180,14 +196,28 @@ public class CommunicationNet : MonoBehaviour {
                 case NetIncomingMessageType.Data:
                     var dataLength = message.ReadInt32();
                     var data = message.ReadBytes(dataLength);
-                    ////message.ReadBytes(message.ReadInt32());
-                    if (data.Length < 42) {
-                        continue;
+                    if (data.Length == 0) {
+                        break;
                     }
-                    //Debug.Log("Packet size: " + data.Length + " Byte(s)");
-                    //data = GetPartFromByteArray(data, 1, data.Length);
-                    if (data[0] == (byte)GameMessageType.PLAYER_MOVEMENT) {
-                        RecievePlayerMovement(data);
+
+                    switch (data[0]) {
+                        case (byte)GameMessageType.PLAYER_MOVEMENT:
+                            if (data.Length < 42) {
+                                break;
+                            }
+
+                            RecievePlayerMovement(data);
+                            break;
+                        case (byte)GameMessageType.SESSION_INITIALITZE:
+                            //if (data.Length < 42) {
+                            //    break;
+                            //}
+
+                            RecieveSessionInitialize(data);
+                            break;
+                        default:
+                            Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");
+                            break;
                     }
                     break;
                 case NetIncomingMessageType.StatusChanged:
@@ -203,10 +233,6 @@ public class CommunicationNet : MonoBehaviour {
                     }
 
                     break;
-                ////case NetIncomingMessageType.DebugMessage:
-                ////    Debug.Log(message.ReadString());
-                ////    var debugText = message.ReadString();
-                ////    break;
                 default:
                     Console.WriteLine("unhandled message with type: " + message.MessageType);
                     break;

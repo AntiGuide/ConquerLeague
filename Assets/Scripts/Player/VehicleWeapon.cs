@@ -27,11 +27,18 @@ public class VehicleWeapon : MonoBehaviour {
     [SerializeField]
     private VehicleAim vehicleAim;
 
+    [SerializeField]
+    private TeamHandler teamHandler;
+
     /// <summary>The shootingtimer</summary>
     private float aktShootingTime;
 
     /// <summary>The transform off all GameObjects with a turret tag</summary>
     private List<GameObject> turrets;
+
+    private bool IsEnemy {
+        get { return teamHandler.TeamID == TeamHandler.TeamState.ENEMY; }
+    }
 
     /// <summary>
     /// Use this for initialization
@@ -53,6 +60,10 @@ public class VehicleWeapon : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
+        if (IsEnemy) {
+            return;
+        }
+
         if (vehicleAim.AktAimingAt != null) {
             transform.LookAt(vehicleAim.AktAimingAt.transform);
             Shoot(weaponType);

@@ -21,7 +21,7 @@ public class PlayerNet : MonoBehaviour {
         }
 	}
 
-    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp) {
+    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp = 1) {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbody.velocity = velocity;

@@ -46,14 +46,13 @@ public class VehicleController : MonoBehaviour
     /// Uses CrossplatformInput to move and rotate player vehicle
     /// </summary>
     void Movement(float horizontalAxis, float verticalAxis) {
-        float rotate;
         var rotation = new Vector2(horizontalAxis, verticalAxis);
         if (rotation == Vector2.zero) {
             return;
         }
 
         goalRotate = rotation;
-        rotate = Vector2.SignedAngle(goalRotate, Vector2.up);
+        var rotate = Vector2.SignedAngle(goalRotate, Vector2.up);
         var quat = new Quaternion {
             eulerAngles = new Vector3(0, rotate, 0)
         };
