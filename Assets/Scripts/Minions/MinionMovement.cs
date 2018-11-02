@@ -18,6 +18,9 @@ public class MinionMovement : MonoBehaviour {
     [SerializeField]
     private float turnSpeed = 2;
 
+    /// <summary>References the Goalmanager</summary>
+    private GoalManager goalManager;
+
     /// <summary>The minions Teamhandler</summary>
     private TeamHandler teamHandler;
     
@@ -49,6 +52,8 @@ public class MinionMovement : MonoBehaviour {
         teamHandler = gameObject.GetComponent<TeamHandler>();
         GameObject wayPointTarget;
 
+        goalManager = GameObject.Find("Goalmanager").GetComponent<GoalManager>();
+
         if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
             wayPointTarget = GameObject.Find("Waypoint_F" + Random.Range(0, 3));
         } else {
@@ -76,6 +81,11 @@ public class MinionMovement : MonoBehaviour {
             currTarget++;
 
             if (movementOrder.Length == currTarget) {
+                if(teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+                    goalManager.MyGoals += 1;
+                } else {
+                    goalManager.EnemyGoals +=1;
+                }
                 Destroy(gameObject);
                 return;
             }
