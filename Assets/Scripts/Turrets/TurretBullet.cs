@@ -26,9 +26,9 @@ public class TurretBullet : MonoBehaviour {
         if (other.GetComponent<HitPoints>() != null) {
             if (other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
                 other.GetComponent<HitPoints>().AktHp -= damage;
+                Destroy(gameObject);
             }
         }
 
-        Destroy(gameObject);
     }
 }

@@ -23,6 +23,6 @@ public class GoalManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        goalText.text = MyGoals + " / " + EnemyGoals;
+        goalText.text = myGoals + " / " + enemyGoals;
 	}
 }

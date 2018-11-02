@@ -9,10 +9,17 @@ public class GameTimer : MonoBehaviour {
     [SerializeField]
     private Text gameTimeText;
 
+    /// <summary>Defines how long one round will last</summary>
     [SerializeField, Tooltip("The Gameplay-Time in Seconds")]
-    private float playTime = 300;
+    private float playTime = 180;
 
+    /// <summary>References the GameManager</summary>
+    [SerializeField]
+    private GameManager gameManager;
+
+    /// <summary>Playtime in minutes </summary>
     private int minutes;
+
     private int seconds;
 
     private string actTime;
@@ -33,8 +40,8 @@ public class GameTimer : MonoBehaviour {
 
         gameTimeText.text = actTime;
 
-        if(playTime < 0) {
-
+        if(playTime <= 0) {
+            gameManager.Paused = true;
         }
 	}
-}
+}   
