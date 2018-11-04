@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Prototype/Blockout.unity
-    guid: 4391c6a1fe6bfed489f80c0239534f09
+    path: Assets/Scenes/Prototype/Prototype.unity
+    guid: d18cfaa13a8664147a48f2dbbfffd94b

@@ -31,10 +31,6 @@ public class HitPoints : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
-        //if(gameObject.tag == "Turret") {
-        //    turretCurrency = gameObject.GetComponent<TurretCurrency>();
-        //}
-
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
         AktHp = saveHp;
     }
