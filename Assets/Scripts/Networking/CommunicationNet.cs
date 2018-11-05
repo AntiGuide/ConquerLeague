@@ -24,6 +24,12 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> The spawn point of the player on the right side </summary>
     [SerializeField] private Transform startPointRight;
 
+    /// <summary> The IP Address of the server</summary>
+    [SerializeField] private string ipAddress;
+
+    /// <summary> The port the server listens on</summary>
+    [SerializeField] private int portNumber;
+
     /// <summary> The config to connect to the server </summary>
     private NetClient client;
 
@@ -212,7 +218,7 @@ public class CommunicationNet : MonoBehaviour {
         client = new NetClient(config);
         client.Start();
         ////connection = client.Connect(host: "192.168.0.100", port: 47410);
-        connection = client.Connect(host: "192.168.1.2", port: 47410);
+        connection = client.Connect(host: ipAddress, port: portNumber);
     }
 
     /// <summary>
