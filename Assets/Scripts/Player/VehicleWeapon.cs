@@ -8,30 +8,36 @@ using UnityStandardAssets.CrossPlatformInput;
 /// </summary>
 public class VehicleWeapon : MonoBehaviour {
     /// <summary>The Weapontype the Vehicle is using</summary>
-    [SerializeField]
-    private GameObject weaponType;
+    [SerializeField] private GameObject weaponType;
 
     /// <summary>The position where the bullet spawns</summary>
-    [SerializeField]
-    private Transform shotSpawn;
+    [SerializeField] private Transform shotSpawn;
 
     /// <summary>The magnitude of force which will be applied to the bullet</summary>
-    [SerializeField]
-    private float projectileSpeed;
+    [SerializeField] private float projectileSpeed;
 
     /// <summary>The players shootfrequency</summary>
-    [SerializeField]
-    private float shootingTime = 0.1f;
+    [SerializeField] private float shootingTime = 0.1f;
 
     /// <summary>Reference to the VehicleAim script on AimRange</summary>
-    [SerializeField]
-    private VehicleAim vehicleAim;
+    [SerializeField] private VehicleAim vehicleAim;
+
+    /// <summary>Reference to the TeamHandler of this player</summary>
+    [SerializeField] private TeamHandler teamHandler;
+
+    /// <summary>The shot vfx</summary>
+    [SerializeField] private GameObject shotVFX;
 
     /// <summary>The shootingtimer</summary>
     private float aktShootingTime;
 
     /// <summary>The transform off all GameObjects with a turret tag</summary>
     private List<GameObject> turrets;
+
+    /// <summary>Determines if the player that this weapon belongs to is an enemy</summary>
+    private bool IsEnemy {
+        get { return teamHandler.TeamID == TeamHandler.TeamState.ENEMY; }
+    }
 
     /// <summary>
     /// Use this for initialization
@@ -53,20 +59,29 @@ public class VehicleWeapon : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
+        if (IsEnemy) {
+            return;
+        }
+
         if (vehicleAim.AktAimingAt != null) {
             transform.LookAt(vehicleAim.AktAimingAt.transform);
-            Shoot(this.weaponType, vehicleAim.AktAimingAt.transform);
+            Shoot(weaponType);
+        } else {
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            Shoot(weaponType);
         }
     }
 
     /// <summary>
     /// Instantiate Bullet and applies force
     /// </summary>
-    /// <param name="ammo"></param>
-    void Shoot(GameObject ammo, Transform target) {
+    /// <param name="weaponType"></param>
+    void Shoot(GameObject weaponType) {
         if (aktShootingTime <= 0f && CrossPlatformInputManager.GetButton("Shoot")) {
-            var shot = Instantiate(ammo, shotSpawn.position, new Quaternion(90, this.transform.rotation.y, 0, 0));
-            shot.GetComponent<Rigidbody>().AddForce((target.position - shot.transform.position) * projectileSpeed);
+            //Instantiate(shotVFX, shotSpawn.position, transform.rotation);
+            var shot = Instantiate(weaponType, shotSpawn.position, shotSpawn.rotation);
+            shot.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+            shot.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed);
             aktShootingTime += shootingTime;
         } else if (CrossPlatformInputManager.GetButton("Shoot")) {
             aktShootingTime -= Time.deltaTime;

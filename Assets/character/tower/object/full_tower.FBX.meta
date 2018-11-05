@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: fb54edeb6f7c7574baa02c7476438b88
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: tower00
+    100004: tower01
+    100006: tower02
+    100008: tower03
+    100010: tower04
+    100012: tower05
+    100014: tower06
+    100016: tower07
+    100018: tower08
+    100020: tower09
+    100022: tower10
+    100024: tower11
+    100026: tower12
+    100028: tower13
+    100030: tower14
+    100032: tower15
+    100034: tower16
+    400000: //RootNode
+    400002: tower00
+    400004: tower01
+    400006: tower02
+    400008: tower03
+    400010: tower04
+    400012: tower05
+    400014: tower06
+    400016: tower07
+    400018: tower08
+    400020: tower09
+    400022: tower10
+    400024: tower11
+    400026: tower12
+    400028: tower13
+    400030: tower14
+    400032: tower15
+    400034: tower16
+    2100000: Mat.21
+    2100002: Mat.1
+    2100004: Mat.2
+    2100006: 03 - Default
+    2100008: 01 - Default
+    2300000: tower00
+    2300002: tower01
+    2300004: tower02
+    2300006: tower03
+    2300008: tower04
+    2300010: tower05
+    2300012: tower06
+    2300014: tower07
+    2300016: tower08
+    2300018: tower09
+    2300020: tower10
+    2300022: tower11
+    2300024: tower12
+    2300026: tower13
+    2300028: tower14
+    2300030: tower15
+    2300032: tower16
+    3300000: tower00
+    3300002: tower01
+    3300004: tower02
+    3300006: tower03
+    3300008: tower04
+    3300010: tower05
+    3300012: tower06
+    3300014: tower07
+    3300016: tower08
+    3300018: tower09
+    3300020: tower10
+    3300022: tower11
+    3300024: tower12
+    3300026: tower13
+    3300028: tower14
+    3300030: tower15
+    3300032: tower16
+    4300000: tower07
+    4300002: tower04
+    4300004: tower02
+    4300006: tower16
+    4300008: tower08
+    4300010: tower12
+    4300012: tower09
+    4300014: tower15
+    4300016: tower10
+    4300018: tower13
+    4300020: tower14
+    4300022: tower06
+    4300024: tower00
+    4300026: tower03
+    4300028: tower01
+    4300030: tower11
+    4300032: tower05
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

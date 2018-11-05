@@ -26,9 +26,13 @@ public class TurretController : MonoBehaviour {
     [SerializeField]
     private TurretAim turretAim;
 
-    /// <summary>Reference to the TurretAim script</summary>
+    /// <summary>Reference to the TurretConquer script</summary>
     [SerializeField]
     private TurretConquer turretConquer;
+
+    /// <summary>References the turrets Teamhandler script</summary>
+    [SerializeField]
+    private TeamHandler teamHandler;
 
     /// <summary>The transform of all GameObjects with a player tag</summary>
     private List<GameObject> players;
@@ -62,6 +66,7 @@ public class TurretController : MonoBehaviour {
         if (aktShootingTime <= 0f) {
             Debug.DrawLine(shootingPoint.position, target.position, Color.red, 0.05f);
             var bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
+            bullet.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             bullet.GetComponent<Rigidbody>().AddForce((target.position - bullet.transform.position) * bulletForce);
             aktShootingTime += shootingTime;
             aktShootingTime = Mathf.Min(aktShootingTime, shootingTime / 2f);

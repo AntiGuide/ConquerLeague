@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Turret
   - Enemy
+  - Minion
   layers:
   - Default
   - TransparentFX
@@ -15,11 +16,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - HideInCamera
+  - Minion
+  - PlayerBullet
+  - TurretBullet
+  - Turret
   - 
   - 
   - 
@@ -42,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: HpFull
+    uniqueID: 3185845339
     locked: 0
