@@ -6,6 +6,9 @@ using UnityEngine;
 /// Controls the minions curent target and movement
 /// </summary>
 public class MinionMovement : MonoBehaviour {
+    [SerializeField]
+    private GameObject hpBar;
+
     /// <summary>The minions movement order</summary>
     [SerializeField, Tooltip("The transform-targets, which tells the minions where to go and in which order. Priority from top to bottom.")]
     private Transform[] movementOrder;
@@ -109,5 +112,12 @@ public class MinionMovement : MonoBehaviour {
                 turning = false;
             }
         }
+    }
+
+    public void OnInitialize(Transform parent) {
+        var aktHpBar = Instantiate(hpBar, parent);
+        aktHpBar.transform.SetAsFirstSibling();
+        aktHpBar.GetComponent<HealthBar>().target = gameObject;
+        aktHpBar.GetComponent<HealthBar>().hitPoints = GetComponent<HitPoints>();
     }
 }

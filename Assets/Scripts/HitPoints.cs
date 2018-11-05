@@ -7,32 +7,36 @@ using UnityEngine;
 /// </summary>
 public class HitPoints : MonoBehaviour {
     /// <summary>The units current hitpoints</summary>
-    private int aktHp;
+    [HideInInspector]
+    public float AktHp;
 
     /// <summary>Saves the units hp so that it can reset it if a tower gets destroyed</summary>
     [SerializeField]
-    private int saveHp;
+    private float saveHp;
 
     /// <summary>References the Team Handler script</summary>
     [SerializeField]
     private TeamHandler teamHandler;
 
     /// <summary>References the MoneyManagement script</summary>
-    [SerializeField]
     private MoneyManagement moneyManagement;
 
     /// <summary>The amount of money you get for killing</summary>
     [SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     private short[] moneyValue = new short[3];
 
-    public int AktHp { get; set; }
+    //public int AktHp { get { return aktHp; } set { aktHp=value; } }
+
+    private void Awake() {
+        AktHp = saveHp;
+    }
+
 
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start() {
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
-        AktHp = saveHp;
     }
 
 

@@ -23,6 +23,9 @@ public class Base : MonoBehaviour {
     [SerializeField]
     private MoneyManagement moneyManagement;
 
+    [SerializeField]
+    private Transform canvasTrans;
+
     /// <summary>The bases attached renderer</summary>
     private Renderer renderer;
 
@@ -54,6 +57,7 @@ public class Base : MonoBehaviour {
         if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
             if (spawnTimer >= 10) {
                 var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
+                spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
                 spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
                 spawnTimer -= 10;
             }
@@ -74,6 +78,7 @@ public class Base : MonoBehaviour {
         if (other.tag == "Player") {
             if (CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
                 var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
+                spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
                 spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
                 moneyManagement.SubMoney(minionCost);
             }

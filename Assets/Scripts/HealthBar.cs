@@ -1,33 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour {
+    [SerializeField]
+    private Vector3 offset;
+
+    [HideInInspector]
+    public HitPoints hitPoints;
 
     [SerializeField]
-    private HitPoints hitPoints;
+    private Camera camera;
 
     [SerializeField]
-    private GameObject camera;
+    public GameObject target;
 
     [SerializeField]
-    private bool fullBar;
+    private Image fullHp;
 
-    private Vector2 size;
+    private Vector3 screenPos;
+
+    private float maxHp;
 
 	// Use this for initialization
 	void Start () {
-        camera = GameObject.Find("Main Camera");
-        size = GetComponent<SpriteRenderer>().size;
+        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        hitPoints = target.GetComponent<HitPoints>();
+        maxHp = hitPoints.AktHp;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.LookAt(camera.transform);
+        if(target == null) {
+            Destroy(gameObject);
+        } else {
+            //var bounds = target.GetComponent<CapsuleCollider>().bounds;
+            //var onlyY = new Vector3(bounds.extents.x, 0, bounds.extents.z);
 
-        if (fullBar)
-        {
-            GetComponent<SpriteRenderer>().size = new Vector2(hitPoints.AktHp, size.y);
+            screenPos = camera.WorldToScreenPoint(target.transform.position);
+
+            transform.position = screenPos + offset;
+
+            fullHp.fillAmount = (hitPoints.AktHp / maxHp);
         }
 	}
 }

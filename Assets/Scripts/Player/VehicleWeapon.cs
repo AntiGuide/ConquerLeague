@@ -6,7 +6,8 @@ using UnityStandardAssets.CrossPlatformInput;
 /// <summary>
 /// The vehicles weapon, which defines its shootfrequency and what weapontype its using
 /// </summary>
-public class VehicleWeapon : MonoBehaviour {
+public class VehicleWeapon : MonoBehaviour
+{
     /// <summary>The Weapontype the Vehicle is using</summary>
     [SerializeField] private GameObject weaponType;
 
@@ -28,6 +29,8 @@ public class VehicleWeapon : MonoBehaviour {
     /// <summary>The shot vfx</summary>
     [SerializeField] private GameObject shotVFX;
 
+    [SerializeField] private ParticleSystem[] VFXSystems;
+
     /// <summary>The shootingtimer</summary>
     private float aktShootingTime;
 
@@ -35,7 +38,8 @@ public class VehicleWeapon : MonoBehaviour {
     private List<GameObject> turrets;
 
     /// <summary>Determines if the player that this weapon belongs to is an enemy</summary>
-    private bool IsEnemy {
+    private bool IsEnemy
+    {
         get { return teamHandler.TeamID == TeamHandler.TeamState.ENEMY; }
     }
 
@@ -43,6 +47,8 @@ public class VehicleWeapon : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        VFXSystems = GetComponentsInChildren<ParticleSystem>();
+
         GameObject[] turretGameObjects;
         aktShootingTime = shootingTime;
         turretGameObjects = GameObject.FindGameObjectsWithTag("Turret");
@@ -78,6 +84,10 @@ public class VehicleWeapon : MonoBehaviour {
     /// <param name="weaponType"></param>
     void Shoot(GameObject weaponType) {
         if (aktShootingTime <= 0f && CrossPlatformInputManager.GetButton("Shoot")) {
+            for (int i = 0; i < VFXSystems.Length; i++) {
+                VFXSystems[i].Stop();
+                VFXSystems[i].Play();
+            }
             //Instantiate(shotVFX, shotSpawn.position, transform.rotation);
             var shot = Instantiate(weaponType, shotSpawn.position, shotSpawn.rotation);
             shot.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
