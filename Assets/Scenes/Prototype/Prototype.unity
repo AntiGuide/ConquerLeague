@@ -428,13 +428,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 81583046}
-  m_LocalRotation: {x: 0.33454713, y: -0, z: -0, w: 0.94237906}
+  m_LocalRotation: {x: 0.513402, y: -0, z: -0, w: 0.8581482}
   m_LocalPosition: {x: 16.49, y: 9.44, z: -14.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 39.09, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 61.781002, y: 0, z: 0}
 --- !u!114 &81583051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,9 +459,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPlayerNet: {fileID: 168319245}
   friendlyPlayerNet: {fileID: 373250928}
+  leftBase: {fileID: 1613197183}
+  rightBase: {fileID: 1549337922}
   startPointLeft: {fileID: 1717571673}
   startPointRight: {fileID: 1983103855}
-  ipAddress: 192.168.0.101
+  ipAddress: 192.168.0.104
   portNumber: 47410
 --- !u!114 &81583053
 MonoBehaviour:

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
@@ -35,6 +36,8 @@ public class Base : MonoBehaviour {
     /// <summary>Counts to 2, spawns minions if reached</summary>
     private float spawnTimer;
 
+    private GameObject[] minions = new GameObject[byte.MaxValue];
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
@@ -53,8 +56,7 @@ public class Base : MonoBehaviour {
         // Let minions spawn every 10 seconds on enemy base, used for testing purposes
         if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
             if (spawnTimer >= 10) {
-                var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
-                spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+                SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
                 spawnTimer -= 10;
             }
         }
@@ -73,8 +75,7 @@ public class Base : MonoBehaviour {
     void OnTriggerStay(Collider other) {
         if (other.tag == "Player") {
             if (CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
-                var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
-                spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+                SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
                 moneyManagement.SubMoney(minionCost);
             }
         }
@@ -88,5 +89,17 @@ public class Base : MonoBehaviour {
         if (other.tag == "Player") {
             renderer.material.color = startColor;
         }
+    }
+
+    private GameObject SpawnMinion(GameObject minionPrefab, Vector3 spawnPosition, Quaternion spawnRotation) {
+        var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
+        spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+        return spawnedMinion;
+    }
+
+    public void RecieveMinionInitialize(byte[] input) {
+        // 0 = GameMessageType
+        // 1 = ID
+        minions[input[1]] = SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
     }
 }

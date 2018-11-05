@@ -18,6 +18,12 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> Reference to the networking component of the local player </summary>
     [SerializeField] private PlayerNet friendlyPlayerNet;
 
+    /// <summary> Reference to the left base </summary>
+    [SerializeField] private Base leftBase;
+
+    /// <summary> Reference to the right base </summary>
+    [SerializeField] private Base rightBase;
+
     /// <summary> The spawn point of the player on the left side </summary>
     [SerializeField] private Transform startPointLeft;
 
@@ -45,10 +51,13 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> Marks if this player is on the left or the right side</summary>
     private bool isLeft;
 
+    private byte aktMinionID = 0;
+
     /// <summary> The different message types that can arrive </summary>
     private enum GameMessageType : byte {
         PLAYER_MOVEMENT = 0,
-        SESSION_INITIALITZE = 1 // Don't change (has to be the same between client and server)
+        SESSION_INITIALITZE = 1, // Don't change (has to be the same between client and server)
+        MINION_INITIALITZE = 2
     }
 
     /// <summary>
@@ -85,6 +94,9 @@ public class CommunicationNet : MonoBehaviour {
         // Weapon type (To be included)
         var startFriendly = isLeft ? startPointLeft : startPointRight;
         var startEnemy = isLeft ? startPointRight : startPointLeft;
+        GameManager.LeftTeam = isLeft ? TeamHandler.TeamState.FRIENDLY : TeamHandler.TeamState.ENEMY;
+        GameManager.RightTeam = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
+
 
         friendlyPlayerNet.SetNewMovementPack(startFriendly.position, startFriendly.rotation, Vector3.zero);
         enemyPlayerNet.SetNewMovementPack(startEnemy.position, startEnemy.rotation, Vector3.zero);
@@ -104,6 +116,15 @@ public class CommunicationNet : MonoBehaviour {
         send[3] = ToByteArray(rigidbody.velocity);
         send[4] = new byte[] { hp };
         Send(MergeArrays(send));
+    }
+
+    public void SendMinionInitialization() {
+        var send = new byte[2];
+        // 0 = GameMessageType
+        send[0] = (byte)GameMessageType.MINION_INITIALITZE;
+        // 1 = ID
+        send[1] = aktMinionID;
+        aktMinionID = aktMinionID == byte.MaxValue ? byte.MinValue : (byte)(aktMinionID + 1);
     }
 
     /// <summary>
@@ -307,6 +328,14 @@ public class CommunicationNet : MonoBehaviour {
                         case (byte)GameMessageType.SESSION_INITIALITZE:
                             RecieveSessionInitialize(data);
                             break;
+                        case (byte)GameMessageType.MINION_INITIALITZE:
+                            if (isLeft) {
+                                rightBase.RecieveMinionInitialize(data);
+                            } else {
+                                leftBase.RecieveMinionInitialize(data);
+                            }
+                            
+                            break;
                         default:
                             Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");
                             break;
@@ -320,7 +349,6 @@ public class CommunicationNet : MonoBehaviour {
                             NetConnection net = client.Connections[0];
                             break;
                         default:
-                            Debug.Log("boop");
                             break;
                     }
 
