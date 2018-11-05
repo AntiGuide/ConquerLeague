@@ -25,6 +25,9 @@ public class VehicleWeapon : MonoBehaviour {
     /// <summary>Reference to the TeamHandler of this player</summary>
     [SerializeField] private TeamHandler teamHandler;
 
+    /// <summary>The shot vfx</summary>
+    [SerializeField] private GameObject shotVFX;
+
     /// <summary>The shootingtimer</summary>
     private float aktShootingTime;
 
@@ -72,10 +75,11 @@ public class VehicleWeapon : MonoBehaviour {
     /// <summary>
     /// Instantiate Bullet and applies force
     /// </summary>
-    /// <param name="ammo"></param>
-    void Shoot(GameObject ammo) {
+    /// <param name="weaponType"></param>
+    void Shoot(GameObject weaponType) {
         if (aktShootingTime <= 0f && CrossPlatformInputManager.GetButton("Shoot")) {
-            var shot = Instantiate(ammo, shotSpawn.position, new Quaternion(90, this.transform.rotation.y, 0, 0));
+            //Instantiate(shotVFX, shotSpawn.position, transform.rotation);
+            var shot = Instantiate(weaponType, shotSpawn.position, shotSpawn.rotation);
             shot.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             shot.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed);
             aktShootingTime += shootingTime;
