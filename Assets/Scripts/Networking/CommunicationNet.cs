@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Lidgren.Network;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// ONLY INITIALIZE ONE TIME!
@@ -35,6 +36,9 @@ public class CommunicationNet : MonoBehaviour {
 
     /// <summary> The port the server listens on</summary>
     [SerializeField] private int portNumber;
+
+    /// <summary> The text the game displays the connection status to</summary>
+    [SerializeField] private Text connectionStatusText;
 
     /// <summary> The config to connect to the server </summary>
     private NetClient client;
@@ -96,7 +100,8 @@ public class CommunicationNet : MonoBehaviour {
         var startEnemy = isLeft ? startPointRight : startPointLeft;
         GameManager.LeftTeam = isLeft ? TeamHandler.TeamState.FRIENDLY : TeamHandler.TeamState.ENEMY;
         GameManager.RightTeam = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
-
+        leftBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.FRIENDLY : TeamHandler.TeamState.ENEMY;
+        rightBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
 
         friendlyPlayerNet.SetNewMovementPack(startFriendly.position, startFriendly.rotation, Vector3.zero);
         enemyPlayerNet.SetNewMovementPack(startEnemy.position, startEnemy.rotation, Vector3.zero);
@@ -125,6 +130,7 @@ public class CommunicationNet : MonoBehaviour {
         // 1 = ID
         send[1] = aktMinionID;
         aktMinionID = aktMinionID == byte.MaxValue ? byte.MinValue : (byte)(aktMinionID + 1);
+        Send(send);
     }
 
     /// <summary>
@@ -327,6 +333,7 @@ public class CommunicationNet : MonoBehaviour {
                             break;
                         case (byte)GameMessageType.SESSION_INITIALITZE:
                             RecieveSessionInitialize(data);
+                            connectionStatusText.text = "Connected to other player";
                             break;
                         case (byte)GameMessageType.MINION_INITIALITZE:
                             if (isLeft) {
@@ -347,8 +354,10 @@ public class CommunicationNet : MonoBehaviour {
                         case NetConnectionStatus.Connected:
                             connection = message.SenderConnection;
                             NetConnection net = client.Connections[0];
+                            connectionStatusText.text = "Connected to the server";
                             break;
                         default:
+                            connectionStatusText.text = message.SenderConnection.Status.ToString();
                             break;
                     }
 
