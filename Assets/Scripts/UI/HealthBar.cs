@@ -32,17 +32,14 @@ public class HealthBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(target == null) {
+        if (target == null)
+        {
             Destroy(gameObject);
         } else {
-            //var bounds = target.GetComponent<CapsuleCollider>().bounds;
-            //var onlyY = new Vector3(bounds.extents.x, 0, bounds.extents.z);
-
             screenPos = camera.WorldToScreenPoint(target.transform.position);
-
             transform.position = screenPos + offset;
 
             fullHp.fillAmount = (hitPoints.AktHp / maxHp);
         }
-	}
+    }
 }

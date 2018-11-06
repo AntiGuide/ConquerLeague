@@ -58,9 +58,9 @@ public class MinionMovement : MonoBehaviour {
         goalManager = GameObject.Find("Goalmanager").GetComponent<GoalManager>();
 
         if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-            wayPointTarget = GameObject.Find("Waypoint_F" + Random.Range(0, 3));
+            wayPointTarget = GameObject.Find("Waypoint_F" + Random.Range(0, 2));
         } else {
-            wayPointTarget = GameObject.Find("Waypoint_E" + Random.Range(0, 3));
+            wayPointTarget = GameObject.Find("Waypoint_E" + Random.Range(0, 2));
         }
 
         movementOrder = wayPointTarget.GetComponentsInChildren<Transform>();
