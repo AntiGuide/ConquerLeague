@@ -57,11 +57,25 @@ public class CommunicationNet : MonoBehaviour {
 
     private byte aktMinionID = 0;
 
+    private GameObject[] minions = new GameObject[byte.MaxValue];
+
+    private NetIncomingMessage message;
+
+    private NetOutgoingMessage outMessage;
+
     /// <summary> The different message types that can arrive </summary>
     private enum GameMessageType : byte {
         PLAYER_MOVEMENT = 0,
         SESSION_INITIALITZE = 1, // Don't change (has to be the same between client and server)
-        MINION_INITIALITZE = 2
+        MINION_INITIALITZE = 2,
+        MINION_MOVE = 3,
+        MINION_DEINITIALIZE = 4
+    }
+
+    public byte RequestMinionID() {
+        var ret = aktMinionID;
+        aktMinionID = aktMinionID == byte.MaxValue ? byte.MinValue : (byte)(aktMinionID + 1);
+        return ret;
     }
 
     /// <summary>
@@ -83,6 +97,23 @@ public class CommunicationNet : MonoBehaviour {
         var hp = input[41];
 
         enemyPlayerNet.SetNewMovementPack(position, quaternion, velocity, hp);
+    }
+
+    public void RecieveMinionMovement(byte[] input) {
+        // 0 = GameMessageType
+        // 2 - 13 = position
+        var position = ByteArrayToVector3(input, 2);
+
+        // 14 - 29 = rotation
+        var quaternion = ByteArrayToQuaternion(input, 14);
+
+        // 30 - 41
+        var velocity = ByteArrayToVector3(input, 30);
+
+        // 42 = hp
+        var hp = input[42];
+
+        minions[input[1]].GetComponent<MinionNet>().SetNewMovementPack(position, quaternion, velocity, hp);
     }
 
     /// <summary>
@@ -123,14 +154,32 @@ public class CommunicationNet : MonoBehaviour {
         Send(MergeArrays(send));
     }
 
-    public void SendMinionInitialization() {
+    public void SendMinionMovement(Transform transform, Rigidbody rigidbody, byte id, byte hp = 1) {
+        var send = new byte[5][];
+        send[0] = new byte[] { (byte)GameMessageType.MINION_MOVE, id };
+        send[1] = ToByteArray(transform.position);
+        send[2] = ToByteArray(transform.rotation);
+        send[3] = ToByteArray(rigidbody.velocity);
+        send[4] = new byte[] { hp };
+        Send(MergeArrays(send));
+    }
+
+    public void SendMinionInitialization(byte id) {
         var send = new byte[2];
         // 0 = GameMessageType
         send[0] = (byte)GameMessageType.MINION_INITIALITZE;
         // 1 = ID
-        send[1] = aktMinionID;
-        aktMinionID = aktMinionID == byte.MaxValue ? byte.MinValue : (byte)(aktMinionID + 1);
-        Send(send);
+        send[1] = id;
+        Send(send, NetDeliveryMethod.ReliableOrdered);
+    }
+
+    public void SendMinionDeinitialization(byte id) {
+        var send = new byte[2];
+        // 0 = GameMessageType
+        send[0] = (byte)GameMessageType.MINION_DEINITIALIZE;
+        // 1 = ID
+        send[1] = id;
+        Send(send, NetDeliveryMethod.ReliableOrdered);
     }
 
     /// <summary>
@@ -254,6 +303,7 @@ public class CommunicationNet : MonoBehaviour {
     void Update() {
         StartCoroutine(SendFromQueue());
         StartCoroutine(ReadMessages(client));
+        //connectionStatusText.text = client.Statistics.ToString();
     }
 
     /// <summary>
@@ -261,7 +311,7 @@ public class CommunicationNet : MonoBehaviour {
     /// </summary>
     /// <param name="data">The byte array to send</param>
     /// <param name="netDeliveryMethod">The wanted delivery method</param>
-    void Send(byte[] data, NetDeliveryMethod netDeliveryMethod = NetDeliveryMethod.ReliableSequenced) {
+    void Send(byte[] data, NetDeliveryMethod netDeliveryMethod = NetDeliveryMethod.UnreliableSequenced) {
         sendQueue.Add(data);
         sendMethodQueue.Add(netDeliveryMethod);
     }
@@ -272,10 +322,10 @@ public class CommunicationNet : MonoBehaviour {
     /// <returns>IEnumerator for coroutine</returns>
     IEnumerator SendFromQueue() {
         while (sendQueue.Count > 0) {
-            var msg = client.CreateMessage();
-            msg.Write(sendQueue[0].Length);
-            msg.Write(sendQueue[0]);
-            var ret = client.SendMessage(msg, connection, sendMethodQueue[0]);
+            outMessage = client.CreateMessage();
+            outMessage.Write(sendQueue[0].Length);
+            outMessage.Write(sendQueue[0]);
+            var ret = client.SendMessage(outMessage, connection, sendMethodQueue[0]);
             while (ret == NetSendResult.Queued) {
                 yield return new WaitForSeconds(0.01f);
             }
@@ -284,6 +334,8 @@ public class CommunicationNet : MonoBehaviour {
             sendMethodQueue.RemoveAt(0);
             yield return null;
         }
+
+        yield return null;
     }
 
     /// <summary>
@@ -313,7 +365,6 @@ public class CommunicationNet : MonoBehaviour {
     /// <param name="client">The socket to read on</param>
     /// <returns>IEnumerator for coroutine</returns>
     IEnumerator ReadMessages(NetClient client) {
-        NetIncomingMessage message;
         while ((message = client.ReadMessage()) != null) {
             switch (message.MessageType) {
                 case NetIncomingMessageType.Data:
@@ -337,11 +388,18 @@ public class CommunicationNet : MonoBehaviour {
                             break;
                         case (byte)GameMessageType.MINION_INITIALITZE:
                             if (isLeft) {
-                                rightBase.RecieveMinionInitialize(data);
+                                minions[data[1]] = rightBase.RecieveMinionInitialize(data);
                             } else {
-                                leftBase.RecieveMinionInitialize(data);
+                                minions[data[1]] = leftBase.RecieveMinionInitialize(data);
                             }
                             
+                            break;
+                        case (byte)GameMessageType.MINION_DEINITIALIZE:
+                            Destroy(minions[data[1]]);
+                            minions[data[1]] = null;
+                            break;
+                        case (byte)GameMessageType.MINION_MOVE:
+                            RecieveMinionMovement(data);
                             break;
                         default:
                             Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");
@@ -357,16 +415,18 @@ public class CommunicationNet : MonoBehaviour {
                             connectionStatusText.text = "Connected to the server";
                             break;
                         default:
+                            Debug.Log("Unhandled status change with type: " + message.SenderConnection.Status.ToString());
                             connectionStatusText.text = message.SenderConnection.Status.ToString();
                             break;
                     }
 
                     break;
                 default:
-                    Console.WriteLine("unhandled message with type: " + message.MessageType);
+                    //Debug.Log("Unhandled message with type: " + message.MessageType);
                     break;
             }
 
+            client.Recycle(message);
             yield return null;
         }
     }

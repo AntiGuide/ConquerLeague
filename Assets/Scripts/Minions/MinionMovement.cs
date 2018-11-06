@@ -71,6 +71,10 @@ public class MinionMovement : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
+        if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
+            return;
+        }
+
         progress += (Time.deltaTime * speed) / distanceBetweenPoints;
         transform.position = Vector3.Lerp(startPosition, movementOrder[currTarget].position, progress);
 
@@ -86,6 +90,7 @@ public class MinionMovement : MonoBehaviour {
                 } else {
                     goalManager.EnemyGoals +=1;
                 }
+                GetComponent<MinionNet>().DeInitNet();
                 Destroy(gameObject);
                 return;
             }

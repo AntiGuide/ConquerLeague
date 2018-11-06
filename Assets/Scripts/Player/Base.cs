@@ -101,15 +101,16 @@ public class Base : MonoBehaviour {
         }
     }
 
-    private GameObject SpawnMinion(GameObject minionPrefab, Vector3 spawnPosition, Quaternion spawnRotation) {
+    private GameObject SpawnMinion(GameObject minionPrefab, Vector3 spawnPosition, Quaternion spawnRotation, byte? id = null) {
         var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
         spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+        spawnedMinion.GetComponent<MinionNet>().Id = id;
         return spawnedMinion;
     }
 
-    public void RecieveMinionInitialize(byte[] input) {
+    public GameObject RecieveMinionInitialize(byte[] input) {
         // 0 = GameMessageType
         // 1 = ID
-        minions[input[1]] = SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
+        return SpawnMinion(minion, spawnPoint.position, minion.transform.rotation, input[1]);
     }
 }
