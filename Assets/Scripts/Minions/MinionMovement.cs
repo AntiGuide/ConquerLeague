@@ -55,9 +55,9 @@ public class MinionMovement : MonoBehaviour {
         teamHandler = gameObject.GetComponent<TeamHandler>();
         goalManager = GameObject.Find("Goalmanager").GetComponent<GoalManager>();
         if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-            wayPointTarget = GameObject.Find("Waypoint_F" + Random.Range(0, 2));
+            movementOrder = GameObject.Find("Waypoint_F" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
         } else {
-            wayPointTarget = GameObject.Find("Waypoint_E" + Random.Range(0, 2));
+            movementOrder = GameObject.Find("Waypoint_E" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
         }
 
         startPosition = transform.position;
@@ -112,8 +112,7 @@ public class MinionMovement : MonoBehaviour {
 
     public void OnInitialize(Transform parent) {
         var aktHpBar = Instantiate(hpBar, parent);
-        aktHpBar.transform.SetAsFirstSibling();
         aktHpBar.GetComponent<HealthBar>().target = gameObject;
-        aktHpBar.GetComponent<HealthBar>().hitPoints = GetComponent<HitPoints>();
+        //aktHpBar.GetComponent<HealthBar>().hitPoints = GetComponent<HitPoints>();
     }
 }

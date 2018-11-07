@@ -38,7 +38,7 @@ public class CommunicationNet : MonoBehaviour {
     [SerializeField] private int portNumber;
 
     /// <summary> The text the game displays the connection status to</summary>
-    [SerializeField] private Text connectionStatusText;
+    //[SerializeField] private Text connectionStatusText;
 
     [SerializeField] private GoalManager goalManager;
 
@@ -99,7 +99,7 @@ public class CommunicationNet : MonoBehaviour {
         // 41 = hp
         var hp = input[41];
 
-        enemyPlayerNet.SetNewMovementPack(position, quaternion, velocity, hp);
+        enemyPlayerNet?.SetNewMovementPack(position, quaternion, velocity, hp);
     }
 
     public void RecieveMinionMovement(byte[] input) {
@@ -138,10 +138,10 @@ public class CommunicationNet : MonoBehaviour {
         rightBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
 
         // Set aside
-        enemyPlayerNet.SetNewMovementPack(startEnemy.position * 5, startEnemy.rotation, Vector3.zero);
+        enemyPlayerNet?.SetNewMovementPack(startEnemy.position * 5, startEnemy.rotation, Vector3.zero);
 
-        friendlyPlayerNet.SetNewMovementPack(startFriendly.position, startFriendly.rotation, Vector3.zero);
-        enemyPlayerNet.SetNewMovementPack(startEnemy.position, startEnemy.rotation, Vector3.zero);
+        friendlyPlayerNet?.SetNewMovementPack(startFriendly.position, startFriendly.rotation, Vector3.zero);
+        enemyPlayerNet?.SetNewMovementPack(startEnemy.position, startEnemy.rotation, Vector3.zero);
     }
 
     /// <summary>
@@ -390,7 +390,7 @@ public class CommunicationNet : MonoBehaviour {
                             break;
                         case (byte)GameMessageType.SESSION_INITIALITZE:
                             RecieveSessionInitialize(data);
-                            connectionStatusText.text = "Connected to other player";
+                            //connectionStatusText.text = "Connected to other player";
                             break;
                         case (byte)GameMessageType.MINION_INITIALITZE:
                             if (isLeft) {
@@ -421,14 +421,14 @@ public class CommunicationNet : MonoBehaviour {
                         case NetConnectionStatus.Connected:
                             connection = message.SenderConnection;
                             NetConnection net = client.Connections[0];
-                            connectionStatusText.text = "Connected to the server";
+                            //connectionStatusText.text = "Connected to the server";
                             break;
                         case NetConnectionStatus.Disconnected:
                             //GameManager.Paused = true;
                             break;
                         default:
                             Debug.Log("Unhandled status change with type: " + message.SenderConnection.Status.ToString());
-                            connectionStatusText.text = message.SenderConnection.Status.ToString();
+                            //connectionStatusText.text = message.SenderConnection.Status.ToString();
                             break;
                     }
 
