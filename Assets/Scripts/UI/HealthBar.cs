@@ -5,13 +5,10 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour {
     [SerializeField]
-    private Vector3 offset;
+    private Vector2 offset;
 
     [HideInInspector]
     public HitPoints hitPoints;
-
-    [SerializeField]
-    private Camera camera;
 
     [SerializeField]
     public GameObject target;
@@ -19,27 +16,29 @@ public class HealthBar : MonoBehaviour {
     [SerializeField]
     private Image fullHp;
 
-    private Vector3 screenPos;
+    private Vector2 screenPos;
 
     private float maxHp;
 
-	// Use this for initialization
-	void Start () {
-        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+    // Use this for initialization
+    void Start() {
         hitPoints = target.GetComponent<HitPoints>();
         maxHp = hitPoints.AktHp;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (target == null)
-        {
-            Destroy(gameObject);
-        } else {
-            screenPos = camera.WorldToScreenPoint(target.transform.position);
-            transform.position = screenPos + offset;
+    }
 
-            fullHp.fillAmount = (hitPoints.AktHp / maxHp);
+    // Update is called once per frame
+    void FixedUpdate() {
+        if (target == null) {
+            Destroy(gameObject);
+            return;
         }
+
+        screenPos = (Vector2)Camera.main.WorldToScreenPoint(target.transform.position);
+        //transform.position = camera.WorldToScreenPoint(target.transform.position);
+        transform.position = screenPos + offset;
+    }
+
+    void Update() {
+        fullHp.fillAmount = (hitPoints.AktHp / maxHp);
     }
 }

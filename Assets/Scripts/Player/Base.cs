@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
@@ -38,6 +39,14 @@ public class Base : MonoBehaviour {
     /// <summary>Counts to 2, spawns minions if reached</summary>
     private float spawnTimer;
 
+    private GameObject[] minions = new GameObject[byte.MaxValue];
+
+    /// <summary>References the Bases attached Teamhandler</summary>
+    public TeamHandler TeamHandler {
+        get { return teamHandler; }
+        set { teamHandler = value; }
+    }
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
@@ -51,7 +60,11 @@ public class Base : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        spawnTimer += Time.deltaTime;
+        if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Minion")) {
+            SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
+        }
+
+        //spawnTimer += Time.deltaTime;
 
         // Let minions spawn every 10 seconds on enemy base, used for testing purposes
         if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
@@ -93,5 +106,18 @@ public class Base : MonoBehaviour {
         if (other.tag == "Player") {
             renderer.material.color = startColor;
         }
+    }
+
+    private GameObject SpawnMinion(GameObject minionPrefab, Vector3 spawnPosition, Quaternion spawnRotation, byte? id = null) {
+        var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
+        spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+        spawnedMinion.GetComponent<MinionNet>().Id = id;
+        return spawnedMinion;
+    }
+
+    public GameObject RecieveMinionInitialize(byte[] input) {
+        // 0 = GameMessageType
+        // 1 = ID
+        return SpawnMinion(minion, spawnPoint.position, minion.transform.rotation, input[1]);
     }
 }

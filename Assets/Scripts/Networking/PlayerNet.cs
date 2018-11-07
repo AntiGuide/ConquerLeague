@@ -40,7 +40,13 @@ public class PlayerNet : MonoBehaviour {
     /// </summary>
     void Update() {
         if (!isEnemy) {
-            CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer);
+            try {
+                CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer);
+            } catch (Exception) {
+                Debug.Log("CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer); produced an error!");
+                throw;
+            }
+            
         }
     }
 }

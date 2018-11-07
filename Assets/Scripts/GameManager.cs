@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
-    private bool paused = false;
+    public static bool Paused { get; set; }
 
-    public bool Paused { get { return paused; } set { paused=value; } }
+    public static TeamHandler.TeamState? LeftTeam;
+
+    public static TeamHandler.TeamState? RightTeam;
 
     // Use this for initialization
     void Start() {
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (paused) {
+        if (Paused) {
             Time.timeScale = 0;
         }
     }

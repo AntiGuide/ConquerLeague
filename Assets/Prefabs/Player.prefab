@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 65340512551445886}
   - component: {fileID: 114816480462887092}
   - component: {fileID: 114421183319604472}
+  - component: {fileID: 114755011825877848}
   - component: {fileID: 136621285828070770}
   m_Layer: 0
   m_Name: Player
@@ -1672,6 +1673,17 @@ MonoBehaviour:
   saveHp: 100
   teamHandler: {fileID: 114816480462887092}
   moneyValue: 000000000000
+--- !u!114 &114755011825877848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1936182393684680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747cc33ba69e884439fc97df2d285656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114816480462887092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1716,6 +1728,7 @@ MonoBehaviour:
   vehicleAim: {fileID: 114361342179302712}
   teamHandler: {fileID: 114816480462887092}
   shotVFX: {fileID: 1802806307852598, guid: 94f9632e373c20041aa12f20c90d8320, type: 2}
+  VFXSystems: []
 --- !u!135 &135456983157548690
 SphereCollider:
   m_ObjectHideFlags: 1
