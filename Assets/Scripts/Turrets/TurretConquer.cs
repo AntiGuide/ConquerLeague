@@ -45,7 +45,7 @@ public class TurretConquer : MonoBehaviour {
             }
         }
 
-        if (other.gameObject.tag == "Player" && CrossPlatformInputManager.GetButtonDown("Action")) {
+        if (other.gameObject.tag == "Player" && CrossPlatformInputManager.GetButtonDown("Action") && other.gameObject.GetComponent<TeamHandler>().TeamID != TeamHandler.TeamState.ENEMY) {
             BuildTurret(other.gameObject.GetComponent<VehicleController>().TeamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
         }
     }

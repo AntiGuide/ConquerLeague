@@ -50,17 +50,12 @@ public class MinionMovement : MonoBehaviour {
     /// </summary>
     void Start() {
         teamHandler = gameObject.GetComponent<TeamHandler>();
-        GameObject wayPointTarget;
-
         goalManager = GameObject.Find("Goalmanager").GetComponent<GoalManager>();
-
         if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-            wayPointTarget = GameObject.Find("Waypoint_F" + Random.Range(0, 3));
+            movementOrder = GameObject.Find("Waypoint_F" + Random.Range(0, 3)).GetComponentsInChildren<Transform>();
         } else {
-            wayPointTarget = GameObject.Find("Waypoint_E" + Random.Range(0, 3));
+            movementOrder = GameObject.Find("Waypoint_E" + Random.Range(0, 3)).GetComponentsInChildren<Transform>();
         }
-
-        movementOrder = wayPointTarget.GetComponentsInChildren<Transform>();
 
         startPosition = transform.position;
         distanceBetweenPoints = Vector3.Distance(startPosition, movementOrder[currTarget].position);
@@ -85,11 +80,7 @@ public class MinionMovement : MonoBehaviour {
             currTarget++;
 
             if (movementOrder.Length == currTarget) {
-                if(teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-                    goalManager.MyGoals += 1;
-                } else {
-                    goalManager.EnemyGoals +=1;
-                }
+                goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                 GetComponent<MinionNet>().DeInitNet();
                 Destroy(gameObject);
                 return;

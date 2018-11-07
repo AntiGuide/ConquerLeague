@@ -40,6 +40,8 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> The text the game displays the connection status to</summary>
     [SerializeField] private Text connectionStatusText;
 
+    [SerializeField] private GoalManager goalManager;
+
     /// <summary> The config to connect to the server </summary>
     private NetClient client;
 
@@ -69,7 +71,8 @@ public class CommunicationNet : MonoBehaviour {
         SESSION_INITIALITZE = 1, // Don't change (has to be the same between client and server)
         MINION_INITIALITZE = 2,
         MINION_MOVE = 3,
-        MINION_DEINITIALIZE = 4
+        MINION_DEINITIALIZE = 4,
+        NEW_SCORE = 5
     }
 
     public byte RequestMinionID() {
@@ -401,6 +404,9 @@ public class CommunicationNet : MonoBehaviour {
                         case (byte)GameMessageType.MINION_MOVE:
                             RecieveMinionMovement(data);
                             break;
+                        case (byte)GameMessageType.NEW_SCORE:
+                            RecieveNewScore(data);
+                            break;
                         default:
                             Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");
                             break;
@@ -432,5 +438,18 @@ public class CommunicationNet : MonoBehaviour {
             client.Recycle(message);
             yield return null;
         }
+    }
+
+    public void SendNewScore(uint leftSide, uint rightSide) {
+        var send = new byte[3][];
+        send[0] = new byte[] { (byte)GameMessageType.NEW_SCORE };
+        send[1] = BitConverter.GetBytes(leftSide);
+        send[2] = BitConverter.GetBytes(rightSide);
+        Send(MergeArrays(send),NetDeliveryMethod.ReliableOrdered);
+    }
+
+    public void RecieveNewScore(byte[] input) {
+        goalManager.LeftGoals = BitConverter.ToUInt32(input, 1);
+        goalManager.RightGoals = BitConverter.ToUInt32(input, 1 + sizeof(uint));
     }
 }
