@@ -50,10 +50,11 @@ public class GoalManager : MonoBehaviour {
         } else {
             RightGoals += toAdd;
         }
+
+        goalNet.UpdateScore(LeftGoals, RightGoals);
     }
 
     private void OutputGoals() {
-        goalNet.UpdateScore(LeftGoals, RightGoals);
         goalText.text = LeftGoals + " | " + RightGoals;
     }
 }

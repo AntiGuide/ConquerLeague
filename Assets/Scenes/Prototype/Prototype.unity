@@ -621,7 +621,7 @@ MonoBehaviour:
   ipAddress: 192.168.0.104
   portNumber: 47410
   connectionStatusText: {fileID: 1549827571}
-  goalManager: {fileID: 0}
+  goalManager: {fileID: 373562325}
 --- !u!114 &81583053
 MonoBehaviour:
   m_ObjectHideFlags: 0

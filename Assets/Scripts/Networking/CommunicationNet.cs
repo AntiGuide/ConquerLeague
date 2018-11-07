@@ -137,6 +137,9 @@ public class CommunicationNet : MonoBehaviour {
         leftBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.FRIENDLY : TeamHandler.TeamState.ENEMY;
         rightBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
 
+        // Set aside
+        enemyPlayerNet.SetNewMovementPack(startEnemy.position * 5, startEnemy.rotation, Vector3.zero);
+
         friendlyPlayerNet.SetNewMovementPack(startFriendly.position, startFriendly.rotation, Vector3.zero);
         enemyPlayerNet.SetNewMovementPack(startEnemy.position, startEnemy.rotation, Vector3.zero);
     }

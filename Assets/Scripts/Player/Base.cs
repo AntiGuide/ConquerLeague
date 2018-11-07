@@ -83,11 +83,9 @@ public class Base : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerStay(Collider other) {
-        if (other.tag == "Player") {
-            if (CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
-                SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
-                moneyManagement.SubMoney(minionCost);
-            }
+        if (other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
+            SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
+            moneyManagement.SubMoney(minionCost);
         }
     }
 
