@@ -414,6 +414,9 @@ public class CommunicationNet : MonoBehaviour {
                             NetConnection net = client.Connections[0];
                             connectionStatusText.text = "Connected to the server";
                             break;
+                        case NetConnectionStatus.Disconnected:
+                            //GameManager.Paused = true;
+                            break;
                         default:
                             Debug.Log("Unhandled status change with type: " + message.SenderConnection.Status.ToString());
                             connectionStatusText.text = message.SenderConnection.Status.ToString();

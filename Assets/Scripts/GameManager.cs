@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    public bool Paused { get; set; }
+    public static bool Paused { get; set; }
 
     public static TeamHandler.TeamState? LeftTeam;
 

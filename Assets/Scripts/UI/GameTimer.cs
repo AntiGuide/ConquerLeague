@@ -14,8 +14,8 @@ public class GameTimer : MonoBehaviour {
     private float playTime = 180;
 
     /// <summary>References the GameManager</summary>
-    [SerializeField]
-    private GameManager gameManager;
+    //[SerializeField]
+    //private GameManager gameManager;
 
     /// <summary>Playtime in minutes </summary>
     private int minutes;
@@ -41,7 +41,7 @@ public class GameTimer : MonoBehaviour {
         gameTimeText.text = actTime;
 
         if(playTime <= 0) {
-            gameManager.Paused = true;
+            GameManager.Paused = true;
         }
 	}
 }   
