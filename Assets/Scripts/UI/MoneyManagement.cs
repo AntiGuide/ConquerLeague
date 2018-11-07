@@ -92,7 +92,7 @@ public class MoneyManagement : MonoBehaviour {
     private void Start() {
         //var initValue = PlayerPrefs.GetInt("money", 80000);
         //initValue = initValue <= 0?80000:initValue;
-        var initValue = 40;
+        var initValue = 600;
         SetMoney(initValue);
     }
 

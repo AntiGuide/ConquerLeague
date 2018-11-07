@@ -24,6 +24,9 @@ public class Base : MonoBehaviour {
     [SerializeField]
     private MoneyManagement moneyManagement;
 
+    [SerializeField]
+    private Transform canvasTrans;
+
     /// <summary>The bases attached renderer</summary>
     private Renderer renderer;
 
@@ -64,12 +67,14 @@ public class Base : MonoBehaviour {
         //spawnTimer += Time.deltaTime;
 
         // Let minions spawn every 10 seconds on enemy base, used for testing purposes
-        //if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
-        //    if (spawnTimer >= 10) {
-        //        SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
-        //        spawnTimer -= 10;
-        //    }
-        //}
+        if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
+            if (spawnTimer >= 10) {
+                var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
+                spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
+                spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+                spawnTimer -= 10;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -83,9 +88,13 @@ public class Base : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerStay(Collider other) {
-        if (other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
-            SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
-            moneyManagement.SubMoney(minionCost);
+        if (other.tag == "Player") {
+            if (CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
+                var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
+                spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
+                spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+                moneyManagement.SubMoney(minionCost);
+            }
         }
     }
 
