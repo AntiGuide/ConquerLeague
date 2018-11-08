@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class SceneLoader : MonoBehaviour {
 
@@ -25,7 +26,7 @@ public class SceneLoader : MonoBehaviour {
             loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
         }
 
-        if (Input.touchCount >= 1 || Input.GetMouseButtonDown(0)) {
+        if (Input.touchCount >= 1 || Input.GetMouseButtonDown(0) || CrossPlatformInputManager.GetButtonDown("Fire")) {
             allowSceneActivationInCoroutine = true;
         }
 

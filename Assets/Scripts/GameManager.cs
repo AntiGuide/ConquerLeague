@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour {
         disableInputFakeStatic = disableInput;
         countdownTextFakeStatic = countdownText;
         Paused = true;
+        LeftTeam = TeamHandler.TeamState.FRIENDLY;
+        RightTeam = TeamHandler.TeamState.ENEMY;
     }
 
     // Update is called once per frame
