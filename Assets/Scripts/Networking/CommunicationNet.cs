@@ -390,6 +390,7 @@ public class CommunicationNet : MonoBehaviour {
                             break;
                         case (byte)GameMessageType.SESSION_INITIALITZE:
                             RecieveSessionInitialize(data);
+                            GameManager.Paused = false;
                             //connectionStatusText.text = "Connected to other player";
                             break;
                         case (byte)GameMessageType.MINION_INITIALITZE:
