@@ -307,8 +307,10 @@ public class CommunicationNet : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        StartCoroutine(SendFromQueue());
-        StartCoroutine(ReadMessages(client));
+        //StartCoroutine(SendFromQueue());
+        //StartCoroutine(ReadMessages(client));
+        SendFromQueue();
+        ReadMessages(client);
         //connectionStatusText.text = client.Statistics.ToString();
     }
 
@@ -326,22 +328,22 @@ public class CommunicationNet : MonoBehaviour {
     /// Send byte arrays from the queue
     /// </summary>
     /// <returns>IEnumerator for coroutine</returns>
-    IEnumerator SendFromQueue() {
+    void SendFromQueue() {
         while (sendQueue.Count > 0) {
             outMessage = client.CreateMessage();
             outMessage.Write(sendQueue[0].Length);
             outMessage.Write(sendQueue[0]);
             var ret = client.SendMessage(outMessage, connection, sendMethodQueue[0]);
-            while (ret == NetSendResult.Queued) {
-                yield return new WaitForSeconds(0.01f);
-            }
+            //while (ret == NetSendResult.Queued) {
+            //    //yield return new WaitForSeconds(0.01f);
+            //}
 
             sendQueue.RemoveAt(0);
             sendMethodQueue.RemoveAt(0);
-            yield return null;
+            //yield return null;
         }
 
-        yield return null;
+        //yield return null;
     }
 
     /// <summary>
@@ -370,7 +372,7 @@ public class CommunicationNet : MonoBehaviour {
     /// </summary>
     /// <param name="client">The socket to read on</param>
     /// <returns>IEnumerator for coroutine</returns>
-    IEnumerator ReadMessages(NetClient client) {
+    void ReadMessages(NetClient client) {
         while ((message = client.ReadMessage()) != null) {
             switch (message.MessageType) {
                 case NetIncomingMessageType.Data:
@@ -390,7 +392,7 @@ public class CommunicationNet : MonoBehaviour {
                             break;
                         case (byte)GameMessageType.SESSION_INITIALITZE:
                             RecieveSessionInitialize(data);
-                            GameManager.Paused = false;
+                            StartCoroutine(GameManager.StartGame());
                             //connectionStatusText.text = "Connected to other player";
                             break;
                         case (byte)GameMessageType.MINION_INITIALITZE:
@@ -424,9 +426,9 @@ public class CommunicationNet : MonoBehaviour {
                             NetConnection net = client.Connections[0];
                             //connectionStatusText.text = "Connected to the server";
                             break;
-                        case NetConnectionStatus.Disconnected:
-                            //GameManager.Paused = true;
-                            break;
+                        //case NetConnectionStatus.Disconnected:
+                        //    //GameManager.Paused = true;
+                        //    break;
                         default:
                             Debug.Log("Unhandled status change with type: " + message.SenderConnection.Status.ToString());
                             //connectionStatusText.text = message.SenderConnection.Status.ToString();
@@ -440,7 +442,7 @@ public class CommunicationNet : MonoBehaviour {
             }
 
             client.Recycle(message);
-            yield return null;
+            //yield return null;
         }
     }
 
