@@ -111,10 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f225396573b69084cbdec7f145313e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: -2, y: 50, z: 0}
+  offset: {x: -2, y: 35, z: 0}
   hitPoints: {fileID: 0}
   camera: {fileID: 0}
-  targetTransform: {fileID: 0}
+  target: {fileID: 0}
   fullHp: {fileID: 114213214297088736}
 --- !u!222 &222298427931249632
 CanvasRenderer:

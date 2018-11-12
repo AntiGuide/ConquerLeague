@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 114533662122222816}
   - component: {fileID: 114953190413386632}
   - component: {fileID: 114769131902855430}
+  - component: {fileID: 114189758200432176}
   - component: {fileID: 54674233383088054}
   - component: {fileID: 136608390953567898}
   m_Layer: 9
@@ -1260,8 +1261,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1223543560484158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.9777365, y: 0.993, z: -3.5309813}
-  m_LocalScale: {x: 0.4517159, y: 0.4517159, z: 0.4517159}
+  m_LocalPosition: {x: -23.749208, y: 1, z: 0.96402407}
+  m_LocalScale: {x: 0.1434026, y: 0.1434026, z: 0.1434026}
   m_Children:
   - {fileID: 4823109197255566}
   m_Father: {fileID: 0}
@@ -1367,7 +1368,7 @@ Transform:
   m_GameObject: {fileID: 1992205082386068}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.010000229, y: -0.13, z: 0.77000046}
-  m_LocalScale: {x: 0.053464208, y: 0.053464178, z: 0.053464208}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4404484319066992}
   - {fileID: 4133054989200462}
@@ -3206,6 +3207,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &114189758200432176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1223543560484158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a54c9891efadfee43bdaaa08e873efab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114533662122222816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3219,7 +3231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBar: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5, type: 2}
   movementOrder: []
-  speed: 1
+  speed: 3
   turnSpeed: 0.5
 --- !u!114 &114769131902855430
 MonoBehaviour:
@@ -3257,7 +3269,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 2.11
+  m_Radius: 3.75
+  m_Height: 42.22
   m_Direction: 2
-  m_Center: {x: 0, y: 0.09, z: 0}
+  m_Center: {x: 0, y: 3.21, z: -13.45}

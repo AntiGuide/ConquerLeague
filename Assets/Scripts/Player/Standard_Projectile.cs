@@ -28,7 +28,7 @@ public class Standard_Projectile : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
             if(other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
-                other.GetComponent<HitPoints>().AktHp -= damage;
+                other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
                 Destroy(gameObject);
             }
             //Destroy(gameObject);
