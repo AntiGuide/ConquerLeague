@@ -25,12 +25,10 @@ public class HitPoints : MonoBehaviour {
     [SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     private short[] moneyValue = new short[3];
 
-    //public int AktHp { get { return aktHp; } set { aktHp=value; } }
-
+    /// <summary>Awakens</summary>
     private void Awake() {
         AktHp = saveHp;
     }
-
 
     /// <summary>
     /// Use this for initialization
@@ -38,7 +36,6 @@ public class HitPoints : MonoBehaviour {
     void Start() {
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
     }
-
 
     /// <summary>
     /// Update is called once per frame

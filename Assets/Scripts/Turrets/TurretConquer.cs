@@ -29,7 +29,7 @@ public class TurretConquer : MonoBehaviour {
     /// </summary>
     void Start() {
         towerRenderer = gameObject.GetComponentsInChildren<MeshRenderer>();
-        for(int i = 0; i < towerRenderer.Length; i++) {
+        for (int i = 0; i < towerRenderer.Length; i++) {
             towerRenderer[i].material.color = Color.gray;
         }
     }
@@ -71,6 +71,7 @@ public class TurretConquer : MonoBehaviour {
         for (int i = 0; i < towerRenderer.Length; i++) {
             towerRenderer[i].material.color = teamColor;
         }
+
         Conquerable = false;
     }
 }

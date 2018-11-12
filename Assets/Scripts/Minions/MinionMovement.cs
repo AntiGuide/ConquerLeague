@@ -6,6 +6,7 @@ using UnityEngine;
 /// Controls the minions curent target and movement
 /// </summary>
 public class MinionMovement : MonoBehaviour {
+    /// <summary>The minions attached hpbar</summary>
     [SerializeField]
     private GameObject hpBar;
 
@@ -47,6 +48,15 @@ public class MinionMovement : MonoBehaviour {
 
     /// <summary>Saves the minions current rotation</summary>
     private Quaternion currRotation;
+
+    /// <summary>
+    /// Instantiates the minions hpbar when it spawns
+    /// </summary>
+    /// <param name="parent"></param>
+    public void OnInitialize(Transform parent) {
+        var aktHpBar = Instantiate(hpBar, parent);
+        aktHpBar.GetComponent<HealthBar>().Target = gameObject;
+    }
 
     /// <summary>
     /// Use this for initialization
@@ -108,11 +118,5 @@ public class MinionMovement : MonoBehaviour {
                 turning = false;
             }
         }
-    }
-
-    public void OnInitialize(Transform parent) {
-        var aktHpBar = Instantiate(hpBar, parent);
-        aktHpBar.GetComponent<HealthBar>().target = gameObject;
-        //aktHpBar.GetComponent<HealthBar>().hitPoints = GetComponent<HitPoints>();
     }
 }
