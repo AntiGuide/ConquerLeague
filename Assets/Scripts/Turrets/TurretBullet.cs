@@ -20,7 +20,7 @@ public class TurretBullet : MonoBehaviour {
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
-            if (other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
+            if (other.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID) {
                 other.GetComponent<HitPoints>().AktHp -= damage;
                 Destroy(gameObject);
             }

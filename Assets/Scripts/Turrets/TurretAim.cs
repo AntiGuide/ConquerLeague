@@ -6,8 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Used to make the turret aim at his prioritized target
 /// </summary>
-public class TurretAim : MonoBehaviour
-{
+public class TurretAim : MonoBehaviour {
     /// <summary>The range to target shootables in</summary>
     [SerializeField, Header("Customizable"), Tooltip("The Range in UnityUnits/meters that the turret is allowed to target")]
     private float targetRange;
@@ -22,6 +21,9 @@ public class TurretAim : MonoBehaviour
     /// <summary>References the teamhandler script attached to this gameobject</summary>
     [SerializeField]
     private TeamHandler teamHandler;
+
+    [SerializeField]
+    private TurretConquer turretConquer;
 
     /// <summary>List of all the GameObjects tagged with a shootable tag in range</summary>
     private List<GameObject> shootablesInRange = new List<GameObject>();
@@ -50,6 +52,10 @@ public class TurretAim : MonoBehaviour
             }
         }
 
+        if (turretConquer.conquerable) {
+            shootablesInRange.Clear();
+        }
+
         if (shootablesInRange.Count > 1) {
             OrderByPriority(ref shootablesInRange);
         }
@@ -73,7 +79,7 @@ public class TurretAim : MonoBehaviour
     /// </summary>
     /// <param name="other">The collider that entered the collider</param>
     private void OnTriggerEnter(Collider other) {
-        if (Array.IndexOf(shootablesTags, other.tag) > -1 && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
+        if (Array.IndexOf(shootablesTags, other.tag) > -1 && teamHandler.TeamID !=other.gameObject.GetComponent<TeamHandler>().TeamID && !turretConquer.conquerable) {
             shootablesInRange.Add(other.gameObject);
         }
     }

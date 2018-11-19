@@ -18,6 +18,10 @@ public class TurretConquer : MonoBehaviour {
     [SerializeField]
     private Renderer[] renderer;
 
+    /// <summary>References the hitpoint script</summary>
+    [SerializeField]
+    private HitPoints hitPoints;
+    
     /// <summary>Determines if the turret is conquerable by the player</summary>
     public bool conquerable = true;
 
@@ -47,7 +51,7 @@ public class TurretConquer : MonoBehaviour {
                 renderer[i].material.color = Color.white;
             }
 
-            if (CrossPlatformInputManager.GetButtonDown("Action") && other.gameObject.GetComponent<TeamHandler>().TeamID != TeamHandler.TeamState.ENEMY) {
+            if (CrossPlatformInputManager.GetButtonDown("Action") && hitPoints.AktHp >= hitPoints.saveHp) {
                 BuildTurret(other.gameObject.GetComponent<VehicleController>().TeamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
             }
         }

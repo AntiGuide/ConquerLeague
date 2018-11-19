@@ -1438,6 +1438,7 @@ MonoBehaviour:
   turret: {fileID: 1122409727820924}
   teamHandler: {fileID: 114549844261573228}
   renderer: []
+  hitPoints: {fileID: 114136716198125448}
   conquerable: 1
 --- !u!114 &114549844261573228
 MonoBehaviour:
@@ -1467,6 +1468,7 @@ MonoBehaviour:
   - Minion
   - Player
   teamHandler: {fileID: 114549844261573228}
+  turretConquer: {fileID: 114309757172692884}
 --- !u!135 &135703632249789626
 SphereCollider:
   m_ObjectHideFlags: 1
