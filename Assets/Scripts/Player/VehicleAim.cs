@@ -46,6 +46,13 @@ public class VehicleAim : MonoBehaviour {
     /// <param name="transforms">Transforms to order</param>
     /// <param name="referenceTransform">Transform for magnitude check</param>
     public static void OrderByMagnitude(ref List<GameObject> gameObjects, Transform referenceTransform) {
+        // Checks if gameobjects in the gameobjects-List are destroyed and removes them
+        for (int i = 0; i < gameObjects.Count; i++) {
+            if (gameObjects[i] == null || gameObjects[i].Equals(null)) {
+                gameObjects.RemoveAt(i);
+            }
+        }
+
         gameObjects.Sort(delegate(GameObject a, GameObject b) {
             return Vector3.SqrMagnitude(referenceTransform.position - a.transform.position).CompareTo(Vector3.SqrMagnitude(referenceTransform.position - b.transform.position));
         });
@@ -59,13 +66,6 @@ public class VehicleAim : MonoBehaviour {
 
     /// <summary>Update is called once  per frame</summary>
     private void Update() {
-        // Checks if gameobjects in the shootablesInRange-List are destroyed and removes them
-        for (int i = 0; i < shootablesInRange.Count; i++) {
-            if (shootablesInRange[i] == null || shootablesInRange[i].Equals(null)) {
-                shootablesInRange.RemoveAt(i);
-            }
-        }
-
         OrderByMagnitude(ref shootablesInRange, gameObject.transform);
         IsInCone(shootablesInRange, ref shootablesInConeAndRange);
         if (shootablesInConeAndRange.Count > 1) {

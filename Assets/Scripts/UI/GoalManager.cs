@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,21 +9,52 @@ public class GoalManager : MonoBehaviour {
     [SerializeField]
     private Text goalText;
 
-    private int myGoals;
+    [SerializeField]
+    private GoalNet goalNet;
 
-    private int enemyGoals;
+    private uint leftGoals;
 
-    public int MyGoals {get { return myGoals;} set { myGoals=value;} }
+    private uint rightGoals;
 
-    public int EnemyGoals { get { return enemyGoals; } set { enemyGoals=value; } }
+    public uint LeftGoals {
+        get {
+            return leftGoals;
+        }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        goalText.text = myGoals + " / " + enemyGoals;
-	}
+        set {
+            leftGoals = value;
+            OutputGoals();
+        }
+    }
+
+    public uint RightGoals {
+        get {
+            return rightGoals;
+        }
+
+        set {
+            rightGoals = value;
+            OutputGoals();
+        }
+    }
+
+    public void AddPoint(TeamHandler.TeamState teamState, uint toAdd = 1) {
+        var leftTeam = GameManager.LeftTeam;
+        if (leftTeam == null) {
+            leftTeam = TeamHandler.TeamState.FRIENDLY;
+            //return;
+        }
+
+        if (leftTeam == teamState) {
+            LeftGoals += toAdd;
+        } else {
+            RightGoals += toAdd;
+        }
+
+        goalNet.UpdateScore(LeftGoals, RightGoals);
+    }
+
+    private void OutputGoals() {
+        goalText.text = LeftGoals + " | " + RightGoals;
+    }
 }

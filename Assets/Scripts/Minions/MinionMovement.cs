@@ -6,6 +6,9 @@ using UnityEngine;
 /// Controls the minions curent target and movement
 /// </summary>
 public class MinionMovement : MonoBehaviour {
+    [SerializeField]
+    private GameObject hpBar;
+
     /// <summary>The minions movement order</summary>
     [SerializeField, Tooltip("The transform-targets, which tells the minions where to go and in which order. Priority from top to bottom.")]
     private Transform[] movementOrder;
@@ -50,17 +53,12 @@ public class MinionMovement : MonoBehaviour {
     /// </summary>
     void Start() {
         teamHandler = gameObject.GetComponent<TeamHandler>();
-        GameObject wayPointTarget;
-
         goalManager = GameObject.Find("Goalmanager").GetComponent<GoalManager>();
-
-        if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-            wayPointTarget = GameObject.Find("Waypoint_F" + Random.Range(0, 3));
+        if (teamHandler.TeamID == GameManager.LeftTeam) {
+            movementOrder = GameObject.Find("Waypoint_F" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
         } else {
-            wayPointTarget = GameObject.Find("Waypoint_E" + Random.Range(0, 3));
+            movementOrder = GameObject.Find("Waypoint_E" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
         }
-
-        movementOrder = wayPointTarget.GetComponentsInChildren<Transform>();
 
         startPosition = transform.position;
         distanceBetweenPoints = Vector3.Distance(startPosition, movementOrder[currTarget].position);
@@ -71,6 +69,10 @@ public class MinionMovement : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
+        if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
+            return;
+        }
+
         progress += (Time.deltaTime * speed) / distanceBetweenPoints;
         transform.position = Vector3.Lerp(startPosition, movementOrder[currTarget].position, progress);
 
@@ -81,11 +83,8 @@ public class MinionMovement : MonoBehaviour {
             currTarget++;
 
             if (movementOrder.Length == currTarget) {
-                if(teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-                    goalManager.MyGoals += 1;
-                } else {
-                    goalManager.EnemyGoals +=1;
-                }
+                goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
+                GetComponent<MinionNet>().DeInitNet();
                 Destroy(gameObject);
                 return;
             }
@@ -109,5 +108,11 @@ public class MinionMovement : MonoBehaviour {
                 turning = false;
             }
         }
+    }
+
+    public void OnInitialize(Transform parent) {
+        var aktHpBar = Instantiate(hpBar, parent);
+        aktHpBar.GetComponent<HealthBar>().target = gameObject;
+        //aktHpBar.GetComponent<HealthBar>().hitPoints = GetComponent<HitPoints>();
     }
 }
