@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,13 +73,19 @@ public class CommunicationNet : MonoBehaviour {
         MINION_INITIALITZE = 2,
         MINION_MOVE = 3,
         MINION_DEINITIALIZE = 4,
-        NEW_SCORE = 5
+        NEW_SCORE = 5,
+        PLAYER_DEATH = 6
     }
 
     public byte RequestMinionID() {
         var ret = aktMinionID;
         aktMinionID = aktMinionID == byte.MaxValue ? byte.MinValue : (byte)(aktMinionID + 1);
         return ret;
+    }
+
+    public void RecievePlayerDeath() {
+        // 0 = GameMessageType
+        enemyPlayerNet?.OnNetDeath();
     }
 
     /// <summary>
@@ -142,7 +148,14 @@ public class CommunicationNet : MonoBehaviour {
         enemyPlayerNet?.SetNewMovementPack(startEnemy.position * 5, startEnemy.rotation, Vector3.zero);
 
         friendlyPlayerNet?.SetNewMovementPack(startFriendly.position, startFriendly.rotation, Vector3.zero);
+        friendlyPlayerNet.StartPoint = startFriendly;
+
         enemyPlayerNet?.SetNewMovementPack(startEnemy.position, startEnemy.rotation, Vector3.zero);
+        enemyPlayerNet.StartPoint = startEnemy;
+    }
+
+    public void SendPlayerDeath() {
+        Send(new byte[] { (byte)GameMessageType.PLAYER_DEATH }, NetDeliveryMethod.ReliableUnordered);
     }
 
     /// <summary>
@@ -405,6 +418,9 @@ public class CommunicationNet : MonoBehaviour {
                             break;
                         case (byte)GameMessageType.NEW_SCORE:
                             RecieveNewScore(data);
+                            break;
+                        case (byte)GameMessageType.PLAYER_DEATH:
+                            RecievePlayerDeath();
                             break;
                         default:
                             Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");

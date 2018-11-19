@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] private Text countdownText;
 
+    /// <summary> The spawn point of the player on the left side </summary>
+    [SerializeField] private Transform startPointLeft;
+
+    /// <summary> The spawn point of the player on the right side </summary>
+    [SerializeField] private Transform startPointRight;
+
     public static bool Paused {
         get {
             return paused;
@@ -18,6 +24,16 @@ public class GameManager : MonoBehaviour {
         set {
             paused = value;
             UpdatePausedSetting();
+        }
+    }
+
+    public static Text CountdownTextFakeStatic {
+        get {
+            return countdownTextFakeStatic;
+        }
+
+        set {
+            countdownTextFakeStatic = value;
         }
     }
 

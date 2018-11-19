@@ -14,6 +14,8 @@ public class PlayerNet : MonoBehaviour {
     /// <summary>The rigidbody of this object</summary>
     private Rigidbody rigidbodyPlayer;
 
+    public Transform StartPoint { get; set; }
+
     /// <summary>
     /// Handles new data from the network component
     /// </summary>
@@ -25,6 +27,59 @@ public class PlayerNet : MonoBehaviour {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
+    }
+
+    public void OnDeath() {
+        if (!isEnemy) {
+            CommunicationNet.FakeStatic.SendPlayerDeath();
+        }
+
+        StartCoroutine(InitRespawn());
+    }
+
+    public void OnNetDeath() {
+        StopCoroutine(InitRespawn());
+        StartCoroutine(InitRespawn());
+    }
+
+    public IEnumerator InitCountdown() {
+        GameManager.CountdownTextFakeStatic.text = "5";
+        yield return new WaitForSeconds(1f);
+        GameManager.CountdownTextFakeStatic.text = "4";
+        yield return new WaitForSeconds(1f);
+        GameManager.CountdownTextFakeStatic.text = "3";
+        yield return new WaitForSeconds(1f);
+        GameManager.CountdownTextFakeStatic.text = "2";
+        yield return new WaitForSeconds(1f);
+        GameManager.CountdownTextFakeStatic.text = "1";
+        yield return new WaitForSeconds(1f);
+        GameManager.CountdownTextFakeStatic.text = "GO!";
+        yield return new WaitForSeconds(1f);
+        GameManager.CountdownTextFakeStatic.text = "";
+        yield return null;
+    }
+
+    public IEnumerator InitRespawn() {
+        transform.position = StartPoint.position;
+        transform.rotation = StartPoint.rotation;
+        transform.GetChild(0).gameObject.SetActive(false);
+        
+        GetComponent<Collider>().enabled = false;
+        if (GetComponent<VehicleController>() != null) {
+            GetComponent<VehicleController>().enabled = false;
+        }
+
+        //gameObject.SetActive(false);
+        if (!isEnemy) {
+            StartCoroutine(InitCountdown());
+        }
+
+        yield return new WaitForSeconds(5f);
+        transform.GetChild(0).gameObject.SetActive(true);
+        GetComponent<Collider>().enabled = true;
+        if (GetComponent<VehicleController>() != null) {
+            GetComponent<VehicleController>().enabled = true;
+        }
     }
 
     /// <summary>

@@ -7,8 +7,7 @@ using UnityEngine;
 /// </summary>
 public class HitPoints : MonoBehaviour {
     /// <summary>The units current hitpoints</summary>
-    [HideInInspector]
-    public float AktHp;
+    private float aktHp;
 
     /// <summary>Saves the units hp so that it can reset it if a tower gets destroyed</summary>
     [SerializeField]
@@ -25,28 +24,30 @@ public class HitPoints : MonoBehaviour {
     [SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     private short[] moneyValue = new short[3];
 
+    public float AktHp {
+        get {
+            return aktHp;
+        }
+
+        set {
+            aktHp = value;
+            if (aktHp < 0) {
+                OnDeath(gameObject.tag);
+            }
+        }
+    }
+
     //public int AktHp { get { return aktHp; } set { aktHp=value; } }
 
     private void Awake() {
         AktHp = saveHp;
     }
 
-
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start() {
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
-    }
-
-
-    /// <summary>
-    /// Update is called once per frame
-    /// </summary>
-    void Update() {
-        if (AktHp < 0) {
-            OnDeath(gameObject.tag);
-        }
     }
 
     /// <summary>
@@ -57,20 +58,20 @@ public class HitPoints : MonoBehaviour {
         switch (tag) {
             case "Minion":
                 moneyManagement.AddMoney(moneyValue[2]);
+                Destroy(gameObject);
                 break;
             case "Turret":
                 moneyManagement.AddMoney(moneyValue[1]);
+                teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
+                AktHp = saveHp;
                 break;
             case "Player":
                 moneyManagement.AddMoney(moneyValue[0]);
+                GetComponent<PlayerNet>().OnDeath();
                 break;
-        }
-
-        if (tag != "Turret") {
-            Destroy(gameObject);
-        } else {
-            teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-            AktHp = saveHp;
+            default:
+                Destroy(gameObject);
+                break;
         }
     }
 }
