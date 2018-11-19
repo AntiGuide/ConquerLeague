@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Lidgren.Network;
 using UnityEngine;
 using UnityEngine.UI;
@@ -255,22 +256,14 @@ public class CommunicationNet : MonoBehaviour {
     /// </summary>
     /// <param name="input">Byte arrays to be merged</param>
     /// <returns>Merged array</returns>
-    private byte[] MergeArrays(byte[][] input) {
-        var output = new byte[GetLength(input)];
-        var x = 0;
-        var y = 0;
-
-        for (var i = 0; i < output.Length; i++) {
-            while (y >= input[x].Length) {
-                x++;
-                y = 0;
-            }
-
-            output[i] = input[x][y];
-            y++;
+    private byte[] MergeArrays(params byte[][] input) {
+        byte[] rv = new byte[input.Sum(a => a.Length)];
+        int offset = 0;
+        foreach (byte[] array in input) {
+            System.Buffer.BlockCopy(array, 0, rv, offset, array.Length);
+            offset += array.Length;
         }
-
-        return output;
+        return rv;
     }
 
     /// <summary>
