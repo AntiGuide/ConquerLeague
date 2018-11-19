@@ -7,16 +7,19 @@ using UnityStandardAssets.CrossPlatformInput;
 /// This class lets players conquer a tower for their team
 /// </summary>
 public class TurretConquer : MonoBehaviour {
+    [SerializeField]
+    private GameObject turret;
+
     /// <summary>References the TeamHandler script</summary>
     [SerializeField]
     private TeamHandler teamHandler;
 
-    /// <summary>The towers top renderer</summary>
+    /// <summary>All of the turrets renderer</summary>
     [SerializeField]
-    private Renderer[] towerRenderer;
+    private Renderer[] renderer;
 
     /// <summary>Determines if the turret is conquerable by the player</summary>
-    private bool conquerable = true;
+    public bool conquerable = true;
 
     /// <summary>Determines if the turret is conquerable by the player</summary>
     public bool Conquerable {
@@ -28,9 +31,9 @@ public class TurretConquer : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
-        towerRenderer = gameObject.GetComponentsInChildren<MeshRenderer>();
-        for (int i = 0; i < towerRenderer.Length; i++) {
-            towerRenderer[i].material.color = Color.gray;
+        renderer = turret.GetComponentsInChildren<MeshRenderer>();
+        for (int i = 1; i < renderer.Length; i++) {
+            renderer[i].material.color = Color.gray;
         }
     }
 
@@ -40,13 +43,13 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="other">The colliding object</param>
     void OnTriggerStay(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player") {
-            for (int i = 0; i < towerRenderer.Length; i++) {
-                towerRenderer[i].material.color = Color.white;
+            for (int i = 1; i < renderer.Length; i++) {
+                renderer[i].material.color = Color.white;
             }
-        }
 
-        if (other.gameObject.tag == "Player" && CrossPlatformInputManager.GetButtonDown("Action") && other.gameObject.GetComponent<TeamHandler>().TeamID != TeamHandler.TeamState.ENEMY) {
-            BuildTurret(other.gameObject.GetComponent<VehicleController>().TeamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
+            if (CrossPlatformInputManager.GetButtonDown("Action") && other.gameObject.GetComponent<TeamHandler>().TeamID != TeamHandler.TeamState.ENEMY) {
+                BuildTurret(other.gameObject.GetComponent<VehicleController>().TeamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
+            }
         }
     }
 
@@ -56,8 +59,8 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="other">The colliding object</param>
     void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Player" && Conquerable) {
-            for (int i = 0; i < towerRenderer.Length; i++) {
-                towerRenderer[i].material.color = Color.gray;
+            for (int i = 1; i < renderer.Length; i++) {
+                renderer[i].material.color = Color.gray;
             }
         }
     }
@@ -68,8 +71,8 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="teamColor"></param>
     void BuildTurret(Color teamColor, TeamHandler.TeamState teamID) {
         teamHandler.TeamID = teamID;
-        for (int i = 0; i < towerRenderer.Length; i++) {
-            towerRenderer[i].material.color = teamColor;
+        for (int i = 1; i < renderer.Length; i++) {
+            renderer[i].material.color = teamColor;
         }
 
         Conquerable = false;

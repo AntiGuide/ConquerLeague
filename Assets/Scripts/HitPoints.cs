@@ -11,8 +11,8 @@ public class HitPoints : MonoBehaviour {
     public float AktHp;
 
     /// <summary>Saves the units hp so that it can reset it if a tower gets destroyed</summary>
-    [SerializeField]
-    private float saveHp;
+    //[SerializeField]
+    public float saveHp;
 
     /// <summary>References the Team Handler script</summary>
     [SerializeField]
@@ -41,7 +41,7 @@ public class HitPoints : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        if (AktHp < 0) {
+        if (AktHp <= 0) {
             OnDeath(gameObject.tag);
         }
     }
@@ -66,8 +66,7 @@ public class HitPoints : MonoBehaviour {
         if (tag != "Turret") {
             Destroy(gameObject);
         } else {
-            teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-            AktHp = saveHp;
+            GetComponentInChildren<TurretController>().respawning = true;
         }
     }
 }

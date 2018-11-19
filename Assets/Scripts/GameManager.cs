@@ -6,13 +6,13 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class GameManager : MonoBehaviour {
     
-    /// <summary></summary>
+    /// <summary>References the disableinput image</summary>
     [SerializeField] private Image disableInput;
 
-    /// <summary></summary>
+    /// <summary>References the Countdown-Text</summary>
     [SerializeField] private Text countdownText;
 
-    /// <summary></summary>
+    /// <summary>Defines if the game is paused</summary>
     public static bool Paused {
         get {
             return paused;
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
         Paused = true;
         LeftTeam = TeamHandler.TeamState.FRIENDLY;
         RightTeam = TeamHandler.TeamState.ENEMY;
+        DisableInput(false);
     }
 
     // Update is called once per frame
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    /// The games startup countdown
     /// </summary>
     /// <returns></returns>
     public static IEnumerator StartGame() {

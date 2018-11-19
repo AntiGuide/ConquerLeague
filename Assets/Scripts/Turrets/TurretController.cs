@@ -6,6 +6,14 @@ using UnityEngine;
 /// Controlls movement and shooting of a turret
 /// </summary>
 public class TurretController : MonoBehaviour {
+    /// <summary>References the turret-gamobject</summary>
+    [SerializeField]
+    private GameObject turret;
+    
+    /// <summary>References the turrets hitpoints script</summary>
+    [SerializeField]
+    private HitPoints hitPoints;
+
     /// <summary>The bullet prefab to spawn</summary>
     [SerializeField]
     private GameObject bulletPrefab;
@@ -34,19 +42,51 @@ public class TurretController : MonoBehaviour {
     [SerializeField]
     private TeamHandler teamHandler;
 
+    /// <summary>Defines how fast the turret will be build</summary>
+    [SerializeField]
+    private float respawnSpeed = 20f;
+
+    /// <summary>All of the turrets renderer</summary>
+    private MeshRenderer[] renderer;
+
     /// <summary>The transform of all GameObjects with a player tag</summary>
     private List<GameObject> players;
 
     /// <summary>The time until the next shot occurs</summary>
     private float aktShootingTime;
 
+    //[HideInInspector]
+    public bool respawning = false;
+
     /// <summary>Use this for initialization</summary>
     void Start() {
         aktShootingTime = shootingTime;
+        renderer = turret.GetComponentsInChildren<MeshRenderer>();
     }
 
     /// <summary>Update is called once per frame</summary>
     void Update() {
+        if (respawning) {
+            print(hitPoints.AktHp);
+            hitPoints.AktHp += Time.deltaTime * respawnSpeed;
+            teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
+            renderer[0].enabled = true;
+
+            for(int i = 1; i < renderer.Length; i++) {
+                renderer[i].enabled = false;
+            }
+
+            if (hitPoints.AktHp > hitPoints.saveHp) {
+                hitPoints.AktHp = hitPoints.saveHp;
+                turretConquer.Conquerable = true;
+                renderer[0].enabled = false;
+                for (int i = 1; i < renderer.Length; i++) {
+                    renderer[i].enabled = true;
+                }
+                respawning = false;
+            }
+        }
+
         // Sort Players by Magnitude
         if (!turretConquer.Conquerable) {
             if (turretAim.AktAimingAt != null) {

@@ -91,7 +91,6 @@ public class MinionMovement : MonoBehaviour {
             turning = true;
         } else if (progress >= 1f) {
             currTarget++;
-
             if (movementOrder.Length == currTarget) {
                 goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                 GetComponent<MinionNet>().DeInitNet();
@@ -104,6 +103,8 @@ public class MinionMovement : MonoBehaviour {
             progress *= distanceBetweenPoints;
             distanceBetweenPoints = Vector3.Distance(startPosition, movementOrder[currTarget].position);
             progress /= distanceBetweenPoints;
+
+
         }
 
         // Make the minion face its next target
@@ -118,5 +119,7 @@ public class MinionMovement : MonoBehaviour {
                 turning = false;
             }
         }
+
+
     }
 }
