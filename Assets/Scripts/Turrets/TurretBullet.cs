@@ -6,7 +6,7 @@ public class TurretBullet : MonoBehaviour {
 
     /// <summary>The damage of the bullet</summary>
     [SerializeField]
-    private int damage = 15;
+    private byte damage = 15;
 
     /// <summary>References the Bullets attached Teamhandler script</summary>
     [SerializeField]

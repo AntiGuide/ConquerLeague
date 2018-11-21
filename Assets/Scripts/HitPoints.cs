@@ -7,11 +7,11 @@ using UnityEngine;
 /// </summary>
 public class HitPoints : MonoBehaviour {
     /// <summary>The units current hitpoints</summary>
-    private float aktHp;
+    private byte aktHp;
 
     /// <summary>Saves the units hp so that it can reset it if a tower gets destroyed</summary>
     [SerializeField]
-    private float saveHp;
+    private byte saveHp;
 
     /// <summary>References the Team Handler script</summary>
     [SerializeField]
@@ -24,7 +24,7 @@ public class HitPoints : MonoBehaviour {
     [SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     private short[] moneyValue = new short[3];
 
-    public float AktHp {
+    public byte AktHp {
         get {
             return aktHp;
         }

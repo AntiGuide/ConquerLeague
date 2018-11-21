@@ -14,6 +14,8 @@ public class PlayerNet : MonoBehaviour {
     /// <summary>The rigidbody of this object</summary>
     private Rigidbody rigidbodyPlayer;
 
+    private HitPoints hitPoints;
+
     public Transform StartPoint { get; set; }
 
     /// <summary>
@@ -23,7 +25,20 @@ public class PlayerNet : MonoBehaviour {
     /// <param name="quaternion">The new rotation of the player</param>
     /// <param name="velocity">The new velocity of the player</param>
     /// <param name="hp">The new hp of the player</param>
-    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp = 1) {
+    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp) {
+        transform.position = position;
+        transform.rotation = quaternion;
+        rigidbodyPlayer.velocity = velocity;
+        hitPoints.AktHp = hp;
+    }
+
+    /// <summary>
+    /// Handles new data from the network component
+    /// </summary>
+    /// <param name="position">The new positon of the player</param>
+    /// <param name="quaternion">The new rotation of the player</param>
+    /// <param name="velocity">The new velocity of the player</param>
+    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity) {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
@@ -88,6 +103,7 @@ public class PlayerNet : MonoBehaviour {
     void Start() {
         isEnemy = GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY;
         rigidbodyPlayer = GetComponent<Rigidbody>();
+        hitPoints = GetComponent<HitPoints>();
     }
 
     /// <summary>
@@ -96,7 +112,7 @@ public class PlayerNet : MonoBehaviour {
     void Update() {
         if (!isEnemy) {
             try {
-                CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer);
+                CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer, hitPoints.AktHp);
             } catch (Exception) {
                 Debug.Log("CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer); produced an error!");
                 throw;

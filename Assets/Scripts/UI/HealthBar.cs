@@ -18,7 +18,7 @@ public class HealthBar : MonoBehaviour {
 
     private Vector2 screenPos;
 
-    private float maxHp;
+    private byte maxHp;
 
     // Use this for initialization
     void Start() {
