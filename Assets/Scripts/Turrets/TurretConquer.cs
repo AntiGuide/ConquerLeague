@@ -6,7 +6,8 @@ using UnityStandardAssets.CrossPlatformInput;
 /// <summary>
 /// This class lets players conquer a tower for their team
 /// </summary>
-public class TurretConquer : MonoBehaviour {
+public class TurretConquer : MonoBehaviour
+{
     [SerializeField]
     private GameObject turret;
 
@@ -21,15 +22,10 @@ public class TurretConquer : MonoBehaviour {
     /// <summary>References the hitpoint script</summary>
     [SerializeField]
     private HitPoints hitPoints;
-    
-    /// <summary>Determines if the turret is conquerable by the player</summary>
-    public bool conquerable = true;
 
     /// <summary>Determines if the turret is conquerable by the player</summary>
-    public bool Conquerable {
-        get { return conquerable; }
-        set { conquerable = value; }
-    }
+    //[HideInInspector]
+    public bool Conquerable = true;
 
     /// <summary>
     /// Use this for initialization
@@ -45,12 +41,20 @@ public class TurretConquer : MonoBehaviour {
     /// Triggered when a player (or something else) enters the towers conquer collider
     /// </summary>
     /// <param name="other">The colliding object</param>
-    void OnTriggerStay(Collider other) {
+    void OnTriggerEnter(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player") {
             for (int i = 1; i < renderer.Length; i++) {
                 renderer[i].material.color = Color.white;
             }
+        }
+    }
 
+    /// <summary>
+    /// Triggered when a player (or something else) stays in the towers conquer collider
+    /// </summary>
+    /// <param name="other">The colliding object</param>
+    void OnTriggerStay(Collider other) {
+        if (Conquerable && other.gameObject.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY) {
             if (CrossPlatformInputManager.GetButtonDown("Action") && hitPoints.AktHp >= hitPoints.saveHp) {
                 BuildTurret(other.gameObject.GetComponent<VehicleController>().TeamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
             }

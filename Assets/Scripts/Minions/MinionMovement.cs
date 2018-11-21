@@ -103,8 +103,6 @@ public class MinionMovement : MonoBehaviour {
             progress *= distanceBetweenPoints;
             distanceBetweenPoints = Vector3.Distance(startPosition, movementOrder[currTarget].position);
             progress /= distanceBetweenPoints;
-
-
         }
 
         // Make the minion face its next target
@@ -119,7 +117,5 @@ public class MinionMovement : MonoBehaviour {
                 turning = false;
             }
         }
-
-
     }
 }

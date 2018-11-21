@@ -66,7 +66,7 @@ public class HitPoints : MonoBehaviour {
         if (tag != "Turret") {
             Destroy(gameObject);
         } else {
-            GetComponentInChildren<TurretController>().respawning = true;
+            GetComponentInChildren<TurretController>().Respawning = true;
         }
     }
 }

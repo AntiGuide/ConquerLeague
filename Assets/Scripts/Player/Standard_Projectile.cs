@@ -30,6 +30,7 @@ public class Standard_Projectile : MonoBehaviour {
             if (other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
                 other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
             }
+
             Destroy(gameObject);
         }
     }

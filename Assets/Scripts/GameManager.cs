@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class GameManager : MonoBehaviour {
-    
     /// <summary>References the disableinput image</summary>
     [SerializeField] private Image disableInput;
 

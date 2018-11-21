@@ -5,7 +5,8 @@ using UnityEngine;
 /// <summary>
 /// This class handles the positioning of the camera
 /// </summary>
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
     /// <summary>Refernce to the players transform</summary>
     [SerializeField] private Transform playerVehicleTransform;
 
@@ -16,6 +17,8 @@ public class CameraController : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        transform.position = playerVehicleTransform.position + (-transform.forward * camDistance);
+        if (playerVehicleTransform != null) {
+            transform.position = playerVehicleTransform.position + (-transform.forward * camDistance);
+        }
     }
 }

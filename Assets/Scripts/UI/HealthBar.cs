@@ -50,6 +50,6 @@ public class HealthBar : MonoBehaviour {
 
     /// <summary>Update is called once per frame </summary>
     void Update() {
-        fullHp.fillAmount = (HitPoints.AktHp / maxHp);
+        fullHp.fillAmount = HitPoints.AktHp / maxHp;
     }
 }
