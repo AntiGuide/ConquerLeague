@@ -5,7 +5,9 @@ using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class GameManager : MonoBehaviour {
-    
+
+    public static GameManager FSGameManager;
+
     [SerializeField] private Image disableInput;
 
     [SerializeField] private Text countdownText;
@@ -15,6 +17,14 @@ public class GameManager : MonoBehaviour {
 
     /// <summary> The spawn point of the player on the right side </summary>
     [SerializeField] private Transform startPointRight;
+
+    [SerializeField] private Sprite[] spritesCountdown;
+
+    [SerializeField] private Image countdownImage;
+
+    [SerializeField] private Image countdownBackgroundImage;
+
+
 
     public static bool Paused {
         get {
@@ -49,6 +59,11 @@ public class GameManager : MonoBehaviour {
 
 
     private void Start() {
+        if (FSGameManager != null) {
+            Application.Quit();
+        }
+
+        FSGameManager = this;
         disableInputFakeStatic = disableInput;
         countdownTextFakeStatic = countdownText;
         Paused = true;
@@ -64,16 +79,19 @@ public class GameManager : MonoBehaviour {
     }
 
     public static IEnumerator StartGame() {
-        countdownTextFakeStatic.text = "3";
+        FSGameManager.countdownBackgroundImage.enabled = true;
+        FSGameManager.countdownImage.enabled = true;
+        FSGameManager.countdownImage.sprite = FSGameManager.spritesCountdown[3];
         yield return new WaitForSeconds(1f);
-        countdownTextFakeStatic.text = "2";
+        FSGameManager.countdownImage.sprite = FSGameManager.spritesCountdown[2];
         yield return new WaitForSeconds(1f);
-        countdownTextFakeStatic.text = "1";
+        FSGameManager.countdownImage.sprite = FSGameManager.spritesCountdown[1];
         yield return new WaitForSeconds(1f);
-        countdownTextFakeStatic.text = "GO!";
+        //FSGameManager.countdownImage.sprite = FSGameManager.spritesCountdown[0];
         Paused = false;
-        yield return new WaitForSeconds(1f);
-        countdownTextFakeStatic.text = "";
+        //yield return new WaitForSeconds(1f);
+        FSGameManager.countdownImage.enabled = false;
+        FSGameManager.countdownBackgroundImage.enabled = false;
         yield return null;
     }
 
