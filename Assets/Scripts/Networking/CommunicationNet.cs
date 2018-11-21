@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +74,8 @@ public class CommunicationNet : MonoBehaviour {
         MINION_MOVE = 3,
         MINION_DEINITIALIZE = 4,
         NEW_SCORE = 5,
-        PLAYER_DEATH = 6
+        PLAYER_DEATH = 6,
+        PLAYER_DAMAGE_DEALT = 7
     }
 
     public byte RequestMinionID() {
@@ -154,8 +155,21 @@ public class CommunicationNet : MonoBehaviour {
         enemyPlayerNet.StartPoint = startEnemy;
     }
 
+    public void RecievePlayerDamage(byte[] input) {
+        // 0 = GameMessageType
+        // 1 = Damage
+        friendlyPlayerNet?.DamageTaken(input[1]);
+    }
+
     public void SendPlayerDeath() {
         Send(new byte[] { (byte)GameMessageType.PLAYER_DEATH }, NetDeliveryMethod.ReliableUnordered);
+    }
+
+    public void SendPlayerDamage(byte damage) {
+        var send = new byte[2][];
+        send[0] = new byte[] { (byte)GameMessageType.PLAYER_DAMAGE_DEALT };
+        send[1] = new byte[] { damage };
+        Send(MergeArrays(send), NetDeliveryMethod.ReliableUnordered);
     }
 
     /// <summary>
@@ -164,7 +178,7 @@ public class CommunicationNet : MonoBehaviour {
     /// <param name="transform">The players transform</param>
     /// <param name="rigidbody">The players rigidbody</param>
     /// <param name="hp">The players HP</param>
-    public void SendPlayerMovement(Transform transform, Rigidbody rigidbody, byte hp = 1) {
+    public void SendPlayerMovement(Transform transform, Rigidbody rigidbody, byte hp) {
         var send = new byte[5][];
         send[0] = new byte[] { (byte)GameMessageType.PLAYER_MOVEMENT };
         send[1] = ToByteArray(transform.position);
@@ -421,6 +435,9 @@ public class CommunicationNet : MonoBehaviour {
                             break;
                         case (byte)GameMessageType.PLAYER_DEATH:
                             RecievePlayerDeath();
+                            break;
+                        case (byte)GameMessageType.PLAYER_DAMAGE_DEALT:
+                            RecievePlayerDamage(data);
                             break;
                         default:
                             Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");

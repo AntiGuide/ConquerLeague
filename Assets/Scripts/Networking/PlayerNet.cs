@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// The class handles the behaviour of the player object after network packets came in
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerNet : MonoBehaviour {
+    [SerializeField] private Image healthImage;
+
     /// <summary>Marks if the attached object is an enemy</summary>
     private bool isEnemy;
 
@@ -29,7 +32,7 @@ public class PlayerNet : MonoBehaviour {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
-        hitPoints.AktHp = hp;
+        //hitPoints.AktHp = hp;
     }
 
     /// <summary>
@@ -75,12 +78,13 @@ public class PlayerNet : MonoBehaviour {
     }
 
     public IEnumerator InitRespawn() {
+        healthImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
+        healthImage.enabled = false;
         transform.position = StartPoint.position;
         transform.rotation = StartPoint.rotation;
         transform.GetChild(0).gameObject.SetActive(false);
-        
-        GetComponent<Collider>().enabled = false;
-        if (GetComponent<VehicleController>() != null) {
+        gameObject.layer = 13;
+        if (!isEnemy) {
             GetComponent<VehicleController>().enabled = false;
         }
 
@@ -89,11 +93,22 @@ public class PlayerNet : MonoBehaviour {
             StartCoroutine(InitCountdown());
         }
 
+        hitPoints.SetFull();
         yield return new WaitForSeconds(5f);
+        healthImage.enabled = true;
+        healthImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
         transform.GetChild(0).gameObject.SetActive(true);
-        GetComponent<Collider>().enabled = true;
-        if (GetComponent<VehicleController>() != null) {
+        gameObject.layer = 0;
+        if (!isEnemy) {
             GetComponent<VehicleController>().enabled = true;
+        }
+    }
+
+    public void DamageTaken(byte damage) {
+        if (hitPoints.AktHp - damage <= hitPoints.AktHp && hitPoints.AktHp - damage > 0) {
+            hitPoints.AktHp -= damage;
+        } else {
+            hitPoints.AktHp = 0;
         }
     }
 

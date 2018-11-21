@@ -17,6 +17,8 @@ public class HitPoints : MonoBehaviour {
     [SerializeField]
     private TeamHandler teamHandler;
 
+    [SerializeField] private HealthBar healthBar;
+
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
 
@@ -31,15 +33,17 @@ public class HitPoints : MonoBehaviour {
 
         set {
             aktHp = value;
-            if (aktHp < 0) {
+            if (aktHp <= 0) {
+                aktHp = 0;
                 OnDeath(gameObject.tag);
             }
+            healthBar?.UpdateBar();
         }
     }
 
-    //public int AktHp { get { return aktHp; } set { aktHp=value; } }
+    public HealthBar HealthBar { get; set; }
 
-    private void Awake() {
+    public void SetFull() {
         AktHp = saveHp;
     }
 
@@ -47,6 +51,7 @@ public class HitPoints : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        SetFull();
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
     }
 

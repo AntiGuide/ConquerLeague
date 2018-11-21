@@ -38,7 +38,12 @@ public class HealthBar : MonoBehaviour {
         transform.position = screenPos + offset;
     }
 
-    void Update() {
-        fullHp.fillAmount = (hitPoints.AktHp / maxHp);
+    public void UpdateBar() {
+        if (hitPoints == null) {
+            fullHp.fillAmount = 1f;
+        } else {
+            fullHp.fillAmount = hitPoints.AktHp / (float)maxHp;
+        }
+
     }
 }
