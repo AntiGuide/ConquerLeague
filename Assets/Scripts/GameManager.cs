@@ -19,11 +19,11 @@ public class GameManager : MonoBehaviour {
     /// <summary> The spawn point of the player on the right side </summary>
     [SerializeField] private Transform startPointRight;
 
-    [SerializeField] private Sprite[] spritesCountdown;
+    public Sprite[] SpritesCountdown;
 
-    [SerializeField] private Image countdownImage;
+    public Image CountdownImage;
 
-    [SerializeField] private Image countdownBackgroundImage;
+    public Image CountdownBackgroundImage;
 
 
 
@@ -84,19 +84,19 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public static IEnumerator StartGame() {
-        FSGameManager.countdownBackgroundImage.enabled = true;
-        FSGameManager.countdownImage.enabled = true;
-        FSGameManager.countdownImage.sprite = FSGameManager.spritesCountdown[3];
+        FSGameManager.CountdownBackgroundImage.enabled = true;
+        FSGameManager.CountdownImage.enabled = true;
+        FSGameManager.CountdownImage.sprite = FSGameManager.SpritesCountdown[3];
         yield return new WaitForSeconds(1f);
-        FSGameManager.countdownImage.sprite = FSGameManager.spritesCountdown[2];
+        FSGameManager.CountdownImage.sprite = FSGameManager.SpritesCountdown[2];
         yield return new WaitForSeconds(1f);
-        FSGameManager.countdownImage.sprite = FSGameManager.spritesCountdown[1];
+        FSGameManager.CountdownImage.sprite = FSGameManager.SpritesCountdown[1];
         yield return new WaitForSeconds(1f);
         //FSGameManager.countdownImage.sprite = FSGameManager.spritesCountdown[0];
         Paused = false;
         //yield return new WaitForSeconds(1f);
-        FSGameManager.countdownImage.enabled = false;
-        FSGameManager.countdownBackgroundImage.enabled = false;
+        FSGameManager.CountdownImage.enabled = false;
+        FSGameManager.CountdownBackgroundImage.enabled = false;
         yield return null;
     }
 

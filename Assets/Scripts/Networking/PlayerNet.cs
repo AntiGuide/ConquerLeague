@@ -72,19 +72,20 @@ public class PlayerNet : MonoBehaviour {
     /// Initializes the respawn countdown
     /// </summary>
     public IEnumerator InitCountdown() {
-        GameManager.CountdownTextFakeStatic.text = "5";
+        GameManager.FSGameManager.CountdownBackgroundImage.enabled = true;
+        GameManager.FSGameManager.CountdownImage.enabled = true;
+        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[5];
         yield return new WaitForSeconds(1f);
-        GameManager.CountdownTextFakeStatic.text = "4";
+        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[4];
         yield return new WaitForSeconds(1f);
-        GameManager.CountdownTextFakeStatic.text = "3";
+        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[3];
         yield return new WaitForSeconds(1f);
-        GameManager.CountdownTextFakeStatic.text = "2";
+        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[2];
         yield return new WaitForSeconds(1f);
-        GameManager.CountdownTextFakeStatic.text = "1";
+        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[1];
         yield return new WaitForSeconds(1f);
-        GameManager.CountdownTextFakeStatic.text = "GO!";
-        yield return new WaitForSeconds(1f);
-        GameManager.CountdownTextFakeStatic.text = string.Empty;
+        GameManager.FSGameManager.CountdownImage.enabled = false;
+        GameManager.FSGameManager.CountdownBackgroundImage.enabled = false;
         yield return null;
     }
 
