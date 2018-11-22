@@ -98,6 +98,7 @@ public class PlayerNet : MonoBehaviour {
         transform.position = StartPoint.position;
         transform.rotation = StartPoint.rotation;
         transform.GetChild(0).gameObject.SetActive(false);
+        var savedLayer = gameObject.layer;
         gameObject.layer = 13;
         if (!isEnemy) {
             GetComponent<VehicleController>().enabled = false;
@@ -112,7 +113,7 @@ public class PlayerNet : MonoBehaviour {
         healthImage.enabled = true;
         healthImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
         transform.GetChild(0).gameObject.SetActive(true);
-        gameObject.layer = 0;
+        gameObject.layer = savedLayer;
         if (!isEnemy) {
             GetComponent<VehicleController>().enabled = true;
         }

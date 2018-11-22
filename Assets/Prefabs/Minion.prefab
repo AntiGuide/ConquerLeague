@@ -3229,7 +3229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7598b735480ee469102700e14cd5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5, type: 2}
+  healthBar: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5, type: 2}
   movementOrder: []
   speed: 3
   turnSpeed: 0.5
@@ -3256,9 +3256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72256d8a4d812584a84fb6eaeca5c4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AktHp: 0
   saveHp: 50
   teamHandler: {fileID: 114769131902855430}
+  healthBar: {fileID: 0}
   moneyValue: 1e0014000a00
 --- !u!136 &136608390953567898
 CapsuleCollider:
