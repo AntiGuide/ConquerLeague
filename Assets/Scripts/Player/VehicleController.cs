@@ -6,8 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 /// <summary>
 /// The vehicles controller, which defines how fast its moving and rotating
 /// </summary>
-public class VehicleController : MonoBehaviour
-{
+public class VehicleController : MonoBehaviour {
     /// <summary>Defines how fast the vehicle moves</summary>
     [SerializeField]
     private float movementSpeed;
@@ -26,6 +25,7 @@ public class VehicleController : MonoBehaviour
     [SerializeField, Tooltip("The color which will be applied to conquered turrets")]
     private Color teamColor;
 
+    /// <summary>The color which will be applied to conquered turrets</summary>
     public Color TeamColor { get; set; }
 
     /// <summary>

@@ -6,6 +6,21 @@ using UnityEngine;
 /// Controlls movement and shooting of a turret
 /// </summary>
 public class TurretController : MonoBehaviour {
+    /// <summary>The time it takes for the turret to shoot again</summary>
+    public float ShootingTime;
+
+    /// <summary></summary>
+    [HideInInspector]
+    public bool Respawning = false;
+
+    /// <summary>References the turret-gamobject</summary>
+    [SerializeField]
+    private GameObject turret;
+    
+    /// <summary>References the turrets hitpoints script</summary>
+    [SerializeField]
+    private HitPoints hitPoints;
+
     /// <summary>The bullet prefab to spawn</summary>
     [SerializeField]
     private GameObject bulletPrefab;
@@ -13,10 +28,6 @@ public class TurretController : MonoBehaviour {
     /// <summary>Force for bullets is multiplied by this</summary>
     [SerializeField]
     private float bulletForce;
-
-    /// <summary>The time it takes for the turret to shoot again</summary>
-    [SerializeField]
-    private float shootingTime;
 
     /// <summary>The transform from which the turret shoots and the range calculation is done</summary>
     [SerializeField]
@@ -34,6 +45,13 @@ public class TurretController : MonoBehaviour {
     [SerializeField]
     private TeamHandler teamHandler;
 
+    /// <summary>Defines how fast the turret will be build</summary>
+    [SerializeField]
+    private float respawnSpeed = 20f;
+
+    /// <summary>All of the turrets renderer</summary>
+    private MeshRenderer[] renderer;
+
     /// <summary>The transform of all GameObjects with a player tag</summary>
     private List<GameObject> players;
 
@@ -42,14 +60,36 @@ public class TurretController : MonoBehaviour {
 
     /// <summary>Use this for initialization</summary>
     void Start() {
-        aktShootingTime = shootingTime;
+        aktShootingTime = ShootingTime;
+        renderer = turret.GetComponentsInChildren<MeshRenderer>();
     }
 
     /// <summary>Update is called once per frame</summary>
     void Update() {
+        if (Respawning) {
+            hitPoints.AktHp += (byte)Mathf.RoundToInt(Time.deltaTime * respawnSpeed);
+            teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
+            renderer[0].enabled = true;
+            turretConquer.Conquerable = true;
+
+            for (int i = 1; i < renderer.Length; i++) {
+                renderer[i].enabled = false;
+            }
+
+            if (hitPoints.AktHp > hitPoints.SaveHp) {
+                hitPoints.AktHp = hitPoints.SaveHp;
+                renderer[0].enabled = false;
+                for (int i = 1; i < renderer.Length; i++) {
+                    renderer[i].enabled = true;
+                }
+
+                Respawning = false;
+            }
+        }
+
         // Sort Players by Magnitude
         if (!turretConquer.Conquerable) {
-            if (turretAim.AktAimingAt != null) {
+            if (turretAim.AktAimingAt != null && turretAim.Locked) {
                 ShootAtEnemy(turretAim.AktAimingAt.transform);
             } else {
                 return;
@@ -68,8 +108,8 @@ public class TurretController : MonoBehaviour {
             var bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
             bullet.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             bullet.GetComponent<Rigidbody>().AddForce((target.position - bullet.transform.position) * bulletForce);
-            aktShootingTime += shootingTime;
-            aktShootingTime = Mathf.Min(aktShootingTime, shootingTime / 2f);
+            aktShootingTime += ShootingTime;
+            aktShootingTime = Mathf.Min(aktShootingTime, ShootingTime / 2f);
         }
     }
 }

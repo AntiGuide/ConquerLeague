@@ -10,7 +10,7 @@ public class MoneyManagement : MonoBehaviour {
 
     /// <summary>Saves the amout of money the player has at the moment</summary>
     private static long money;
-    
+
     /// <summary>How much seconds of the lerp are completed</summary>
     private float lerpTimeDone = 0.0f;
 
@@ -54,7 +54,6 @@ public class MoneyManagement : MonoBehaviour {
     /// <param name="moneyToAdd">The amount to add</param>
     public void AddMoney(long moneyToAdd) {
         money = money + moneyToAdd;
-        //PlayerPrefs.SetInt("money", (int)MoneyManagement.money);
         OutputMoney(money, true);
     }
 
@@ -69,7 +68,6 @@ public class MoneyManagement : MonoBehaviour {
         }
 
         money = money - moneyToSub;
-        //PlayerPrefs.SetInt("money", (int)MoneyManagement.money);
         OutputMoney(money, true);
         return true;
     }
@@ -81,17 +79,14 @@ public class MoneyManagement : MonoBehaviour {
     private void SetMoney(long valueToSet) {
         if (valueToSet >= 0) {
             money = valueToSet;
-            //PlayerPrefs.SetInt("money", (int)MoneyManagement.money);
             OutputMoney(money, false);
         } else {
             throw new ArgumentException("Can not set a negative Dollar Value", "valueToSet");
         }
     }
 
-    /// <summary>Sets the money to 20000 in the beginning</summary>
+    /// <summary>Sets the money to 600 in the beginning</summary>
     private void Start() {
-        //var initValue = PlayerPrefs.GetInt("money", 80000);
-        //initValue = initValue <= 0?80000:initValue;
         var initValue = 600;
         SetMoney(initValue);
     }
@@ -112,7 +107,7 @@ public class MoneyManagement : MonoBehaviour {
     /// Display the money
     /// </summary>
     /// <param name="money">How much money to display</param>
-    /// <param name="lerpEffect">Wether the change should be applied instantly or with a lerp effect</param>
+    /// <param name="lerpEffect">Whether the change should be applied instantly or with a lerp effect</param>
     private void OutputMoney(long money, bool lerpEffect) {
         if (lerpEffect) {
             moneyAmountOld = moneyAmountShown;

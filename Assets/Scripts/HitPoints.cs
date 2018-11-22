@@ -7,16 +7,17 @@ using UnityEngine;
 /// </summary>
 public class HitPoints : MonoBehaviour {
     /// <summary>The units current hitpoints</summary>
-    [HideInInspector]
-    public float AktHp;
+    private byte aktHp;
 
     /// <summary>Saves the units hp so that it can reset it if a tower gets destroyed</summary>
     [SerializeField]
-    private float saveHp;
+    private byte saveHp;
 
     /// <summary>References the Team Handler script</summary>
     [SerializeField]
     private TeamHandler teamHandler;
+
+    [SerializeField] private HealthBar healthBar;
 
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
@@ -25,28 +26,35 @@ public class HitPoints : MonoBehaviour {
     [SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     private short[] moneyValue = new short[3];
 
-    //public int AktHp { get { return aktHp; } set { aktHp=value; } }
+    public byte AktHp {
+        get {
+            return aktHp;
+        }
 
-    private void Awake() {
-        AktHp = saveHp;
+        set {
+            aktHp = value;
+            if (aktHp <= 0) {
+                aktHp = 0;
+                OnDeath(gameObject.tag);
+            }
+            healthBar?.UpdateBar();
+        }
     }
 
+    public HealthBar HealthBar { get; set; }
+
+    public byte SaveHp { get; set; }
+
+    public void SetFull() {
+        AktHp = saveHp;
+    }
 
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start() {
+        SetFull();
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
-    }
-
-
-    /// <summary>
-    /// Update is called once per frame
-    /// </summary>
-    void Update() {
-        if (AktHp < 0) {
-            OnDeath(gameObject.tag);
-        }
     }
 
     /// <summary>
@@ -57,20 +65,20 @@ public class HitPoints : MonoBehaviour {
         switch (tag) {
             case "Minion":
                 moneyManagement.AddMoney(moneyValue[2]);
+                Destroy(gameObject);
                 break;
             case "Turret":
                 moneyManagement.AddMoney(moneyValue[1]);
+                teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
+                AktHp = saveHp;
                 break;
             case "Player":
                 moneyManagement.AddMoney(moneyValue[0]);
+                GetComponent<PlayerNet>().OnDeath();
                 break;
-        }
-
-        if (tag != "Turret") {
-            Destroy(gameObject);
-        } else {
-            teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-            AktHp = saveHp;
+            default:
+                Destroy(gameObject);
+                break;
         }
     }
 }

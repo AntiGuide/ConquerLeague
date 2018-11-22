@@ -6,8 +6,9 @@ using UnityEngine;
 /// Controls the minions curent target and movement
 /// </summary>
 public class MinionMovement : MonoBehaviour {
+    /// <summary>The minions attached hpbar</summary>
     [SerializeField]
-    private GameObject hpBar;
+    private GameObject healthBar;
 
     /// <summary>The minions movement order</summary>
     [SerializeField, Tooltip("The transform-targets, which tells the minions where to go and in which order. Priority from top to bottom.")]
@@ -49,6 +50,15 @@ public class MinionMovement : MonoBehaviour {
     private Quaternion currRotation;
 
     /// <summary>
+    /// Instantiates the minions hpbar when it spawns
+    /// </summary>
+    /// <param name="parent"></param>
+    public void OnInitialize(Transform parent) {
+        var aktHpBar = Instantiate(healthBar, parent);
+        aktHpBar.GetComponent<HealthBar>().Target = gameObject;
+    }
+
+    /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start() {
@@ -81,7 +91,6 @@ public class MinionMovement : MonoBehaviour {
             turning = true;
         } else if (progress >= 1f) {
             currTarget++;
-
             if (movementOrder.Length == currTarget) {
                 goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                 GetComponent<MinionNet>().DeInitNet();
@@ -108,11 +117,5 @@ public class MinionMovement : MonoBehaviour {
                 turning = false;
             }
         }
-    }
-
-    public void OnInitialize(Transform parent) {
-        var aktHpBar = Instantiate(hpBar, parent);
-        aktHpBar.GetComponent<HealthBar>().target = gameObject;
-        //aktHpBar.GetComponent<HealthBar>().hitPoints = GetComponent<HitPoints>();
     }
 }

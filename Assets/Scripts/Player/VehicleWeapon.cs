@@ -29,7 +29,8 @@ public class VehicleWeapon : MonoBehaviour
     /// <summary>The shot vfx</summary>
     [SerializeField] private GameObject shotVFX;
 
-    [SerializeField] private ParticleSystem[] VFXSystems;
+    /// <summary>The Vehicles VFX Systems</summary>
+    private ParticleSystem[] vfxSystems;
 
     /// <summary>The shootingtimer</summary>
     private float aktShootingTime;
@@ -47,7 +48,7 @@ public class VehicleWeapon : MonoBehaviour
     /// Use this for initialization
     /// </summary>
     void Start() {
-        VFXSystems = GetComponentsInChildren<ParticleSystem>();
+        vfxSystems = GetComponentsInChildren<ParticleSystem>();
 
         GameObject[] turretGameObjects;
         aktShootingTime = shootingTime;
@@ -84,11 +85,11 @@ public class VehicleWeapon : MonoBehaviour
     /// <param name="weaponType"></param>
     void Shoot(GameObject weaponType) {
         if (aktShootingTime <= 0f && CrossPlatformInputManager.GetButton("Shoot")) {
-            for (int i = 0; i < VFXSystems.Length; i++) {
-                VFXSystems[i].Stop();
-                VFXSystems[i].Play();
+            for (int i = 0; i < vfxSystems.Length; i++) {
+                vfxSystems[i].Stop();
+                vfxSystems[i].Play();
             }
-            //Instantiate(shotVFX, shotSpawn.position, transform.rotation);
+
             var shot = Instantiate(weaponType, shotSpawn.position, shotSpawn.rotation);
             shot.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             shot.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed);

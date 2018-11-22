@@ -6,8 +6,11 @@ using UnityEngine;
 /// <summary>
 /// Used to make the turret aim at his prioritized target
 /// </summary>
-public class TurretAim : MonoBehaviour
-{
+public class TurretAim : MonoBehaviour {
+    /// <summary>True if the weapon is locked on a target</summary>
+    [HideInInspector]
+    public bool Locked = false;
+
     /// <summary>The range to target shootables in</summary>
     [SerializeField, Header("Customizable"), Tooltip("The Range in UnityUnits/meters that the turret is allowed to target")]
     private float targetRange;
@@ -16,6 +19,10 @@ public class TurretAim : MonoBehaviour
     [SerializeField, Tooltip("Tags that are recognized as shootables. Priority top to bottom.")]
     private string[] shootablesTags;
 
+    /// <summary>The turrets weapon</summary>
+    [SerializeField]
+    private GameObject weapon;
+
     /// <summary> The last target during last frame</summary>
     private GameObject lastTargeted;
 
@@ -23,8 +30,22 @@ public class TurretAim : MonoBehaviour
     [SerializeField]
     private TeamHandler teamHandler;
 
+    /// <summary>References the the turrets TurretConquer script</summary>
+    [SerializeField]
+    private TurretConquer turretConquer;
+
+    /// <summary>References the the turrets TurretController script</summary>
+    [SerializeField]
+    private TurretController turretController;
+
     /// <summary>List of all the GameObjects tagged with a shootable tag in range</summary>
     private List<GameObject> shootablesInRange = new List<GameObject>();
+
+    /// <summary>Saves the current weapon rotation</summary>
+    private Quaternion saveRotation;
+
+    /// <summary>The weapons lock-on progress</summary>
+    private float progress = 0f;
 
     /// <summary>The shootable that is being aimed at</summary>
     public GameObject AktAimingAt
@@ -37,6 +58,7 @@ public class TurretAim : MonoBehaviour
     /// </summary>
     void Start() {
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
+        saveRotation = weapon.transform.rotation;
     }
 
     /// <summary>
@@ -50,6 +72,22 @@ public class TurretAim : MonoBehaviour
             }
         }
 
+        if (shootablesInRange.Count >= 1) {
+            progress = Locked ? 1f : progress + Time.deltaTime / turretController.ShootingTime;
+            weapon.transform.rotation = Quaternion.Lerp(saveRotation, Quaternion.LookRotation(weapon.transform.position - shootablesInRange[0].transform.position), progress);
+            var newRotation = weapon.transform.rotation.eulerAngles;
+            newRotation.x = 0f;
+            newRotation.z = 0f;
+            weapon.transform.rotation = Quaternion.Euler(newRotation);
+            if (progress >= 1) {
+                Locked = true;
+            }
+        }
+
+        if (turretConquer.Conquerable) {
+            shootablesInRange.Clear();
+        }
+
         if (shootablesInRange.Count > 1) {
             OrderByPriority(ref shootablesInRange);
         }
@@ -59,6 +97,9 @@ public class TurretAim : MonoBehaviour
         }
 
         if (AktAimingAt == null && lastTargeted != null) { // Not targeting anything anymore
+            saveRotation = weapon.transform.rotation;
+            progress = 0;
+            Locked = false;
             lastTargeted = null;
             return;
         }
@@ -73,7 +114,7 @@ public class TurretAim : MonoBehaviour
     /// </summary>
     /// <param name="other">The collider that entered the collider</param>
     private void OnTriggerEnter(Collider other) {
-        if (Array.IndexOf(shootablesTags, other.tag) > -1 && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
+        if (Array.IndexOf(shootablesTags, other.tag) > -1 && teamHandler.TeamID != other.gameObject.GetComponent<TeamHandler>().TeamID && !turretConquer.Conquerable) {
             shootablesInRange.Add(other.gameObject);
         }
     }

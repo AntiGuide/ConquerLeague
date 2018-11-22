@@ -3,42 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 
+/// </summary>
 public class HealthBar : MonoBehaviour {
+    /// <summary>References the hitpoints script</summary>
+    private HitPoints hitPoints;
+
+    /// <summary>The Healtbars target</summary>
+    [SerializeField]
+    public GameObject Target;
+
+    /// <summary>The Healthbars UI-Offset</summary>
     [SerializeField]
     private Vector2 offset;
 
-    [HideInInspector]
-    public HitPoints hitPoints;
-
-    [SerializeField]
-    public GameObject target;
-
+    /// <summary>The fullHp image</summary>
     [SerializeField]
     private Image fullHp;
 
+    /// <summary>The targets position in screenspace</summary>
     private Vector2 screenPos;
 
-    private float maxHp;
+    private byte maxHp;
 
-    // Use this for initialization
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
     void Start() {
-        hitPoints = target.GetComponent<HitPoints>();
+        hitPoints = Target.GetComponent<HitPoints>();
         maxHp = hitPoints.AktHp;
     }
 
-    // Update is called once per frame
-    void FixedUpdate() {
-        if (target == null) {
+    /// <summary>LateUpdate is called once per frame after update</summary>
+    void LateUpdate() {
+        if (Target == null) {
             Destroy(gameObject);
             return;
         }
 
-        screenPos = (Vector2)Camera.main.WorldToScreenPoint(target.transform.position);
-        //transform.position = camera.WorldToScreenPoint(target.transform.position);
+        screenPos = (Vector2)Camera.main.WorldToScreenPoint(Target.transform.position);
         transform.position = screenPos + offset;
     }
 
-    void Update() {
-        fullHp.fillAmount = (hitPoints.AktHp / maxHp);
+    public void UpdateBar() {
+        if (hitPoints == null) {
+            fullHp.fillAmount = 1f;
+        } else {
+            fullHp.fillAmount = hitPoints.AktHp / (float)maxHp;
+        }
+
     }
 }
