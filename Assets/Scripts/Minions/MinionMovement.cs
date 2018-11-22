@@ -8,7 +8,7 @@ using UnityEngine;
 public class MinionMovement : MonoBehaviour {
     /// <summary>The minions attached hpbar</summary>
     [SerializeField]
-    private GameObject hpBar;
+    private GameObject healthBar;
 
     /// <summary>The minions movement order</summary>
     [SerializeField, Tooltip("The transform-targets, which tells the minions where to go and in which order. Priority from top to bottom.")]
@@ -54,7 +54,7 @@ public class MinionMovement : MonoBehaviour {
     /// </summary>
     /// <param name="parent"></param>
     public void OnInitialize(Transform parent) {
-        var aktHpBar = Instantiate(hpBar, parent);
+        var aktHpBar = Instantiate(healthBar, parent);
         aktHpBar.GetComponent<HealthBar>().Target = gameObject;
     }
 
