@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     /// <summary>Defines wether the right team is the enemy or the friendly team. Null until initialization.</summary>
     public static TeamHandler.TeamState? RightTeam;
 
+    public static TowerNet[] towers = new TowerNet[byte.MaxValue];
+
     /// <summary>The sprites with numbers from 0-9</summary>
     public Sprite[] SpritesCountdown;
 

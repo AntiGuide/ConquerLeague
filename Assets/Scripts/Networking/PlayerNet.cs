@@ -35,6 +35,7 @@ public class PlayerNet : MonoBehaviour {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
+        hitPoints.AktHp = hp;
     }
 
     /// <summary>
@@ -141,9 +142,9 @@ public class PlayerNet : MonoBehaviour {
     }
 
     /// <summary>
-    /// Update is called once per frame
+    /// FixedUpdate is called on physics refresh
     /// </summary>
-    void Update() {
+    void FixedUpdate() {
         if (!isEnemy) {
             try {
                 CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer, hitPoints.AktHp);

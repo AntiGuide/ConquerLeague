@@ -77,7 +77,8 @@ public class CommunicationNet : MonoBehaviour {
         MINION_DEINITIALIZE = 4,
         NEW_SCORE = 5,
         PLAYER_DEATH = 6,
-        PLAYER_DAMAGE_DEALT = 7
+        PLAYER_DAMAGE_DEALT = 7,
+        TOWER_DAMAGE = 8
     }
 
     /// <summary>
@@ -178,6 +179,17 @@ public class CommunicationNet : MonoBehaviour {
     }
 
     /// <summary>
+    /// Handles incoming data for the tower damage event
+    /// </summary>
+    /// <param name="input">The incoming data</param>
+    public void RecieveTowerDamage(byte[] input) {
+        // 0 = GameMessageType
+        // 1 = TowerID
+        // 2 = Damage
+        GameManager.towers[input[1]].DamageTaken(input[2]);
+    }
+
+    /// <summary>
     /// Sends a message to inform other player about this players death
     /// </summary>
     public void SendPlayerDeath() {
@@ -192,6 +204,18 @@ public class CommunicationNet : MonoBehaviour {
         var send = new byte[2][];
         send[0] = new byte[] { (byte)GameMessageType.PLAYER_DAMAGE_DEALT };
         send[1] = new byte[] { damage };
+        Send(MergeArrays(send), NetDeliveryMethod.ReliableUnordered);
+    }
+
+    /// <summary>
+    /// Sends damage dealt to tower
+    /// </summary>
+    /// <param name="damage">The damage that was dealt</param>
+    public void SendTowerDamage(byte id, byte damage) {
+        var send = new byte[3][];
+        send[0] = new byte[] { (byte)GameMessageType.TOWER_DAMAGE }; // 0 = GameMessageType
+        send[1] = new byte[] { id }; // 1 = TowerID
+        send[2] = new byte[] { damage }; // 2 = Damage
         Send(MergeArrays(send), NetDeliveryMethod.ReliableUnordered);
     }
 
