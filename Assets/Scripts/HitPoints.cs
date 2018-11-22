@@ -43,6 +43,8 @@ public class HitPoints : MonoBehaviour {
 
     public HealthBar HealthBar { get; set; }
 
+    public byte SaveHp { get; set; }
+
     public void SetFull() {
         AktHp = saveHp;
     }

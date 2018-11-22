@@ -67,7 +67,7 @@ public class TurretController : MonoBehaviour {
     /// <summary>Update is called once per frame</summary>
     void Update() {
         if (Respawning) {
-            hitPoints.AktHp += Time.deltaTime * respawnSpeed;
+            hitPoints.AktHp += (byte)Mathf.RoundToInt(Time.deltaTime * respawnSpeed);
             teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
             renderer[0].enabled = true;
             turretConquer.Conquerable = true;
@@ -76,8 +76,8 @@ public class TurretController : MonoBehaviour {
                 renderer[i].enabled = false;
             }
 
-            if (hitPoints.AktHp > hitPoints.saveHp) {
-                hitPoints.AktHp = hitPoints.saveHp;
+            if (hitPoints.AktHp > hitPoints.SaveHp) {
+                hitPoints.AktHp = hitPoints.SaveHp;
                 renderer[0].enabled = false;
                 for (int i = 1; i < renderer.Length; i++) {
                     renderer[i].enabled = true;

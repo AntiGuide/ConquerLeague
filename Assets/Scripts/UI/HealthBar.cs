@@ -8,8 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class HealthBar : MonoBehaviour {
     /// <summary>References the hitpoints script</summary>
-    [HideInInspector]
-    public HitPoints HitPoints;
+    private HitPoints hitPoints;
 
     /// <summary>The Healtbars target</summary>
     [SerializeField]
@@ -32,8 +31,8 @@ public class HealthBar : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
-        HitPoints = Target.GetComponent<HitPoints>();
-        maxHp = HitPoints.AktHp;
+        hitPoints = Target.GetComponent<HitPoints>();
+        maxHp = hitPoints.AktHp;
     }
 
     /// <summary>LateUpdate is called once per frame after update</summary>
