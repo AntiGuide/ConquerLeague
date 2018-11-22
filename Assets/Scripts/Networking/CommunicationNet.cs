@@ -38,9 +38,7 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> The port the server listens on</summary>
     [SerializeField] private int portNumber;
 
-    /// <summary> The text the game displays the connection status to</summary>
-    //[SerializeField] private Text connectionStatusText;
-
+    /// <summary> Reference to the GoalManager displaying the score</summary>
     [SerializeField] private GoalManager goalManager;
 
     /// <summary> The config to connect to the server </summary>
@@ -58,12 +56,16 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> Marks if this player is on the left or the right side</summary>
     private bool isLeft;
 
+    /// <summary> A running number for minion identification. Reset after byte.Max. If minion ID not deinitialized when reused bad things happen.</summary>
     private byte aktMinionID = 0;
 
+    /// <summary> Reference to all minions</summary>
     private GameObject[] minions = new GameObject[byte.MaxValue];
 
+    /// <summary> Temporary variable for incoming messages as member to take stress of GC</summary>
     private NetIncomingMessage message;
 
+    /// <summary> Temporary variable for outgoing messages as member to take stress of GC</summary>
     private NetOutgoingMessage outMessage;
 
     /// <summary> The different message types that can arrive </summary>
@@ -78,15 +80,21 @@ public class CommunicationNet : MonoBehaviour {
         PLAYER_DAMAGE_DEALT = 7
     }
 
+    /// <summary>
+    /// Get a usable minion ID. Reset after byte.Max. If minion ID not deinitialized when reused bad things happen.
+    /// </summary>
+    /// <returns>Usable minion ID</returns>
     public byte RequestMinionID() {
         var ret = aktMinionID;
         aktMinionID = aktMinionID == byte.MaxValue ? byte.MinValue : (byte)(aktMinionID + 1);
         return ret;
     }
 
+    /// <summary>
+    /// Triggered when an incoming message signals that the enemy died
+    /// </summary>
     public void RecievePlayerDeath() {
-        // 0 = GameMessageType
-        enemyPlayerNet?.OnNetDeath();
+        enemyPlayerNet?.OnNetDeath(); // 0 = GameMessageType
     }
 
     /// <summary>
@@ -110,6 +118,10 @@ public class CommunicationNet : MonoBehaviour {
         enemyPlayerNet?.SetNewMovementPack(position, quaternion, velocity, hp);
     }
 
+    /// <summary>
+    /// Handles incoming data for the minion movement event
+    /// </summary>
+    /// <param name="input">The incoming data</param>
     public void RecieveMinionMovement(byte[] input) {
         // 0 = GameMessageType
         // 2 - 13 = position
@@ -155,16 +167,27 @@ public class CommunicationNet : MonoBehaviour {
         enemyPlayerNet.StartPoint = startEnemy;
     }
 
+    /// <summary>
+    /// Handles incoming data for the player damage event
+    /// </summary>
+    /// <param name="input">The incoming data</param>
     public void RecievePlayerDamage(byte[] input) {
         // 0 = GameMessageType
         // 1 = Damage
         friendlyPlayerNet?.DamageTaken(input[1]);
     }
 
+    /// <summary>
+    /// Sends a message to inform other player about this players death
+    /// </summary>
     public void SendPlayerDeath() {
         Send(new byte[] { (byte)GameMessageType.PLAYER_DEATH }, NetDeliveryMethod.ReliableUnordered);
     }
 
+    /// <summary>
+    /// Sends damage dealt to other player
+    /// </summary>
+    /// <param name="damage">The damage that was dealt</param>
     public void SendPlayerDamage(byte damage) {
         var send = new byte[2][];
         send[0] = new byte[] { (byte)GameMessageType.PLAYER_DAMAGE_DEALT };
@@ -188,6 +211,13 @@ public class CommunicationNet : MonoBehaviour {
         Send(MergeArrays(send));
     }
 
+    /// <summary>
+    /// Send minion information about movement (position, rotation, velocity) and HP
+    /// </summary>
+    /// <param name="transform">The minions transform</param>
+    /// <param name="rigidbody">The minions rigidbody</param>
+    /// <param name="id">Identifies the minion</param>
+    /// <param name="hp">The minions hitpoints</param>
     public void SendMinionMovement(Transform transform, Rigidbody rigidbody, byte id, byte hp = 1) {
         var send = new byte[5][];
         send[0] = new byte[] { (byte)GameMessageType.MINION_MOVE, id };
@@ -198,22 +228,48 @@ public class CommunicationNet : MonoBehaviour {
         Send(MergeArrays(send));
     }
 
+    /// <summary>
+    /// Initialize/Spawn a minion
+    /// </summary>
+    /// <param name="id">The assigned ID for this minion</param>
     public void SendMinionInitialization(byte id) {
         var send = new byte[2];
-        // 0 = GameMessageType
-        send[0] = (byte)GameMessageType.MINION_INITIALITZE;
-        // 1 = ID
-        send[1] = id;
+        send[0] = (byte)GameMessageType.MINION_INITIALITZE; // 0 = GameMessageType
+        send[1] = id; // 1 = ID
         Send(send, NetDeliveryMethod.ReliableOrdered);
     }
 
+    /// <summary>
+    /// Deinitialize/Despawn a minion
+    /// </summary>
+    /// <param name="id"></param>
     public void SendMinionDeinitialization(byte id) {
         var send = new byte[2];
-        // 0 = GameMessageType
-        send[0] = (byte)GameMessageType.MINION_DEINITIALIZE;
-        // 1 = ID
-        send[1] = id;
+        send[0] = (byte)GameMessageType.MINION_DEINITIALIZE; // 0 = GameMessageType
+        send[1] = id; // 1 = ID
         Send(send, NetDeliveryMethod.ReliableOrdered);
+    }
+
+    /// <summary>
+    /// Send a new score
+    /// </summary>
+    /// <param name="leftSide">The new score of the left side</param>
+    /// <param name="rightSide">The new score of the right side</param>
+    public void SendNewScore(uint leftSide, uint rightSide) {
+        var send = new byte[3][];
+        send[0] = new byte[] { (byte)GameMessageType.NEW_SCORE };
+        send[1] = BitConverter.GetBytes(leftSide);
+        send[2] = BitConverter.GetBytes(rightSide);
+        Send(MergeArrays(send), NetDeliveryMethod.ReliableOrdered);
+    }
+
+    /// <summary>
+    /// Handle new score event
+    /// </summary>
+    /// <param name="input"></param>
+    public void RecieveNewScore(byte[] input) {
+        goalManager.LeftGoals = BitConverter.ToUInt32(input, 1);
+        goalManager.RightGoals = BitConverter.ToUInt32(input, 1 + sizeof(uint));
     }
 
     /// <summary>
@@ -290,6 +346,7 @@ public class CommunicationNet : MonoBehaviour {
             System.Buffer.BlockCopy(array, 0, rv, offset, array.Length);
             offset += array.Length;
         }
+
         return rv;
     }
 
@@ -327,11 +384,8 @@ public class CommunicationNet : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        //StartCoroutine(SendFromQueue());
-        //StartCoroutine(ReadMessages(client));
         SendFromQueue();
         ReadMessages(client);
-        //connectionStatusText.text = client.Statistics.ToString();
     }
 
     /// <summary>
@@ -354,16 +408,9 @@ public class CommunicationNet : MonoBehaviour {
             outMessage.Write(sendQueue[0].Length);
             outMessage.Write(sendQueue[0]);
             var ret = client.SendMessage(outMessage, connection, sendMethodQueue[0]);
-            //while (ret == NetSendResult.Queued) {
-            //    //yield return new WaitForSeconds(0.01f);
-            //}
-
             sendQueue.RemoveAt(0);
             sendMethodQueue.RemoveAt(0);
-            //yield return null;
         }
-
-        //yield return null;
     }
 
     /// <summary>
@@ -413,7 +460,6 @@ public class CommunicationNet : MonoBehaviour {
                         case (byte)GameMessageType.SESSION_INITIALITZE:
                             RecieveSessionInitialize(data);
                             StartCoroutine(GameManager.StartGame());
-                            //connectionStatusText.text = "Connected to other player";
                             break;
                         case (byte)GameMessageType.MINION_INITIALITZE:
                             if (isLeft) {
@@ -450,38 +496,18 @@ public class CommunicationNet : MonoBehaviour {
                         case NetConnectionStatus.Connected:
                             connection = message.SenderConnection;
                             NetConnection net = client.Connections[0];
-                            //connectionStatusText.text = "Connected to the server";
                             break;
-                        //case NetConnectionStatus.Disconnected:
-                        //    //GameManager.Paused = true;
-                        //    break;
                         default:
                             Debug.Log("Unhandled status change with type: " + message.SenderConnection.Status.ToString());
-                            //connectionStatusText.text = message.SenderConnection.Status.ToString();
                             break;
                     }
 
                     break;
                 default:
-                    //Debug.Log("Unhandled message with type: " + message.MessageType);
                     break;
             }
 
             client.Recycle(message);
-            //yield return null;
         }
-    }
-
-    public void SendNewScore(uint leftSide, uint rightSide) {
-        var send = new byte[3][];
-        send[0] = new byte[] { (byte)GameMessageType.NEW_SCORE };
-        send[1] = BitConverter.GetBytes(leftSide);
-        send[2] = BitConverter.GetBytes(rightSide);
-        Send(MergeArrays(send),NetDeliveryMethod.ReliableOrdered);
-    }
-
-    public void RecieveNewScore(byte[] input) {
-        goalManager.LeftGoals = BitConverter.ToUInt32(input, 1);
-        goalManager.RightGoals = BitConverter.ToUInt32(input, 1 + sizeof(uint));
     }
 }

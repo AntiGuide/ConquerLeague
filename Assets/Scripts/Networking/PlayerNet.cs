@@ -9,6 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerNet : MonoBehaviour {
+    /// <summary>The reference to the red health bar image</summary>
     [SerializeField] private Image healthImage;
 
     /// <summary>Marks if the attached object is an enemy</summary>
@@ -17,8 +18,10 @@ public class PlayerNet : MonoBehaviour {
     /// <summary>The rigidbody of this object</summary>
     private Rigidbody rigidbodyPlayer;
 
+    /// <summary>The reference to the attached hitpoint script</summary>
     private HitPoints hitPoints;
 
+    /// <summary>The StartPoint to use for respawn</summary>
     public Transform StartPoint { get; set; }
 
     /// <summary>
@@ -32,7 +35,6 @@ public class PlayerNet : MonoBehaviour {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
-        //hitPoints.AktHp = hp;
     }
 
     /// <summary>
@@ -47,6 +49,9 @@ public class PlayerNet : MonoBehaviour {
         rigidbodyPlayer.velocity = velocity;
     }
 
+    /// <summary>
+    /// Triggered when this player dies
+    /// </summary>
     public void OnDeath() {
         if (!isEnemy) {
             CommunicationNet.FakeStatic.SendPlayerDeath();
@@ -55,11 +60,17 @@ public class PlayerNet : MonoBehaviour {
         StartCoroutine(InitRespawn());
     }
 
+    /// <summary>
+    /// Triggered when the death is triggered over network
+    /// </summary>
     public void OnNetDeath() {
         StopCoroutine(InitRespawn());
         StartCoroutine(InitRespawn());
     }
 
+    /// <summary>
+    /// Initializes the respawn countdown
+    /// </summary>
     public IEnumerator InitCountdown() {
         GameManager.CountdownTextFakeStatic.text = "5";
         yield return new WaitForSeconds(1f);
@@ -73,10 +84,13 @@ public class PlayerNet : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         GameManager.CountdownTextFakeStatic.text = "GO!";
         yield return new WaitForSeconds(1f);
-        GameManager.CountdownTextFakeStatic.text = "";
+        GameManager.CountdownTextFakeStatic.text = string.Empty;
         yield return null;
     }
 
+    /// <summary>
+    /// Initializes respawn
+    /// </summary>
     public IEnumerator InitRespawn() {
         healthImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
         healthImage.enabled = false;
@@ -87,8 +101,7 @@ public class PlayerNet : MonoBehaviour {
         if (!isEnemy) {
             GetComponent<VehicleController>().enabled = false;
         }
-
-        //gameObject.SetActive(false);
+        
         if (!isEnemy) {
             StartCoroutine(InitCountdown());
         }
@@ -104,6 +117,10 @@ public class PlayerNet : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Triggered if damage is taken. Handles health reduction.
+    /// </summary>
+    /// <param name="damage"></param>
     public void DamageTaken(byte damage) {
         if (hitPoints.AktHp - damage <= hitPoints.AktHp && hitPoints.AktHp - damage > 0) {
             hitPoints.AktHp -= damage;
@@ -132,7 +149,6 @@ public class PlayerNet : MonoBehaviour {
                 Debug.Log("CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer); produced an error!");
                 throw;
             }
-            
         }
     }
 }
