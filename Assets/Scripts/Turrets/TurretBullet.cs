@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The turrets bullet, inflicts damage on minions and player
+/// </summary>
 public class TurretBullet : MonoBehaviour {
-
     /// <summary>The damage of the bullet</summary>
     [SerializeField]
     private byte damage = 15;
@@ -12,23 +14,16 @@ public class TurretBullet : MonoBehaviour {
     [SerializeField]
     private TeamHandler teamHandler;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    /// <summary>
+    /// Checks if the colliding gameobject has hitpoints and deals damage if it has
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
-            if (other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
+            if (other.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID) {
                 other.GetComponent<HitPoints>().AktHp -= damage;
                 Destroy(gameObject);
             }
         }
-
     }
 }

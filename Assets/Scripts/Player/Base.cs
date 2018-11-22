@@ -24,6 +24,7 @@ public class Base : MonoBehaviour {
     [SerializeField]
     private MoneyManagement moneyManagement;
 
+    /// <summary>The healthbars canvas trabsform</summary>
     [SerializeField]
     private Transform canvasTrans;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// Gives the unit a team ID
 /// </summary>
 public class TeamHandler : MonoBehaviour {
     /// <summary>

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Displays and counts the games current gametime
+/// </summary>
 public class GameTimer : MonoBehaviour {
-
     /// <summary>The text which displays the current Gametime</summary>
     [SerializeField]
     private Text gameTimeText;
@@ -16,13 +18,10 @@ public class GameTimer : MonoBehaviour {
 
     public static bool TimerPaused { get; set; }
 
-    /// <summary>References the GameManager</summary>
-    //[SerializeField]
-    //private GameManager gameManager;
-
-    /// <summary>Playtime in minutes </summary>
+    /// <summary>Playtime in minutes</summary>
     private int minutes;
 
+    /// <summary>Playtime in seconds</summary>
     private int seconds;
 	
 	// Update is called once per frame

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] private Image disableInput;
 
+    /// <summary>References the Countdown-Text</summary>
     [SerializeField] private Text countdownText;
 
     /// <summary> The spawn point of the player on the left side </summary>
@@ -78,6 +79,10 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// The games startup countdown
+    /// </summary>
+    /// <returns></returns>
     public static IEnumerator StartGame() {
         FSGameManager.countdownBackgroundImage.enabled = true;
         FSGameManager.countdownImage.enabled = true;
