@@ -3,47 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class handles networking for minions
+/// </summary>
 public class MinionNet : MonoBehaviour {
-
     /// <summary>Marks if the attached object is an enemy</summary>
     private bool isEnemy;
 
+    /// <summary>The rigidbody of the attached minion</summary>
     private Rigidbody rigidbodyMinion;
 
+    /// <summary>The ID of this minion</summary>
     private byte? id;
 
+    /// <summary>Getter/Setter for id</summary>
     public byte? Id {
         get { return id; }
         set { id = value; }
     }
 
-    // Use this for initialization
-    void Start () {
-        isEnemy = GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY;
-        if (!isEnemy) {
-            id = CommunicationNet.FakeStatic.RequestMinionID();
-            InitNet();
-        }
-
-        rigidbodyMinion = GetComponent<Rigidbody>();
-        if (rigidbodyMinion == null) {
-            Debug.Log("No rigidbody on minion with id " + id);
-        }
-    }
-
-    private void InitNet() {
-        CommunicationNet.FakeStatic.SendMinionInitialization((byte)id);
-    }
-
+    /// <summary>
+    /// Deinitializes this minion on the network
+    /// </summary>
     public void DeInitNet() {
         CommunicationNet.FakeStatic.SendMinionDeinitialization((byte)id);
-    }
-
-    // Update is called once per frame
-    void Update () {
-        if (!isEnemy && id != null) {
-            CommunicationNet.FakeStatic.SendMinionMovement(transform, rigidbodyMinion, (byte)id);
-        }
     }
 
     /// <summary>
@@ -60,6 +43,38 @@ public class MinionNet : MonoBehaviour {
             Debug.Log("No rigidbody on minion at SetNewMovementPack with id " + id);
         } else {
             rigidbodyMinion.velocity = velocity;
+        }
+    }
+
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start() {
+        isEnemy = GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY;
+        if (!isEnemy) {
+            id = CommunicationNet.FakeStatic.RequestMinionID();
+            InitNet();
+        }
+
+        rigidbodyMinion = GetComponent<Rigidbody>();
+        if (rigidbodyMinion == null) {
+            Debug.Log("No rigidbody on minion with id " + id);
+        }
+    }
+
+    /// <summary>
+    /// Initializes this minion on the network
+    /// </summary>
+    private void InitNet() {
+        CommunicationNet.FakeStatic.SendMinionInitialization((byte)id);
+    }
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update() {
+        if (!isEnemy && id != null) {
+            CommunicationNet.FakeStatic.SendMinionMovement(transform, rigidbodyMinion, (byte)id);
         }
     }
 }

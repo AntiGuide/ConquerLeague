@@ -55,7 +55,7 @@ public class TurretConquer : MonoBehaviour
     /// <param name="other">The colliding object</param>
     void OnTriggerStay(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY) {
-            if (CrossPlatformInputManager.GetButtonDown("Action") && hitPoints.AktHp >= hitPoints.saveHp) {
+            if (CrossPlatformInputManager.GetButtonDown("Action") && hitPoints.AktHp >= hitPoints.SaveHp) {
                 BuildTurret(other.gameObject.GetComponent<VehicleController>().TeamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
             }
         }

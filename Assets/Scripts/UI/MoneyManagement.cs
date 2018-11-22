@@ -68,7 +68,6 @@ public class MoneyManagement : MonoBehaviour {
         }
 
         money = money - moneyToSub;
-        //PlayerPrefs.SetInt("money", (int)MoneyManagement.money);
         OutputMoney(money, true);
         return true;
     }

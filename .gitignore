@@ -38,3 +38,7 @@ sysinfo.txt
 
 # Builds
 *.apk
+
+Assets/Scenes/Map_2/
+
+Assets/Scenes/MainMenue/

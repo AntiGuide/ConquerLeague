@@ -29,10 +29,7 @@ public class Base : MonoBehaviour {
     private Transform canvasTrans;
 
     /// <summary>The bases attached renderer</summary>
-    private Renderer renderer;
-
-    /// <summary>References the Bases attached Teamhandler</summary>
-    private TeamHandler teamHandler;
+    private Renderer baseRenderer;
 
     /// <summary>The bases normal color</summary>
     private Color startColor;
@@ -40,47 +37,45 @@ public class Base : MonoBehaviour {
     /// <summary>Counts to 2, spawns minions if reached</summary>
     private float spawnTimer;
 
-    private GameObject[] minions = new GameObject[byte.MaxValue];
-
     /// <summary>References the Bases attached Teamhandler</summary>
-    public TeamHandler TeamHandler {
-        get { return teamHandler; }
-        set { teamHandler = value; }
+    public TeamHandler TeamHandler { get; set; }
+
+    /// <summary>
+    /// Triggered when a minion is initialized over the network
+    /// </summary>
+    /// <param name="input">The data recieved over the network</param>
+    /// <returns></returns>
+    public GameObject RecieveMinionInitialize(byte[] input) {
+        // 0 = GameMessageType
+        // 1 = ID
+        return SpawnMinion(minion, spawnPoint.position, minion.transform.rotation, input[1]);
     }
 
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start() {
-        renderer = gameObject.GetComponent<MeshRenderer>();
-        teamHandler = gameObject.GetComponent<TeamHandler>();
-        startColor = renderer.material.color;
+        baseRenderer = gameObject.GetComponent<MeshRenderer>();
+        TeamHandler = gameObject.GetComponent<TeamHandler>();
+        startColor = baseRenderer.material.color;
     }
 
     /// <summary>
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Minion")) {
+        if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Minion")) {
             SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
         }
-
-        //spawnTimer += Time.deltaTime;
-
-        // Let minions spawn every 10 seconds on enemy base, used for testing purposes
-        //if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
-        //    if (spawnTimer >= 10) {
-        //        var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
-        //        spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
-        //        spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
-        //        spawnTimer -= 10;
-        //    }
-        //}
     }
 
+    /// <summary>
+    /// Triggered when an other collider enters the collider in this object
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            renderer.material.color = Color.green;
+            baseRenderer.material.color = Color.green;
         }
     }
 
@@ -89,11 +84,9 @@ public class Base : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerStay(Collider other) {
-        if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
+        if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
             var spawnedMinion = SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
-            //spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
             moneyManagement.SubMoney(minionCost);
-            
         }
     }
 
@@ -103,21 +96,23 @@ public class Base : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Player") {
-            renderer.material.color = startColor;
+            baseRenderer.material.color = startColor;
         }
     }
 
+    /// <summary>
+    /// This method spawns and initialized a minion on call
+    /// </summary>
+    /// <param name="minionPrefab">The minion prefab to spawn</param>
+    /// <param name="spawnPosition">The position to spawn the minion at</param>
+    /// <param name="spawnRotation">The rotation to spawn the minion with</param>
+    /// <param name="id">The ID of this minion</param>
+    /// <returns>New minion object</returns>
     private GameObject SpawnMinion(GameObject minionPrefab, Vector3 spawnPosition, Quaternion spawnRotation, byte? id = null) {
         var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
-        spawnedMinion.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
+        spawnedMinion.GetComponent<TeamHandler>().TeamID = TeamHandler.TeamID;
         spawnedMinion.GetComponent<MinionNet>().Id = id;
         spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
         return spawnedMinion;
-    }
-
-    public GameObject RecieveMinionInitialize(byte[] input) {
-        // 0 = GameMessageType
-        // 1 = ID
-        return SpawnMinion(minion, spawnPoint.position, minion.transform.rotation, input[1]);
     }
 }

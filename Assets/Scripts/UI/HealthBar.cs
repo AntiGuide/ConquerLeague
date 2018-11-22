@@ -8,8 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class HealthBar : MonoBehaviour {
     /// <summary>References the hitpoints script</summary>
-    [HideInInspector]
-    public HitPoints HitPoints;
+    private HitPoints hitPoints;
 
     /// <summary>The Healtbars target</summary>
     [SerializeField]
@@ -26,15 +25,14 @@ public class HealthBar : MonoBehaviour {
     /// <summary>The targets position in screenspace</summary>
     private Vector2 screenPos;
 
-    /// <summary>Saves the targets maxhp</summary>
-    private float maxHp;
+    private byte maxHp;
 
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start() {
-        HitPoints = Target.GetComponent<HitPoints>();
-        maxHp = HitPoints.AktHp;
+        hitPoints = Target.GetComponent<HitPoints>();
+        maxHp = hitPoints.AktHp;
     }
 
     /// <summary>LateUpdate is called once per frame after update</summary>
@@ -48,8 +46,12 @@ public class HealthBar : MonoBehaviour {
         transform.position = screenPos + offset;
     }
 
-    /// <summary>Update is called once per frame </summary>
-    void Update() {
-        fullHp.fillAmount = HitPoints.AktHp / maxHp;
+    public void UpdateBar() {
+        if (hitPoints == null) {
+            fullHp.fillAmount = 1f;
+        } else {
+            fullHp.fillAmount = hitPoints.AktHp / (float)maxHp;
+        }
+
     }
 }

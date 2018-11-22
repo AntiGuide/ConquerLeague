@@ -8,7 +8,7 @@ using UnityEngine;
 public class Standard_Projectile : MonoBehaviour {
     /// <summary>This projectiles damage</summary>
     [SerializeField]
-    private int damage = 2;
+    private byte damage = 2;
 
     /// <summary>References the bullets attached Teamhandler</summary>
     [SerializeField]
@@ -27,7 +27,8 @@ public class Standard_Projectile : MonoBehaviour {
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
-            if (other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
+            if(other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
+                CommunicationNet.FakeStatic.SendPlayerDamage(damage);
                 other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
             }
 
