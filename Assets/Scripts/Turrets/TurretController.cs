@@ -60,7 +60,7 @@ public class TurretController : MonoBehaviour {
 
     /// <summary>Use this for initialization</summary>
     void Start() {
-        aktShootingTime = ShootingTime;
+        aktShootingTime = 0f;
         renderer = turret.GetComponentsInChildren<MeshRenderer>();
     }
 
@@ -92,6 +92,7 @@ public class TurretController : MonoBehaviour {
             if (turretAim.AktAimingAt != null && turretAim.Locked) {
                 ShootAtEnemy(turretAim.AktAimingAt.transform);
             } else {
+                aktShootingTime = 0f;
                 return;
             }
         }
