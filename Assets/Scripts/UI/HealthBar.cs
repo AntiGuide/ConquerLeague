@@ -26,6 +26,16 @@ public class HealthBar : MonoBehaviour {
 
     private byte maxHp;
 
+    public Vector3 Offset {
+        get {
+            return offset;
+        }
+
+        set {
+            offset = value;
+        }
+    }
+
     /// <summary>
     /// Use this for initialization
     /// </summary>

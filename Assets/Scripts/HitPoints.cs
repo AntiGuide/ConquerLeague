@@ -19,6 +19,12 @@ public class HitPoints : MonoBehaviour {
 
     [SerializeField] private HealthBar healthBar;
 
+    [SerializeField] private Vector3 healthBarOffset;
+
+    [SerializeField] private GameObject HPBarPrefab;
+
+    [SerializeField] private Transform healthBarParent;
+
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
 
@@ -55,6 +61,10 @@ public class HitPoints : MonoBehaviour {
     void Start() {
         SetFull();
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
+        var bar = Instantiate(HPBarPrefab, healthBarParent);
+        healthBar = bar.GetComponent<HealthBar>();
+        healthBar.Offset = healthBarOffset;
+        healthBar.Target = gameObject;
     }
 
     /// <summary>
