@@ -6,8 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 /// <summary>
 /// The vehicles weapon, which defines its shootfrequency and what weapontype its using
 /// </summary>
-public class VehicleWeapon : MonoBehaviour
-{
+public class VehicleWeapon : MonoBehaviour, IConfigurable {
     /// <summary>The Weapontype the Vehicle is using</summary>
     [SerializeField] private GameObject weaponType;
 
@@ -29,6 +28,8 @@ public class VehicleWeapon : MonoBehaviour
     /// <summary>The shot vfx</summary>
     [SerializeField] private GameObject shotVFX;
 
+    [SerializeField] private byte damagePerShot;
+
     /// <summary>The Vehicles VFX Systems</summary>
     private ParticleSystem[] vfxSystems;
 
@@ -48,6 +49,7 @@ public class VehicleWeapon : MonoBehaviour
     /// Use this for initialization
     /// </summary>
     void Start() {
+        ConfigButton.ObjectsToUpdate.Add(this);
         vfxSystems = GetComponentsInChildren<ParticleSystem>();
 
         GameObject[] turretGameObjects;
@@ -93,9 +95,15 @@ public class VehicleWeapon : MonoBehaviour
             var shot = Instantiate(weaponType, shotSpawn.position, shotSpawn.rotation);
             shot.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             shot.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed);
+            shot.GetComponent<Standard_Projectile>().Damage = damagePerShot;
             aktShootingTime += shootingTime;
         } else if (CrossPlatformInputManager.GetButton("Shoot")) {
             aktShootingTime -= Time.deltaTime;
         }
+    }
+
+    public void UpdateConfig() {
+        shootingTime = 1 / ConfigButton.VehicleMGShotsPerSecond;
+        damagePerShot = ConfigButton.VehicleMGDamagePerShot;
     }
 }

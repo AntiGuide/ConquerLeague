@@ -7,7 +7,7 @@ using UnityStandardAssets.CrossPlatformInput;
 /// <summary>
 /// The players base, which spawns minion
 /// </summary>
-public class Base : MonoBehaviour {
+public class Base : MonoBehaviour, IConfigurable {
     /// <summary>How much currency it costs to build minion</summary>
     [SerializeField]
     private short minionCost = 20;
@@ -55,6 +55,7 @@ public class Base : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        ConfigButton.ObjectsToUpdate.Add(this);
         baseRenderer = gameObject.GetComponent<MeshRenderer>();
         TeamHandler = gameObject.GetComponent<TeamHandler>();
         startColor = baseRenderer.material.color;
@@ -114,5 +115,9 @@ public class Base : MonoBehaviour {
         spawnedMinion.GetComponent<MinionNet>().Id = id;
         spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
         return spawnedMinion;
+    }
+
+    public void UpdateConfig() {
+        minionCost = ConfigButton.MinionsBuyValue;
     }
 }

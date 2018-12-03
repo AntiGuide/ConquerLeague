@@ -14,6 +14,8 @@ public class Standard_Projectile : MonoBehaviour {
     [SerializeField]
     private TeamHandler teamHandler;
 
+    public byte Damage { get; set; }
+
     /// <summary>
     /// Use this for initialization
     /// </summary>

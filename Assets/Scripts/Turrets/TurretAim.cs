@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Used to make the turret aim at his prioritized target
 /// </summary>
-public class TurretAim : MonoBehaviour {
+public class TurretAim : MonoBehaviour, IConfigurable {
     /// <summary>True if the weapon is locked on a target</summary>
     [HideInInspector]
     public bool Locked = false;
@@ -57,6 +57,7 @@ public class TurretAim : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        ConfigButton.ObjectsToUpdate.Add(this);
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
         saveRotation = weapon.transform.rotation;
     }
@@ -153,5 +154,10 @@ public class TurretAim : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void UpdateConfig() {
+        targetRange = ConfigButton.TowerRange;
+        gameObject.GetComponent<SphereCollider>().radius = targetRange;
     }
 }

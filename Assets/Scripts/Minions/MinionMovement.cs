@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Controls the minions curent target and movement
 /// </summary>
-public class MinionMovement : MonoBehaviour {
+public class MinionMovement : MonoBehaviour, IConfigurable {
     /// <summary>The minions attached hpbar</summary>
     [SerializeField]
     private GameObject healthBar;
@@ -62,6 +62,7 @@ public class MinionMovement : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        ConfigButton.ObjectsToUpdate.Add(this);
         teamHandler = gameObject.GetComponent<TeamHandler>();
         goalManager = GameObject.Find("Goalmanager").GetComponent<GoalManager>();
         if (teamHandler.TeamID == GameManager.LeftTeam) {
@@ -117,5 +118,10 @@ public class MinionMovement : MonoBehaviour {
                 turning = false;
             }
         }
+    }
+
+    public void UpdateConfig() {
+        speed = ConfigButton.MinionsVelocity;
+        GetComponent<HitPoints>().SaveHp = ConfigButton.MinionsHP;
     }
 }

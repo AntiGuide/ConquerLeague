@@ -36,6 +36,8 @@ public class HealthBar : MonoBehaviour {
         }
     }
 
+    public byte MaxHp { get; set; }
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
