@@ -396,7 +396,7 @@ namespace IniParser.Parser
         {
             int index = s.IndexOf(Configuration.KeyValueAssigmentChar, 0);
 
-            return s.Substring(index + 1, s.Length - index - 1).Trim();
+            return s.Substring(index + 1, s.Length - index - 1).Trim(new char[] { ' ', '"'});
         }
 
         /// <summary>
