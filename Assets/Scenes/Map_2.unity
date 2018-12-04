@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -331,6 +331,28 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
   m_IsPrefabParent: 0
@@ -553,6 +575,28 @@ Prefab:
     - target: {fileID: 1332847530557980, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -874,6 +918,28 @@ Prefab:
     - target: {fileID: 1887452864721166, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -1600,10 +1666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a2837b94fb8ea46aa73820f0c5e457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableInput: {fileID: 295336153}
-  countdownText: {fileID: 0}
-  startPointLeft: {fileID: 1613857947}
-  startPointRight: {fileID: 1898163965}
   SpritesCountdown:
   - {fileID: 21300000, guid: 8de377d0a1f82cd48813d3cc5701dd85, type: 3}
   - {fileID: 21300002, guid: 8de377d0a1f82cd48813d3cc5701dd85, type: 3}
@@ -1617,6 +1679,10 @@ MonoBehaviour:
   - {fileID: 21300018, guid: 8de377d0a1f82cd48813d3cc5701dd85, type: 3}
   CountdownImage: {fileID: 1120754695}
   CountdownBackgroundImage: {fileID: 1599711402}
+  disableInput: {fileID: 295336153}
+  countdownText: {fileID: 0}
+  startPointLeft: {fileID: 1613857947}
+  startPointRight: {fileID: 1898163965}
 --- !u!1 &334267525
 GameObject:
   m_ObjectHideFlags: 0
@@ -2380,6 +2446,22 @@ Prefab:
       propertyPath: healthImage
       value: 
       objectReference: {fileID: 1425852651}
+    - target: {fileID: 114421183319604472, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114421183319604472, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114421183319604472, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114820871454578712, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
@@ -2521,6 +2603,28 @@ Prefab:
     - target: {fileID: 1597494989318950, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -2672,6 +2776,28 @@ Prefab:
     - target: {fileID: 1485944643081404, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -3128,6 +3254,28 @@ Prefab:
     - target: {fileID: 1485944643081404, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -3662,6 +3810,28 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
   m_IsPrefabParent: 0
@@ -4036,7 +4206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  offset: {x: -2, y: 35}
+  offset: {x: -2, y: 35, z: 0}
   fullHp: {fileID: 334267527}
 --- !u!114 &705354686
 MonoBehaviour:
@@ -4200,6 +4370,28 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
   m_IsPrefabParent: 0
@@ -4350,6 +4542,28 @@ Prefab:
     - target: {fileID: 1380304888851706, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -4643,6 +4857,28 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
   m_IsPrefabParent: 0
@@ -4793,6 +5029,28 @@ Prefab:
     - target: {fileID: 1903684597810042, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -5265,6 +5523,28 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
   m_IsPrefabParent: 0
@@ -5540,6 +5820,28 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
   m_IsPrefabParent: 0
@@ -5731,7 +6033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1288639310}
-  offset: {x: -2, y: 35}
+  offset: {x: -2, y: 35, z: 0}
   fullHp: {fileID: 1818200693}
 --- !u!114 &1142495538
 MonoBehaviour:
@@ -5910,6 +6212,28 @@ Prefab:
     - target: {fileID: 1006695795352126, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -6090,6 +6414,28 @@ Prefab:
     - target: {fileID: 1380304888851706, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -6417,6 +6763,28 @@ Prefab:
     - target: {fileID: 1597494989318950, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -7061,7 +7429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 2059646664}
-  offset: {x: -2, y: 35}
+  offset: {x: -2, y: 35, z: 0}
   fullHp: {fileID: 29076630}
 --- !u!114 &1425852651
 MonoBehaviour:
@@ -7323,6 +7691,28 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
   m_IsPrefabParent: 0
@@ -7481,6 +7871,28 @@ Prefab:
     - target: {fileID: 1261274264312872, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -8412,6 +8824,28 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
   m_IsPrefabParent: 0
@@ -8562,6 +8996,28 @@ Prefab:
     - target: {fileID: 1261274264312872, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -9382,6 +9838,22 @@ Prefab:
       propertyPath: healthImage
       value: 
       objectReference: {fileID: 1142495538}
+    - target: {fileID: 114421183319604472, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114421183319604472, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114421183319604472, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
   m_IsPrefabParent: 0
@@ -9884,6 +10356,28 @@ Prefab:
     - target: {fileID: 1489493102725738, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: HPBarPrefab
+      value: 
+      objectReference: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+        type: 2}
+    - target: {fileID: 114042740801877548, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1989244659898142, guid: 4def541dc6c50194c9e563224b3ee8a6,
+        type: 2}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarParent
+      value: 
+      objectReference: {fileID: 193326067}
+    - target: {fileID: 114136716198125448, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: healthBarOffset.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
