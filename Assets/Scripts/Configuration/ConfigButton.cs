@@ -4,6 +4,7 @@ using UnityEngine;
 using IniParser;
 using UnityEngine.UI;
 using System.Globalization;
+using System.IO;
 
 public class ConfigButton : MonoBehaviour {
     public static HashSet<IConfigurable> ObjectsToUpdate = new HashSet<IConfigurable>();
@@ -42,6 +43,11 @@ public class ConfigButton : MonoBehaviour {
     public static int   TowerRewardCapture   { get { return int.Parse(tower["REWARD_CAPTURE"]); } }
 
     public void OnButtonPress() {
+        if (!File.Exists(Application.persistentDataPath + "/Config.ini")) {
+            Debug.Log("Config.ini doesn't exist at \"" + Application.persistentDataPath + "/Config.ini\"");
+            return;
+        }
+
         var parser = new FileIniDataParser();
         var data = parser.ReadFile(Application.persistentDataPath + "/Config.ini");
 

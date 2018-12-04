@@ -3259,6 +3259,10 @@ MonoBehaviour:
   saveHp: 50
   teamHandler: {fileID: 114769131902855430}
   healthBar: {fileID: 0}
+  healthBarOffset: {x: 0, y: 0, z: 0}
+  HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+    type: 2}
+  healthBarParent: {fileID: 0}
   moneyValue: 1e0014000a00
 --- !u!136 &136608390953567898
 CapsuleCollider:

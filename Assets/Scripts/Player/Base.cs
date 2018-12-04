@@ -33,9 +33,12 @@ public class Base : MonoBehaviour, IConfigurable {
 
     /// <summary>The bases normal color</summary>
     private Color startColor;
+    
+    private float spawnTimer = 0;
 
-    /// <summary>Counts to 2, spawns minions if reached</summary>
-    private float spawnTimer;
+    private int minionsToSpawn = 0;
+
+    private float timeBetweenMinions = 2f;
 
     /// <summary>References the Bases attached Teamhandler</summary>
     public TeamHandler TeamHandler { get; set; }
@@ -65,8 +68,16 @@ public class Base : MonoBehaviour, IConfigurable {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Minion")) {
+        if (minionsToSpawn > 0) {
+            spawnTimer += Time.deltaTime;
+        } else {
+            spawnTimer = 0f;
+        }
+
+        if (spawnTimer > timeBetweenMinions) {
             SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
+            minionsToSpawn--;
+            spawnTimer -= timeBetweenMinions;
         }
     }
 
@@ -86,7 +97,7 @@ public class Base : MonoBehaviour, IConfigurable {
     /// <param name="other"></param>
     void OnTriggerStay(Collider other) {
         if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
-            var spawnedMinion = SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
+            minionsToSpawn++;
             moneyManagement.SubMoney(minionCost);
         }
     }
