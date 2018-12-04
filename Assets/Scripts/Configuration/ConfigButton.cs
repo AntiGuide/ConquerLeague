@@ -22,7 +22,7 @@ public class ConfigButton : MonoBehaviour {
     // VehicleMachineGun
     public static float VehicleMGSpeed          { get { return float.Parse(vehicleMachineGun["SPEED"], CultureInfo.InvariantCulture.NumberFormat); } }
     public static int   VehicleMGTuningSpeed    { get { return int.Parse(vehicleMachineGun["TURNING_SPEED"]); } }
-    public static float VehicleMGRange          { get { return int.Parse(vehicleMachineGun["RANGE"], CultureInfo.InvariantCulture.NumberFormat); } }
+    public static float VehicleMGRange          { get { return float.Parse(vehicleMachineGun["RANGE"], CultureInfo.InvariantCulture.NumberFormat); } }
     public static byte  VehicleMGDamagePerShot  { get { return byte.Parse(vehicleMachineGun["DAMAGE_PER_SHOT"]); } }
     public static int   VehicleMGShotsPerSecond { get { return int.Parse(vehicleMachineGun["SHOTS_PER_SECOND"]); } }
     
