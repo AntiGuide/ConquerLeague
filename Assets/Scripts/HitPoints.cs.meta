@@ -3,7 +3,12 @@ guid: 72256d8a4d812584a84fb6eaeca5c4b9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - teamHandler: {instanceID: 0}
+  - healthBar: {instanceID: 0}
+  - HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
+      type: 2}
+  - healthBarParent: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

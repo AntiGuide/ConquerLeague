@@ -2,11 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityStandardAssets.CrossPlatformInput;
 
+/// <summary>
+/// The game manager. Handles the most important info for the state of the game, can pause the game and disable input.
+/// </summary>
 public class GameManager : MonoBehaviour {
-
+    /// <summary>Static reference to the only occurence of this object. Used because Unity doesn't let you set info for static components</summary>
     public static GameManager FSGameManager;
+
+    /// <summary>Defines wether the left team is the enemy or the friendly team. Null until initialization.</summary>
+    public static TeamHandler.TeamState? LeftTeam;
+
+    /// <summary>Defines wether the right team is the enemy or the friendly team. Null until initialization.</summary>
+    public static TeamHandler.TeamState? RightTeam;
+
+    public static TowerNet[] towers = new TowerNet[byte.MaxValue];
+
+    /// <summary>The sprites with numbers from 0-9</summary>
+    public Sprite[] SpritesCountdown;
+
+    public Image CountdownImage;
+
+    public Image CountdownBackgroundImage;
+
+    private static Image disableInputFakeStatic;
+
+    private static bool paused;
 
     [SerializeField] private Image disableInput;
 
@@ -19,14 +40,7 @@ public class GameManager : MonoBehaviour {
     /// <summary> The spawn point of the player on the right side </summary>
     [SerializeField] private Transform startPointRight;
 
-    public Sprite[] SpritesCountdown;
-
-    public Image CountdownImage;
-
-    public Image CountdownBackgroundImage;
-
-
-
+    /// <summary>Getter/Setter for paused</summary>
     public static bool Paused {
         get {
             return paused;
@@ -35,48 +49,6 @@ public class GameManager : MonoBehaviour {
         set {
             paused = value;
             UpdatePausedSetting();
-        }
-    }
-
-    public static Text CountdownTextFakeStatic {
-        get {
-            return countdownTextFakeStatic;
-        }
-
-        set {
-            countdownTextFakeStatic = value;
-        }
-    }
-
-    public static TeamHandler.TeamState? LeftTeam;
-
-    public static TeamHandler.TeamState? RightTeam;
-
-    private static Image disableInputFakeStatic;
-
-    private static bool paused;
-
-    private static Text countdownTextFakeStatic;
-
-
-    private void Start() {
-        if (FSGameManager != null) {
-            Application.Quit();
-        }
-
-        FSGameManager = this;
-        disableInputFakeStatic = disableInput;
-        countdownTextFakeStatic = countdownText;
-        Paused = true;
-        LeftTeam = TeamHandler.TeamState.FRIENDLY;
-        RightTeam = TeamHandler.TeamState.ENEMY;
-        DisableInput(false);
-    }
-
-    // Update is called once per frame
-    void Update() {
-        if (CrossPlatformInputManager.GetButtonDown("Debug")) {
-            Paused = !Paused;
         }
     }
 
@@ -93,20 +65,40 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         FSGameManager.CountdownImage.sprite = FSGameManager.SpritesCountdown[1];
         yield return new WaitForSeconds(1f);
-        //FSGameManager.countdownImage.sprite = FSGameManager.spritesCountdown[0];
         Paused = false;
-        //yield return new WaitForSeconds(1f);
         FSGameManager.CountdownImage.enabled = false;
         FSGameManager.CountdownBackgroundImage.enabled = false;
         yield return null;
     }
 
+    /// <summary>
+    /// Disables input trough enabling a transparent image
+    /// </summary>
+    /// <param name="setTo"></param>
+    public static void DisableInput(bool setTo) {
+        disableInputFakeStatic.enabled = setTo;
+    }
+
+    /// <summary>
+    /// Updates settings that are related to the pause state
+    /// </summary>
     private static void UpdatePausedSetting() {
-        DisableInput(Paused);
+        //DisableInput(Paused);
         GameTimer.TimerPaused = Paused;
     }
 
-    public static void DisableInput(bool setTo) {
-        disableInputFakeStatic.enabled = setTo;
+    /// <summary>
+    /// Runs on object initialization
+    /// </summary>
+    private void Start() {
+        if (FSGameManager != null) {
+            Application.Quit();
+        }
+
+        FSGameManager = this;
+        disableInputFakeStatic = disableInput;
+        Paused = true;
+        LeftTeam = TeamHandler.TeamState.FRIENDLY;
+        RightTeam = TeamHandler.TeamState.ENEMY;
     }
 }

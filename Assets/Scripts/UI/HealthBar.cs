@@ -15,8 +15,7 @@ public class HealthBar : MonoBehaviour {
     public GameObject Target;
 
     /// <summary>The Healthbars UI-Offset</summary>
-    [SerializeField]
-    private Vector2 offset;
+    [SerializeField] private Vector3 offset;
 
     /// <summary>The fullHp image</summary>
     [SerializeField]
@@ -26,6 +25,18 @@ public class HealthBar : MonoBehaviour {
     private Vector2 screenPos;
 
     private byte maxHp;
+
+    public Vector3 Offset {
+        get {
+            return offset;
+        }
+
+        set {
+            offset = value;
+        }
+    }
+
+    public byte MaxHp { get; set; }
 
     /// <summary>
     /// Use this for initialization
@@ -42,8 +53,8 @@ public class HealthBar : MonoBehaviour {
             return;
         }
 
-        screenPos = (Vector2)Camera.main.WorldToScreenPoint(Target.transform.position);
-        transform.position = screenPos + offset;
+        screenPos = Camera.main.WorldToScreenPoint(Target.transform.position + offset);
+        transform.position = screenPos;
     }
 
     public void UpdateBar() {

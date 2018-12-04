@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 /// <summary>
 /// Controls the minions curent target and movement
 /// </summary>
-public class MinionMovement : MonoBehaviour {
+public class MinionMovement : MonoBehaviour, IConfigurable {
     /// <summary>The minions attached hpbar</summary>
     [SerializeField]
     private GameObject healthBar;
@@ -15,27 +14,40 @@ public class MinionMovement : MonoBehaviour {
     [SerializeField, Tooltip("The transform-targets, which tells the minions where to go and in which order. Priority from top to bottom.")]
     private Transform[] movementOrder;
 
-    /// <summary>The distance when the minion swaps its target</summary>
-    [SerializeField]
-    private float swapDistance;
+    /// <summary>Defines how fast the minion moves</summary>
+    [SerializeField, Range(0.1f, 10f)]
+    private float speed = 0.1f;
 
-    /// <summary>True if minion swapped target</summary>
-    private bool swappedTarget = false;
+    /// <summary>Defines how fast the minion will turn</summary>
+    [SerializeField]
+    private float turnSpeed = 2;
 
     /// <summary>References the Goalmanager</summary>
     private GoalManager goalManager;
 
     /// <summary>The minions Teamhandler</summary>
     private TeamHandler teamHandler;
+    
+    /// <summary>The progress of the minions current journey</summary>
+    private float progress = 0;
+
+    /// <summary>The minions start position</summary>
+    private Vector3 startPosition;
+
+    /// <summary>The distance between points</summary>
+    private float distanceBetweenPoints;
 
     /// <summary>The array index of the currently chased target</summary>
     private int currTarget = 1;
 
-    private Vector3 lastTargetPosition;
+    /// <summary>The progress of the minions turn</summary>
+    private float turnProgress = 0;
 
-    /// <summary>References the minions attached NavMeshAgent</summary>
-    [SerializeField]
-    private NavMeshAgent agent;
+    /// <summary>Tells if the minion is turning at the moment</summary>
+    private bool turning = false;
+
+    /// <summary>Saves the minions current rotation</summary>
+    private Quaternion currRotation;
 
     /// <summary>
     /// Instantiates the minions hpbar when it spawns
@@ -50,18 +62,18 @@ public class MinionMovement : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
-        agent.Warp(GameObject.Find("SpawnLeft").transform.position);
-
+        ConfigButton.ObjectsToUpdate.Add(this);
         teamHandler = gameObject.GetComponent<TeamHandler>();
         goalManager = GameObject.Find("Goalmanager").GetComponent<GoalManager>();
-
         if (teamHandler.TeamID == GameManager.LeftTeam) {
             movementOrder = GameObject.Find("Waypoint_F" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
         } else {
             movementOrder = GameObject.Find("Waypoint_E" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
         }
 
-        agent.destination = movementOrder[currTarget].position;
+        startPosition = transform.position;
+        distanceBetweenPoints = Vector3.Distance(startPosition, movementOrder[currTarget].position);
+        transform.rotation = Quaternion.LookRotation(movementOrder[currTarget].position - transform.position);
     }
 
     /// <summary>
@@ -72,26 +84,44 @@ public class MinionMovement : MonoBehaviour {
             return;
         }
 
-        if (movementOrder.Length == currTarget) {
-            goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
-            GetComponent<MinionNet>().DeInitNet();
-            Destroy(gameObject);
-            return;
-        }
+        progress += (Time.deltaTime * speed) / distanceBetweenPoints;
+        transform.position = Vector3.Lerp(startPosition, movementOrder[currTarget].position, progress);
 
-        if (agent.remainingDistance <= swapDistance && !swappedTarget) {
-            lastTargetPosition = agent.destination;
+        // Change minion target + calculates distance between minion and the new target + starts turning
+        if (progress >= 0.9f && progress < 1f) {
+            turning = true;
+        } else if (progress >= 1f) {
             currTarget++;
-
-            if(currTarget < movementOrder.Length) {
-                agent.destination = movementOrder[currTarget].position;
+            if (movementOrder.Length == currTarget) {
+                goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
+                GetComponent<MinionNet>().DeInitNet();
+                Destroy(gameObject);
+                return;
             }
 
-            swappedTarget = true;
+            startPosition = transform.position;
+            progress -= 1f;
+            progress *= distanceBetweenPoints;
+            distanceBetweenPoints = Vector3.Distance(startPosition, movementOrder[currTarget].position);
+            progress /= distanceBetweenPoints;
         }
 
-        if(lastTargetPosition != agent.destination && swappedTarget) {
-            swappedTarget = false;
+        // Make the minion face its next target
+        if (turning) {
+            turnProgress += Time.deltaTime * turnSpeed;
+            currRotation = transform.rotation;
+            var currDirection = movementOrder[currTarget].position - transform.position;
+            var newRota = Quaternion.LookRotation(currDirection);
+            transform.rotation = Quaternion.Lerp(currRotation, newRota, turnProgress);
+            if (turnProgress >= 1f) {
+                turnProgress = 0f;
+                turning = false;
+            }
         }
+    }
+
+    public void UpdateConfig() {
+        speed = ConfigButton.MinionsVelocity;
+        GetComponent<HitPoints>().SaveHp = ConfigButton.MinionsHP;
     }
 }

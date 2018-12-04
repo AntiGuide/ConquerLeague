@@ -6,7 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 /// <summary>
 /// The vehicles controller, which defines how fast its moving and rotating
 /// </summary>
-public class VehicleController : MonoBehaviour {
+public class VehicleController : MonoBehaviour, IConfigurable {
     /// <summary>Defines how fast the vehicle moves</summary>
     [SerializeField]
     private float movementSpeed;
@@ -32,6 +32,7 @@ public class VehicleController : MonoBehaviour {
     /// Use this for initialization
     /// </summary>    
     void Start() {
+        ConfigButton.ObjectsToUpdate.Add(this);
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -60,5 +61,10 @@ public class VehicleController : MonoBehaviour {
         transform.rotation = Quaternion.RotateTowards(transform.rotation, quat, degreePerSecond * rotation.magnitude * Time.deltaTime);
         var newVelocity = transform.forward * rotation.magnitude * movementSpeed;
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+    }
+
+    public void UpdateConfig() {
+        movementSpeed = ConfigButton.VehicleMGSpeed;
+        degreePerSecond = ConfigButton.VehicleMGTuningSpeed;
     }
 }

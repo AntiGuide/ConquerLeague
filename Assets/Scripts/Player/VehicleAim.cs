@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Used to let the player auto-aim in a certain range
 /// </summary>
-public class VehicleAim : MonoBehaviour {
+public class VehicleAim : MonoBehaviour, IConfigurable {
     /// <summary>The range to target shootables in</summary>
     [SerializeField, Header("Customizable"), Tooltip("The Range in UnityUnits/meters that a player is allowed to target")]
     private float targetRange;
@@ -156,5 +156,13 @@ public class VehicleAim : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void UpdateConfig() {
+        targetRange = ConfigButton.VehicleMGRange;
+        var col = gameObject.GetComponent<SphereCollider>();
+        col.enabled = false;
+        col.radius = targetRange;
+        col.enabled = true;
     }
 }

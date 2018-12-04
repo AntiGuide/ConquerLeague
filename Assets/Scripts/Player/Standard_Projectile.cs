@@ -14,6 +14,8 @@ public class Standard_Projectile : MonoBehaviour {
     [SerializeField]
     private TeamHandler teamHandler;
 
+    public byte Damage { get; set; }
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
@@ -28,8 +30,20 @@ public class Standard_Projectile : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
             if(other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
-                CommunicationNet.FakeStatic.SendPlayerDamage(damage);
-                other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
+                switch (other.tag) {
+                    case "Player":
+                        CommunicationNet.FakeStatic.SendPlayerDamage(damage);
+                        other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
+                        break;
+                    case "Turret":
+                        var id = other.GetComponent<TowerNet>().ID;
+                        CommunicationNet.FakeStatic.SendTowerDamage(id, damage);
+                        other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
+                        break;
+                    default:
+                        break;
+                }
+                
             }
 
             Destroy(gameObject);

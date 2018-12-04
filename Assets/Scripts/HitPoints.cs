@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// This units HitPoints, gets destroyed when its reduced to zero
 /// </summary>
-public class HitPoints : MonoBehaviour {
+public class HitPoints : MonoBehaviour, IConfigurable {
     /// <summary>The units current hitpoints</summary>
     private byte aktHp;
 
@@ -18,6 +18,12 @@ public class HitPoints : MonoBehaviour {
     private TeamHandler teamHandler;
 
     [SerializeField] private HealthBar healthBar;
+
+    [SerializeField] private Vector3 healthBarOffset;
+
+    [SerializeField] private GameObject HPBarPrefab;
+
+    [SerializeField] private Transform healthBarParent;
 
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
@@ -43,7 +49,21 @@ public class HitPoints : MonoBehaviour {
 
     public HealthBar HealthBar { get; set; }
 
-    public byte SaveHp { get; set; }
+    public byte SaveHp {
+        get {
+            return saveHp;
+        }
+
+        set {
+            saveHp = value;
+            if (healthBar == null) {
+                return;
+            }
+
+            healthBar.MaxHp = saveHp;
+            healthBar.UpdateBar();
+        }
+    }
 
     public void SetFull() {
         AktHp = saveHp;
@@ -53,8 +73,13 @@ public class HitPoints : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        ConfigButton.ObjectsToUpdate.Add(this);
         SetFull();
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
+        var bar = Instantiate(HPBarPrefab, healthBarParent);
+        healthBar = bar.GetComponent<HealthBar>();
+        healthBar.Offset = healthBarOffset;
+        healthBar.Target = gameObject;
     }
 
     /// <summary>
@@ -80,5 +105,11 @@ public class HitPoints : MonoBehaviour {
                 Destroy(gameObject);
                 break;
         }
+    }
+
+    public void UpdateConfig() {
+        moneyValue[0] = ConfigButton.VehicleDestroyValue;
+        moneyValue[1] = ConfigButton.TowerReward;
+        moneyValue[2] = ConfigButton.MinionsDestroyValue;
     }
 }

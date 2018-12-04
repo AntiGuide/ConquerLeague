@@ -77,7 +77,8 @@ public class CommunicationNet : MonoBehaviour {
         MINION_DEINITIALIZE = 4,
         NEW_SCORE = 5,
         PLAYER_DEATH = 6,
-        PLAYER_DAMAGE_DEALT = 7
+        PLAYER_DAMAGE_DEALT = 7,
+        TOWER_DAMAGE = 8
     }
 
     /// <summary>
@@ -178,6 +179,17 @@ public class CommunicationNet : MonoBehaviour {
     }
 
     /// <summary>
+    /// Handles incoming data for the tower damage event
+    /// </summary>
+    /// <param name="input">The incoming data</param>
+    public void RecieveTowerDamage(byte[] input) {
+        // 0 = GameMessageType
+        // 1 = TowerID
+        // 2 = Damage
+        GameManager.towers[input[1]].DamageTaken(input[2]);
+    }
+
+    /// <summary>
     /// Sends a message to inform other player about this players death
     /// </summary>
     public void SendPlayerDeath() {
@@ -192,6 +204,18 @@ public class CommunicationNet : MonoBehaviour {
         var send = new byte[2][];
         send[0] = new byte[] { (byte)GameMessageType.PLAYER_DAMAGE_DEALT };
         send[1] = new byte[] { damage };
+        Send(MergeArrays(send), NetDeliveryMethod.ReliableUnordered);
+    }
+
+    /// <summary>
+    /// Sends damage dealt to tower
+    /// </summary>
+    /// <param name="damage">The damage that was dealt</param>
+    public void SendTowerDamage(byte id, byte damage) {
+        var send = new byte[3][];
+        send[0] = new byte[] { (byte)GameMessageType.TOWER_DAMAGE }; // 0 = GameMessageType
+        send[1] = new byte[] { id }; // 1 = TowerID
+        send[2] = new byte[] { damage }; // 2 = Damage
         Send(MergeArrays(send), NetDeliveryMethod.ReliableUnordered);
     }
 
@@ -438,58 +462,12 @@ public class CommunicationNet : MonoBehaviour {
     /// Reads incoming messages
     /// </summary>
     /// <param name="client">The socket to read on</param>
-    /// <returns>IEnumerator for coroutine</returns>
-    void ReadMessages(NetClient client) {
+    private void ReadMessages(NetClient client) {
         while ((message = client.ReadMessage()) != null) {
             switch (message.MessageType) {
                 case NetIncomingMessageType.Data:
-                    var dataLength = message.ReadInt32();
-                    var data = message.ReadBytes(dataLength);
-                    if (data.Length == 0) {
-                        break;
-                    }
-
-                    switch (data[0]) {
-                        case (byte)GameMessageType.PLAYER_MOVEMENT:
-                            if (data.Length < 42) {
-                                break;
-                            }
-
-                            RecievePlayerMovement(data);
-                            break;
-                        case (byte)GameMessageType.SESSION_INITIALITZE:
-                            RecieveSessionInitialize(data);
-                            StartCoroutine(GameManager.StartGame());
-                            break;
-                        case (byte)GameMessageType.MINION_INITIALITZE:
-                            if (isLeft) {
-                                minions[data[1]] = rightBase.RecieveMinionInitialize(data);
-                            } else {
-                                minions[data[1]] = leftBase.RecieveMinionInitialize(data);
-                            }
-                            
-                            break;
-                        case (byte)GameMessageType.MINION_DEINITIALIZE:
-                            Destroy(minions[data[1]]);
-                            minions[data[1]] = null;
-                            break;
-                        case (byte)GameMessageType.MINION_MOVE:
-                            RecieveMinionMovement(data);
-                            break;
-                        case (byte)GameMessageType.NEW_SCORE:
-                            RecieveNewScore(data);
-                            break;
-                        case (byte)GameMessageType.PLAYER_DEATH:
-                            RecievePlayerDeath();
-                            break;
-                        case (byte)GameMessageType.PLAYER_DAMAGE_DEALT:
-                            RecievePlayerDamage(data);
-                            break;
-                        default:
-                            Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");
-                            break;
-                    }
-
+                    var data = message.ReadBytes(message.ReadInt32());
+                    HandleNewDataPackage(data);
                     break;
                 case NetIncomingMessageType.StatusChanged:
                     switch (message.SenderConnection.Status) {
@@ -508,6 +486,49 @@ public class CommunicationNet : MonoBehaviour {
             }
 
             client.Recycle(message);
+        }
+    }
+
+    /// <summary>
+    /// Handles new data recieved in ReadMessages()
+    /// </summary>
+    /// <param name="data">The data that has been recieved</param>
+    private void HandleNewDataPackage(byte[] data) {
+        switch (data[0]) {
+            case (byte)GameMessageType.PLAYER_MOVEMENT:
+                RecievePlayerMovement(data);
+                break;
+            case (byte)GameMessageType.SESSION_INITIALITZE:
+                RecieveSessionInitialize(data);
+                StartCoroutine(GameManager.StartGame());
+                break;
+            case (byte)GameMessageType.MINION_INITIALITZE:
+                if (isLeft) {
+                    minions[data[1]] = rightBase.RecieveMinionInitialize(data);
+                } else {
+                    minions[data[1]] = leftBase.RecieveMinionInitialize(data);
+                }
+
+                break;
+            case (byte)GameMessageType.MINION_DEINITIALIZE:
+                Destroy(minions[data[1]]);
+                minions[data[1]] = null;
+                break;
+            case (byte)GameMessageType.MINION_MOVE:
+                RecieveMinionMovement(data);
+                break;
+            case (byte)GameMessageType.NEW_SCORE:
+                RecieveNewScore(data);
+                break;
+            case (byte)GameMessageType.PLAYER_DEATH:
+                RecievePlayerDeath();
+                break;
+            case (byte)GameMessageType.PLAYER_DAMAGE_DEALT:
+                RecievePlayerDamage(data);
+                break;
+            default:
+                Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");
+                break;
         }
     }
 }

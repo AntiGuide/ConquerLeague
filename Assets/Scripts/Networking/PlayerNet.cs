@@ -8,9 +8,11 @@ using UnityEngine.UI;
 /// The class handles the behaviour of the player object after network packets came in
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerNet : MonoBehaviour {
+public class PlayerNet : MonoBehaviour, IConfigurable {
     /// <summary>The reference to the red health bar image</summary>
     [SerializeField] private Image healthImage;
+
+    [SerializeField] private int respawnTime = 5;
 
     /// <summary>Marks if the attached object is an enemy</summary>
     private bool isEnemy;
@@ -35,6 +37,7 @@ public class PlayerNet : MonoBehaviour {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
+        hitPoints.AktHp = hp;
     }
 
     /// <summary>
@@ -74,16 +77,11 @@ public class PlayerNet : MonoBehaviour {
     public IEnumerator InitCountdown() {
         GameManager.FSGameManager.CountdownBackgroundImage.enabled = true;
         GameManager.FSGameManager.CountdownImage.enabled = true;
-        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[5];
-        yield return new WaitForSeconds(1f);
-        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[4];
-        yield return new WaitForSeconds(1f);
-        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[3];
-        yield return new WaitForSeconds(1f);
-        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[2];
-        yield return new WaitForSeconds(1f);
-        GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[1];
-        yield return new WaitForSeconds(1f);
+        for (int i = respawnTime; i > 0; i--) {
+            GameManager.FSGameManager.CountdownImage.sprite = GameManager.FSGameManager.SpritesCountdown[i];
+            yield return new WaitForSeconds(1f);
+        }
+
         GameManager.FSGameManager.CountdownImage.enabled = false;
         GameManager.FSGameManager.CountdownBackgroundImage.enabled = false;
         yield return null;
@@ -98,6 +96,7 @@ public class PlayerNet : MonoBehaviour {
         transform.position = StartPoint.position;
         transform.rotation = StartPoint.rotation;
         transform.GetChild(0).gameObject.SetActive(false);
+        var savedLayer = gameObject.layer;
         gameObject.layer = 13;
         if (!isEnemy) {
             GetComponent<VehicleController>().enabled = false;
@@ -108,11 +107,11 @@ public class PlayerNet : MonoBehaviour {
         }
 
         hitPoints.SetFull();
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(respawnTime);
         healthImage.enabled = true;
         healthImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
         transform.GetChild(0).gameObject.SetActive(true);
-        gameObject.layer = 0;
+        gameObject.layer = savedLayer;
         if (!isEnemy) {
             GetComponent<VehicleController>().enabled = true;
         }
@@ -134,15 +133,16 @@ public class PlayerNet : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        ConfigButton.ObjectsToUpdate.Add(this);
         isEnemy = GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY;
         rigidbodyPlayer = GetComponent<Rigidbody>();
         hitPoints = GetComponent<HitPoints>();
     }
 
     /// <summary>
-    /// Update is called once per frame
+    /// FixedUpdate is called on physics refresh
     /// </summary>
-    void Update() {
+    void FixedUpdate() {
         if (!isEnemy) {
             try {
                 CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer, hitPoints.AktHp);
@@ -151,5 +151,10 @@ public class PlayerNet : MonoBehaviour {
                 throw;
             }
         }
+    }
+
+    public void UpdateConfig() {
+        respawnTime = ConfigButton.VehicleRespawnTime;
+        hitPoints.SaveHp = ConfigButton.VehicleHP;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Controlls movement and shooting of a turret
 /// </summary>
-public class TurretController : MonoBehaviour {
+public class TurretController : MonoBehaviour, IConfigurable {
     /// <summary>The time it takes for the turret to shoot again</summary>
     public float ShootingTime;
 
@@ -49,6 +49,9 @@ public class TurretController : MonoBehaviour {
     [SerializeField]
     private float respawnSpeed = 20f;
 
+    [SerializeField]
+    private byte damagePerShot = 15;
+
     /// <summary>All of the turrets renderer</summary>
     private MeshRenderer[] renderer;
 
@@ -60,7 +63,8 @@ public class TurretController : MonoBehaviour {
 
     /// <summary>Use this for initialization</summary>
     void Start() {
-        aktShootingTime = 0f;
+        ConfigButton.ObjectsToUpdate.Add(this);
+        aktShootingTime = ShootingTime;
         renderer = turret.GetComponentsInChildren<MeshRenderer>();
     }
 
@@ -92,7 +96,6 @@ public class TurretController : MonoBehaviour {
             if (turretAim.AktAimingAt != null && turretAim.Locked) {
                 ShootAtEnemy(turretAim.AktAimingAt.transform);
             } else {
-                aktShootingTime = 0f;
                 return;
             }
         }
@@ -109,8 +112,16 @@ public class TurretController : MonoBehaviour {
             var bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
             bullet.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             bullet.GetComponent<Rigidbody>().AddForce((target.position - bullet.transform.position) * bulletForce);
+            bullet.GetComponent<Standard_Projectile>().Damage = damagePerShot;
             aktShootingTime += ShootingTime;
             aktShootingTime = Mathf.Min(aktShootingTime, ShootingTime / 2f);
         }
+    }
+
+    public void UpdateConfig() {
+        hitPoints.SaveHp = ConfigButton.TowerHP;
+        ShootingTime = 1 / ConfigButton.TowerShotsPerSecond;
+        damagePerShot = ConfigButton.TowerDamagePerShot;
+        respawnSpeed = hitPoints.SaveHp / ConfigButton.TowerRespawnTime;
     }
 }
