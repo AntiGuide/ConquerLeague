@@ -41,6 +41,8 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> Reference to the GoalManager displaying the score</summary>
     [SerializeField] private GoalManager goalManager;
 
+    [SerializeField] private Text debugText;
+
     /// <summary> The config to connect to the server </summary>
     private NetClient client;
 
@@ -323,7 +325,7 @@ public class CommunicationNet : MonoBehaviour {
         if (startIndex + (sizeof(float) * 3) > input.Length) {
             Debug.Log("Array to small");
         }
-        
+
         var x = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 0));
         var y = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 1));
         var z = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 2));
@@ -398,10 +400,11 @@ public class CommunicationNet : MonoBehaviour {
 
         FakeStatic = this;
         var config = new NetPeerConfiguration("ConquerLeague");
+        config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse); // Enable DiscoveryResponse messages
+        config.Port = 47410;
         client = new NetClient(config);
         client.Start();
-        ////connection = client.Connect(host: "192.168.0.100", port: 47410);
-        connection = client.Connect(host: ipAddress, port: portNumber);
+        client.DiscoverLocalPeers(portNumber); // Emit a discovery signal
     }
 
     /// <summary>
@@ -427,7 +430,7 @@ public class CommunicationNet : MonoBehaviour {
     /// </summary>
     /// <returns>IEnumerator for coroutine</returns>
     void SendFromQueue() {
-        while (sendQueue.Count > 0) {
+        while (connection != null && sendQueue.Count > 0) {
             outMessage = client.CreateMessage();
             outMessage.Write(sendQueue[0].Length);
             outMessage.Write(sendQueue[0]);
@@ -465,6 +468,13 @@ public class CommunicationNet : MonoBehaviour {
     private void ReadMessages(NetClient client) {
         while ((message = client.ReadMessage()) != null) {
             switch (message.MessageType) {
+                case NetIncomingMessageType.DiscoveryResponse:
+                    //Debug.Log("Found server at " + message.SenderEndPoint + " name: " + message.ReadString());
+                    debugText.text += "Reachability: " + Application.internetReachability.ToString() + Network.connectionTesterIP;
+                    debugText.text += "Found server at " + message.SenderEndPoint + " name: " + message.ReadString() + System.Environment.NewLine;
+                    connection = client.Connect(message.SenderEndPoint);
+                    debugText.text += "Sent answer to " + message.SenderEndPoint.ToString() + System.Environment.NewLine;
+                    break;
                 case NetIncomingMessageType.Data:
                     var data = message.ReadBytes(message.ReadInt32());
                     HandleNewDataPackage(data);
@@ -485,6 +495,7 @@ public class CommunicationNet : MonoBehaviour {
                     break;
             }
 
+            //debugText.text += "Message came in " + message?.SenderEndPoint?.ToString();
             client.Recycle(message);
         }
     }
