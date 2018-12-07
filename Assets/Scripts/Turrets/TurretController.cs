@@ -53,7 +53,7 @@ public class TurretController : MonoBehaviour, IConfigurable {
     private byte damagePerShot = 15;
 
     /// <summary>All of the turrets renderer</summary>
-    private MeshRenderer[] renderer;
+    private MeshRenderer[] turretRenderers;
 
     /// <summary>The transform of all GameObjects with a player tag</summary>
     private List<GameObject> players;
@@ -65,7 +65,7 @@ public class TurretController : MonoBehaviour, IConfigurable {
     void Start() {
         ConfigButton.ObjectsToUpdate.Add(this);
         aktShootingTime = ShootingTime;
-        renderer = turret.GetComponentsInChildren<MeshRenderer>();
+        turretRenderers = turret.GetComponentsInChildren<MeshRenderer>();
     }
 
     /// <summary>Update is called once per frame</summary>
@@ -73,18 +73,18 @@ public class TurretController : MonoBehaviour, IConfigurable {
         if (Respawning) {
             hitPoints.AktHp += (byte)Mathf.RoundToInt(Time.deltaTime * respawnSpeed);
             teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-            renderer[0].enabled = true;
+            turretRenderers[0].enabled = true;
             turretConquer.Conquerable = true;
 
-            for (int i = 1; i < renderer.Length; i++) {
-                renderer[i].enabled = false;
+            for (int i = 1; i < turretRenderers.Length; i++) {
+                turretRenderers[i].enabled = false;
             }
 
             if (hitPoints.AktHp > hitPoints.SaveHp) {
                 hitPoints.AktHp = hitPoints.SaveHp;
-                renderer[0].enabled = false;
-                for (int i = 1; i < renderer.Length; i++) {
-                    renderer[i].enabled = true;
+                turretRenderers[0].enabled = false;
+                for (int i = 1; i < turretRenderers.Length; i++) {
+                    turretRenderers[i].enabled = true;
                 }
 
                 Respawning = false;
