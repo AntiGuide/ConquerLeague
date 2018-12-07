@@ -9,10 +9,14 @@ using System.IO;
 public class ConfigButton : MonoBehaviour {
     public static HashSet<IConfigurable> ObjectsToUpdate = new HashSet<IConfigurable>();
 
+    private static Dictionary<string, string> game              = new Dictionary<string, string>();
     private static Dictionary<string, string> vehicle           = new Dictionary<string, string>();
     private static Dictionary<string, string> vehicleMachineGun = new Dictionary<string, string>();
     private static Dictionary<string, string> minions           = new Dictionary<string, string>();
     private static Dictionary<string, string> tower             = new Dictionary<string, string>();
+
+    //Game
+    public static float GameTime { get { return float.Parse(game["TIME"], CultureInfo.InvariantCulture.NumberFormat); } }
 
     // Vehicle
     public static short VehicleDestroyValue  { get { return short.Parse(vehicle["DESTROY_VALUE"]); } }
@@ -51,10 +55,15 @@ public class ConfigButton : MonoBehaviour {
         var parser = new FileIniDataParser();
         var data = parser.ReadFile(Application.persistentDataPath + "/Config.ini");
 
+        game.Clear();
         vehicle.Clear();
         vehicleMachineGun.Clear();
         minions.Clear();
         tower.Clear();
+
+        foreach (var key in data.Sections["Game"]) {
+            game.Add(key.KeyName, key.Value);
+        }
 
         foreach (var key in data.Sections["Vehicle"]) {
             vehicle.Add(key.KeyName, key.Value);
@@ -79,6 +88,7 @@ public class ConfigButton : MonoBehaviour {
         /*
         Debug.Log("Imported new settings");
         Debug.Log("---------------------");
+        Debug.Log(GameTime);
         Debug.Log(VehicleDestroyValue);
         Debug.Log(VehicleHP);
         Debug.Log(VehicleRespawnTime);
