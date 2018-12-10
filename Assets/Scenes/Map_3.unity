@@ -113,7 +113,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 1e69731d1ff43824cb79084125cdcefa, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b618e3bf91dfd0a468d44301e4790fee, type: 2}
 --- !u!1 &11743784 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1122409727820924, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
@@ -5825,7 +5825,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 999854486}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.000000104308114}
-  m_LocalPosition: {x: 31.079996, y: 0.3399999, z: 27.199997}
+  m_LocalPosition: {x: 53.22, y: 1.403, z: 12.344}
   m_LocalScale: {x: 0.21838999, y: 0.21838999, z: 0.21838999}
   m_Children: []
   m_Father: {fileID: 386385684}
@@ -9053,7 +9053,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1626948146}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.000000104308114}
-  m_LocalPosition: {x: 33.44999, y: 0.15999997, z: -36.160004}
+  m_LocalPosition: {x: 53.2, y: 1.47, z: -14.3}
   m_LocalScale: {x: 0.21838999, y: 0.21838999, z: 0.21838999}
   m_Children: []
   m_Father: {fileID: 1269004779}
