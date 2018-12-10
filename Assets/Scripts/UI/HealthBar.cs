@@ -21,10 +21,21 @@ public class HealthBar : MonoBehaviour {
     [SerializeField]
     private Image fullHp;
 
+    /// <summary>The hpBackground image</summary>
+    [SerializeField]
+    private Image hpBackground;
+
     /// <summary>The targets position in screenspace</summary>
     private Vector2 screenPos;
 
     private byte maxHp;
+
+    public bool Active {
+        set {
+            fullHp.enabled = value;
+            hpBackground.enabled = value;
+        }
+    }
 
     public Vector3 Offset {
         get {

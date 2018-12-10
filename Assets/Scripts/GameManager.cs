@@ -31,9 +31,6 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] private Image disableInput;
 
-    /// <summary>References the Countdown-Text</summary>
-    [SerializeField] private Text countdownText;
-
     /// <summary> The spawn point of the player on the left side </summary>
     [SerializeField] private Transform startPointLeft;
 

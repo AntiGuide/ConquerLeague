@@ -9,9 +9,6 @@ using UnityEngine.UI;
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerNet : MonoBehaviour, IConfigurable {
-    /// <summary>The reference to the red health bar image</summary>
-    [SerializeField] private Image healthImage;
-
     [SerializeField] private int respawnTime = 5;
 
     /// <summary>Marks if the attached object is an enemy</summary>
@@ -91,8 +88,7 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     /// Initializes respawn
     /// </summary>
     public IEnumerator InitRespawn() {
-        healthImage.transform.GetChild(0).GetComponent<Image>().enabled = false;
-        healthImage.enabled = false;
+        hitPoints.Visible = false;
         transform.position = StartPoint.position;
         transform.rotation = StartPoint.rotation;
         transform.GetChild(0).gameObject.SetActive(false);
@@ -108,8 +104,7 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
 
         hitPoints.SetFull();
         yield return new WaitForSeconds(respawnTime);
-        healthImage.enabled = true;
-        healthImage.transform.GetChild(0).GetComponent<Image>().enabled = true;
+        hitPoints.Visible = true;
         transform.GetChild(0).gameObject.SetActive(true);
         gameObject.layer = savedLayer;
         if (!isEnemy) {

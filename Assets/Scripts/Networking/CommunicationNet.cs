@@ -32,16 +32,11 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> The spawn point of the player on the right side </summary>
     [SerializeField] private Transform startPointRight;
 
-    /// <summary> The IP Address of the server</summary>
-    [SerializeField] private string ipAddress;
-
     /// <summary> The port the server listens on</summary>
     [SerializeField] private int portNumber;
 
     /// <summary> Reference to the GoalManager displaying the score</summary>
     [SerializeField] private GoalManager goalManager;
-
-    [SerializeField] private Text debugText;
 
     /// <summary> The config to connect to the server </summary>
     private NetClient client;
@@ -49,11 +44,8 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> The open connection to the server </summary>
     private NetConnection connection;
 
-    /// <summary> The queue that is sent out as fast as possible </summary>
-    private List<byte[]> sendQueue = new List<byte[]>();
-
-    /// <summary> The delivery method of each item in the queue </summary>
-    private List<NetDeliveryMethod> sendMethodQueue = new List<NetDeliveryMethod>();
+    /// <summary> The queue that is sent out as fast as possible. Also contains the delivery method for each item in the queue </summary>
+    private List<SendData> sendQueue = new List<SendData>();
 
     /// <summary> Marks if this player is on the left or the right side</summary>
     private bool isLeft;
@@ -69,6 +61,11 @@ public class CommunicationNet : MonoBehaviour {
 
     /// <summary> Temporary variable for outgoing messages as member to take stress of GC</summary>
     private NetOutgoingMessage outMessage;
+
+    private struct SendData{
+        public byte[] Data;
+        public NetDeliveryMethod DeliveryMethod;
+    }
 
     /// <summary> The different message types that can arrive </summary>
     private enum GameMessageType : byte {
@@ -421,8 +418,7 @@ public class CommunicationNet : MonoBehaviour {
     /// <param name="data">The byte array to send</param>
     /// <param name="netDeliveryMethod">The wanted delivery method</param>
     void Send(byte[] data, NetDeliveryMethod netDeliveryMethod = NetDeliveryMethod.UnreliableSequenced) {
-        sendQueue.Add(data);
-        sendMethodQueue.Add(netDeliveryMethod);
+        sendQueue.Add(new SendData() { Data = data, DeliveryMethod = netDeliveryMethod });
     }
 
     /// <summary>
@@ -432,11 +428,10 @@ public class CommunicationNet : MonoBehaviour {
     void SendFromQueue() {
         while (connection != null && sendQueue.Count > 0) {
             outMessage = client.CreateMessage();
-            outMessage.Write(sendQueue[0].Length);
-            outMessage.Write(sendQueue[0]);
-            var ret = client.SendMessage(outMessage, connection, sendMethodQueue[0]);
+            outMessage.Write(sendQueue[0].Data.Length);
+            outMessage.Write(sendQueue[0].Data);
+            var ret = client.SendMessage(outMessage, connection, sendQueue[0].DeliveryMethod);
             sendQueue.RemoveAt(0);
-            sendMethodQueue.RemoveAt(0);
         }
     }
 
@@ -469,11 +464,13 @@ public class CommunicationNet : MonoBehaviour {
         while ((message = client.ReadMessage()) != null) {
             switch (message.MessageType) {
                 case NetIncomingMessageType.DiscoveryResponse:
-                    //Debug.Log("Found server at " + message.SenderEndPoint + " name: " + message.ReadString());
-                    debugText.text += "Reachability: " + Application.internetReachability.ToString() + Network.connectionTesterIP;
-                    debugText.text += "Found server at " + message.SenderEndPoint + " name: " + message.ReadString() + System.Environment.NewLine;
+                    Debug.Log("Found server at " + message.SenderEndPoint + " name: " + message.ReadString());
+                    
+                    // DO NOT REMOVE (NEEDED TO CORRECTLY GENERATE ANDROID_MANIFEST)
+                    Debug.Log("Reachability: " + Application.internetReachability.ToString() + Network.connectionTesterIP);
+                    // DO NOT REMOVE (NEEDED TO CORRECTLY GENERATE ANDROID_MANIFEST)
+
                     connection = client.Connect(message.SenderEndPoint);
-                    debugText.text += "Sent answer to " + message.SenderEndPoint.ToString() + System.Environment.NewLine;
                     break;
                 case NetIncomingMessageType.Data:
                     var data = message.ReadBytes(message.ReadInt32());
