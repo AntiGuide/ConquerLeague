@@ -32,6 +32,12 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     [SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     private short[] moneyValue = new short[3];
 
+    public bool Visible {
+        set {
+            healthBar.Active = value;
+        }
+    }
+
     public byte AktHp {
         get {
             return aktHp;
@@ -47,7 +53,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         }
     }
 
-    public HealthBar HealthBar { get; set; }
+    public HealthBar HealthBar { get { return healthBar; } set { healthBar = value; } }
 
     public byte SaveHp {
         get {

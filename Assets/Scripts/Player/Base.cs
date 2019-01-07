@@ -27,12 +27,6 @@ public class Base : MonoBehaviour, IConfigurable {
     /// <summary>The healthbars canvas trabsform</summary>
     [SerializeField]
     private Transform canvasTrans;
-
-    /// <summary>The bases attached renderer</summary>
-    private Renderer baseRenderer;
-
-    /// <summary>The bases normal color</summary>
-    private Color startColor;
     
     private float spawnTimer = 0;
 
@@ -59,9 +53,8 @@ public class Base : MonoBehaviour, IConfigurable {
     /// </summary>
     void Start() {
         ConfigButton.ObjectsToUpdate.Add(this);
-        baseRenderer = gameObject.GetComponent<MeshRenderer>();
         TeamHandler = gameObject.GetComponent<TeamHandler>();
-        startColor = baseRenderer.material.color;
+        //startColor = baseRenderer.material.color;
     }
 
     /// <summary>
@@ -86,9 +79,9 @@ public class Base : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player") {
-            baseRenderer.material.color = Color.green;
-        }
+        //if (other.tag == "Player") {
+        //    baseRenderer.material.color = Color.green;
+        //}
     }
 
     /// <summary>
@@ -107,9 +100,9 @@ public class Base : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other) {
-        if (other.tag == "Player") {
-            baseRenderer.material.color = startColor;
-        }
+        //if (other.tag == "Player") {
+        //    baseRenderer.material.color = startColor;
+        //}
     }
 
     /// <summary>

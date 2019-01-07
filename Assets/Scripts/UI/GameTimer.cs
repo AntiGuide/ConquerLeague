@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Displays and counts the games current gametime
 /// </summary>
-public class GameTimer : MonoBehaviour {
+public class GameTimer : MonoBehaviour, IConfigurable {
     /// <summary>The text which displays the current Gametime</summary>
     [SerializeField]
     private Text gameTimeText;
@@ -16,6 +16,8 @@ public class GameTimer : MonoBehaviour {
     [SerializeField, Tooltip("The Gameplay-Time in Seconds")]
     private float playTime = 180;
 
+    private float timeElapsed;
+
     public static bool TimerPaused { get; set; }
 
     /// <summary>Playtime in minutes</summary>
@@ -23,21 +25,30 @@ public class GameTimer : MonoBehaviour {
 
     /// <summary>Playtime in seconds</summary>
     private int seconds;
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Start() {
+        ConfigButton.ObjectsToUpdate.Add(this);
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (!TimerPaused) {
+            timeElapsed += Time.deltaTime;
             playTime -= Time.deltaTime;
         }
 
-        if(playTime <= 0) {
-            playTime = 0f;
+        if((playTime - timeElapsed) <= 0) {
+            timeElapsed = playTime;
             GameManager.Paused = true;
         }
 
-        minutes = (int)(Mathf.RoundToInt(playTime) / 60f);
-        seconds = Mathf.RoundToInt(playTime - minutes * 60);
+        minutes = (int)(Mathf.RoundToInt(playTime - timeElapsed) / 60f);
+        seconds = Mathf.RoundToInt((playTime - timeElapsed) - minutes * 60);
 
         gameTimeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 	}
+
+    public void UpdateConfig() {
+        playTime = ConfigButton.GameTime;
+    }
 }   

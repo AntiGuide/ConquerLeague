@@ -32,9 +32,6 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> The spawn point of the player on the right side </summary>
     [SerializeField] private Transform startPointRight;
 
-    /// <summary> The IP Address of the server</summary>
-    [SerializeField] private string ipAddress;
-
     /// <summary> The port the server listens on</summary>
     [SerializeField] private int portNumber;
 
@@ -47,11 +44,8 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> The open connection to the server </summary>
     private NetConnection connection;
 
-    /// <summary> The queue that is sent out as fast as possible </summary>
-    private List<byte[]> sendQueue = new List<byte[]>();
-
-    /// <summary> The delivery method of each item in the queue </summary>
-    private List<NetDeliveryMethod> sendMethodQueue = new List<NetDeliveryMethod>();
+    /// <summary> The queue that is sent out as fast as possible. Also contains the delivery method for each item in the queue </summary>
+    private List<SendData> sendQueue = new List<SendData>();
 
     /// <summary> Marks if this player is on the left or the right side</summary>
     private bool isLeft;
@@ -67,6 +61,11 @@ public class CommunicationNet : MonoBehaviour {
 
     /// <summary> Temporary variable for outgoing messages as member to take stress of GC</summary>
     private NetOutgoingMessage outMessage;
+
+    private struct SendData{
+        public byte[] Data;
+        public NetDeliveryMethod DeliveryMethod;
+    }
 
     /// <summary> The different message types that can arrive </summary>
     private enum GameMessageType : byte {
@@ -116,7 +115,10 @@ public class CommunicationNet : MonoBehaviour {
         // 41 = hp
         var hp = input[41];
 
-        enemyPlayerNet?.SetNewMovementPack(position, quaternion, velocity, hp);
+        // 42 - ?
+        var shooting = BitConverter.ToBoolean(input, 42);
+
+        enemyPlayerNet?.SetNewMovementPack(position, quaternion, velocity, hp, shooting);
     }
 
     /// <summary>
@@ -225,13 +227,14 @@ public class CommunicationNet : MonoBehaviour {
     /// <param name="transform">The players transform</param>
     /// <param name="rigidbody">The players rigidbody</param>
     /// <param name="hp">The players HP</param>
-    public void SendPlayerMovement(Transform transform, Rigidbody rigidbody, byte hp) {
-        var send = new byte[5][];
+    public void SendPlayerMovement(Transform transform, Rigidbody rigidbody, byte hp, bool shooting) {
+        var send = new byte[6][];
         send[0] = new byte[] { (byte)GameMessageType.PLAYER_MOVEMENT };
         send[1] = ToByteArray(transform.position);
         send[2] = ToByteArray(transform.rotation);
         send[3] = ToByteArray(rigidbody.velocity);
         send[4] = new byte[] { hp };
+        send[5] = BitConverter.GetBytes(shooting);
         Send(MergeArrays(send));
     }
 
@@ -323,7 +326,7 @@ public class CommunicationNet : MonoBehaviour {
         if (startIndex + (sizeof(float) * 3) > input.Length) {
             Debug.Log("Array to small");
         }
-        
+
         var x = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 0));
         var y = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 1));
         var z = BitConverter.ToSingle(input, startIndex + (sizeof(float) * 2));
@@ -398,10 +401,11 @@ public class CommunicationNet : MonoBehaviour {
 
         FakeStatic = this;
         var config = new NetPeerConfiguration("ConquerLeague");
+        config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse); // Enable DiscoveryResponse messages
+        config.Port = 47410;
         client = new NetClient(config);
         client.Start();
-        ////connection = client.Connect(host: "192.168.0.100", port: 47410);
-        connection = client.Connect(host: ipAddress, port: portNumber);
+        client.DiscoverLocalPeers(portNumber); // Emit a discovery signal
     }
 
     /// <summary>
@@ -418,8 +422,7 @@ public class CommunicationNet : MonoBehaviour {
     /// <param name="data">The byte array to send</param>
     /// <param name="netDeliveryMethod">The wanted delivery method</param>
     void Send(byte[] data, NetDeliveryMethod netDeliveryMethod = NetDeliveryMethod.UnreliableSequenced) {
-        sendQueue.Add(data);
-        sendMethodQueue.Add(netDeliveryMethod);
+        sendQueue.Add(new SendData() { Data = data, DeliveryMethod = netDeliveryMethod });
     }
 
     /// <summary>
@@ -427,13 +430,12 @@ public class CommunicationNet : MonoBehaviour {
     /// </summary>
     /// <returns>IEnumerator for coroutine</returns>
     void SendFromQueue() {
-        while (sendQueue.Count > 0) {
+        while (connection != null && sendQueue.Count > 0) {
             outMessage = client.CreateMessage();
-            outMessage.Write(sendQueue[0].Length);
-            outMessage.Write(sendQueue[0]);
-            var ret = client.SendMessage(outMessage, connection, sendMethodQueue[0]);
+            outMessage.Write(sendQueue[0].Data.Length);
+            outMessage.Write(sendQueue[0].Data);
+            var ret = client.SendMessage(outMessage, connection, sendQueue[0].DeliveryMethod);
             sendQueue.RemoveAt(0);
-            sendMethodQueue.RemoveAt(0);
         }
     }
 
@@ -465,6 +467,15 @@ public class CommunicationNet : MonoBehaviour {
     private void ReadMessages(NetClient client) {
         while ((message = client.ReadMessage()) != null) {
             switch (message.MessageType) {
+                case NetIncomingMessageType.DiscoveryResponse:
+                    Debug.Log("Found server at " + message.SenderEndPoint + " name: " + message.ReadString());
+                    
+                    // DO NOT REMOVE (NEEDED TO CORRECTLY GENERATE ANDROID_MANIFEST)
+                    Debug.Log("Reachability: " + Application.internetReachability.ToString() + Network.connectionTesterIP);
+                    // DO NOT REMOVE (NEEDED TO CORRECTLY GENERATE ANDROID_MANIFEST)
+
+                    connection = client.Connect(message.SenderEndPoint);
+                    break;
                 case NetIncomingMessageType.Data:
                     var data = message.ReadBytes(message.ReadInt32());
                     HandleNewDataPackage(data);
@@ -485,6 +496,7 @@ public class CommunicationNet : MonoBehaviour {
                     break;
             }
 
+            //debugText.text += "Message came in " + message?.SenderEndPoint?.ToString();
             client.Recycle(message);
         }
     }
