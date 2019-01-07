@@ -115,7 +115,10 @@ public class CommunicationNet : MonoBehaviour {
         // 41 = hp
         var hp = input[41];
 
-        enemyPlayerNet?.SetNewMovementPack(position, quaternion, velocity, hp);
+        // 42 - ?
+        var shooting = BitConverter.ToBoolean(input, 42);
+
+        enemyPlayerNet?.SetNewMovementPack(position, quaternion, velocity, hp, shooting);
     }
 
     /// <summary>
@@ -224,13 +227,14 @@ public class CommunicationNet : MonoBehaviour {
     /// <param name="transform">The players transform</param>
     /// <param name="rigidbody">The players rigidbody</param>
     /// <param name="hp">The players HP</param>
-    public void SendPlayerMovement(Transform transform, Rigidbody rigidbody, byte hp) {
-        var send = new byte[5][];
+    public void SendPlayerMovement(Transform transform, Rigidbody rigidbody, byte hp, bool shooting) {
+        var send = new byte[6][];
         send[0] = new byte[] { (byte)GameMessageType.PLAYER_MOVEMENT };
         send[1] = ToByteArray(transform.position);
         send[2] = ToByteArray(transform.rotation);
         send[3] = ToByteArray(rigidbody.velocity);
         send[4] = new byte[] { hp };
+        send[5] = BitConverter.GetBytes(shooting);
         Send(MergeArrays(send));
     }
 

@@ -69,6 +69,10 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     /// </summary>
     void Update() {
         if (IsEnemy) {
+            if (PlayerNet.EnemyIsShooting) {
+                //Shoot with no damage
+                Shoot(weaponType, true);
+            }
             return;
         }
 
@@ -85,8 +89,8 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     /// Instantiate Bullet and applies force
     /// </summary>
     /// <param name="weaponType"></param>
-    void Shoot(GameObject weaponType) {
-        if (aktShootingTime <= 0f && CrossPlatformInputManager.GetButton("Shoot")) {
+    void Shoot(GameObject weaponType, bool disableDamageAndBypassButton = false) {
+        if (aktShootingTime <= 0f && (CrossPlatformInputManager.GetButton("Shoot") || disableDamageAndBypassButton)) {
             for (int i = 0; i < vfxSystems.Length; i++) {
                 vfxSystems[i].Stop();
                 vfxSystems[i].Play();
@@ -95,11 +99,13 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
             var shot = Instantiate(weaponType, shotSpawn.position, shotSpawn.rotation);
             shot.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             shot.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed);
-            shot.GetComponent<Standard_Projectile>().Damage = damagePerShot;
+            shot.GetComponent<Standard_Projectile>().Damage = disableDamageAndBypassButton ? (byte)0 : damagePerShot;
             aktShootingTime += shootingTime;
-        } else if (CrossPlatformInputManager.GetButton("Shoot")) {
+        } else if (CrossPlatformInputManager.GetButton("Shoot") || disableDamageAndBypassButton) {
             aktShootingTime -= Time.deltaTime;
         }
+
+        PlayerNet.PlayerIsShooting = CrossPlatformInputManager.GetButton("Shoot");
     }
 
     public void UpdateConfig() {
