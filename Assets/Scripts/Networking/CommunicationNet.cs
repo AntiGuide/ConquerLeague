@@ -543,4 +543,12 @@ public class CommunicationNet : MonoBehaviour {
                 break;
         }
     }
+
+    private void OnApplicationQuit() {
+        client?.Disconnect("OnApplicationQuit");
+    }
+
+    private void OnApplicationPause(bool pause) {
+        client?.Disconnect("OnApplicationPause");
+    }
 }

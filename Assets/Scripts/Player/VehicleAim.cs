@@ -80,17 +80,17 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
         }
 
         if (AktAimingAt == null && lastTargeted != null) { // Not targeting anything anymore
-            lastTargeted.GetComponentInChildren<ParticleSystem>().Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            lastTargeted.GetComponentInChildren<ParticleSystem>()?.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             lastTargeted = null;
             return;
         }
 
         if (AktAimingAt != null) { // Changed target
             if(lastTargeted != null) {
-                lastTargeted.GetComponentInChildren<ParticleSystem>().Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                lastTargeted.GetComponentInChildren<ParticleSystem>()?.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             }
 
-            AktAimingAt.GetComponentInChildren<ParticleSystem>().Play();
+            AktAimingAt.GetComponentInChildren<ParticleSystem>()?.Play();
             lastTargeted = AktAimingAt;
         }
     }
