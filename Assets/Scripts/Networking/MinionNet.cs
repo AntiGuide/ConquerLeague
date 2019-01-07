@@ -6,6 +6,7 @@ using UnityEngine;
 /// <summary>
 /// This class handles networking for minions
 /// </summary>
+[RequireComponent(typeof(HitPoints))]
 public class MinionNet : MonoBehaviour {
     /// <summary>Marks if the attached object is an enemy</summary>
     private bool isEnemy;
@@ -15,6 +16,8 @@ public class MinionNet : MonoBehaviour {
 
     /// <summary>The ID of this minion</summary>
     private byte? id;
+
+    private HitPoints hitPoints;
 
     /// <summary>Getter/Setter for id</summary>
     public byte? Id {
@@ -50,6 +53,7 @@ public class MinionNet : MonoBehaviour {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        hitPoints = GetComponent<HitPoints>();
         isEnemy = GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY;
         if (!isEnemy) {
             id = CommunicationNet.FakeStatic.RequestMinionID();
@@ -74,7 +78,7 @@ public class MinionNet : MonoBehaviour {
     /// </summary>
     void Update() {
         if (!isEnemy && id != null) {
-            CommunicationNet.FakeStatic.SendMinionMovement(transform, rigidbodyMinion, (byte)id);
+            CommunicationNet.FakeStatic.SendMinionMovement(transform, rigidbodyMinion, (byte)id, hitPoints.AktHp);
         }
     }
 }
