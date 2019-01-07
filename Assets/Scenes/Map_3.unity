@@ -249,6 +249,16 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
