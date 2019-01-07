@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6b7246447e388454bba45244a2c44c2e
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _desert_ground_mid1_normal: {fileID: 2800000, guid: 726e34b87a1fe2f43a21e07e26aae314,
+      type: 3}
+  - _desert_ground_mid_normal: {fileID: 2800000, guid: 8ea471a8c98356c4e8fd3b289843ee32,
+      type: 3}
+  - _ground_lerp: {fileID: 2800000, guid: 1ea21dc7a1ac67348bec5d683ec9da39, type: 3}
+  - _desert_white_sand_mid_normal: {fileID: 2800000, guid: 983152a692893a645ba6c742def61e0a,
+      type: 3}
+  - _ground_lerp2: {fileID: 2800000, guid: 3a99c0269da5f304a9620fed0cf3df08, type: 3}
+  - _desert_ground_mid1_basecolor: {fileID: 2800000, guid: fa5fcf642d2aacc41ac813a00a6b8d63,
+      type: 3}
+  - _desert_ground_mid_basecolor: {fileID: 2800000, guid: 060c1be3b4f6dcc4ea02a0d8e844fffd,
+      type: 3}
+  - _desert_white_sand_mid_basecolor: {fileID: 2800000, guid: 1a47f91548c4e9243b26d56354760f68,
+      type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

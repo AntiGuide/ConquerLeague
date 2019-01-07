@@ -1,0 +1,196 @@
+fileFormatVersion: 2
+guid: 8f30cad79fcf2cd419496adaf6571b89
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: map_base
+    100004: Object003
+    100006: Object004
+    100008: TowerRightBase
+    100010: TowerRightBase_1
+    100012: TowerRightBase_1_
+    100014: TowerRightBase__1_
+    100016: wall004
+    100018: Wall__14_
+    100020: Wall__17_
+    100022: Wall__1_
+    100024: Wall__23_
+    100026: Wall__23_001
+    100028: Wall__33_
+    100030: Wall__33__1
+    100032: Wall__34_
+    100034: Wall__34__1
+    100036: Wall__35_
+    100038: Wall__35__1
+    100040: Wall__3_
+    400000: //RootNode
+    400002: map_base
+    400004: Object003
+    400006: Object004
+    400008: TowerRightBase
+    400010: TowerRightBase_1
+    400012: TowerRightBase_1_
+    400014: TowerRightBase__1_
+    400016: wall004
+    400018: Wall__14_
+    400020: Wall__17_
+    400022: Wall__1_
+    400024: Wall__23_
+    400026: Wall__23_001
+    400028: Wall__33_
+    400030: Wall__33__1
+    400032: Wall__34_
+    400034: Wall__34__1
+    400036: Wall__35_
+    400038: Wall__35__1
+    400040: Wall__3_
+    2100000: Tower
+    2100002: Player
+    2100004: Waypoints_Enemy
+    2100006: Projectile
+    2100008: Cliff
+    2100010: cliff_mat
+    2100012: No Name
+    2300000: map_base
+    2300002: Object003
+    2300004: Object004
+    2300006: TowerRightBase
+    2300008: TowerRightBase_1
+    2300010: TowerRightBase_1_
+    2300012: TowerRightBase__1_
+    2300014: wall004
+    2300016: Wall__14_
+    2300018: Wall__17_
+    2300020: Wall__1_
+    2300022: Wall__23_
+    2300024: Wall__23_001
+    2300026: Wall__33_
+    2300028: Wall__33__1
+    2300030: Wall__34_
+    2300032: Wall__34__1
+    2300034: Wall__35_
+    2300036: Wall__35__1
+    2300038: Wall__3_
+    3300000: map_base
+    3300002: Object003
+    3300004: Object004
+    3300006: TowerRightBase
+    3300008: TowerRightBase_1
+    3300010: TowerRightBase_1_
+    3300012: TowerRightBase__1_
+    3300014: wall004
+    3300016: Wall__14_
+    3300018: Wall__17_
+    3300020: Wall__1_
+    3300022: Wall__23_
+    3300024: Wall__23_001
+    3300026: Wall__33_
+    3300028: Wall__33__1
+    3300030: Wall__34_
+    3300032: Wall__34__1
+    3300034: Wall__35_
+    3300036: Wall__35__1
+    3300038: Wall__3_
+    4300000: Wall__34_
+    4300002: TowerRightBase
+    4300004: TowerRightBase_1_
+    4300006: TowerRightBase_1
+    4300008: TowerRightBase__1_
+    4300010: Wall__1_
+    4300012: Wall__3_
+    4300014: Wall__14_
+    4300016: Wall__17_
+    4300018: Wall__23_
+    4300020: Wall__33_
+    4300022: Wall__34__1
+    4300024: Wall__35_
+    4300026: Wall__33__1
+    4300028: Wall__35__1
+    4300030: Object004
+    4300032: Object003
+    4300034: map_base
+    4300036: Wall__23_001
+    4300038: wall004
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
