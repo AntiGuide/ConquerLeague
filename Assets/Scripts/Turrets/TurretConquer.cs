@@ -23,6 +23,12 @@ public class TurretConquer : MonoBehaviour
     [SerializeField]
     private HitPoints hitPoints;
 
+    /// <summary>References the MoneyManagement script</summary>
+    private MoneyManagement moneyManagement;
+
+    /// <summary>The currency-value which will be aquired upon tower conquering</summary>
+    private byte conquerValue;
+
     /// <summary>Determines if the turret is conquerable by the player</summary>
     //[HideInInspector]
     public bool Conquerable = true;
@@ -31,6 +37,7 @@ public class TurretConquer : MonoBehaviour
     /// Use this for initialization
     /// </summary>
     void Start() {
+        moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
         renderer = turret.GetComponentsInChildren<MeshRenderer>();
         for (int i = 1; i < renderer.Length; i++) {
             renderer[i].material.color = Color.gray;
@@ -78,6 +85,7 @@ public class TurretConquer : MonoBehaviour
     /// </summary>
     /// <param name="teamColor"></param>
     void BuildTurret(Color teamColor, TeamHandler.TeamState teamID) {
+        moneyManagement.AddMoney(30);
         teamHandler.TeamID = teamID;
         for (int i = 1; i < renderer.Length; i++) {
             renderer[i].material.color = teamColor;
