@@ -45,6 +45,10 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
         get { return teamHandler.TeamID == TeamHandler.TeamState.ENEMY; }
     }
 
+    public TeamHandler TeamHandler {
+        get { return teamHandler; }
+    }
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
@@ -69,10 +73,15 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     /// </summary>
     void Update() {
         if (IsEnemy) {
+            if (vehicleAim.AktAimingAt != null) {
+                transform.LookAt(vehicleAim.AktAimingAt.transform);
+            }
+
             if (PlayerNet.EnemyIsShooting) {
                 //Shoot with no damage
                 Shoot(weaponType, true);
             }
+
             return;
         }
 
