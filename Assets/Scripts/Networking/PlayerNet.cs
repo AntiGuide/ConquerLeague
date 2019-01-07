@@ -23,6 +23,10 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     /// <summary>The StartPoint to use for respawn</summary>
     public Transform StartPoint { get; set; }
 
+    public static bool PlayerIsShooting { get; set; }
+
+    public static bool EnemyIsShooting { get; set; }
+
     /// <summary>
     /// Handles new data from the network component
     /// </summary>
@@ -30,11 +34,12 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     /// <param name="quaternion">The new rotation of the player</param>
     /// <param name="velocity">The new velocity of the player</param>
     /// <param name="hp">The new hp of the player</param>
-    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp) {
+    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp, bool shooting) {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
         hitPoints.AktHp = hp;
+        EnemyIsShooting = shooting;
     }
 
     /// <summary>
@@ -140,7 +145,7 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     void FixedUpdate() {
         if (!isEnemy) {
             try {
-                CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer, hitPoints.AktHp);
+                CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer, hitPoints.AktHp, PlayerIsShooting);
             } catch (Exception) {
                 Debug.Log("CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer); produced an error!");
                 throw;
