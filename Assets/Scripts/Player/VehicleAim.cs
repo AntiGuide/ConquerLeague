@@ -23,6 +23,8 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
     [SerializeField, Header("References")]
     private GameObject player;
 
+    private TeamHandler teamHandler;
+
     /// <summary>Converted cone limits</summary>
     private float coneCosLimit;
 
@@ -60,8 +62,9 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
 
     /// <summary>Use this for initialization</summary>
     private void Start() {
+        teamHandler = GetComponent<VehicleWeapon>().TeamHandler;
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
-        coneCosLimit = -Mathf.Cos(coneDegrees / 2);
+        coneCosLimit = Mathf.Cos(coneDegrees / 2);
     }
 
     /// <summary>Update is called once  per frame</summary>
@@ -97,7 +100,8 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="other">The collider that entered the collider</param>
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.GetComponent<TeamHandler>()?.TeamID == TeamHandler.TeamState.ENEMY) {
+        if (other.gameObject.GetComponent<TeamHandler>()?.TeamID != teamHandler.TeamID &&
+            other.gameObject.GetComponent<TeamHandler>()?.TeamID != TeamHandler.TeamState.NEUTRAL) {
             if (Array.IndexOf(shootablesTags, other.tag) > -1) {
                 shootablesInRange.Add(other.gameObject);
             }
