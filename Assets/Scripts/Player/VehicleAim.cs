@@ -77,7 +77,13 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
 
     /// <summary>Update is called once  per frame</summary>
     private void Update() {
-        //OrderByMagnitude(ref shootablesInRange, gameObject.transform);
+        // Checks if gameobjects in the shootablesInRange-List are destroyed and removes them
+        for (int i = 0; i < shootablesInRange.Count; i++) {
+            if (shootablesInRange[i] == null || shootablesInRange[i].Equals(null)) {
+                shootablesInRange.RemoveAt(i);
+            }
+        }
+
         IsInCone(shootablesInRange, ref shootablesInConeAndRange);
         highestPriority = FilterByPriority(shootablesInConeAndRange, shootablesTags);
         

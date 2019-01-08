@@ -252,12 +252,12 @@ Prefab:
     - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
         type: 2}
       propertyPath: teamID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
         type: 2}
       propertyPath: Conquerable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
         type: 2}
@@ -4290,6 +4290,16 @@ Prefab:
       propertyPath: towerNet
       value: 
       objectReference: {fileID: 1819504924}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -8061,6 +8071,16 @@ Prefab:
       propertyPath: towerNet
       value: 
       objectReference: {fileID: 435222536}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -8269,6 +8289,16 @@ Prefab:
       propertyPath: towerNet
       value: 
       objectReference: {fileID: 358954520}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -8630,6 +8660,16 @@ Prefab:
       propertyPath: towerNet
       value: 
       objectReference: {fileID: 40752741}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -9411,12 +9451,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aedf5929fe67fc408c5621e7a4c4740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetRange: 30
-  coneDegrees: 90
+  targetRange: 22
+  coneDegrees: 180
   shootablesTags:
-  - Turret
-  - Minion
   - Player
+  - Minion
+  - Turret
   player: {fileID: 1785951858}
 --- !u!135 &920199358
 SphereCollider:
@@ -10336,6 +10376,16 @@ Prefab:
       propertyPath: towerNet
       value: 
       objectReference: {fileID: 1854154609}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -11314,6 +11364,16 @@ Prefab:
       propertyPath: towerNet
       value: 
       objectReference: {fileID: 999717221}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -11858,6 +11918,16 @@ Prefab:
       propertyPath: towerNet
       value: 
       objectReference: {fileID: 358290641}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -12796,6 +12866,16 @@ Prefab:
       propertyPath: towerNet
       value: 
       objectReference: {fileID: 1929061005}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -19833,6 +19913,36 @@ Prefab:
       propertyPath: m_LocalRotation.z
       value: -9.5130767e-17
       objectReference: {fileID: 0}
+    - target: {fileID: 135456983157548690, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: m_Radius
+      value: 7.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 114361342179302712, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: targetRange
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 114361342179302712, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: shootablesTags.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 114361342179302712, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: shootablesTags.Array.data[2]
+      value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 114361342179302712, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: shootablesTags.Array.data[1]
+      value: Minion
+      objectReference: {fileID: 0}
+    - target: {fileID: 114361342179302712, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: coneDegrees
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
   m_IsPrefabParent: 0
@@ -20339,6 +20449,16 @@ Prefab:
       propertyPath: towerNet
       value: 
       objectReference: {fileID: 1649424174}
+    - target: {fileID: 114549844261573228, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: teamID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: Conquerable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}

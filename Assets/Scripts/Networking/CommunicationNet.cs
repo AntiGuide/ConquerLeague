@@ -552,6 +552,12 @@ public class CommunicationNet : MonoBehaviour {
             case (byte)GameMessageType.PLAYER_DAMAGE_DEALT:
                 RecievePlayerDamage(data);
                 break;
+            case (byte)GameMessageType.TOWER_DAMAGE:
+                RecieveTowerDamage(data);
+                break;
+            case (byte)GameMessageType.TOWER_CONQUERED:
+                RecieveTowerConquered(data);
+                break;
             default:
                 Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");
                 break;

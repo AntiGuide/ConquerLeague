@@ -109,10 +109,14 @@ public class TurretController : MonoBehaviour, IConfigurable {
         aktShootingTime -= Time.deltaTime;
         if (aktShootingTime <= 0f) {
             Debug.DrawLine(shootingPoint.position, target.position, Color.red, 0.05f);
+            if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+                CommunicationNet.FakeStatic.SendPlayerDamage(damagePerShot);
+                target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
+            }
             var bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
             bullet.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             bullet.GetComponent<Rigidbody>().AddForce((target.position - bullet.transform.position) * bulletForce);
-            bullet.GetComponent<Standard_Projectile>().Damage = damagePerShot;
+            bullet.GetComponent<Standard_Projectile>().Damage = 0;
             aktShootingTime += ShootingTime;
             aktShootingTime = Mathf.Min(aktShootingTime, ShootingTime / 2f);
         }

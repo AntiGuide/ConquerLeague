@@ -79,6 +79,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        healthBarParent = GameObject.Find("/HealthBars").transform;
         ConfigButton.ObjectsToUpdate.Add(this);
         SetFull();
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();

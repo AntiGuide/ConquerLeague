@@ -42,6 +42,10 @@ public class MinionNet : MonoBehaviour {
     public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp = 1) {
         transform.position = position;
         transform.rotation = quaternion;
+        if (hitPoints != null) {
+            hitPoints.AktHp = hp;
+        }
+
         if (rigidbodyMinion == null) {
             Debug.Log("No rigidbody on minion at SetNewMovementPack with id " + id);
         } else {

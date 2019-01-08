@@ -89,8 +89,10 @@ public class TurretConquer : MonoBehaviour
     /// </summary>
     /// <param name="teamColor"></param>
     public void BuildTurret(Color teamColor, TeamHandler.TeamState teamID) {
-        CommunicationNet.FakeStatic.SendTowerConquered(towerNet.ID);
-        moneyManagement.AddMoney(30);
+        if (teamID == TeamHandler.TeamState.FRIENDLY) {
+            CommunicationNet.FakeStatic.SendTowerConquered(towerNet.ID);
+            moneyManagement.AddMoney(30);
+        }
         teamHandler.TeamID = teamID;
         for (int i = 1; i < renderer.Length; i++) {
             renderer[i].material.color = teamColor;
