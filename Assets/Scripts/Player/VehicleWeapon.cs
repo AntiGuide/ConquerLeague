@@ -130,6 +130,9 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
                             CommunicationNet.FakeStatic.SendTowerDamage(id, damagePerShot);
                             target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
                             break;
+                        case "Minion":
+                            target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
+                            break;
                         default:
                             break;
                     }
