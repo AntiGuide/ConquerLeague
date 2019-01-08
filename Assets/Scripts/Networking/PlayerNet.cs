@@ -52,6 +52,7 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
+        VehicleWheelControll.WheelTurnSpeedEnemy = rigidbodyPlayer.velocity.magnitude;
     }
 
     /// <summary>

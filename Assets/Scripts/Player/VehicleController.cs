@@ -41,6 +41,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// </summary>    
     void Update() {
         Movement(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
+        VehicleWheelControll.WheelTurnSpeedFriend = rb.velocity.magnitude;
     }
 
     /// <summary>
