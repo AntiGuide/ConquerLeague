@@ -39,7 +39,7 @@ public class CommunicationNet : MonoBehaviour {
     [SerializeField] private GoalManager goalManager;
 
     /// <summary> The config to connect to the server </summary>
-    private NetClient client;
+    public NetClient client;
 
     /// <summary> The open connection to the server </summary>
     private NetConnection connection;

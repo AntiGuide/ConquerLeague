@@ -39,7 +39,7 @@ public class GameTimer : MonoBehaviour, IConfigurable {
 
         if((playTime - timeElapsed) <= 0) {
             timeElapsed = playTime;
-            GameManager.Paused = true;
+            GameManager.EndGame();
         }
 
         minutes = (int)(Mathf.RoundToInt(playTime - timeElapsed) / 60f);
