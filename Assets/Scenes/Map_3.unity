@@ -12726,6 +12726,11 @@ Prefab:
       propertyPath: healthBarOffset.y
       value: 2.1
       objectReference: {fileID: 0}
+    - target: {fileID: 114862931745931112, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: damagePerShot
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
   m_IsPrefabParent: 0

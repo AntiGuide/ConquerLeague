@@ -34,12 +34,14 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
     /// <summary>List of all the GameObjects tagged with a shootable tag in range</summary>
     private List<GameObject> shootablesInConeAndRange = new List<GameObject>();
 
+    private List<GameObject> highestPriority = new List<GameObject>();
+
     /// <summary>The last target during last frame</summary>
     private GameObject lastTargeted;
 
     /// <summary>The shootable that is being aimed at</summary>
     public GameObject AktAimingAt {
-        get { return shootablesInConeAndRange.Count >= 1 ? shootablesInConeAndRange[0] : null; }
+        get { return highestPriority.Count >= 1 ? highestPriority[0] : null; }
     }
 
     /// <summary>
@@ -60,6 +62,12 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
         });
     }
 
+    public static void OrderByCentral(ref List<GameObject> gameObjects, Transform referenceTransform) {
+        gameObjects.Sort(delegate (GameObject a, GameObject b) {
+            return (-1 * (Vector3.Dot(referenceTransform.forward, Vector3.Normalize(a.transform.position - referenceTransform.position)).CompareTo(Vector3.Dot(referenceTransform.forward, Vector3.Normalize(b.transform.position - referenceTransform.position)))));
+        });
+    }
+
     /// <summary>Use this for initialization</summary>
     private void Start() {
         teamHandler = GetComponent<VehicleWeapon>().TeamHandler;
@@ -69,10 +77,12 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
 
     /// <summary>Update is called once  per frame</summary>
     private void Update() {
-        OrderByMagnitude(ref shootablesInRange, gameObject.transform);
+        //OrderByMagnitude(ref shootablesInRange, gameObject.transform);
         IsInCone(shootablesInRange, ref shootablesInConeAndRange);
-        if (shootablesInConeAndRange.Count > 1) {
-            OrderByPriority(ref shootablesInConeAndRange, shootablesTags);
+        highestPriority = FilterByPriority(shootablesInConeAndRange, shootablesTags);
+        
+        if (highestPriority?.Count > 1) {
+            OrderByCentral(ref highestPriority, player.transform); // NOT TESTED
         }
 
         if (lastTargeted == AktAimingAt) { // Situation didnt change
@@ -160,6 +170,30 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
                 }
             }
         }
+    }
+
+    private List<GameObject> FilterByPriority(List<GameObject> shootablesInConeAndRange, string[] tagsByPriority) {
+        if (shootablesInConeAndRange.Count <= 1) {
+            return shootablesInConeAndRange;
+        }
+
+        var maxPriority = Array.IndexOf(tagsByPriority, shootablesInConeAndRange[0].tag);
+
+        // Look for highest priority in List
+        for (int i = 1; i < shootablesInConeAndRange.Count; i++) {
+            var tmp = Array.IndexOf(tagsByPriority, shootablesInConeAndRange[i].tag);
+            maxPriority = maxPriority > tmp ? tmp : maxPriority;
+        }
+
+        var newList = new List<GameObject>(shootablesInConeAndRange.Count);
+        // Filtereverything that is not highest priority in List
+        for (int i = 0; i < shootablesInConeAndRange.Count; i++) {
+            if (Array.IndexOf(tagsByPriority, shootablesInConeAndRange[i].tag) == maxPriority) {
+                newList.Add(shootablesInConeAndRange[i]);
+            }
+        }
+
+        return newList;
     }
 
     public void UpdateConfig() {
