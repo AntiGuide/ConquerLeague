@@ -19,32 +19,32 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _desert_ground_mid1_basecolor:
-        m_Texture: {fileID: 2800000, guid: fa5fcf642d2aacc41ac813a00a6b8d63, type: 3}
-        m_Scale: {x: 40, y: 40}
+        m_Texture: {fileID: 2800000, guid: 36f7a61174c269e43adae9fef250c4fd, type: 3}
+        m_Scale: {x: 15, y: 15}
         m_Offset: {x: 0, y: 0}
     - _desert_ground_mid1_normal:
-        m_Texture: {fileID: 2800000, guid: 726e34b87a1fe2f43a21e07e26aae314, type: 3}
-        m_Scale: {x: 40, y: 40}
+        m_Texture: {fileID: 2800000, guid: c247b020343168744ad7d6f2dbf60d32, type: 3}
+        m_Scale: {x: 15, y: 15}
         m_Offset: {x: 0, y: 0}
     - _desert_ground_mid_basecolor:
-        m_Texture: {fileID: 2800000, guid: fa5fcf642d2aacc41ac813a00a6b8d63, type: 3}
-        m_Scale: {x: 60, y: 60}
+        m_Texture: {fileID: 2800000, guid: d5936dff6ee9b264cbc29f5e232d06a0, type: 3}
+        m_Scale: {x: 20, y: 20}
         m_Offset: {x: 0, y: 0}
     - _desert_ground_mid_normal:
-        m_Texture: {fileID: 2800000, guid: 726e34b87a1fe2f43a21e07e26aae314, type: 3}
-        m_Scale: {x: 6, y: 6}
+        m_Texture: {fileID: 2800000, guid: a15794eb1e489c842a888fafbc087793, type: 3}
+        m_Scale: {x: 15, y: 15}
         m_Offset: {x: 0, y: 0}
     - _desert_white_sand_mid_basecolor:
-        m_Texture: {fileID: 2800000, guid: 1a47f91548c4e9243b26d56354760f68, type: 3}
+        m_Texture: {fileID: 2800000, guid: 36f7a61174c269e43adae9fef250c4fd, type: 3}
         m_Scale: {x: 30, y: 30}
         m_Offset: {x: 0, y: 0}
     - _desert_white_sand_mid_normal:
-        m_Texture: {fileID: 2800000, guid: 983152a692893a645ba6c742def61e0a, type: 3}
+        m_Texture: {fileID: 2800000, guid: c247b020343168744ad7d6f2dbf60d32, type: 3}
         m_Scale: {x: 30, y: 30}
         m_Offset: {x: 0, y: 0}
     - _ground_lerp:
         m_Texture: {fileID: 2800000, guid: 1ea21dc7a1ac67348bec5d683ec9da39, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _ground_lerp2:
         m_Texture: {fileID: 2800000, guid: 3a99c0269da5f304a9620fed0cf3df08, type: 3}
