@@ -4369,6 +4369,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 137649344}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &159663947 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1663158114112544, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+    type: 2}
+  m_PrefabInternal: {fileID: 1877213883}
+--- !u!114 &159663951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159663947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfca32c8459d8246a90fb9b1e71c377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
 --- !u!1 &167302466
 GameObject:
   m_ObjectHideFlags: 0
@@ -6339,6 +6356,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 500280478}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &526530631 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1994244063390184, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+    type: 2}
+  m_PrefabInternal: {fileID: 1877213883}
+--- !u!114 &526530635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 526530631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfca32c8459d8246a90fb9b1e71c377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
 --- !u!1 &556364826
 GameObject:
   m_ObjectHideFlags: 0
@@ -7407,8 +7441,9 @@ GameObject:
   - component: {fileID: 681746698}
   - component: {fileID: 681746700}
   - component: {fileID: 681746699}
+  - component: {fileID: 681746701}
   m_Layer: 0
-  m_Name: Tekerr_2
+  m_Name: WheelFrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7471,6 +7506,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 681746697}
   m_Mesh: {fileID: 4300248, guid: 14e4124def06fb446927abb908c2d08c, type: 3}
+--- !u!114 &681746701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 681746697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfca32c8459d8246a90fb9b1e71c377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 1
 --- !u!1 &694336030
 GameObject:
   m_ObjectHideFlags: 0
@@ -10922,6 +10969,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1181871534}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1184855912 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1428620306978710, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+    type: 2}
+  m_PrefabInternal: {fileID: 1877213883}
+--- !u!114 &1184855916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1184855912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfca32c8459d8246a90fb9b1e71c377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
 --- !u!1 &1232246712
 GameObject:
   m_ObjectHideFlags: 0
@@ -12440,8 +12504,9 @@ GameObject:
   - component: {fileID: 1416045017}
   - component: {fileID: 1416045019}
   - component: {fileID: 1416045018}
+  - component: {fileID: 1416045020}
   m_Layer: 0
-  m_Name: Tekerr_1
+  m_Name: WheelBackLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12504,6 +12569,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1416045016}
   m_Mesh: {fileID: 4300250, guid: 14e4124def06fb446927abb908c2d08c, type: 3}
+--- !u!114 &1416045020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1416045016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfca32c8459d8246a90fb9b1e71c377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 1
 --- !u!1 &1422879783
 GameObject:
   m_ObjectHideFlags: 0
@@ -16870,8 +16947,9 @@ GameObject:
   - component: {fileID: 1604199145}
   - component: {fileID: 1604199147}
   - component: {fileID: 1604199146}
+  - component: {fileID: 1604199148}
   m_Layer: 0
-  m_Name: Tekerr_2_2
+  m_Name: WheelFrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16934,6 +17012,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1604199144}
   m_Mesh: {fileID: 4300252, guid: 14e4124def06fb446927abb908c2d08c, type: 3}
+--- !u!114 &1604199148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1604199144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfca32c8459d8246a90fb9b1e71c377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 1
 --- !u!1 &1604532717
 GameObject:
   m_ObjectHideFlags: 0
@@ -19666,6 +19756,38 @@ Prefab:
       propertyPath: damagePerShot
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1849609131131494, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
+      propertyPath: m_Name
+      value: WheelBackLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663158114112544, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
+      propertyPath: m_Name
+      value: WheelFrontLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994244063390184, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
+      propertyPath: m_Name
+      value: WheelFrontRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428620306978710, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
+      propertyPath: m_Name
+      value: WheelBackRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998828122436602, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998828122436602, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -1.9792766e-23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998828122436602, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000023401386
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998828122436602, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -9.5130767e-17
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
   m_IsPrefabParent: 0
@@ -20848,8 +20970,9 @@ GameObject:
   - component: {fileID: 2049950479}
   - component: {fileID: 2049950481}
   - component: {fileID: 2049950480}
+  - component: {fileID: 2049950482}
   m_Layer: 0
-  m_Name: Tekerr_3
+  m_Name: WheelBackRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20912,6 +21035,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2049950478}
   m_Mesh: {fileID: 4300254, guid: 14e4124def06fb446927abb908c2d08c, type: 3}
+--- !u!114 &2049950482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049950478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfca32c8459d8246a90fb9b1e71c377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 1
 --- !u!1 &2057409565
 GameObject:
   m_ObjectHideFlags: 0
@@ -21069,6 +21204,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2078140449}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2084351885 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1849609131131494, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+    type: 2}
+  m_PrefabInternal: {fileID: 1877213883}
+--- !u!114 &2084351889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2084351885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfca32c8459d8246a90fb9b1e71c377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
 --- !u!1 &2097843725
 GameObject:
   m_ObjectHideFlags: 0

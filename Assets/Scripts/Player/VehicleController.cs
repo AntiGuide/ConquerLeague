@@ -41,7 +41,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// </summary>    
     void Update() {
         Movement(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
-        VehicleWheelControll.WheelTurnSpeedFriend = rb.velocity.magnitude;
+        VehicleWheelControll.UpdateWheelsSpin(rb, false);
     }
 
     /// <summary>
@@ -50,11 +50,13 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     void Movement(float horizontalAxis, float verticalAxis) {
         var rotation = new Vector2(horizontalAxis, verticalAxis);
         if (rotation == Vector2.zero) {
+            VehicleWheelControll.UpdateWheelsTurn(0f, false);
             return;
         }
 
         goalRotate = rotation;
         var rotate = Vector2.SignedAngle(goalRotate, Vector2.up);
+        VehicleWheelControll.UpdateWheelsTurn(Mathf.Max(-1f, Mathf.Min(1f, rotate / (degreePerSecond * rotation.magnitude * Time.deltaTime))), false);
         var quat = new Quaternion {
             eulerAngles = new Vector3(0, rotate, 0)
         };
