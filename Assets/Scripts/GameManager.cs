@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour {
         FSGameManager.CountdownImage.sprite = FSGameManager.SpritesCountdown[1];
         yield return new WaitForSeconds(1f);
         Paused = false;
+        SoundController.FSSoundController.AudioSourceBGM.volume = SoundController.FSSoundController.inGameVolumeBGM;
         FSGameManager.CountdownImage.enabled = false;
         FSGameManager.CountdownBackgroundImage.enabled = false;
         yield return null;
@@ -118,10 +119,12 @@ public class GameManager : MonoBehaviour {
         Paused = true;
 
         if(goalManager.LeftGoals > goalManager.RightGoals) {
+            SoundController.FSSoundController.StartSound(SoundController.Sounds.VICTORIOUS, 1);
             Paused = true;
             MobileSingleStickControl.enabled = false;
             FSGameManager.victoryScreen.SetActive(true);
         } else if (goalManager.LeftGoals < goalManager.RightGoals) {
+            SoundController.FSSoundController.StartSound(SoundController.Sounds.DEFEATED, 1);
             Paused = true;
             MobileSingleStickControl.enabled = false;
             FSGameManager.defeatScreen.SetActive(true);
