@@ -23,6 +23,9 @@ public class TurretConquer : MonoBehaviour
     [SerializeField]
     private HitPoints hitPoints;
 
+    [SerializeField]
+    private TowerNet towerNet;
+
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
 
@@ -37,6 +40,7 @@ public class TurretConquer : MonoBehaviour
     /// Use this for initialization
     /// </summary>
     void Start() {
+        towerNet.TurretC = this;
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
         renderer = turret.GetComponentsInChildren<MeshRenderer>();
         for (int i = 1; i < renderer.Length; i++) {
@@ -84,7 +88,8 @@ public class TurretConquer : MonoBehaviour
     /// Swap the turrets color and makes it not conquerable, which makes it attack enemy units
     /// </summary>
     /// <param name="teamColor"></param>
-    void BuildTurret(Color teamColor, TeamHandler.TeamState teamID) {
+    public void BuildTurret(Color teamColor, TeamHandler.TeamState teamID) {
+        CommunicationNet.FakeStatic.SendTowerConquered(towerNet.ID);
         moneyManagement.AddMoney(30);
         teamHandler.TeamID = teamID;
         for (int i = 1; i < renderer.Length; i++) {
@@ -93,4 +98,6 @@ public class TurretConquer : MonoBehaviour
 
         Conquerable = false;
     }
+
+
 }

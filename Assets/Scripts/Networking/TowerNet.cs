@@ -11,6 +11,8 @@ public class TowerNet : MonoBehaviour {
 
     public byte ID { get { return id; } set { id = value; } }
 
+    public TurretConquer TurretC { get; set; }
+
     /// <summary>
     /// Triggered if damage is taken. Handles health reduction.
     /// </summary>
@@ -21,6 +23,11 @@ public class TowerNet : MonoBehaviour {
         } else {
             hitPoints.AktHp = 0;
         }
+    }
+
+    public void TurretConquered() {
+        //Turret got conquered by enemy
+        TurretC.BuildTurret(Color.white, TeamHandler.TeamState.ENEMY);
     }
 
     /// <summary>Use this for initialization</summary>

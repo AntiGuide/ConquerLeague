@@ -77,7 +77,8 @@ public class CommunicationNet : MonoBehaviour {
         NEW_SCORE = 5,
         PLAYER_DEATH = 6,
         PLAYER_DAMAGE_DEALT = 7,
-        TOWER_DAMAGE = 8
+        TOWER_DAMAGE = 8,
+        TOWER_CONQUERED = 9
     }
 
     /// <summary>
@@ -191,6 +192,12 @@ public class CommunicationNet : MonoBehaviour {
         GameManager.towers[input[1]].DamageTaken(input[2]);
     }
 
+    public void RecieveTowerConquered(byte[] input) {
+        // 0 = GameMessageType
+        // 1 = TowerID
+        GameManager.towers[input[1]].TurretConquered();
+    }
+
     /// <summary>
     /// Sends a message to inform other player about this players death
     /// </summary>
@@ -218,6 +225,13 @@ public class CommunicationNet : MonoBehaviour {
         send[0] = new byte[] { (byte)GameMessageType.TOWER_DAMAGE }; // 0 = GameMessageType
         send[1] = new byte[] { id }; // 1 = TowerID
         send[2] = new byte[] { damage }; // 2 = Damage
+        Send(MergeArrays(send), NetDeliveryMethod.ReliableUnordered);
+    }
+
+    public void SendTowerConquered(byte id) {
+        var send = new byte[2][];
+        send[0] = new byte[] { (byte)GameMessageType.TOWER_CONQUERED }; // 0 = GameMessageType
+        send[1] = new byte[] { id }; // 1 = TowerID
         Send(MergeArrays(send), NetDeliveryMethod.ReliableUnordered);
     }
 

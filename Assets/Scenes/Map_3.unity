@@ -259,6 +259,11 @@ Prefab:
       propertyPath: Conquerable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 11743785}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -4280,6 +4285,11 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 1819504924}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -8046,6 +8056,11 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 435222536}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -8249,6 +8264,11 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 358954520}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -8605,6 +8625,11 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 40752741}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -10306,6 +10331,11 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 1854154609}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -11279,6 +11309,11 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 999717221}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -11818,6 +11853,11 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 358290641}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -12751,6 +12791,11 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 1929061005}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
@@ -20289,6 +20334,11 @@ Prefab:
       propertyPath: healthBarOffset.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114309757172692884, guid: b78a38ddfef7ed64d86dfcca1307c5e6,
+        type: 2}
+      propertyPath: towerNet
+      value: 
+      objectReference: {fileID: 1649424174}
     m_RemovedComponents:
     - {fileID: 33657003658448600, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
     - {fileID: 23415891909814710, guid: b78a38ddfef7ed64d86dfcca1307c5e6, type: 2}
