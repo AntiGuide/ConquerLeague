@@ -104,6 +104,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 AktHp = saveHp;
                 break;
             case "Player":
+                SoundController.FSSoundController.StartSound(SoundController.Sounds.ENEMY_ELIMINATED);
                 moneyManagement.AddMoney(moneyValue[0]);
                 GetComponent<PlayerNet>().OnDeath();
                 break;

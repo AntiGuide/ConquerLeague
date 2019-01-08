@@ -20,7 +20,8 @@ public class SoundController : MonoBehaviour
         ENEMY_ELIMINATED = 0,
         NEED_MORE_GAS,
         VICTORIOUS,
-        DEFEATED
+        DEFEATED,
+        COUNTDOWN
     }
 
     public static void StopLoopingSound(ref AudioSource inpAudioSource) {
