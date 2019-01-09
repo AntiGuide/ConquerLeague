@@ -39,18 +39,22 @@ public class MinionNet : MonoBehaviour {
     /// <param name="quaternion">The new rotation of the player</param>
     /// <param name="velocity">The new velocity of the player</param>
     /// <param name="hp">The new hp of the player</param>
-    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp = 1) {
+    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity) {
         transform.position = position;
         transform.rotation = quaternion;
-        if (hitPoints != null) {
-            hitPoints.AktHp = hp;
-        }
-
         if (rigidbodyMinion == null) {
             Debug.Log("No rigidbody on minion at SetNewMovementPack with id " + id);
         } else {
             rigidbodyMinion.velocity = velocity;
         }
+    }
+
+    public void SetNewHP(byte hp) {
+        if (hitPoints == null) {
+            return;
+        }
+
+        hitPoints.AktHp = hp;
     }
 
     /// <summary>
@@ -59,10 +63,9 @@ public class MinionNet : MonoBehaviour {
     void Start() {
         hitPoints = GetComponent<HitPoints>();
         isEnemy = GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY;
-        if (!isEnemy) {
-            id = CommunicationNet.FakeStatic.RequestMinionID();
-            InitNet();
-        }
+        //if (id != null) {
+        //    id = CommunicationNet.FakeStatic.RequestMinionID();
+        //}
 
         rigidbodyMinion = GetComponent<Rigidbody>();
         if (rigidbodyMinion == null) {
@@ -73,7 +76,7 @@ public class MinionNet : MonoBehaviour {
     /// <summary>
     /// Initializes this minion on the network
     /// </summary>
-    private void InitNet() {
+    public void InitNet() {
         CommunicationNet.FakeStatic.SendMinionInitialization((byte)id);
     }
 
@@ -81,8 +84,14 @@ public class MinionNet : MonoBehaviour {
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        if (!isEnemy && id != null) {
-            CommunicationNet.FakeStatic.SendMinionMovement(transform, rigidbodyMinion, (byte)id, hitPoints.AktHp);
+        if (id == null) {
+            return;
+        }
+
+        if (!isEnemy) {
+            CommunicationNet.FakeStatic.SendMinionMovement(transform, rigidbodyMinion, (byte)id);
+        } else {
+            CommunicationNet.FakeStatic.SendMinionHP((byte)id, hitPoints.AktHp);
         }
     }
 }

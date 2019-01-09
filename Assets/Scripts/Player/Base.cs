@@ -68,7 +68,9 @@ public class Base : MonoBehaviour, IConfigurable {
         }
 
         if (spawnTimer > timeBetweenMinions) {
-            SpawnMinion(minion, spawnPoint.position, minion.transform.rotation);
+            var id = CommunicationNet.FakeStatic.RequestMinionID();
+            CommunicationNet.FakeStatic.Minions[id] = SpawnMinion(minion, spawnPoint.position, minion.transform.rotation, id);
+            CommunicationNet.FakeStatic.Minions[id].GetComponent<MinionNet>().InitNet();
             minionsToSpawn--;
             spawnTimer -= timeBetweenMinions;
         }
