@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public static IEnumerator StartGame() {
+        SoundController.FSSoundController.StartSound(SoundController.Sounds.COUNTDOWN);
         FSGameManager.CountdownBackgroundImage.enabled = true;
         FSGameManager.CountdownImage.enabled = true;
         FSGameManager.CountdownImage.sprite = FSGameManager.SpritesCountdown[3];

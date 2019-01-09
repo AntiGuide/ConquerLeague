@@ -155,7 +155,7 @@ public class CommunicationNet : MonoBehaviour {
         // 0 = GameMessageType
         // 1 = id
         // 2 = hp
-        minions[input[1]].GetComponent<MinionNet>().SetNewHP(input[2]);
+        minions[input[1]]?.GetComponent<MinionNet>()?.SetNewHP(input[2]);
     }
 
     /// <summary>
