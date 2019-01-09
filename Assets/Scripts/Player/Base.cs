@@ -122,7 +122,7 @@ public class Base : MonoBehaviour, IConfigurable {
     /// <param name="id">The ID of this minion</param>
     /// <returns>New minion object</returns>
     private GameObject SpawnMinion(GameObject minionPrefab, Vector3 spawnPosition, Quaternion spawnRotation, byte? id = null) {
-        var spawnedMinion = Instantiate(minion, spawnPoint.position, minion.transform.rotation);
+        var spawnedMinion = Instantiate(minion, spawnPoint.position, spawnPoint.transform.rotation);
         spawnedMinion.GetComponent<TeamHandler>().TeamID = TeamHandler.TeamID;
         spawnedMinion.GetComponent<MinionNet>().Id = id;
         spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);

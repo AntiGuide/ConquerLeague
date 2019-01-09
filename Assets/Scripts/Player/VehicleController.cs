@@ -21,10 +21,6 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// <summary>The rotation goal</summary>
     private Vector2 goalRotate;
 
-    /// <summary>The color which will be applied to conquered turrets</summary>
-    [SerializeField, Tooltip("The color which will be applied to conquered turrets")]
-    private Color teamColor;
-
     [SerializeField]
     private VehicleWheelControll[] wheels;
 

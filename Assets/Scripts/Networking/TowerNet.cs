@@ -27,7 +27,7 @@ public class TowerNet : MonoBehaviour {
 
     public void TurretConquered() {
         //Turret got conquered by enemy
-        TurretC.BuildTurret(Color.white, TeamHandler.TeamState.ENEMY);
+        TurretC.BuildTurret(TeamHandler.TeamState.ENEMY);
     }
 
     /// <summary>Use this for initialization</summary>
