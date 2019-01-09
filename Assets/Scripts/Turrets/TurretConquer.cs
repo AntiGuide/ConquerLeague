@@ -19,12 +19,19 @@ public class TurretConquer : MonoBehaviour
     [SerializeField]
     private Renderer[] renderer;
 
+    [SerializeField]
+    private Renderer topRenderer;
+
     /// <summary>References the hitpoint script</summary>
     [SerializeField]
     private HitPoints hitPoints;
 
     [SerializeField]
     private TowerNet towerNet;
+
+    /// <summary>The tops materials which will get switched upon conquering, 0 = neutral, 1 = blue, 2 = red</summary>
+    [SerializeField]
+    private Material[] topMaterials = new Material[3];
 
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
@@ -67,7 +74,7 @@ public class TurretConquer : MonoBehaviour
     void OnTriggerStay(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY) {
             if (CrossPlatformInputManager.GetButtonDown("Action") && hitPoints.AktHp >= hitPoints.SaveHp) {
-                BuildTurret(other.gameObject.GetComponent<VehicleController>().TeamColor, other.gameObject.GetComponent<TeamHandler>().TeamID);
+                BuildTurret(other.gameObject.GetComponent<TeamHandler>().TeamID);
             }
         }
     }
@@ -88,15 +95,16 @@ public class TurretConquer : MonoBehaviour
     /// Swap the turrets color and makes it not conquerable, which makes it attack enemy units
     /// </summary>
     /// <param name="teamColor"></param>
-    public void BuildTurret(Color teamColor, TeamHandler.TeamState teamID) {
+    public void BuildTurret(TeamHandler.TeamState teamID) {
         if (teamID == TeamHandler.TeamState.FRIENDLY) {
+            topRenderer.material = topMaterials[1];
             CommunicationNet.FakeStatic.SendTowerConquered(towerNet.ID);
             moneyManagement.AddMoney(30);
+        } else {
+            topRenderer.material = topMaterials[2];
         }
+
         teamHandler.TeamID = teamID;
-        for (int i = 1; i < renderer.Length; i++) {
-            renderer[i].material.color = teamColor;
-        }
 
         Conquerable = false;
     }

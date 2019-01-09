@@ -59,9 +59,11 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
 
         if (teamHandler.TeamID == GameManager.LeftTeam) {
             agent.Warp(GameObject.Find("SpawnLeft").transform.position);
+            this.transform.eulerAngles = new Vector3(0, 90, 0);
             movementOrder = GameObject.Find("Waypoint_F" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
         } else {
             agent.Warp(GameObject.Find("SpawnRight").transform.position);
+            this.transform.eulerAngles = new Vector3(0, -90, 0);
             movementOrder = GameObject.Find("Waypoint_E" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
         }
 
