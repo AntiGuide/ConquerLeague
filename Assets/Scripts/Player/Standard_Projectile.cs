@@ -29,37 +29,9 @@ public class Standard_Projectile : MonoBehaviour {
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other) {
         if (other.GetComponent<HitPoints>() != null) {
-            if(other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.ENEMY) {
-                switch (other.tag) {
-                    case "Player":
-                        CommunicationNet.FakeStatic.SendPlayerDamage(damage);
-                        other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
-                        break;
-                    case "Turret":
-                        var id = other.GetComponent<TowerNet>().ID;
-                        CommunicationNet.FakeStatic.SendTowerDamage(id, damage);
-                        other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
-                        break;
-                    default:
-                        break;
-                }
-                
+            if (other.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID) {
                 Destroy(gameObject);
             }
         }
     }
 }
-            if(other.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID) {
-                //switch (other.tag) {
-                //    case "Player":
-                //        CommunicationNet.FakeStatic.SendPlayerDamage(damage);
-                //        other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
-                //        break;
-                //    case "Turret":
-                //        var id = other.GetComponent<TowerNet>().ID;
-                //        CommunicationNet.FakeStatic.SendTowerDamage(id, damage);
-                //        other.gameObject.GetComponent<HitPoints>().AktHp -= damage;
-                //        break;
-                //    default:
-                //        break;
-                //}

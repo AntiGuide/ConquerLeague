@@ -14,6 +14,8 @@ public class VehicleWheelControll : MonoBehaviour {
 
     public static float wheelTurnEnemy;
 
+    public bool WheelHasTraction { get; set; }
+
     /// <summary>Update is called once per frame</summary>
     void Update() {
         if (isEnemy) {
@@ -21,6 +23,17 @@ public class VehicleWheelControll : MonoBehaviour {
         } else {
             transform.Rotate(new Vector3(wheelTurnSpeedFriend, 0f, 0f));
         }
+    }
+
+    private void FixedUpdate() {
+        var r = new Ray(transform.position, Vector3.down);
+        //var hit = new RaycastHit();
+        var grounded = Physics.Raycast(r, 0.7f, LayerMask.GetMask("Ground"));
+        WheelHasTraction = grounded;
+        if (!grounded) {
+            Debug.Log(gameObject.name + " is in air!");
+        }
+        
     }
 
     public static void UpdateWheelsSpin(Rigidbody rb, bool isEnemy) {

@@ -25,6 +25,9 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField, Tooltip("The color which will be applied to conquered turrets")]
     private Color teamColor;
 
+    [SerializeField]
+    private VehicleWheelControll[] wheels;
+
     /// <summary>The color which will be applied to conquered turrets</summary>
     public Color TeamColor { get; set; }
 
@@ -48,8 +51,13 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// Uses CrossplatformInput to move and rotate player vehicle
     /// </summary>
     void Movement(float horizontalAxis, float verticalAxis) {
+        var tractionModifier = 0f;
+        for (int i = 0; i < wheels.Length; i++) {
+            tractionModifier += wheels[i].WheelHasTraction ? 0.25f : 0f;
+        }
+
         var rotation = new Vector2(horizontalAxis, verticalAxis);
-        if (rotation == Vector2.zero) {
+        if (rotation == Vector2.zero || tractionModifier < float.Epsilon) {
             VehicleWheelControll.UpdateWheelsTurn(0f, false);
             return;
         }

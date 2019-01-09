@@ -13,12 +13,14 @@ public class CameraController : MonoBehaviour
     /// <summary>The distance from player to cam</summary>
     [SerializeField] private float camDistance;
 
+    [SerializeField] private Vector3 offset;
+
     /// <summary>
     /// Update is called once per frame
     /// </summary>
     void Update() {
         if (playerVehicleTransform != null) {
-            transform.position = playerVehicleTransform.position + (-transform.forward * camDistance);
+            transform.position = playerVehicleTransform.position + offset + (-transform.forward * camDistance);
         }
     }
 }
