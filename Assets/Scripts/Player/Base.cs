@@ -89,9 +89,17 @@ public class Base : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerStay(Collider other) {
-        if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost)) {
+        if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost))
+        {
             minionsToSpawn++;
             moneyManagement.SubMoney(minionCost);
+        }
+        else if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && !MoneyManagement.HasMoney(minionCost))
+        {
+            if(!SoundController.FSSoundController.AudioSource1.isPlaying)
+            {
+                SoundController.FSSoundController.StartSound(SoundController.Sounds.NEED_MORE_GAS);
+            }
         }
     }
 

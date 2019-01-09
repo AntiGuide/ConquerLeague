@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundController : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class SoundController : MonoBehaviour
     public float startVolumeBGM = 0.05f;
     public float inGameVolumeBGM = 0.2f;
 
+    [SerializeField]
+    private Slider audioSlider;
+
     private int aktTrackNumber;
 
     public enum Sounds
@@ -20,7 +24,8 @@ public class SoundController : MonoBehaviour
         ENEMY_ELIMINATED = 0,
         NEED_MORE_GAS,
         VICTORIOUS,
-        DEFEATED
+        DEFEATED,
+        COUNTDOWN
     }
 
     public static void StopLoopingSound(ref AudioSource inpAudioSource) {
@@ -69,5 +74,10 @@ public class SoundController : MonoBehaviour
             this.AudioSourceBGM.clip = this.BGMClips[aktTrackNumber];
             this.AudioSourceBGM.Play();
         }
+    }
+
+    public void AudioSlider()
+    {
+        AudioSourceBGM.volume = audioSlider.value / 5;
     }
 }
