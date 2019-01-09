@@ -42,8 +42,8 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="parent"></param>
     public void OnInitialize(Transform parent) {
-        var aktHpBar = Instantiate(healthBar, parent);
-        aktHpBar.GetComponent<HealthBar>().Target = gameObject;
+        //var aktHpBar = Instantiate(healthBar, parent);
+        //aktHpBar.GetComponent<HealthBar>().Target = gameObject;
     }
 
     public void UpdateConfig() {
@@ -79,6 +79,7 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
         if (movementOrder.Length == currTarget) {
             goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
             GetComponent<MinionNet>().DeInitNet();
+            gameObject.SetActive(false);
             Destroy(gameObject);
             return;
         }

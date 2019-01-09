@@ -25,6 +25,12 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField, Tooltip("The color which will be applied to conquered turrets")]
     private Color teamColor;
 
+    [SerializeField]
+    private VehicleWheelControll[] wheels;
+
+    [SerializeField]
+    private ParticleSystem[] particleSystems;
+
     /// <summary>The color which will be applied to conquered turrets</summary>
     public Color TeamColor { get; set; }
 
@@ -41,19 +47,37 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// </summary>    
     void Update() {
         Movement(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
+        VehicleWheelControll.UpdateWheelsSpin(rb, false);
     }
 
     /// <summary>
     /// Uses CrossplatformInput to move and rotate player vehicle
     /// </summary>
     void Movement(float horizontalAxis, float verticalAxis) {
+        var tractionModifier = 0f;
+        for (int i = 0; i < wheels.Length; i++) {
+            tractionModifier += wheels[i].WheelHasTraction ? 0.25f : 0f;
+        }
+
         var rotation = new Vector2(horizontalAxis, verticalAxis);
-        if (rotation == Vector2.zero) {
+        if (rotation == Vector2.zero || tractionModifier < float.Epsilon) {
+            VehicleWheelControll.UpdateWheelsTurn(0f, false);
+            for (int i = 0; i < particleSystems.Length; i++) {
+                var em = particleSystems[i].emission;
+                em.enabled = false;
+            }
+
             return;
+        }
+
+        for (int i = 0; i < particleSystems.Length; i++) {
+            var em = particleSystems[i].emission;
+            em.enabled = true;
         }
 
         goalRotate = rotation;
         var rotate = Vector2.SignedAngle(goalRotate, Vector2.up);
+        VehicleWheelControll.UpdateWheelsTurn(Mathf.Max(-1f, Mathf.Min(1f, rotate / (degreePerSecond * rotation.magnitude * Time.deltaTime))), false);
         var quat = new Quaternion {
             eulerAngles = new Vector3(0, rotate, 0)
         };

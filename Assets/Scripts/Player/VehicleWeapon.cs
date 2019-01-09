@@ -108,8 +108,36 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
             var shot = Instantiate(weaponType, shotSpawn.position, shotSpawn.rotation);
             shot.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             shot.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed);
-            shot.GetComponent<Standard_Projectile>().Damage = disableDamageAndBypassButton ? (byte)0 : damagePerShot;
+            // Shot with 0 damage
+            shot.GetComponent<Standard_Projectile>().Damage = 0; // disableDamageAndBypassButton ? (byte)0 : damagePerShot;
             aktShootingTime += shootingTime;
+
+            // Apply damage directly
+            var target = vehicleAim.AktAimingAt;
+            if (target == null) {
+                return;
+            }
+
+            if (target.GetComponent<HitPoints>() != null) {
+                if (target.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID) {
+                    switch (target.tag) {
+                        case "Player":
+                            CommunicationNet.FakeStatic.SendPlayerDamage(damagePerShot);
+                            target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
+                            break;
+                        case "Turret":
+                            var id = target.GetComponent<TowerNet>().ID;
+                            CommunicationNet.FakeStatic.SendTowerDamage(id, damagePerShot);
+                            target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
+                            break;
+                        case "Minion":
+                            target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         } else if (CrossPlatformInputManager.GetButton("Shoot") || disableDamageAndBypassButton) {
             aktShootingTime -= Time.deltaTime;
         }

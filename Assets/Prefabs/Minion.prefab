@@ -3257,10 +3257,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72256d8a4d812584a84fb6eaeca5c4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aktHp: 0
   saveHp: 50
   teamHandler: {fileID: 114769131902855430}
   healthBar: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0, z: 0}
+  healthBarOffset: {x: 0, y: 1.67, z: 0}
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}

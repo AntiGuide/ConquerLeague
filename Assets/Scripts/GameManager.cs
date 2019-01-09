@@ -18,7 +18,11 @@ public class GameManager : MonoBehaviour {
     public static TeamHandler.TeamState? RightTeam;
 
     /// <summary>References the GoalManager-script</summary>
-    private static GoalManager goalManager;
+    private static GoalManager goalManagerFS;
+
+    /// <summary>References the GoalManager-script</summary>
+    [SerializeField]
+    private GoalManager goalManager;
 
     /// <summary>The Buttons-Canvas</summary>
     private static Canvas MobileSingleStickControl;
@@ -107,6 +111,7 @@ public class GameManager : MonoBehaviour {
             Application.Quit();
         }
 
+        goalManagerFS = goalManager;
         FSGameManager = this;
         disableInputFakeStatic = disableInput;
         Paused = true;
@@ -118,17 +123,17 @@ public class GameManager : MonoBehaviour {
     public static void EndGame() {
         Paused = true;
 
-        if(goalManager.LeftGoals > goalManager.RightGoals) {
+        if(goalManagerFS.LeftGoals > goalManagerFS.RightGoals) {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.VICTORIOUS, 1);
             Paused = true;
             MobileSingleStickControl.enabled = false;
             FSGameManager.victoryScreen.SetActive(true);
-        } else if (goalManager.LeftGoals < goalManager.RightGoals) {
+        } else if (goalManagerFS.LeftGoals < goalManagerFS.RightGoals) {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.DEFEATED, 1);
             Paused = true;
             MobileSingleStickControl.enabled = false;
             FSGameManager.defeatScreen.SetActive(true);
-        } else if (goalManager.LeftGoals == goalManager.RightGoals) {
+        } else if (goalManagerFS.LeftGoals == goalManagerFS.RightGoals) {
 
         }
     }
