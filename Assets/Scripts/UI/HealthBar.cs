@@ -26,7 +26,7 @@ public class HealthBar : MonoBehaviour {
     private Image hpBackground;
 
     /// <summary>The targets position in screenspace</summary>
-    private Vector2 screenPos;
+    private Vector3 screenPos;
 
     private byte maxHp;
 
@@ -66,6 +66,8 @@ public class HealthBar : MonoBehaviour {
 
         screenPos = Camera.main.WorldToScreenPoint(Target.transform.position + offset);
         transform.position = screenPos;
+
+        Active = screenPos.z < 0 ? false : true;
     }
 
     public void UpdateBar() {

@@ -4884,7 +4884,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &268141403
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5251,7 +5251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &295336152
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5519,6 +5519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a2837b94fb8ea46aa73820f0c5e457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goalManager: {fileID: 1861680597}
   SpritesCountdown:
   - {fileID: 21300000, guid: 8de377d0a1f82cd48813d3cc5701dd85, type: 3}
   - {fileID: 21300002, guid: 8de377d0a1f82cd48813d3cc5701dd85, type: 3}
@@ -5532,7 +5533,7 @@ MonoBehaviour:
   - {fileID: 21300018, guid: 8de377d0a1f82cd48813d3cc5701dd85, type: 3}
   CountdownImage: {fileID: 1400114541}
   CountdownBackgroundImage: {fileID: 878395036}
-  gameTimer: {fileID: 0}
+  gameTimer: {fileID: 599800994}
   disableInput: {fileID: 295336153}
   startPointLeft: {fileID: 1613857947}
   startPointRight: {fileID: 1898163965}
@@ -5721,6 +5722,7 @@ MonoBehaviour:
   - {fileID: 0}
   startVolumeBGM: 0.05
   inGameVolumeBGM: 0.2
+  audioSlider: {fileID: 0}
 --- !u!1 &311420948
 GameObject:
   m_ObjectHideFlags: 0
@@ -12709,7 +12711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1345084223
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17797,7 +17799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1587076918
 RectTransform:
   m_ObjectHideFlags: 0
