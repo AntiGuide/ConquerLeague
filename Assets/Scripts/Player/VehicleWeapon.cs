@@ -100,6 +100,8 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     /// <param name="weaponType"></param>
     void Shoot(GameObject weaponType, bool disableDamageAndBypassButton = false) {
         if (aktShootingTime <= 0f && (CrossPlatformInputManager.GetButton("Shoot") || disableDamageAndBypassButton)) {
+            SoundController.FSSoundController.StartSound(SoundController.Sounds.MG_SHOT);
+
             for (int i = 0; i < vfxSystems.Length; i++) {
                 vfxSystems[i].Stop();
                 vfxSystems[i].Play();

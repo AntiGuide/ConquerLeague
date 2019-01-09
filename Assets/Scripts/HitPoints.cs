@@ -96,6 +96,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     void OnDeath(string tag) {
         switch (tag) {
             case "Minion":
+                SoundController.FSSoundController.StartSound(SoundController.Sounds.WATRUCK_DESTRUCTION);
                 moneyManagement.AddMoney(moneyValue[2]);
                 Destroy(gameObject);
                 break;
@@ -105,6 +106,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 AktHp = saveHp;
                 break;
             case "Player":
+                SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.ENEMY_ELIMINATED);
                 moneyManagement.AddMoney(moneyValue[0]);
                 GetComponent<PlayerNet>().OnDeath();

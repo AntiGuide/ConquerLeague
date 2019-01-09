@@ -93,6 +93,7 @@ public class Base : MonoBehaviour, IConfigurable {
     void OnTriggerStay(Collider other) {
         if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost))
         {
+            SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS);
             minionsToSpawn++;
             moneyManagement.SubMoney(minionCost);
         }
@@ -100,7 +101,7 @@ public class Base : MonoBehaviour, IConfigurable {
         {
             if(!SoundController.FSSoundController.AudioSource1.isPlaying)
             {
-                SoundController.FSSoundController.StartSound(SoundController.Sounds.NEED_MORE_GAS);
+                SoundController.FSSoundController.StartSound(SoundController.Sounds.CANTBUY_WARTRUCKS);
             }
         }
     }

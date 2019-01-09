@@ -22,10 +22,16 @@ public class SoundController : MonoBehaviour
     public enum Sounds
     {
         ENEMY_ELIMINATED = 0,
-        NEED_MORE_GAS,
         VICTORIOUS,
         DEFEATED,
-        COUNTDOWN
+        COUNTDOWN,
+        BUY_WARTRUCKS,
+        CANTBUY_WARTRUCKS,
+        MG_SHOT,
+        PLAYER_DESTRUCTION,
+        TOWER_MG,
+        WATRUCK_DESTRUCTION,
+
     }
 
     public static void StopLoopingSound(ref AudioSource inpAudioSource) {
@@ -78,6 +84,6 @@ public class SoundController : MonoBehaviour
 
     public void AudioSlider()
     {
-        AudioSourceBGM.volume = audioSlider.value / 5;
+        AudioSourceBGM.volume = audioSlider.value/5;
     }
 }

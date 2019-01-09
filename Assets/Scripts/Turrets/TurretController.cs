@@ -113,6 +113,7 @@ public class TurretController : MonoBehaviour, IConfigurable {
                 CommunicationNet.FakeStatic.SendPlayerDamage(damagePerShot);
                 target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
             }
+            SoundController.FSSoundController.StartSound(SoundController.Sounds.TOWER_MG);
             var bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation, null);
             bullet.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
             bullet.GetComponent<Rigidbody>().AddForce((target.position - bullet.transform.position) * bulletForce);
