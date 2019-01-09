@@ -30,9 +30,9 @@ public class VehicleWheelControll : MonoBehaviour {
         //var hit = new RaycastHit();
         var grounded = Physics.Raycast(r, 0.7f, LayerMask.GetMask("Ground"));
         WheelHasTraction = grounded;
-        if (!grounded) {
-            Debug.Log(gameObject.name + " is in air!");
-        }
+        //if (!grounded) {
+        //    Debug.Log(gameObject.name + " is in air!");
+        //}
         
     }
 

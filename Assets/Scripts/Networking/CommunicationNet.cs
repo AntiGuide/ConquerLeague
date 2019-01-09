@@ -62,6 +62,16 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> Temporary variable for outgoing messages as member to take stress of GC</summary>
     private NetOutgoingMessage outMessage;
 
+    public GameObject[] Minions {
+        get {
+            return minions;
+        }
+
+        set {
+            minions = value;
+        }
+    }
+
     private struct SendData{
         public byte[] Data;
         public NetDeliveryMethod DeliveryMethod;
@@ -78,7 +88,8 @@ public class CommunicationNet : MonoBehaviour {
         PLAYER_DEATH = 6,
         PLAYER_DAMAGE_DEALT = 7,
         TOWER_DAMAGE = 8,
-        TOWER_CONQUERED = 9
+        TOWER_CONQUERED = 9,
+        MINION_HP = 10
     }
 
     /// <summary>
@@ -137,10 +148,14 @@ public class CommunicationNet : MonoBehaviour {
         // 30 - 41
         var velocity = ByteArrayToVector3(input, 30);
 
-        // 42 = hp
-        var hp = input[42];
+        minions[input[1]].GetComponent<MinionNet>().SetNewMovementPack(position, quaternion, velocity);
+    }
 
-        minions[input[1]].GetComponent<MinionNet>().SetNewMovementPack(position, quaternion, velocity, hp);
+    public void RecieveMinionHP(byte[] input) {
+        // 0 = GameMessageType
+        // 1 = id
+        // 2 = hp
+        minions[input[1]]?.GetComponent<MinionNet>()?.SetNewHP(input[2]);
     }
 
     /// <summary>
@@ -259,14 +274,17 @@ public class CommunicationNet : MonoBehaviour {
     /// <param name="rigidbody">The minions rigidbody</param>
     /// <param name="id">Identifies the minion</param>
     /// <param name="hp">The minions hitpoints</param>
-    public void SendMinionMovement(Transform transform, Rigidbody rigidbody, byte id, byte hp = 1) {
-        var send = new byte[5][];
+    public void SendMinionMovement(Transform transform, Rigidbody rigidbody, byte id) {
+        var send = new byte[4][];
         send[0] = new byte[] { (byte)GameMessageType.MINION_MOVE, id };
         send[1] = ToByteArray(transform.position);
         send[2] = ToByteArray(transform.rotation);
         send[3] = ToByteArray(rigidbody.velocity);
-        send[4] = new byte[] { hp };
         Send(MergeArrays(send));
+    }
+
+    public void SendMinionHP(byte id, byte hp) {
+        Send(new byte[] { (byte)GameMessageType.MINION_HP, id, hp });
     }
 
     /// <summary>
@@ -557,6 +575,9 @@ public class CommunicationNet : MonoBehaviour {
                 break;
             case (byte)GameMessageType.TOWER_CONQUERED:
                 RecieveTowerConquered(data);
+                break;
+            case (byte)GameMessageType.MINION_HP:
+                RecieveMinionHP(data);
                 break;
             default:
                 Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");
