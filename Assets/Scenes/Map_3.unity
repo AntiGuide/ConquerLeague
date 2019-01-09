@@ -9234,6 +9234,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 878395034}
+--- !u!198 &879384872 stripped
+ParticleSystem:
+  m_PrefabParentObject: {fileID: 198868355530424122, guid: 3088b147c215a6d40badebf976bd5c35,
+    type: 2}
+  m_PrefabInternal: {fileID: 904314281}
 --- !u!1 &894160414
 GameObject:
   m_ObjectHideFlags: 0
@@ -19989,6 +19994,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1789059051}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!198 &1792726764 stripped
+ParticleSystem:
+  m_PrefabParentObject: {fileID: 198868355530424122, guid: 3088b147c215a6d40badebf976bd5c35,
+    type: 2}
+  m_PrefabInternal: {fileID: 217735211}
 --- !u!1 &1795044525
 GameObject:
   m_ObjectHideFlags: 0
@@ -20498,6 +20508,11 @@ Prefab:
       propertyPath: wheels.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114820871454578712, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: particleSystems.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4832950193817944, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
       propertyPath: m_LocalPosition.x
       value: -50.2
@@ -20683,6 +20698,16 @@ Prefab:
       propertyPath: wheels.Array.data[3]
       value: 
       objectReference: {fileID: 1398265387}
+    - target: {fileID: 114820871454578712, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: particleSystems.Array.data[0]
+      value: 
+      objectReference: {fileID: 1792726764}
+    - target: {fileID: 114820871454578712, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: particleSystems.Array.data[1]
+      value: 
+      objectReference: {fileID: 879384872}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
   m_IsPrefabParent: 0

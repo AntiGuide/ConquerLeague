@@ -28,6 +28,9 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField]
     private VehicleWheelControll[] wheels;
 
+    [SerializeField]
+    private ParticleSystem[] particleSystems;
+
     /// <summary>The color which will be applied to conquered turrets</summary>
     public Color TeamColor { get; set; }
 
@@ -59,7 +62,17 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         var rotation = new Vector2(horizontalAxis, verticalAxis);
         if (rotation == Vector2.zero || tractionModifier < float.Epsilon) {
             VehicleWheelControll.UpdateWheelsTurn(0f, false);
+            for (int i = 0; i < particleSystems.Length; i++) {
+                var em = particleSystems[i].emission;
+                em.enabled = false;
+            }
+
             return;
+        }
+
+        for (int i = 0; i < particleSystems.Length; i++) {
+            var em = particleSystems[i].emission;
+            em.enabled = true;
         }
 
         goalRotate = rotation;
