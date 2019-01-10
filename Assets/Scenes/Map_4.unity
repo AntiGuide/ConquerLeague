@@ -22324,8 +22324,8 @@ GameObject:
   - component: {fileID: 308403205}
   - component: {fileID: 308403204}
   - component: {fileID: 308403203}
+  - component: {fileID: 308403212}
   - component: {fileID: 308403202}
-  - component: {fileID: 308403206}
   - component: {fileID: 308403207}
   - component: {fileID: 308403208}
   - component: {fileID: 308403211}
@@ -22394,28 +22394,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 308403201}
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -50.2, y: 10.123646, z: -8.227876}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1343970381}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1072523146}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
---- !u!114 &308403206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 308403201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3222d1477bb2a9447bd680eadaf5a3b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerVehicleTransform: {fileID: 348753543}
-  camDistance: 13
-  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &308403207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22650,11 +22636,23 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 270855f2f0e0635448ac022c17925e79, type: 3}
   - {fileID: 8300000, guid: 5fcb0eee6156fc041a44b4cce3999a38, type: 3}
   - {fileID: 8300000, guid: 7487a6dc2db9e8941ba8d906ddb28f82, type: 3}
+  - {fileID: 8300000, guid: df2f8ec1f138fba4d8ad4fd2d53a0934, type: 3}
   BGMClips:
   - {fileID: 0}
   startVolumeBGM: 0.05
   inGameVolumeBGM: 0.2
   audioSlider: {fileID: 0}
+--- !u!114 &308403212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 308403201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7efc8503f981e444f952c93c63f6d509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &308587623
 GameObject:
   m_ObjectHideFlags: 0
@@ -24560,7 +24558,7 @@ Transform:
   - {fileID: 1169936234}
   - {fileID: 202578493}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &386755537
 GameObject:
@@ -57920,6 +57918,50 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1068442656}
   m_Mesh: {fileID: 4300000, guid: c7837536d48a5b1468ac008c99be949e, type: 3}
+--- !u!1 &1072523145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1072523146}
+  - component: {fileID: 1072523147}
+  m_Layer: 0
+  m_Name: Camera Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1072523146
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1072523145}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: -50.2, y: 10.123646, z: -8.227876}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 308403205}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+--- !u!114 &1072523147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1072523145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3222d1477bb2a9447bd680eadaf5a3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerVehicleTransform: {fileID: 348753543}
+  camDistance: 13
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1073626444
 GameObject:
   m_ObjectHideFlags: 0
@@ -62066,7 +62108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -94426,7 +94468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -97341,7 +97383,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4832950193817944, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 54140247005336046, guid: 1cc599bb524bd8b41a39befcd1a9c257,
         type: 2}
