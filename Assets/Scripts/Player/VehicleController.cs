@@ -27,6 +27,9 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField]
     private ParticleSystem[] particleSystems;
 
+    [SerializeField]
+    private TrailRenderer[] trailRenderer;
+
     /// <summary>The color which will be applied to conquered turrets</summary>
     public Color TeamColor { get; set; }
 
@@ -63,12 +66,21 @@ public class VehicleController : MonoBehaviour, IConfigurable {
                 em.enabled = false;
             }
 
+            for (int i = 0; i < trailRenderer.Length; i++) {
+                trailRenderer[i].enabled = false;
+            }
+            
+
             return;
         }
 
         for (int i = 0; i < particleSystems.Length; i++) {
             var em = particleSystems[i].emission;
             em.enabled = true;
+        }
+
+        for (int i = 0; i < trailRenderer.Length; i++) {
+            trailRenderer[i].enabled = true;
         }
 
         goalRotate = rotation;

@@ -109,7 +109,11 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
                 lastTargeted.GetComponentInChildren<ParticleSystem>()?.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             }
 
-            AktAimingAt.GetComponentInChildren<ParticleSystem>()?.Play();
+            if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+                AktAimingAt.GetComponentInChildren<ParticleSystem>()?.Play();
+            }
+
+            
             lastTargeted = AktAimingAt;
         }
     }
