@@ -30,7 +30,8 @@ public class SoundController : MonoBehaviour
         MG_SHOT,
         TOWER_MG,
         WARTRUCK_DESTRUCTION,
-        TURRET_DESTRUCTION
+        TURRET_DESTRUCTION,
+        GOAL,
     }
 
     public static void StopLoopingSound(ref AudioSource inpAudioSource) {
