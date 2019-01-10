@@ -27,6 +27,12 @@ public class Base : MonoBehaviour, IConfigurable {
     /// <summary>The healthbars canvas trabsform</summary>
     [SerializeField]
     private Transform canvasTrans;
+
+    /// <summary></summary>
+    [SerializeField]
+    private Material strapMaterial;
+
+    private Color startStrapColor;
     
     private float spawnTimer = 0;
 
@@ -52,6 +58,7 @@ public class Base : MonoBehaviour, IConfigurable {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        startStrapColor = strapMaterial.color;
         ConfigButton.ObjectsToUpdate.Add(this);
         TeamHandler = gameObject.GetComponent<TeamHandler>();
         //startColor = baseRenderer.material.color;
@@ -81,9 +88,9 @@ public class Base : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
-        //if (other.tag == "Player") {
-        //    baseRenderer.material.color = Color.green;
-        //}
+        if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+            strapMaterial.color = Color.green;
+        }
     }
 
     /// <summary>
@@ -93,7 +100,7 @@ public class Base : MonoBehaviour, IConfigurable {
     void OnTriggerStay(Collider other) {
         if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost))
         {
-            SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS);
+            SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS, 1);
             minionsToSpawn++;
             moneyManagement.SubMoney(minionCost);
         }
@@ -101,7 +108,7 @@ public class Base : MonoBehaviour, IConfigurable {
         {
             if(!SoundController.FSSoundController.AudioSource1.isPlaying)
             {
-                SoundController.FSSoundController.StartSound(SoundController.Sounds.CANTBUY_WARTRUCKS);
+                SoundController.FSSoundController.StartSound(SoundController.Sounds.CANTBUY_WARTRUCKS, 1);
             }
         }
     }
@@ -111,9 +118,9 @@ public class Base : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other) {
-        //if (other.tag == "Player") {
-        //    baseRenderer.material.color = startColor;
-        //}
+        if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+            strapMaterial.color = startStrapColor;
+        }
     }
 
     /// <summary>
