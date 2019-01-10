@@ -73,7 +73,7 @@ public class TurretConquer : MonoBehaviour
     /// <param name="other">The colliding object</param>
     void OnTriggerStay(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY) {
-            if (CrossPlatformInputManager.GetButtonDown("Action") && hitPoints.AktHp >= hitPoints.SaveHp) {
+            if (CrossPlatformInputManager.GetButtonDown("Action")) {
                 BuildTurret(other.gameObject.GetComponent<TeamHandler>().TeamID);
             }
         }
@@ -109,5 +109,9 @@ public class TurretConquer : MonoBehaviour
         Conquerable = false;
     }
 
-
+    public void ResetTowerNeutral() {
+        topRenderer.material = topMaterials[0];
+        teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
+        Conquerable = true;
+    }
 }
