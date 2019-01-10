@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// This units HitPoints, gets destroyed when its reduced to zero
@@ -25,6 +26,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
 
     [SerializeField] private Transform healthBarParent;
 
+    private Image hitFeedBackImage;
+
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
 
@@ -44,6 +47,14 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         }
 
         set {
+            if(gameObject.tag == "Player") {
+                var oldHp = aktHp;
+
+                if (oldHp > aktHp) {
+                    StartCoroutine(HitFeedback());
+                }
+            }
+
             aktHp = value;
             if (aktHp <= 0) {
                 aktHp = 0;
@@ -79,6 +90,10 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     /// Use this for initialization
     /// </summary>
     void Start() {
+        if(gameObject.tag == "Player") {
+            hitFeedBackImage = GameObject.Find("hitFeedBackImage").GetComponent<Image>();
+        }
+
         healthBarParent = GameObject.Find("/HealthBars").transform;
         ConfigButton.ObjectsToUpdate.Add(this);
         SetFull();
@@ -122,5 +137,11 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         moneyValue[0] = ConfigButton.VehicleDestroyValue;
         moneyValue[1] = ConfigButton.TowerReward;
         moneyValue[2] = ConfigButton.MinionsDestroyValue;
+    }
+
+    private IEnumerator HitFeedback() {
+        hitFeedBackImage.color = new Color32(255, 255, 255, 160);
+        yield return new WaitForSeconds(0.25f);
+        hitFeedBackImage.color = new Color32(255, 255, 255, 0);
     }
 }
