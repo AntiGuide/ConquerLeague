@@ -39,7 +39,7 @@ public class GameTimer : MonoBehaviour, IConfigurable {
             playTime -= Time.deltaTime;
         }
 
-        if(playTime - timeElapsed <= 0 && gameFinished) {
+        if(playTime - timeElapsed <= 0 && !gameFinished) {
             timeElapsed = playTime;
             GameManager.EndGame();
             gameFinished = true;

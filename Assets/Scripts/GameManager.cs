@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour {
     private GoalManager goalManager;
 
     /// <summary>The Buttons-Canvas</summary>
-    private static Canvas MobileSingleStickControl;
+    [SerializeField]
+    private Canvas MobileSingleStickControl;
 
     public static TowerNet[] towers = new TowerNet[byte.MaxValue];
 
@@ -123,16 +124,13 @@ public class GameManager : MonoBehaviour {
     /// <summary>Ends the game, will be called in the GameTimer-script</summary>
     public static void EndGame() {
         Paused = true;
+        FSGameManager.MobileSingleStickControl.enabled = false;
 
-        if(goalManagerFS.LeftGoals > goalManagerFS.RightGoals) {
+        if (goalManagerFS.LeftGoals > goalManagerFS.RightGoals) {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.VICTORIOUS, 1);
-            Paused = true;
-            MobileSingleStickControl.enabled = false;
             FSGameManager.victoryScreen.SetActive(true);
         } else if (goalManagerFS.LeftGoals < goalManagerFS.RightGoals) {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.DEFEATED, 1);
-            Paused = true;
-            MobileSingleStickControl.enabled = false;
             FSGameManager.defeatScreen.SetActive(true);
         } else if (goalManagerFS.LeftGoals == goalManagerFS.RightGoals) {
 
