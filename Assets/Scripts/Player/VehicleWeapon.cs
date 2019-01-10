@@ -155,15 +155,12 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     }
 
     private IEnumerator Blink() {
-        print("red");
-        print(vehicleAim.AktAimingAt.name);
         MeshRenderer[] ren = vehicleAim.AktAimingAt.GetComponentsInChildren<MeshRenderer>();
         for(int i = 0; i < ren.Length; i++) {
             ren[i].material.color = Color.red;
         }
 
         yield return new WaitForSeconds(0.1f);
-        print("white");
         for (int i = 0; i < ren.Length; i++) {
             ren[i].material.color = Color.white;
         }
