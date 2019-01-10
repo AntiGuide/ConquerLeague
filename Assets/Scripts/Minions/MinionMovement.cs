@@ -55,7 +55,7 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     /// </summary>
     void Start() {
         teamHandler = gameObject.GetComponent<TeamHandler>();
-        goalManager = GameObject.Find("Goalmanager").GetComponent<GoalManager>();
+        goalManager = GameObject.Find("UIBackground").GetComponent<GoalManager>();
 
         if (teamHandler.TeamID == GameManager.LeftTeam) {
             agent.Warp(GameObject.Find("SpawnLeft").transform.position);

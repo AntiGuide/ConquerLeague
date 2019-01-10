@@ -12,6 +12,12 @@ public class GoalManager : MonoBehaviour {
     [SerializeField]
     private GoalNet goalNet;
 
+    [SerializeField]
+    private Text leftScoreText;
+
+    [SerializeField]
+    private Text rightScoreText;
+
     private uint leftGoals;
 
     private uint rightGoals;
@@ -55,6 +61,7 @@ public class GoalManager : MonoBehaviour {
     }
 
     private void OutputGoals() {
-        goalText.text = LeftGoals + " | " + RightGoals;
+        leftScoreText.text = LeftGoals.ToString();
+        rightScoreText.text = RightGoals.ToString();
     }
 }
