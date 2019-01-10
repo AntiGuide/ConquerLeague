@@ -9,6 +9,9 @@ public class TurretController : MonoBehaviour, IConfigurable {
     /// <summary>The time it takes for the turret to shoot again</summary>
     public float ShootingTime;
 
+    [SerializeField]
+    private GameObject destroyedTower;
+
     /// <summary></summary>
     [HideInInspector]
     public bool Respawning = false;
@@ -53,6 +56,7 @@ public class TurretController : MonoBehaviour, IConfigurable {
     private byte damagePerShot = 15;
 
     /// <summary>All of the turrets renderer</summary>
+    [SerializeField]
     private MeshRenderer[] turretRenderers;
 
     /// <summary>The transform of all GameObjects with a player tag</summary>
@@ -60,6 +64,8 @@ public class TurretController : MonoBehaviour, IConfigurable {
 
     /// <summary>The time until the next shot occurs</summary>
     private float aktShootingTime;
+
+    private float respawnRest;
 
     /// <summary>Use this for initialization</summary>
     void Start() {
@@ -71,22 +77,27 @@ public class TurretController : MonoBehaviour, IConfigurable {
     /// <summary>Update is called once per frame</summary>
     void Update() {
         if (Respawning) {
-            hitPoints.AktHp += (byte)Mathf.RoundToInt(Time.deltaTime * respawnSpeed);
+            var respawnTimeTemp = (Time.deltaTime * respawnSpeed) + respawnRest;
+            var roundedRespawnTimeTemp = Mathf.RoundToInt(respawnTimeTemp);
+            respawnRest = respawnTimeTemp - roundedRespawnTimeTemp;
+            hitPoints.AktHp += (byte)roundedRespawnTimeTemp;
             teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-            turretRenderers[0].enabled = true;
-            turretConquer.Conquerable = true;
+            print(hitPoints.AktHp);
 
             for (int i = 1; i < turretRenderers.Length; i++) {
                 turretRenderers[i].enabled = false;
             }
 
-            if (hitPoints.AktHp > hitPoints.SaveHp) {
+            destroyedTower.SetActive(true);
+
+            if (hitPoints.AktHp >= hitPoints.SaveHp) {
                 hitPoints.AktHp = hitPoints.SaveHp;
-                turretRenderers[0].enabled = false;
                 for (int i = 1; i < turretRenderers.Length; i++) {
                     turretRenderers[i].enabled = true;
                 }
-
+                print("hi");
+                turretConquer.Conquerable = true;
+                destroyedTower.SetActive(false);
                 Respawning = false;
             }
         }

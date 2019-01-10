@@ -101,9 +101,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 Destroy(gameObject);
                 break;
             case "Turret":
+                gameObject.GetComponentInChildren<TurretController>().Respawning = true;
                 moneyManagement.AddMoney(moneyValue[1]);
-                teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-                AktHp = saveHp;
                 break;
             case "Player":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
