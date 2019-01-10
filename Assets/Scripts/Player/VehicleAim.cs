@@ -81,10 +81,13 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
         for (int i = 0; i < shootablesInRange.Count; i++) {
             if (shootablesInRange[i] == null || shootablesInRange[i].Equals(null)) {
                 shootablesInRange.RemoveAt(i);
+            } else if (shootablesInRange[i].GetComponent<TeamHandler>()?.TeamID == TeamHandler.TeamState.NEUTRAL) {
+                shootablesInRange.RemoveAt(i);
             }
         }
 
         IsInCone(shootablesInRange, ref shootablesInConeAndRange);
+        
         highestPriority = FilterByPriority(shootablesInConeAndRange, shootablesTags);
         
         if (highestPriority?.Count > 1) {
@@ -110,6 +113,7 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
             lastTargeted = AktAimingAt;
         }
     }
+
 
     /// <summary>
     /// Triggered if something enters an attached collider set to IsTrigger
