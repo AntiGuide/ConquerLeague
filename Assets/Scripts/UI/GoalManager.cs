@@ -60,8 +60,13 @@ public class GoalManager : MonoBehaviour {
         goalNet.UpdateScore(LeftGoals, RightGoals);
     }
 
-    private void OutputGoals() {
-        leftScoreText.text = LeftGoals.ToString();
-        rightScoreText.text = RightGoals.ToString();
+    public void OutputGoals() {
+        if (GameManager.LeftTeam == TeamHandler.TeamState.ENEMY) {
+            leftScoreText.text = RightGoals.ToString();
+            rightScoreText.text = LeftGoals.ToString();
+        } else {
+            leftScoreText.text = LeftGoals.ToString();
+            rightScoreText.text = RightGoals.ToString();
+        }
     }
 }

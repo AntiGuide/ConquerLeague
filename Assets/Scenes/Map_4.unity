@@ -8775,7 +8775,7 @@ Transform:
   m_LocalScale: {x: 3.0008857, y: 3.0008852, z: 3.0008845}
   m_Children: []
   m_Father: {fileID: 348753543}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!199 &79869479
 ParticleSystemRenderer:
@@ -8893,7 +8893,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1148748102
+  randomSeed: 129682822
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -22188,7 +22188,7 @@ Transform:
   - {fileID: 186578170}
   - {fileID: 344339034}
   m_Father: {fileID: 1785951864}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &295336151
 GameObject:
@@ -22231,7 +22231,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 295336151}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -34811,7 +34811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTimeText: {fileID: 599800995}
-  playTime: 180
+  playTime: 90
 --- !u!114 &599800995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75264,7 +75264,7 @@ Transform:
   m_LocalScale: {x: 3.0008857, y: 3.0008852, z: 3.0008845}
   m_Children: []
   m_Father: {fileID: 1785951864}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!199 &1475745678
 ParticleSystemRenderer:
@@ -75382,7 +75382,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -643866355
+  randomSeed: 1133774998
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -95287,8 +95287,8 @@ Transform:
   m_LocalPosition: {x: 46.01, y: 2.488, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
-  - {fileID: 1475745677}
   - {fileID: 288996148}
+  - {fileID: 1475745677}
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -98350,7 +98350,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4877605101701978, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114421183319604472, guid: 1cc599bb524bd8b41a39befcd1a9c257,
         type: 2}

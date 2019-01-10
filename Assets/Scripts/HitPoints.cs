@@ -47,15 +47,15 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         }
 
         set {
-            if(gameObject.tag == "Player") {
-                var oldHp = aktHp;
-
+            var oldHp = aktHp;
+            aktHp = value;
+            if (gameObject.tag == "Player" && teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
                 if (oldHp > aktHp) {
                     StartCoroutine(HitFeedback());
                 }
             }
 
-            aktHp = value;
+            
             if (aktHp <= 0) {
                 aktHp = 0;
                 OnDeath(gameObject.tag);

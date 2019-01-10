@@ -51,6 +51,7 @@ public class Base : MonoBehaviour, IConfigurable {
     public GameObject RecieveMinionInitialize(byte[] input) {
         // 0 = GameMessageType
         // 1 = ID
+        CommunicationNet.FakeStatic.RequestMinionID();
         return SpawnMinion(minion, spawnPoint.position, minion.transform.rotation, input[1]);
     }
 

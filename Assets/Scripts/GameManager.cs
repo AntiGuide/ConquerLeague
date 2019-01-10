@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour {
     /// Updates settings that are related to the pause state
     /// </summary>
     private static void UpdatePausedSetting() {
-        //DisableInput(Paused);
+        DisableInput(Paused);
         GameTimer.TimerPaused = Paused;
     }
 
