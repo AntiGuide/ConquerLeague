@@ -82,7 +82,7 @@ public class TurretController : MonoBehaviour, IConfigurable {
             respawnRest = respawnTimeTemp - roundedRespawnTimeTemp;
             hitPoints.AktHp += (byte)roundedRespawnTimeTemp;
             teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-            print(hitPoints.AktHp);
+            //print(hitPoints.AktHp);
 
             for (int i = 1; i < turretRenderers.Length; i++) {
                 turretRenderers[i].enabled = false;
@@ -95,8 +95,9 @@ public class TurretController : MonoBehaviour, IConfigurable {
                 for (int i = 1; i < turretRenderers.Length; i++) {
                     turretRenderers[i].enabled = true;
                 }
-                print("hi");
-                turretConquer.Conquerable = true;
+                //print("hi");
+                //turretConquer.Conquerable = true;
+                turretConquer.ResetTowerNeutral();
                 destroyedTower.SetActive(false);
                 Respawning = false;
             }

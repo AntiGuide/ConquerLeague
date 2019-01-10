@@ -12,6 +12,12 @@ public class GoalManager : MonoBehaviour {
     [SerializeField]
     private GoalNet goalNet;
 
+    [SerializeField]
+    private Text leftScoreText;
+
+    [SerializeField]
+    private Text rightScoreText;
+
     private uint leftGoals;
 
     private uint rightGoals;
@@ -54,7 +60,13 @@ public class GoalManager : MonoBehaviour {
         goalNet.UpdateScore(LeftGoals, RightGoals);
     }
 
-    private void OutputGoals() {
-        goalText.text = LeftGoals + " | " + RightGoals;
+    public void OutputGoals() {
+        if (GameManager.LeftTeam == TeamHandler.TeamState.ENEMY) {
+            leftScoreText.text = RightGoals.ToString();
+            rightScoreText.text = LeftGoals.ToString();
+        } else {
+            leftScoreText.text = LeftGoals.ToString();
+            rightScoreText.text = RightGoals.ToString();
+        }
     }
 }
