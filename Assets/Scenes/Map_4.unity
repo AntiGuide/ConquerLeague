@@ -8100,7 +8100,23 @@ MonoBehaviour:
   teamHandler: {fileID: 1812410748}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 375537930}
+  - {fileID: 844822730}
+  - {fileID: 1328047716}
+  - {fileID: 431875886}
+  - {fileID: 260404026}
+  - {fileID: 46825790}
+  - {fileID: 875840353}
+  - {fileID: 791025194}
+  - {fileID: 234087620}
+  - {fileID: 1844147327}
+  - {fileID: 667392476}
+  - {fileID: 709952722}
+  - {fileID: 2123615609}
+  - {fileID: 782012242}
+  - {fileID: 782281435}
+  - {fileID: 225243664}
 --- !u!23 &46825790
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -30346,7 +30362,23 @@ MonoBehaviour:
   teamHandler: {fileID: 1703536761}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 726056491}
+  - {fileID: 1714244848}
+  - {fileID: 1766500390}
+  - {fileID: 1606789631}
+  - {fileID: 1298139356}
+  - {fileID: 455455624}
+  - {fileID: 1808744214}
+  - {fileID: 499938996}
+  - {fileID: 695214929}
+  - {fileID: 2101455718}
+  - {fileID: 319598386}
+  - {fileID: 1410072717}
+  - {fileID: 1127414515}
+  - {fileID: 395257234}
+  - {fileID: 707420461}
+  - {fileID: 1466350671}
 --- !u!23 &455455624
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -45736,7 +45768,23 @@ MonoBehaviour:
   teamHandler: {fileID: 872584031}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 1745660212}
+  - {fileID: 1461032342}
+  - {fileID: 165543858}
+  - {fileID: 879874154}
+  - {fileID: 983605446}
+  - {fileID: 735238276}
+  - {fileID: 1662892098}
+  - {fileID: 2141067666}
+  - {fileID: 1333410153}
+  - {fileID: 979258152}
+  - {fileID: 85139860}
+  - {fileID: 1316996471}
+  - {fileID: 1400165552}
+  - {fileID: 741500944}
+  - {fileID: 1868683356}
+  - {fileID: 219181761}
 --- !u!23 &735238276
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -48111,7 +48159,23 @@ MonoBehaviour:
   teamHandler: {fileID: 1712019884}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 144350403}
+  - {fileID: 872643311}
+  - {fileID: 1593568056}
+  - {fileID: 662242449}
+  - {fileID: 1749720571}
+  - {fileID: 821633100}
+  - {fileID: 234377369}
+  - {fileID: 496310154}
+  - {fileID: 1809896523}
+  - {fileID: 320193845}
+  - {fileID: 405866886}
+  - {fileID: 820567394}
+  - {fileID: 830029464}
+  - {fileID: 1693317187}
+  - {fileID: 120722532}
+  - {fileID: 793945944}
 --- !u!23 &821633100
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -53057,7 +53121,23 @@ MonoBehaviour:
   teamHandler: {fileID: 886424129}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 1489473552}
+  - {fileID: 61456553}
+  - {fileID: 412885461}
+  - {fileID: 223545316}
+  - {fileID: 509128123}
+  - {fileID: 1001774588}
+  - {fileID: 441526579}
+  - {fileID: 2127887322}
+  - {fileID: 1709388841}
+  - {fileID: 127195697}
+  - {fileID: 1246086289}
+  - {fileID: 391221166}
+  - {fileID: 227406595}
+  - {fileID: 1359184885}
+  - {fileID: 1576399228}
+  - {fileID: 2003230453}
 --- !u!23 &1001774588
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -58656,7 +58736,23 @@ MonoBehaviour:
   teamHandler: {fileID: 1119853689}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 1849709514}
+  - {fileID: 1104611503}
+  - {fileID: 1566199201}
+  - {fileID: 2127279571}
+  - {fileID: 98913206}
+  - {fileID: 1100760520}
+  - {fileID: 772455412}
+  - {fileID: 302947421}
+  - {fileID: 1489982422}
+  - {fileID: 531499749}
+  - {fileID: 85403111}
+  - {fileID: 1110509403}
+  - {fileID: 1531153600}
+  - {fileID: 751230138}
+  - {fileID: 509016128}
+  - {fileID: 1385765244}
 --- !u!23 &1100760520
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -67226,7 +67322,23 @@ MonoBehaviour:
   teamHandler: {fileID: 683106197}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 1760794382}
+  - {fileID: 2088651831}
+  - {fileID: 660140542}
+  - {fileID: 1931110694}
+  - {fileID: 615908845}
+  - {fileID: 1247008961}
+  - {fileID: 1507971932}
+  - {fileID: 12943528}
+  - {fileID: 125351547}
+  - {fileID: 1638814190}
+  - {fileID: 638582348}
+  - {fileID: 2095017150}
+  - {fileID: 984322925}
+  - {fileID: 999263548}
+  - {fileID: 926649797}
+  - {fileID: 357589742}
 --- !u!23 &1247008961
 MeshRenderer:
   m_ObjectHideFlags: 0
