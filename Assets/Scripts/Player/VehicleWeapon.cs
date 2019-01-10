@@ -126,6 +126,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
                         case "Player":
                             CommunicationNet.FakeStatic.SendPlayerDamage(damagePerShot);
                             target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
+                            StartCoroutine(Blink());
                             break;
                         case "Turret":
                             var id = target.GetComponent<TowerNet>().ID;
@@ -133,6 +134,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
                             target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
                             break;
                         case "Minion":
+                            StartCoroutine(Blink());
                             target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
                             break;
                         default:
@@ -150,5 +152,20 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     public void UpdateConfig() {
         shootingTime = 1 / ConfigButton.VehicleMGShotsPerSecond;
         damagePerShot = ConfigButton.VehicleMGDamagePerShot;
+    }
+
+    private IEnumerator Blink() {
+        print("red");
+        print(vehicleAim.AktAimingAt.name);
+        MeshRenderer[] ren = vehicleAim.AktAimingAt.GetComponentsInChildren<MeshRenderer>();
+        for(int i = 0; i < ren.Length; i++) {
+            ren[i].material.color = Color.red;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+        print("white");
+        for (int i = 0; i < ren.Length; i++) {
+            ren[i].material.color = Color.white;
+        }
     }
 }
