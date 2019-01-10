@@ -30,7 +30,8 @@ public class SoundController : MonoBehaviour
         MG_SHOT,
         PLAYER_DESTRUCTION,
         TOWER_MG,
-        WATRUCK_DESTRUCTION,
+        WARTRUCK_DESTRUCTION,
+        TURRET_DESTRUCTION
 
     }
 
