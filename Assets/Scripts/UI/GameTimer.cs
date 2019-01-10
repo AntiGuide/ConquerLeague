@@ -18,6 +18,8 @@ public class GameTimer : MonoBehaviour, IConfigurable {
 
     private float timeElapsed;
 
+    private bool gameFinished = false;
+
     public static bool TimerPaused { get; set; }
 
     /// <summary>Playtime in minutes</summary>
@@ -37,9 +39,10 @@ public class GameTimer : MonoBehaviour, IConfigurable {
             playTime -= Time.deltaTime;
         }
 
-        if((playTime - timeElapsed) <= 0) {
+        if(playTime - timeElapsed <= 0 && gameFinished) {
             timeElapsed = playTime;
             GameManager.EndGame();
+            gameFinished = true;
         }
 
         minutes = (int)(Mathf.RoundToInt(playTime - timeElapsed) / 60f);
