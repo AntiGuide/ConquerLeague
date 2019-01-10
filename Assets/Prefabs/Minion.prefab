@@ -3289,7 +3289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aktHp: 0
-  saveHp: 50
+  saveHp: 60
   teamHandler: {fileID: 114769131902855430}
   healthBar: {fileID: 0}
   healthBarOffset: {x: 0, y: 1.67, z: 0}
