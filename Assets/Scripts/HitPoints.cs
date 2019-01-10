@@ -112,19 +112,28 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         switch (tag) {
             case "Minion":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.WARTRUCK_DESTRUCTION);
-                moneyManagement.AddMoney(moneyValue[2]);
+                if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+                    moneyManagement.AddMoney(moneyValue[2]);
+                }
+
                 Destroy(gameObject);
                 break;
             case "Turret":
                 CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
                 gameObject.GetComponentInChildren<TurretController>().Respawning = true;
-                moneyManagement.AddMoney(moneyValue[1]);
+                if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+                    moneyManagement.AddMoney(moneyValue[1]);
+                }
+                
                 break;
             case "Player":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
                 //SoundController.FSSoundController.StartSound(SoundController.Sounds.ENEMY_ELIMINATED, 1);
-                moneyManagement.AddMoney(moneyValue[0]);
+                if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+                    moneyManagement.AddMoney(moneyValue[0]);
+                }
+                
                 GetComponent<PlayerNet>().OnDeath();
                 break;
             default:
