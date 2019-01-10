@@ -394,13 +394,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 15474003}
-  m_LocalRotation: {x: 0.4584186, y: 0.45841867, z: -0.5383793, w: 0.5383795}
-  m_LocalPosition: {x: -0.049999207, y: 0.029999971, z: 0.4300003}
+  m_LocalRotation: {x: 0.4986557, y: 0.498656, z: -0.50134015, w: 0.5013409}
+  m_LocalPosition: {x: 0.11, y: 0.25, z: 0.38}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1712019882}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 80.827, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: 89.692, y: 0.011000001, z: -89.989006}
 --- !u!199 &15474005
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -517,7 +517,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1339998858
+  randomSeed: -998780769
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15152,13 +15152,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 167647369}
-  m_LocalRotation: {x: 0.4584186, y: 0.45841867, z: -0.5383793, w: 0.5383795}
-  m_LocalPosition: {x: -0.049999207, y: 0.029999971, z: 0.4300003}
+  m_LocalRotation: {x: 0.4815909, y: 0.4801571, z: -0.51926106, w: 0.51757836}
+  m_LocalPosition: {x: 0.1, y: 0.28, z: 0.31}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 872584029}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 80.827, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: 85.693, y: -2.3690002, z: -92.384}
 --- !u!199 &167647371
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -15275,7 +15275,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1754298122
+  randomSeed: 1187416775
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -36253,13 +36253,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 648454485}
-  m_LocalRotation: {x: 0.4584186, y: 0.45841867, z: -0.5383793, w: 0.5383795}
-  m_LocalPosition: {x: -0.049999207, y: 0.029999971, z: 0.4300003}
+  m_LocalRotation: {x: 0.49514315, y: 0.49513048, z: -0.50481606, w: 0.5048167}
+  m_LocalPosition: {x: -0.035, y: 0.11, z: 0.205}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1119853687}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 80.827, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: 88.89101, y: -0.036000002, z: -90.035}
 --- !u!199 &648454487
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -36376,7 +36376,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1339998858
+  randomSeed: -399922723
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -40051,13 +40051,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 662403355}
-  m_LocalRotation: {x: 0.4584186, y: 0.45841867, z: -0.5383793, w: 0.5383795}
-  m_LocalPosition: {x: -0.049999207, y: 0.029999971, z: 0.4300003}
+  m_LocalRotation: {x: 0.4923735, y: 0.49237362, z: -0.507512, w: 0.50751185}
+  m_LocalPosition: {x: -0.039, y: 0.125, z: 0.306}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1812410746}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 80.827, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: 88.26501, y: 0, z: -90.00001}
 --- !u!199 &662403357
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -40174,7 +40174,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1339998858
+  randomSeed: 1611821801
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -53298,13 +53298,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1003779820}
-  m_LocalRotation: {x: 0.4584186, y: 0.45841867, z: -0.5383793, w: 0.5383795}
-  m_LocalPosition: {x: -0.049999207, y: 0.029999971, z: 0.4300003}
+  m_LocalRotation: {x: 0.4902887, y: 0.49028748, z: -0.5095265, w: 0.50952727}
+  m_LocalPosition: {x: -0.06, y: 0.08, z: 0.35}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1703536759}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 80.827, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: 87.795006, y: -0.001, z: -90.00101}
 --- !u!199 &1003779822
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -53421,7 +53421,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1339998858
+  randomSeed: 1894835529
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -63030,13 +63030,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1232110487}
-  m_LocalRotation: {x: 0.4584186, y: 0.45841867, z: -0.5383793, w: 0.5383795}
-  m_LocalPosition: {x: -0.049999207, y: 0.029999971, z: 0.4300003}
+  m_LocalRotation: {x: 0.49767712, y: 0.49767604, z: -0.50231206, w: 0.5023134}
+  m_LocalPosition: {x: 0.062, y: 0.117, z: 0.316}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 683106195}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 80.827, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: 89.469, y: 0.001, z: -89.998}
 --- !u!199 &1232110489
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -63153,7 +63153,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1339998858
+  randomSeed: -1712561360
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -90156,13 +90156,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1775211029}
-  m_LocalRotation: {x: 0.4584186, y: 0.45841867, z: -0.5383793, w: 0.5383795}
-  m_LocalPosition: {x: -0.049999207, y: 0.029999971, z: 0.4300003}
+  m_LocalRotation: {x: 0.5106243, y: 0.5106239, z: -0.48914558, w: 0.48914486}
+  m_LocalPosition: {x: -0.09, y: 0.22, z: 0.33}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 886424127}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 80.827, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: 92.461, y: 0.0019989014, z: -89.99899}
 --- !u!199 &1775211031
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -90279,7 +90279,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1339998858
+  randomSeed: 4133723
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -101328,7 +101328,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1258975637
+  randomSeed: -611374219
   InitialModule:
     serializedVersion: 3
     enabled: 1
