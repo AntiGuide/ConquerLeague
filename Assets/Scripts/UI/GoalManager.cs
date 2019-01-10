@@ -45,6 +45,7 @@ public class GoalManager : MonoBehaviour {
     }
 
     public void AddPoint(TeamHandler.TeamState teamState, uint toAdd = 1) {
+        SoundController.FSSoundController.StartSound(SoundController.Sounds.GOAL);
         var leftTeam = GameManager.LeftTeam;
         if (leftTeam == null) {
             leftTeam = TeamHandler.TeamState.FRIENDLY;

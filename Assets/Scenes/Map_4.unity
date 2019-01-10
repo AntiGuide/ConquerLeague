@@ -22611,6 +22611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalManager: {fileID: 1317573283}
+  MobileSingleStickControl: {fileID: 0}
   SpritesCountdown:
   - {fileID: 21300000, guid: 8de377d0a1f82cd48813d3cc5701dd85, type: 3}
   - {fileID: 21300002, guid: 8de377d0a1f82cd48813d3cc5701dd85, type: 3}
@@ -22814,6 +22815,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5fcb0eee6156fc041a44b4cce3999a38, type: 3}
   - {fileID: 8300000, guid: 7487a6dc2db9e8941ba8d906ddb28f82, type: 3}
   - {fileID: 8300000, guid: df2f8ec1f138fba4d8ad4fd2d53a0934, type: 3}
+  - {fileID: 8300000, guid: 75df9c11fd4484a47a9df1f6c3aadfbe, type: 3}
   BGMClips:
   - {fileID: 0}
   startVolumeBGM: 0.05
