@@ -8100,7 +8100,23 @@ MonoBehaviour:
   teamHandler: {fileID: 1812410748}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 375537930}
+  - {fileID: 844822730}
+  - {fileID: 1328047716}
+  - {fileID: 431875886}
+  - {fileID: 260404026}
+  - {fileID: 46825790}
+  - {fileID: 875840353}
+  - {fileID: 791025194}
+  - {fileID: 234087620}
+  - {fileID: 1844147327}
+  - {fileID: 667392476}
+  - {fileID: 709952722}
+  - {fileID: 2123615609}
+  - {fileID: 782012242}
+  - {fileID: 782281435}
+  - {fileID: 225243664}
 --- !u!23 &46825790
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22457,8 +22473,8 @@ GameObject:
   - component: {fileID: 308403205}
   - component: {fileID: 308403204}
   - component: {fileID: 308403203}
+  - component: {fileID: 308403212}
   - component: {fileID: 308403202}
-  - component: {fileID: 308403206}
   - component: {fileID: 308403207}
   - component: {fileID: 308403208}
   - component: {fileID: 308403211}
@@ -22527,28 +22543,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 308403201}
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -50.2, y: 10.123646, z: -8.227876}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1343970381}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1072523146}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
---- !u!114 &308403206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 308403201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3222d1477bb2a9447bd680eadaf5a3b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerVehicleTransform: {fileID: 348753543}
-  camDistance: 13
-  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &308403207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22691,7 +22693,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.25
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -22774,21 +22776,32 @@ MonoBehaviour:
   AudioSource1: {fileID: 308403210}
   AudioSourceBGM: {fileID: 308403209}
   Clips:
-  - {fileID: 8300000, guid: 880e07f7efcdba540b8406847ff40d75, type: 3}
+  - {fileID: 8300000, guid: 8a2566c9452026e459b8199fb9fc49d4, type: 3}
   - {fileID: 8300000, guid: 6e4c29552ba01fa4bac30d637510b41b, type: 3}
   - {fileID: 8300000, guid: 34c6a1db1dc9796428b800f65a840906, type: 3}
   - {fileID: 8300000, guid: c94a86c40dc9caf40919171d55456f2a, type: 3}
-  - {fileID: 8300000, guid: c7426bb7f19f6b34fba68b174c3426c2, type: 3}
-  - {fileID: 8300000, guid: 7042f8f8b4315e8419f19058c94836c6, type: 3}
+  - {fileID: 8300000, guid: f75db810265c6b2429a4c3eae6e3c33b, type: 3}
+  - {fileID: 8300000, guid: 311c55e8cafd3b541afd452dcefb0bd3, type: 3}
   - {fileID: 8300000, guid: b64c60675de50124ebcf5f45dc3eb3ab, type: 3}
-  - {fileID: 8300000, guid: 270855f2f0e0635448ac022c17925e79, type: 3}
   - {fileID: 8300000, guid: 5fcb0eee6156fc041a44b4cce3999a38, type: 3}
   - {fileID: 8300000, guid: 7487a6dc2db9e8941ba8d906ddb28f82, type: 3}
+  - {fileID: 8300000, guid: df2f8ec1f138fba4d8ad4fd2d53a0934, type: 3}
   BGMClips:
   - {fileID: 0}
   startVolumeBGM: 0.05
   inGameVolumeBGM: 0.2
   audioSlider: {fileID: 0}
+--- !u!114 &308403212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 308403201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7efc8503f981e444f952c93c63f6d509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &308587623
 GameObject:
   m_ObjectHideFlags: 0
@@ -24848,7 +24861,7 @@ Transform:
   - {fileID: 1169936234}
   - {fileID: 202578493}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &386755537
 GameObject:
@@ -30718,7 +30731,23 @@ MonoBehaviour:
   teamHandler: {fileID: 1703536761}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 726056491}
+  - {fileID: 1714244848}
+  - {fileID: 1766500390}
+  - {fileID: 1606789631}
+  - {fileID: 1298139356}
+  - {fileID: 455455624}
+  - {fileID: 1808744214}
+  - {fileID: 499938996}
+  - {fileID: 695214929}
+  - {fileID: 2101455718}
+  - {fileID: 319598386}
+  - {fileID: 1410072717}
+  - {fileID: 1127414515}
+  - {fileID: 395257234}
+  - {fileID: 707420461}
+  - {fileID: 1466350671}
 --- !u!23 &455455624
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -46108,7 +46137,23 @@ MonoBehaviour:
   teamHandler: {fileID: 872584031}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 1745660212}
+  - {fileID: 1461032342}
+  - {fileID: 165543858}
+  - {fileID: 879874154}
+  - {fileID: 983605446}
+  - {fileID: 735238276}
+  - {fileID: 1662892098}
+  - {fileID: 2141067666}
+  - {fileID: 1333410153}
+  - {fileID: 979258152}
+  - {fileID: 85139860}
+  - {fileID: 1316996471}
+  - {fileID: 1400165552}
+  - {fileID: 741500944}
+  - {fileID: 1868683356}
+  - {fileID: 219181761}
 --- !u!23 &735238276
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -48647,7 +48692,23 @@ MonoBehaviour:
   teamHandler: {fileID: 1712019884}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 144350403}
+  - {fileID: 872643311}
+  - {fileID: 1593568056}
+  - {fileID: 662242449}
+  - {fileID: 1749720571}
+  - {fileID: 821633100}
+  - {fileID: 234377369}
+  - {fileID: 496310154}
+  - {fileID: 1809896523}
+  - {fileID: 320193845}
+  - {fileID: 405866886}
+  - {fileID: 820567394}
+  - {fileID: 830029464}
+  - {fileID: 1693317187}
+  - {fileID: 120722532}
+  - {fileID: 793945944}
 --- !u!23 &821633100
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -53668,7 +53729,23 @@ MonoBehaviour:
   teamHandler: {fileID: 886424129}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 1489473552}
+  - {fileID: 61456553}
+  - {fileID: 412885461}
+  - {fileID: 223545316}
+  - {fileID: 509128123}
+  - {fileID: 1001774588}
+  - {fileID: 441526579}
+  - {fileID: 2127887322}
+  - {fileID: 1709388841}
+  - {fileID: 127195697}
+  - {fileID: 1246086289}
+  - {fileID: 391221166}
+  - {fileID: 227406595}
+  - {fileID: 1359184885}
+  - {fileID: 1576399228}
+  - {fileID: 2003230453}
 --- !u!23 &1001774588
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -53857,7 +53934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be51375c455771149860d5393d0f160f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamID: 2
+  teamID: 1
 --- !u!114 &1003539127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58197,6 +58274,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1049699569}
   moneyManagement: {fileID: 1470760468}
   canvasTrans: {fileID: 193326067}
+  strapMaterial: {fileID: 2100000, guid: 2849f8181fe2c674bb0c9990eb54b7a0, type: 2}
 --- !u!65 &1049699572
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -58451,6 +58529,50 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1068442656}
   m_Mesh: {fileID: 4300000, guid: c7837536d48a5b1468ac008c99be949e, type: 3}
+--- !u!1 &1072523145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1072523146}
+  - component: {fileID: 1072523147}
+  m_Layer: 0
+  m_Name: Camera Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1072523146
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1072523145}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: -50.2, y: 10.123646, z: -8.227876}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 308403205}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+--- !u!114 &1072523147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1072523145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3222d1477bb2a9447bd680eadaf5a3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerVehicleTransform: {fileID: 348753543}
+  camDistance: 13
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1073626444
 GameObject:
   m_ObjectHideFlags: 0
@@ -59267,7 +59389,23 @@ MonoBehaviour:
   teamHandler: {fileID: 1119853689}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 1849709514}
+  - {fileID: 1104611503}
+  - {fileID: 1566199201}
+  - {fileID: 2127279571}
+  - {fileID: 98913206}
+  - {fileID: 1100760520}
+  - {fileID: 772455412}
+  - {fileID: 302947421}
+  - {fileID: 1489982422}
+  - {fileID: 531499749}
+  - {fileID: 85403111}
+  - {fileID: 1110509403}
+  - {fileID: 1531153600}
+  - {fileID: 751230138}
+  - {fileID: 509016128}
+  - {fileID: 1385765244}
 --- !u!23 &1100760520
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -61837,7 +61975,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c7325287a91aba34585cf6987108823f, type: 2}
   - {fileID: 2100000, guid: 8df3c62933c7f9647be4d6f9da989c73, type: 2}
   - {fileID: 2100000, guid: 8516ea812d659634b9eb5efa2009a707, type: 2}
-  Conquerable: 1
+  Conquerable: 0
 --- !u!135 &1157766659
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -62649,7 +62787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -67905,7 +68043,23 @@ MonoBehaviour:
   teamHandler: {fileID: 683106197}
   respawnSpeed: 20
   damagePerShot: 15
-  turretRenderers: []
+  turretRenderers:
+  - {fileID: 1760794382}
+  - {fileID: 2088651831}
+  - {fileID: 660140542}
+  - {fileID: 1931110694}
+  - {fileID: 615908845}
+  - {fileID: 1247008961}
+  - {fileID: 1507971932}
+  - {fileID: 12943528}
+  - {fileID: 125351547}
+  - {fileID: 1638814190}
+  - {fileID: 638582348}
+  - {fileID: 2095017150}
+  - {fileID: 984322925}
+  - {fileID: 999263548}
+  - {fileID: 926649797}
+  - {fileID: 357589742}
 --- !u!23 &1247008961
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -69654,6 +69808,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1309008928}
   moneyManagement: {fileID: 1470760468}
   canvasTrans: {fileID: 193326067}
+  strapMaterial: {fileID: 2100000, guid: 2849f8181fe2c674bb0c9990eb54b7a0, type: 2}
 --- !u!4 &1309008928
 Transform:
   m_ObjectHideFlags: 0
@@ -95094,7 +95249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -97978,7 +98133,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4832950193817944, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 54140247005336046, guid: 1cc599bb524bd8b41a39befcd1a9c257,
         type: 2}

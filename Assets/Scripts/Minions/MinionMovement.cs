@@ -82,6 +82,8 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
             goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
             GetComponent<MinionNet>().DeInitNet();
             gameObject.SetActive(false);
+            SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
+            CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
             Destroy(gameObject);
             return;
         }

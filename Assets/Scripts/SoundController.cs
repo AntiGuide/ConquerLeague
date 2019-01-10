@@ -21,17 +21,16 @@ public class SoundController : MonoBehaviour
 
     public enum Sounds
     {
-        ENEMY_ELIMINATED = 0,
+        PLAYER_DESTRUCTION = 0,
         VICTORIOUS,
         DEFEATED,
         COUNTDOWN,
         BUY_WARTRUCKS,
         CANTBUY_WARTRUCKS,
         MG_SHOT,
-        PLAYER_DESTRUCTION,
         TOWER_MG,
-        WATRUCK_DESTRUCTION,
-
+        WARTRUCK_DESTRUCTION,
+        TURRET_DESTRUCTION
     }
 
     public static void StopLoopingSound(ref AudioSource inpAudioSource) {
