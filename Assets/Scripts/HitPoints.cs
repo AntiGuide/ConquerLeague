@@ -101,6 +101,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 Destroy(gameObject);
                 break;
             case "Turret":
+                SoundController.FSSoundController.StartSound(SoundController.Sounds.WATRUCK_DESTRUCTION);
                 gameObject.GetComponentInChildren<TurretController>().Respawning = true;
                 moneyManagement.AddMoney(moneyValue[1]);
                 break;
