@@ -126,13 +126,16 @@ public class GameManager : MonoBehaviour {
         Paused = true;
         FSGameManager.MobileSingleStickControl.enabled = false;
 
-        if (goalManagerFS.LeftGoals > goalManagerFS.RightGoals) {
+        var friendlyGoals = LeftTeam == TeamHandler.TeamState.FRIENDLY ? goalManagerFS.LeftGoals : goalManagerFS.RightGoals;
+        var enemyGoals = RightTeam == TeamHandler.TeamState.ENEMY ? goalManagerFS.RightGoals : goalManagerFS.LeftGoals;
+
+        if (friendlyGoals > enemyGoals) {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.VICTORIOUS, 1);
             FSGameManager.victoryScreen.SetActive(true);
-        } else if (goalManagerFS.LeftGoals < goalManagerFS.RightGoals) {
+        } else if (friendlyGoals < enemyGoals) {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.DEFEATED, 1);
             FSGameManager.defeatScreen.SetActive(true);
-        } else if (goalManagerFS.LeftGoals == goalManagerFS.RightGoals) {
+        } else if (friendlyGoals == enemyGoals) {
 
         }
     }

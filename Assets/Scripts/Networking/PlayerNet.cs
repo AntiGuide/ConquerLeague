@@ -97,7 +97,7 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
         hitPoints.Visible = false;
         transform.position = StartPoint.position;
         transform.rotation = StartPoint.rotation;
-        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
         var savedLayer = gameObject.layer;
         gameObject.layer = 13;
         if (!isEnemy) {
@@ -111,7 +111,7 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
         hitPoints.SetFull();
         yield return new WaitForSeconds(respawnTime);
         hitPoints.Visible = true;
-        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(true);
         gameObject.layer = savedLayer;
         if (!isEnemy) {
             GetComponent<VehicleController>().enabled = true;

@@ -67,7 +67,9 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
             movementOrder = GameObject.Find("Waypoint_E" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
         }
 
-        agent.destination = movementOrder[currTarget].position;
+        if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+            agent.destination = movementOrder[currTarget].position;
+        }
     }
 
     /// <summary>

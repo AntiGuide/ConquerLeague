@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.AI;
 
 /// <summary>
 /// The players base, which spawns minion
@@ -52,7 +53,7 @@ public class Base : MonoBehaviour, IConfigurable {
         // 0 = GameMessageType
         // 1 = ID
         CommunicationNet.FakeStatic.RequestMinionID();
-        return SpawnMinion(minion, spawnPoint.position, minion.transform.rotation, input[1]);
+        return SpawnMinion(minion, spawnPoint.position, minion.transform.rotation, input[1], true);
     }
 
     /// <summary>
@@ -132,11 +133,15 @@ public class Base : MonoBehaviour, IConfigurable {
     /// <param name="spawnRotation">The rotation to spawn the minion with</param>
     /// <param name="id">The ID of this minion</param>
     /// <returns>New minion object</returns>
-    private GameObject SpawnMinion(GameObject minionPrefab, Vector3 spawnPosition, Quaternion spawnRotation, byte? id = null) {
+    private GameObject SpawnMinion(GameObject minionPrefab, Vector3 spawnPosition, Quaternion spawnRotation, byte? id = null, bool remoteSpawn = false) {
         var spawnedMinion = Instantiate(minion, spawnPoint.position, spawnPoint.transform.rotation);
         spawnedMinion.GetComponent<TeamHandler>().TeamID = TeamHandler.TeamID;
         spawnedMinion.GetComponent<MinionNet>().Id = id;
         spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
+        if (remoteSpawn) {
+            spawnedMinion.GetComponent<NavMeshAgent>().enabled = false;
+        }
+
         return spawnedMinion;
     }
 
