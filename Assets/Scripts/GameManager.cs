@@ -144,4 +144,10 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene("MainMenue");
         CommunicationNet.FakeStatic.client.Disconnect("BackToMenue");
     }
+
+    public static IEnumerator SlowMotion(float value, float slowTime) {
+        Time.timeScale = value;
+        yield return new WaitForSeconds(slowTime);
+        Time.timeScale = 1;
+    }
 }
