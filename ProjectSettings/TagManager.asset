@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Minion
   - Ground
+  - Boost
   layers:
   - Default
   - TransparentFX

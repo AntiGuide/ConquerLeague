@@ -11,6 +11,9 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField]
     private float movementSpeed;
 
+    [SerializeField]
+    private float boostFactor = 1f;
+
     /// <summary>How many degrees per second the car can turn</summary>
     [SerializeField]
     private float degreePerSecond;
@@ -91,8 +94,19 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         };
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, quat, degreePerSecond * rotation.magnitude * Time.deltaTime);
-        var newVelocity = transform.forward * rotation.magnitude * movementSpeed;
+        var newVelocity = transform.forward * rotation.magnitude * movementSpeed * boostFactor;
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+    }
+
+    public void Boost(float boostStrenght, float boostTime) {
+        boostFactor = 1f + boostStrenght > boostFactor ? 1f + boostStrenght : boostFactor;
+        StopCoroutine(ResetBoost(boostTime));
+        StartCoroutine(ResetBoost(boostTime));
+    }
+
+    private IEnumerator ResetBoost(float boostTime) {
+        yield return new WaitForSeconds(boostTime);
+        boostFactor = 1f;
     }
 
     public void UpdateConfig() {
