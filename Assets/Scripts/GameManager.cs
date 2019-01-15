@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour {
 
     public static IEnumerator SlowMotion(float value, float slowTime) {
         Time.timeScale = value;
-        yield return new WaitForSeconds(slowTime);
+        yield return new WaitForSecondsRealtime(slowTime);
         Time.timeScale = 1;
     }
 }
