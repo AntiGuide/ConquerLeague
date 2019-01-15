@@ -40831,6 +40831,127 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1001 &651638782
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1490564916}
+    m_Modifications:
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 42d8a803bfe48444685efbc22fe88888, type: 2}
+  m_IsPrefabParent: 0
+--- !u!224 &651638783 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224618196199767110, guid: 42d8a803bfe48444685efbc22fe88888,
+    type: 2}
+  m_PrefabInternal: {fileID: 651638782}
+--- !u!1 &651638784 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1980244744917162, guid: 42d8a803bfe48444685efbc22fe88888,
+    type: 2}
+  m_PrefabInternal: {fileID: 651638782}
+--- !u!114 &651638785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 651638784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb4b27cc98c34d418d1c1d444820196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &653941865
 GameObject:
   m_ObjectHideFlags: 0
@@ -45140,7 +45261,6 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}
-  moneyValue: 1e0014000a00
 --- !u!114 &683106197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51006,7 +51126,6 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}
-  moneyValue: 1e0014000a00
 --- !u!114 &872584031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51555,7 +51674,6 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}
-  moneyValue: 1e0014000a00
 --- !u!114 &886424129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54892,7 +55010,6 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}
-  moneyValue: 1e0014000a00
 --- !u!114 &1003539126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61356,7 +61473,6 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}
-  moneyValue: 1e0014000a00
 --- !u!114 &1119853689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80021,6 +80137,7 @@ GameObject:
   - component: {fileID: 1490564919}
   - component: {fileID: 1490564918}
   - component: {fileID: 1490564917}
+  - component: {fileID: 1490564920}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -80047,6 +80164,7 @@ RectTransform:
   - {fileID: 878395035}
   - {fileID: 1787498072}
   - {fileID: 102647395}
+  - {fileID: 651638783}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80108,10 +80226,26 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &1490564920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1490564915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6630670409b6840bc362dc6f2558b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FloatUpPrefab: {fileID: 1980244744917162, guid: 42d8a803bfe48444685efbc22fe88888,
+    type: 2}
+  FadeTime: 1
+  TravelDistance: 100
+  soundController: {fileID: 308403211}
 --- !u!1 &1492836463
 GameObject:
   m_ObjectHideFlags: 0
@@ -90268,7 +90402,6 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}
-  moneyValue: 1e0014000a00
 --- !u!114 &1703536761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90723,7 +90856,6 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}
-  moneyValue: 1e0014000a00
 --- !u!114 &1712019884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96388,7 +96520,6 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 193326067}
-  moneyValue: 1e0014000a00
 --- !u!114 &1785951861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97617,7 +97748,6 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}
-  moneyValue: 1e0014000a00
 --- !u!114 &1812410748
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,8 +32,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     private MoneyManagement moneyManagement;
 
     /// <summary>The amount of money you get for killing</summary>
-    [SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
-    private short[] moneyValue = new short[3];
+    //[SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
+    //private short[] moneyValue = new short[3];
 
     public bool Visible {
         set {
@@ -143,9 +143,9 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     }
 
     public void UpdateConfig() {
-        moneyValue[0] = ConfigButton.VehicleDestroyValue;
-        moneyValue[1] = ConfigButton.TowerReward;
-        moneyValue[2] = ConfigButton.MinionsDestroyValue;
+        //moneyValue[0] = ConfigButton.VehicleDestroyValue;
+        //moneyValue[1] = ConfigButton.TowerReward;
+        //moneyValue[2] = ConfigButton.MinionsDestroyValue;
     }
 
     private IEnumerator HitFeedback() {
