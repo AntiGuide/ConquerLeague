@@ -112,6 +112,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         switch (tag) {
             case "Minion":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.WARTRUCK_DESTRUCTION);
+                FloatUpSpawner.GenerateFloatUp(10, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
                 if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
                     moneyManagement.AddMoney(10);
                 }
@@ -119,8 +120,10 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 Destroy(gameObject);
                 break;
             case "Turret":
+                aktHp += 1;
                 CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
+                FloatUpSpawner.GenerateFloatUp(20, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position), 30);
                 gameObject.GetComponentInChildren<TurretController>().Respawning = true;
                 if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
                     moneyManagement.AddMoney(20);
@@ -129,6 +132,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 break;
             case "Player":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
+                FloatUpSpawner.GenerateFloatUp(30, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
                 //SoundController.FSSoundController.StartSound(SoundController.Sounds.ENEMY_ELIMINATED, 1);
                 if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
                     moneyManagement.AddMoney(30);
