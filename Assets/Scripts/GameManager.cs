@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.CrossPlatformInput;
 
 /// <summary>
 /// The game manager. Handles the most important info for the state of the game, can pause the game and disable input.
@@ -37,14 +38,10 @@ public class GameManager : MonoBehaviour {
 
     public Image CountdownBackgroundImage;
 
-    private static Image disableInputFakeStatic;
-
     private static bool paused;
 
     /// <summary>References the GameTimer script</summary>
     [SerializeField] private GameTimer gameTimer;
-
-    [SerializeField] private Image disableInput;
 
     /// <summary> The spawn point of the player on the left side </summary>
     [SerializeField] private Transform startPointLeft;
@@ -90,18 +87,13 @@ public class GameManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Disables input trough enabling a transparent image
-    /// </summary>
-    /// <param name="setTo"></param>
-    public static void DisableInput(bool setTo) {
-        disableInputFakeStatic.enabled = setTo;
-    }
-
-    /// <summary>
     /// Updates settings that are related to the pause state
     /// </summary>
     private static void UpdatePausedSetting() {
-        DisableInput(Paused);
+        CrossPlatformInputManager.ControllsLocked = Paused;
+#if UNITY_EDITOR
+        CrossPlatformInputManager.ControllsLocked = false;
+#endif
         GameTimer.TimerPaused = Paused;
     }
 
@@ -115,7 +107,6 @@ public class GameManager : MonoBehaviour {
 
         goalManagerFS = goalManager;
         FSGameManager = this;
-        disableInputFakeStatic = disableInput;
         Paused = true;
         LeftTeam = TeamHandler.TeamState.FRIENDLY;
         RightTeam = TeamHandler.TeamState.ENEMY;

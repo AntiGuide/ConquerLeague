@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// <summary>
 /// The class handles the behaviour of the player object after network packets came in
 /// </summary>
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(TeamHandler), typeof(Rigidbody), typeof(HitPoints))]
 public class PlayerNet : MonoBehaviour, IConfigurable {
     [SerializeField] private int respawnTime = 5;
 
@@ -90,6 +90,11 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
         yield return null;
     }
 
+    public static void PlayerIsShootingUltimate() {
+        PlayerIsShooting = false;
+        CommunicationNet.FakeStatic.SendPlayerUltimate();
+    }
+
     /// <summary>
     /// Initializes respawn
     /// </summary>
@@ -157,5 +162,9 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     public void UpdateConfig() {
         respawnTime = ConfigButton.VehicleRespawnTime;
         hitPoints.SaveHp = ConfigButton.VehicleHP;
+    }
+
+    public void OnNetUltimate() {
+        //Visual Ultimate for this player
     }
 }

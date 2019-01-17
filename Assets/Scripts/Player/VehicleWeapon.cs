@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
@@ -29,6 +30,8 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     [SerializeField] private GameObject shotVFX;
 
     [SerializeField] private byte damagePerShot;
+
+    [SerializeField] private byte ultimateDamage;
 
     /// <summary>The Vehicles VFX Systems</summary>
     private ParticleSystem[] vfxSystems;
@@ -78,8 +81,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
             }
 
             if (PlayerNet.EnemyIsShooting) {
-                //Shoot with no damage
-                Shoot(weaponType, true);
+                Shoot(weaponType);
             }
 
             return;
@@ -87,66 +89,73 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
 
         if (vehicleAim.AktAimingAt != null) {
             transform.LookAt(vehicleAim.AktAimingAt.transform);
-            Shoot(weaponType);
         } else {
             transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+
+        if (CrossPlatformInputManager.GetButton("UltiShoot")) {
+            PlayerNet.PlayerIsShootingUltimate();
+            Shoot(weaponType, true);
+            return;
+        }
+
+        if (CrossPlatformInputManager.GetButton("Shoot")) {
+            PlayerNet.PlayerIsShooting = true;
             Shoot(weaponType);
+        } else {
+            PlayerNet.PlayerIsShooting = false;
         }
     }
 
-    /// <summary>
-    /// Instantiate Bullet and applies force
-    /// </summary>
-    /// <param name="weaponType"></param>
-    void Shoot(GameObject weaponType, bool disableDamageAndBypassButton = false) {
-        if (aktShootingTime <= 0f && (CrossPlatformInputManager.GetButton("Shoot") || disableDamageAndBypassButton)) {
-            SoundController.FSSoundController.StartSound(SoundController.Sounds.MG_SHOT);
-
-            for (int i = 0; i < vfxSystems.Length; i++) {
-                vfxSystems[i].Stop();
-                vfxSystems[i].Play();
-            }
-
-            var shot = Instantiate(weaponType, shotSpawn.position, shotSpawn.rotation);
-            shot.GetComponent<TeamHandler>().TeamID = teamHandler.TeamID;
-            shot.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed);
-            // Shot with 0 damage
-            shot.GetComponent<Standard_Projectile>().Damage = 0; // disableDamageAndBypassButton ? (byte)0 : damagePerShot;
-            aktShootingTime += shootingTime;
-
-            // Apply damage directly
-            var target = vehicleAim.AktAimingAt;
-            if (target == null) {
-                return;
-            }
-
-            if (target.GetComponent<HitPoints>() != null) {
-                if (target.gameObject.GetComponent<TeamHandler>().TeamID != teamHandler.TeamID) {
-                    switch (target.tag) {
-                        case "Player":
-                            CommunicationNet.FakeStatic.SendPlayerDamage(damagePerShot);
-                            target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
-                            StartCoroutine(Blink());
-                            break;
-                        case "Turret":
-                            var id = target.GetComponent<TowerNet>().ID;
-                            CommunicationNet.FakeStatic.SendTowerDamage(id, damagePerShot);
-                            target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
-                            break;
-                        case "Minion":
-                            StartCoroutine(Blink());
-                            target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        } else if (CrossPlatformInputManager.GetButton("Shoot") || disableDamageAndBypassButton) {
+    void Shoot(GameObject weaponType, bool isUltimate = false) {
+        if (aktShootingTime > 0f) {
             aktShootingTime -= Time.deltaTime;
+            return;
+        }
+        
+        SoundController.FSSoundController.StartSound(SoundController.Sounds.MG_SHOT);
+        for (int i = 0; i < vfxSystems.Length; i++) {
+            vfxSystems[i].Stop();
+            vfxSystems[i].Play();
         }
 
-        PlayerNet.PlayerIsShooting = CrossPlatformInputManager.GetButton("Shoot");
+        FireVisualShot(weaponType, shotSpawn.position, shotSpawn.rotation, teamHandler.TeamID, projectileSpeed);
+        aktShootingTime += shootingTime;
+        var damage = isUltimate ? ultimateDamage : damagePerShot;
+        ApplyDamageDirectly(vehicleAim.AktAimingAt, damage);
+    }
+
+    private void FireVisualShot(GameObject prefab, Vector3 shotSpawnPosition, Quaternion shotSpawnRotation, TeamHandler.TeamState tID, float speed) {
+        var shot = Instantiate(prefab, shotSpawnPosition, shotSpawnRotation);
+        shot.GetComponent<TeamHandler>().TeamID = tID;
+        shot.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
+        shot.GetComponent<Standard_Projectile>().Damage = 0;
+    }
+
+    private void ApplyDamageDirectly(GameObject target, byte damage) {
+        if (target?.GetComponent<HitPoints>() == null ||
+            target.gameObject.GetComponent<TeamHandler>().TeamID == teamHandler.TeamID) {
+            return;
+        }
+        
+        switch (target.tag) {
+            case "Player":
+                CommunicationNet.FakeStatic.SendPlayerDamage(damage);
+                target.gameObject.GetComponent<HitPoints>().AktHp -= damage;
+                StartCoroutine(Blink());
+                break;
+            case "Turret":
+                var id = target.GetComponent<TowerNet>().ID;
+                CommunicationNet.FakeStatic.SendTowerDamage(id, damage);
+                target.gameObject.GetComponent<HitPoints>().AktHp -= damage;
+                break;
+            case "Minion":
+                StartCoroutine(Blink());
+                target.gameObject.GetComponent<HitPoints>().AktHp -= damage;
+                break;
+            default:
+                break;
+        }
     }
 
     public void UpdateConfig() {

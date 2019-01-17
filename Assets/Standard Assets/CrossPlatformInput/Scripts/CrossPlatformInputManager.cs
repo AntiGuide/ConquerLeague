@@ -12,8 +12,9 @@ namespace UnityStandardAssets.CrossPlatformInput
 			Touch
 		}
 
+        public static bool ControllsLocked = false;
 
-		private static VirtualInput activeInput;
+        private static VirtualInput activeInput;
 
 		private static VirtualInput s_TouchInput;
 		private static VirtualInput s_HardwareInput;
@@ -92,39 +93,39 @@ namespace UnityStandardAssets.CrossPlatformInput
 		// returns the platform appropriate axis for the given name
 		public static float GetAxis(string name)
 		{
-			return GetAxis(name, false);
+			return ControllsLocked ? 0f : GetAxis(name, false);
 		}
 
 
 		public static float GetAxisRaw(string name)
 		{
-			return GetAxis(name, true);
+			return ControllsLocked ? 0f : GetAxis(name, true);
 		}
 
 
 		// private function handles both types of axis (raw and not raw)
 		private static float GetAxis(string name, bool raw)
 		{
-			return activeInput.GetAxis(name, raw);
+			return ControllsLocked ? 0f : activeInput.GetAxis(name, raw);
 		}
 
 
 		// -- Button handling --
 		public static bool GetButton(string name)
 		{
-			return activeInput.GetButton(name);
+			return ControllsLocked ? false : activeInput.GetButton(name);
 		}
 
 
 		public static bool GetButtonDown(string name)
 		{
-			return activeInput.GetButtonDown(name);
+			return ControllsLocked ? false : activeInput.GetButtonDown(name);
 		}
 
 
 		public static bool GetButtonUp(string name)
 		{
-			return activeInput.GetButtonUp(name);
+			return ControllsLocked ? false : activeInput.GetButtonUp(name);
 		}
 
 

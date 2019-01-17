@@ -89,7 +89,8 @@ public class CommunicationNet : MonoBehaviour {
         PLAYER_DAMAGE_DEALT = 7,
         TOWER_DAMAGE = 8,
         TOWER_CONQUERED = 9,
-        MINION_HP = 10
+        MINION_HP = 10,
+        PLAYER_ULTIMATE = 11
     }
 
     /// <summary>
@@ -214,6 +215,14 @@ public class CommunicationNet : MonoBehaviour {
         // 0 = GameMessageType
         // 1 = TowerID
         GameManager.towers[input[1]].TurretConquered();
+    }
+
+    public void RecievePlayerUltimate() {
+        enemyPlayerNet?.OnNetUltimate(); // 0 = GameMessageType
+    }
+
+    public void SendPlayerUltimate() {
+        Send(new byte[] { (byte)GameMessageType.PLAYER_ULTIMATE }, NetDeliveryMethod.ReliableUnordered);
     }
 
     /// <summary>
@@ -581,6 +590,9 @@ public class CommunicationNet : MonoBehaviour {
                 break;
             case (byte)GameMessageType.MINION_HP:
                 RecieveMinionHP(data);
+                break;
+            case (byte)GameMessageType.PLAYER_ULTIMATE:
+                RecievePlayerUltimate();
                 break;
             default:
                 Debug.Log("Unknown Packet recieved. Maybe the App is not updated?");

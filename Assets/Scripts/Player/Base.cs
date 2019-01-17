@@ -8,6 +8,7 @@ using UnityEngine.AI;
 /// <summary>
 /// The players base, which spawns minion
 /// </summary>
+[RequireComponent(typeof(TeamHandler))]
 public class Base : MonoBehaviour, IConfigurable {
     /// <summary>How much currency it costs to build minion</summary>
     [SerializeField]
@@ -62,7 +63,7 @@ public class Base : MonoBehaviour, IConfigurable {
     void Start() {
         startStrapColor = strapMaterial.color;
         ConfigButton.ObjectsToUpdate.Add(this);
-        TeamHandler = gameObject.GetComponent<TeamHandler>();
+        TeamHandler = GetComponent<TeamHandler>();
         //startColor = baseRenderer.material.color;
     }
 
