@@ -26,6 +26,9 @@ public class HitPoints : MonoBehaviour, IConfigurable {
 
     [SerializeField] private Transform healthBarParent;
 
+    /// <summary>References the Goalmanager</summary>
+    private GoalManager goalManager;
+
     private Image hitFeedBackImage;
 
     /// <summary>References the MoneyManagement script</summary>
@@ -94,6 +97,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
             hitFeedBackImage = GameObject.Find("hitFeedBackImage").GetComponent<Image>();
         }
 
+        goalManager = GameObject.Find("UIBackground").GetComponent<GoalManager>();
         healthBarParent = GameObject.Find("/HealthBars").transform;
         ConfigButton.ObjectsToUpdate.Add(this);
         SetFull();
@@ -132,10 +136,10 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 break;
             case "Player":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
-                FloatUpSpawner.GenerateFloatUp(30, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
-                //SoundController.FSSoundController.StartSound(SoundController.Sounds.ENEMY_ELIMINATED, 1);
                 if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
                     moneyManagement.AddMoney(30);
+                    goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
+                    FloatUpSpawner.GenerateFloatUp(30, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
                 }
                 
                 GetComponent<PlayerNet>().OnDeath();

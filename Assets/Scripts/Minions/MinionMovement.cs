@@ -81,7 +81,6 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
         }
 
         if (movementOrder.Length == currTarget) {
-            goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
             GetComponent<MinionNet>().DeInitNet();
             gameObject.SetActive(false);
             SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
