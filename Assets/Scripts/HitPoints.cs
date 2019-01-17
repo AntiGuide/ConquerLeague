@@ -120,6 +120,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
                     moneyManagement.AddMoney(10);
                 }
+
+                UltimateController.FS.AddCharge();
                 CommunicationNet.FakeStatic.SendMinionHP((byte)gameObject.GetComponent<MinionNet>().Id, 0);
                 Destroy(gameObject);
                 break;

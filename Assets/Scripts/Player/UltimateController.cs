@@ -6,6 +6,8 @@ using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(Image))]
 public class UltimateController : MonoBehaviour {
+    public static UltimateController FS;
+
     [SerializeField]
     private GameObject ultimateProjectilePrefab;
 
@@ -35,10 +37,13 @@ public class UltimateController : MonoBehaviour {
 
 	private void Start () {
         image = GetComponent<Image>();
-        if (image.type != Image.Type.Filled) {
+        if (image.type != Image.Type.Filled || FS != null) {
             Application.Quit();
         }
-	}
+
+        FS = this;
+
+    }
 
     private void Update() {
         if (CrossPlatformInputManager.GetButton("UltiShoot")) {
