@@ -107,7 +107,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
         }
     }
 
-    void Shoot(GameObject weaponType, bool isUltimate = false) {
+    public void Shoot(GameObject projectilePrefab, bool isUltimate = false) {
         if (aktShootingTime > 0f) {
             aktShootingTime -= Time.deltaTime;
             return;
@@ -119,7 +119,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
             vfxSystems[i].Play();
         }
 
-        FireVisualShot(weaponType, shotSpawn.position, shotSpawn.rotation, teamHandler.TeamID, projectileSpeed);
+        FireVisualShot(projectilePrefab, shotSpawn.position, shotSpawn.rotation, teamHandler.TeamID, projectileSpeed);
         aktShootingTime += shootingTime;
         var damage = isUltimate ? ultimateDamage : damagePerShot;
         ApplyDamageDirectly(vehicleAim.AktAimingAt, damage);
@@ -133,29 +133,29 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     }
 
     private void ApplyDamageDirectly(GameObject target, byte damage) {
-        if (target?.GetComponent<HitPoints>() == null ||
+        var hp = target?.GetComponent<HitPoints>();
+        if (hp == null ||
             target.gameObject.GetComponent<TeamHandler>().TeamID == teamHandler.TeamID) {
             return;
         }
         
+        damage = (byte)Mathf.Min(damage, hp.AktHp);
         switch (target.tag) {
             case "Player":
                 CommunicationNet.FakeStatic.SendPlayerDamage(damage);
-                target.gameObject.GetComponent<HitPoints>().AktHp -= damage;
                 StartCoroutine(Blink());
                 break;
             case "Turret":
-                var id = target.GetComponent<TowerNet>().ID;
-                CommunicationNet.FakeStatic.SendTowerDamage(id, damage);
-                target.gameObject.GetComponent<HitPoints>().AktHp -= damage;
+                CommunicationNet.FakeStatic.SendTowerDamage(target.GetComponent<TowerNet>().ID, damage);
                 break;
             case "Minion":
                 StartCoroutine(Blink());
-                target.gameObject.GetComponent<HitPoints>().AktHp -= damage;
                 break;
             default:
-                break;
+                return;
         }
+
+        hp.AktHp -= damage;
     }
 
     public void UpdateConfig() {
