@@ -14,9 +14,10 @@ public class UltimateController : MonoBehaviour {
     [SerializeField]
     private VehicleWeapon vehicleWeapon;
 
-    private Image image;
+    [SerializeField]
+    private byte maxCharge = 3;
 
-    private byte maxCharge;
+    private Image image;
 
     private byte charge;
 	
@@ -26,9 +27,11 @@ public class UltimateController : MonoBehaviour {
     }
 
     private void UseUltimate() {
-        vehicleWeapon.Shoot(ultimateProjectilePrefab, true);
-        charge = 0;
-        UpdateChargeUI(charge, maxCharge);
+        if (charge == maxCharge) {
+            vehicleWeapon.Shoot(ultimateProjectilePrefab, true);
+            charge = 0;
+            UpdateChargeUI(charge, maxCharge);
+        }
     }
 
     private void UpdateChargeUI(float charge, float maxCharge) {
@@ -42,7 +45,7 @@ public class UltimateController : MonoBehaviour {
         }
 
         FS = this;
-
+        UpdateChargeUI(charge, maxCharge);
     }
 
     private void Update() {
