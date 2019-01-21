@@ -605,6 +605,6 @@ public class CommunicationNet : MonoBehaviour {
     }
 
     private void OnApplicationPause(bool pause) {
-        client?.Disconnect("OnApplicationPause");
+        //client?.Disconnect("OnApplicationPause");
     }
 }
