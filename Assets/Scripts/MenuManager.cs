@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField]
-    private Transform cameraDestinationGarage;
+    private Transform cameraDestGarageTrans;
 
     [SerializeField]
-    private Transform cameraDestinationBattle;
+    private Transform cameraDestBattleTrans;
 
     [SerializeField]
     private float cameraSpeed = 1;
@@ -17,36 +17,59 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private Camera mainCamera;
 
-    private Transform cameraDestination;
-    private bool moveToGarage = false;
-    private bool cameraMoving;
+    private Vector3 cameraGaragePos;
+    private Quaternion cameraGarageRotation;
+
+    private Vector3 cameraBattlePos;
+    private Quaternion cameraBattleRotation;
+
+    private Vector3 cameraStartPosition;
+    private Quaternion cameraStartRotation;
+
+    private Vector3 cameraStartMovingPosition;
+    private Quaternion cameraStartMovingRotation;
+
+    private Vector3 destinationPos;
+    private Quaternion destinationRotation;
+   
+    private bool cameraMoving = false;
     private float movingTimer = 0;
     private RaycastHit hit;
     private Ray ray;
 
-    private Transform cameraStartTrans;
-
     private void Start() {
-        cameraStartTrans = transform;
+        cameraStartPosition = transform.position;
+        cameraStartRotation = transform.rotation;
+
+        cameraGaragePos = cameraDestGarageTrans.position;
+        cameraGarageRotation = cameraDestGarageTrans.rotation;
+
+        cameraBattlePos = cameraDestBattleTrans.position;
+        cameraBattleRotation = cameraDestBattleTrans.rotation;
     }
 
     private void Update() {
         if (Input.GetMouseButtonDown(0) && !cameraMoving) {
             ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction);
+            if (Physics.Raycast(ray, out hit, 50, LayerMask.GetMask("ButtonMainMenu"))) {
+                cameraStartMovingPosition = transform.position;
+                cameraStartMovingRotation = transform.rotation;
+                
+                destinationPos = hit.transform.gameObject.CompareTag("Garage") ? cameraGaragePos : cameraBattlePos;
+                destinationRotation = hit.transform.gameObject.CompareTag("Garage") ? cameraGarageRotation : cameraBattleRotation;
 
-            if (Physics.Raycast(ray, out hit, 100, LayerMask.GetMask("ButtonMainMenu"))) {
                 cameraMoving = true;
-                cameraDestination = hit.transform.gameObject.CompareTag("Garage") ? cameraDestinationGarage : cameraDestinationBattle;
             }
         }
 
         if (cameraMoving) {
             movingTimer += Time.deltaTime * cameraSpeed;
-            LerpTransform(cameraStartTrans, cameraDestination, movingTimer);
-
+            LerpTransform(cameraStartMovingPosition, cameraStartMovingRotation, destinationPos, destinationRotation, movingTimer);
             if (movingTimer >= 1) {
-                cameraMoving = false;
                 movingTimer = 0;
+                cameraMoving = false;
+                print(movingTimer);
             }
         }
     }
@@ -59,8 +82,20 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    private void LerpTransform(Transform startTrans, Transform goalTrans, float movingTimer) {
-        transform.position = Vector3.Lerp(startTrans.position, goalTrans.position, movingTimer);
-        transform.rotation = Quaternion.Lerp(transform.rotation, goalTrans.rotation, movingTimer);
+    public void OnClickBack() {
+        if (!cameraMoving) {
+            cameraStartMovingPosition = transform.position;
+            cameraStartMovingRotation = transform.rotation;
+
+            destinationPos = cameraStartPosition;
+            destinationRotation = cameraStartRotation;
+
+            cameraMoving = true;
+        }
+    }
+
+    private void LerpTransform(Vector3 startPos, Quaternion startRotation, Vector3 goalPos, Quaternion goalRotation, float movingTimer) {
+        transform.position = Vector3.Lerp(startPos, goalPos, movingTimer);
+        transform.rotation = Quaternion.Lerp(startRotation, goalRotation, movingTimer);
     }
 }
