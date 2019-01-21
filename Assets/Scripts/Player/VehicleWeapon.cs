@@ -33,6 +33,8 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
 
     [SerializeField] private byte ultimateDamage;
 
+    [SerializeField] private float overheatPerShot;
+
     /// <summary>The Vehicles VFX Systems</summary>
     private ParticleSystem[] vfxSystems;
 
@@ -93,13 +95,8 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
 
-        if (CrossPlatformInputManager.GetButton("UltiShoot")) {
-            PlayerNet.PlayerIsShootingUltimate();
-            Shoot(weaponType, true);
-            return;
-        }
-
-        if (CrossPlatformInputManager.GetButton("Shoot")) {
+        if (CrossPlatformInputManager.GetButton("Shoot") &&
+            OverheatManager.FS.state == OverheatManager.HeatState.SHOOTABLE) {
             PlayerNet.PlayerIsShooting = true;
             Shoot(weaponType);
         } else {
@@ -112,7 +109,13 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
             aktShootingTime -= Time.deltaTime;
             return;
         }
-        
+
+        if (!isUltimate) {
+            PlayerNet.PlayerIsShootingUltimate();
+            OverheatManager.FS.ShootFired();
+            OverheatManager.FS.OverheatPercentage += overheatPerShot;
+        }
+
         SoundController.FSSoundController.StartSound(SoundController.Sounds.MG_SHOT);
         for (int i = 0; i < vfxSystems.Length; i++) {
             vfxSystems[i].Stop();
@@ -161,6 +164,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     public void UpdateConfig() {
         shootingTime = 1 / ConfigButton.VehicleMGShotsPerSecond;
         damagePerShot = ConfigButton.VehicleMGDamagePerShot;
+        overheatPerShot = ConfigButton.VehicleMGOverheatPerShot;
     }
 
     private IEnumerator Blink() {
