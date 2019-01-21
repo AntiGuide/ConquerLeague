@@ -24,12 +24,15 @@ public class ConfigButton : MonoBehaviour {
     public static int   VehicleRespawnTime   { get { return int.Parse(vehicle["RESPAWN_TIME"]); } }
 
     // VehicleMachineGun
-    public static float VehicleMGSpeed          { get { return float.Parse(vehicleMachineGun["SPEED"], CultureInfo.InvariantCulture.NumberFormat); } }
-    public static int   VehicleMGTuningSpeed    { get { return int.Parse(vehicleMachineGun["TURNING_SPEED"]); } }
-    public static float VehicleMGRange          { get { return float.Parse(vehicleMachineGun["RANGE"], CultureInfo.InvariantCulture.NumberFormat); } }
-    public static byte  VehicleMGDamagePerShot  { get { return byte.Parse(vehicleMachineGun["DAMAGE_PER_SHOT"]); } }
-    public static int   VehicleMGShotsPerSecond { get { return int.Parse(vehicleMachineGun["SHOTS_PER_SECOND"]); } }
-    
+    public static float VehicleMGSpeed             { get { return float.Parse(vehicleMachineGun["SPEED"], CultureInfo.InvariantCulture.NumberFormat); } }
+    public static int   VehicleMGTuningSpeed       { get { return int.Parse(vehicleMachineGun["TURNING_SPEED"]); } }
+    public static float VehicleMGRange             { get { return float.Parse(vehicleMachineGun["RANGE"], CultureInfo.InvariantCulture.NumberFormat); } }
+    public static byte  VehicleMGDamagePerShot     { get { return byte.Parse(vehicleMachineGun["DAMAGE_PER_SHOT"]); } }
+    public static int   VehicleMGShotsPerSecond    { get { return int.Parse(vehicleMachineGun["SHOTS_PER_SECOND"]); } }
+    public static float VehicleMGCooldownPerSecond { get { return float.Parse(vehicleMachineGun["COOLDOWN_PER_SECOND"], CultureInfo.InvariantCulture.NumberFormat); } }
+    public static float VehicleMGCooldownDelay     { get { return float.Parse(vehicleMachineGun["COOLDOWN_DELAY"], CultureInfo.InvariantCulture.NumberFormat); } }
+    public static float VehicleMGOverheatPerShot   { get { return float.Parse(vehicleMachineGun["OVERHEAT_PER_SHOT"], CultureInfo.InvariantCulture.NumberFormat); } }
+
     // Minions
     public static byte  MinionsHP            { get { return byte.Parse(minions["HP"]); } }
     public static int   MinionsVelocity      { get { return int.Parse(minions["VELOCITY"]); } }

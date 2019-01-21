@@ -164,6 +164,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     public void UpdateConfig() {
         shootingTime = 1 / ConfigButton.VehicleMGShotsPerSecond;
         damagePerShot = ConfigButton.VehicleMGDamagePerShot;
+        overheatPerShot = ConfigButton.VehicleMGOverheatPerShot;
     }
 
     private IEnumerator Blink() {

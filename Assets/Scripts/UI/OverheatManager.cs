@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OverheatManager : MonoBehaviour {
+public class OverheatManager : MonoBehaviour, IConfigurable {
     public static OverheatManager FS;
 
     [HideInInspector]
@@ -14,6 +14,8 @@ public class OverheatManager : MonoBehaviour {
 
     [SerializeField]
     private float cooldownPerSecond;
+
+    private float cooldownAfter = 1f;
 
     private float overheatPercentage;
 
@@ -50,7 +52,7 @@ public class OverheatManager : MonoBehaviour {
     }
 
     private IEnumerator ResetShootingState() {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(cooldownAfter);
         inactivityCooldown = true;
     }
 
@@ -62,6 +64,7 @@ public class OverheatManager : MonoBehaviour {
         FS = this;
         overheatPercentage = 0f;
         overheatFullImage.fillAmount = overheatPercentage;
+        ConfigButton.ObjectsToUpdate.Add(this);
     }
 
     private void Update() {
@@ -74,5 +77,10 @@ public class OverheatManager : MonoBehaviour {
 
             overheatFullImage.fillAmount = overheatPercentage;
         }
+    }
+
+    public void UpdateConfig() {
+        cooldownPerSecond = ConfigButton.VehicleMGCooldownPerSecond;
+        cooldownAfter = ConfigButton.VehicleMGCooldownDelay;
     }
 }
