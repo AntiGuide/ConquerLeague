@@ -33,18 +33,17 @@ namespace cakeslice
     public class Outline : MonoBehaviour
     {
         public Renderer Renderer { get; private set; }
+        public SkinnedMeshRenderer SkinnedMeshRenderer { get; private set; }
+        public MeshFilter MeshFilter { get; private set; }
 
         public int color;
         public bool eraseRenderer;
 
-        [HideInInspector]
-        public int originalLayer;
-        [HideInInspector]
-        public Material[] originalMaterials;
-
         private void Awake()
         {
             Renderer = GetComponent<Renderer>();
+            SkinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+            MeshFilter = GetComponent<MeshFilter>();
         }
 
         void OnEnable()
