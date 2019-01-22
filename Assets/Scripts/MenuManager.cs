@@ -17,6 +17,12 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private Camera mainCamera;
 
+    [SerializeField]
+    private GameObject backUI;
+
+    [SerializeField]
+    private Collider garageCollider;
+
     private Vector3 cameraGaragePos;
     private Quaternion cameraGarageRotation;
 
@@ -55,10 +61,27 @@ public class MenuManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 50, LayerMask.GetMask("ButtonMainMenu"))) {
                 cameraStartMovingPosition = transform.position;
                 cameraStartMovingRotation = transform.rotation;
+                var rayTarget = hit.transform.gameObject;
                 
-                destinationPos = hit.transform.gameObject.CompareTag("Garage") ? cameraGaragePos : cameraBattlePos;
-                destinationRotation = hit.transform.gameObject.CompareTag("Garage") ? cameraGarageRotation : cameraBattleRotation;
-
+                switch (rayTarget.tag) {
+                    case "Garage":
+                        garageCollider.enabled = false;
+                        destinationPos = cameraGaragePos;
+                        destinationRotation = cameraGarageRotation;
+                        break;
+                    case "BattleButton":
+                        backUI.SetActive(true);
+                        destinationPos = cameraBattlePos;
+                        destinationRotation = cameraBattleRotation;
+                        break;
+                    case "CarSelection":
+                        rayTarget.GetComponent<CarSelection>().SwapCarRenderer();
+                        break;
+                    case "MenuBack":
+                        garageCollider.enabled = true;
+                        OnClickBack();
+                        break;
+                }
                 cameraMoving = true;
             }
         }
@@ -69,7 +92,6 @@ public class MenuManager : MonoBehaviour
             if (movingTimer >= 1) {
                 movingTimer = 0;
                 cameraMoving = false;
-                print(movingTimer);
             }
         }
     }
@@ -84,6 +106,10 @@ public class MenuManager : MonoBehaviour
 
     public void OnClickBack() {
         if (!cameraMoving) {
+            if (backUI.activeSelf) {
+                backUI.SetActive(false);
+            }
+
             cameraStartMovingPosition = transform.position;
             cameraStartMovingRotation = transform.rotation;
 

@@ -11,6 +11,8 @@ TagManager:
   - Boost
   - BattleButton
   - Garage
+  - MenuBack
+  - CarSelection
   layers:
   - Default
   - TransparentFX
