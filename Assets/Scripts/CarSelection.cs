@@ -31,8 +31,6 @@ public class CarSelection : MonoBehaviour {
         currRendering = currRendering < 0 ? 2 : currRendering;
         currRendering = currRendering > 2 ? 0 : currRendering;
 
-        //currRendering = Mathf.Max(0, Mathf.Min(2, currRendering));
-
         SetRenderer(true, currRendering);
     }
 
