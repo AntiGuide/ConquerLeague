@@ -54,6 +54,7 @@ public class ConfigButton : MonoBehaviour {
     public void OnButtonPress() {
         //DebugText.text = Application.persistentDataPath + "/Config.ini";
         if (!File.Exists(Application.persistentDataPath + "/Config.ini")) {
+            DebugText.text = "Config.ini doesn't exist at \"" + Application.persistentDataPath + "/Config.ini\"";
             Debug.Log("Config.ini doesn't exist at \"" + Application.persistentDataPath + "/Config.ini\"");
             return;
         }

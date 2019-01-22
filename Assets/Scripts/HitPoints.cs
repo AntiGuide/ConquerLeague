@@ -31,6 +31,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
 
     private Image hitFeedBackImage;
 
+    private short[] moneyValue = new short[3];
+
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
 
@@ -116,9 +118,9 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         switch (tag) {
             case "Minion":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.WARTRUCK_DESTRUCTION);
-                FloatUpSpawner.GenerateFloatUp(10, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
+                FloatUpSpawner.GenerateFloatUp(moneyValue[2], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
                 if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-                    moneyManagement.AddMoney(10);
+                    moneyManagement.AddMoney(moneyValue[2]);
                 }
 
                 UltimateController.FS.AddCharge();
@@ -129,19 +131,19 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 aktHp += 1;
                 CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
-                FloatUpSpawner.GenerateFloatUp(20, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position), 30);
+                FloatUpSpawner.GenerateFloatUp(moneyValue[1], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position), 30);
                 gameObject.GetComponentInChildren<TurretController>().Respawning = true;
                 if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-                    moneyManagement.AddMoney(20);
+                    moneyManagement.AddMoney(moneyValue[1]);
                 }
                 
                 break;
             case "Player":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
                 if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-                    moneyManagement.AddMoney(30);
+                    moneyManagement.AddMoney(moneyValue[0]);
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
-                    FloatUpSpawner.GenerateFloatUp(30, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
+                    FloatUpSpawner.GenerateFloatUp(moneyValue[0], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
                 }
                 
                 GetComponent<PlayerNet>().OnDeath();
@@ -153,9 +155,9 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     }
 
     public void UpdateConfig() {
-        //moneyValue[0] = ConfigButton.VehicleDestroyValue;
-        //moneyValue[1] = ConfigButton.TowerReward;
-        //moneyValue[2] = ConfigButton.MinionsDestroyValue;
+        moneyValue[0] = ConfigButton.VehicleDestroyValue;
+        moneyValue[1] = ConfigButton.TowerReward;
+        moneyValue[2] = ConfigButton.MinionsDestroyValue;
     }
 
     private IEnumerator HitFeedback() {
