@@ -6444,7 +6444,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.7241379, b: 0, a: 1}
-  m_Intensity: 2
+  m_Intensity: 4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -8688,7 +8688,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.7241379, b: 0, a: 1}
-  m_Intensity: 2
+  m_Intensity: 4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -9019,7 +9019,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.7241379, b: 0, a: 1}
-  m_Intensity: 2
+  m_Intensity: 4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -9561,7 +9561,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.7241379, b: 0, a: 1}
-  m_Intensity: 2
+  m_Intensity: 4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -9858,7 +9858,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.7241379, b: 0, a: 1}
-  m_Intensity: 2
+  m_Intensity: 4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -11436,7 +11436,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4382195471203174, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
       propertyPath: m_RootOrder
-      value: 30
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 4369531245174410, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
       propertyPath: m_RootOrder
@@ -11500,7 +11500,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4702801307220252, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
       propertyPath: m_RootOrder
-      value: 23
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4534009055172030, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
       propertyPath: m_RootOrder
@@ -11528,7 +11528,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4959655553155722, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
       propertyPath: m_RootOrder
-      value: 25
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1973003065679388, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
       propertyPath: m_TagString
@@ -12441,7 +12441,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.7241379, b: 0, a: 1}
-  m_Intensity: 2
+  m_Intensity: 4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
