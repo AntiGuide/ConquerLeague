@@ -28,6 +28,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
 
     [SerializeField] private GameObject minionDestruction;
 
+    [SerializeField] private GameObject playerDestruction;
+
     /// <summary>References the Goalmanager</summary>
     private GoalManager goalManager;
 
@@ -122,7 +124,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
                     moneyManagement.AddMoney(10);
                 }
-                Instantiate(minionDestruction);
+                Instantiate(minionDestruction, transform.position, transform.rotation);
                 CommunicationNet.FakeStatic.SendMinionHP((byte)gameObject.GetComponent<MinionNet>().Id, 0);
                 Destroy(gameObject);
                 break;
@@ -144,7 +146,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     FloatUpSpawner.GenerateFloatUp(30, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
                 }
-                Instantiate(minionDestruction);
+                Instantiate(playerDestruction, transform.position, transform.rotation);
                 GetComponent<PlayerNet>().OnDeath();
                 break;
             default:
