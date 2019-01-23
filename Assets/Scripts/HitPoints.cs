@@ -140,7 +140,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 break;
             case "Player":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
-                if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+                if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     moneyManagement.AddMoney(moneyValue[0]);
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     FloatUpSpawner.GenerateFloatUp(moneyValue[0], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
