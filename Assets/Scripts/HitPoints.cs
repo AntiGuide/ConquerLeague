@@ -42,7 +42,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
 
     public bool Visible {
         set {
-            healthBar.Active = value;
+            healthBar.gameObject.SetActive(value);
         }
     }
 
