@@ -96,6 +96,15 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         transform.rotation = Quaternion.RotateTowards(transform.rotation, quat, degreePerSecond * rotation.magnitude * Time.deltaTime);
         var newVelocity = transform.forward * rotation.magnitude * movementSpeed * boostFactor;
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+
+        var flatAngle = transform.rotation.eulerAngles;
+        flatAngle.x = 0;
+        flatAngle.z = 0;
+        var flatQuat = new Quaternion();
+        flatQuat.eulerAngles = flatAngle;
+
+        var steerValue = Quaternion.Angle(flatQuat, quat);
+        var speedValue = rotation.magnitude;
     }
 
     public void Boost(float boostStrenght, float boostTime) {
