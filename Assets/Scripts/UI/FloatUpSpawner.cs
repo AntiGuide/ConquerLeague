@@ -23,6 +23,10 @@ public class FloatUpSpawner : MonoBehaviour {
     /// <param name="type">The type of the generated FloatUp element. For example this could decide between Powerlevel and Dollar.</param>
     /// <param name="pos">The position at which the FloatUp will spawn and begin traveling</param>
     public static void GenerateFloatUp(long value, FloatUp.ResourceType type, Vector2 pos, float objectHeight = 25f) {
+        if (value == 0) {
+            return;
+        }
+
         objectHeight = value > 0 ? objectHeight : -objectHeight;
         pos.y = pos.y + objectHeight;
         var go = Instantiate(FSFloatUpSpawner.FloatUpPrefab, pos, Quaternion.identity, FSFloatUpSpawner.transform);

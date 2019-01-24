@@ -117,13 +117,14 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     void OnDeath(string tag) {
         switch (tag) {
             case "Minion":
+                UpdateConfig();
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.WARTRUCK_DESTRUCTION);
                 FloatUpSpawner.GenerateFloatUp(moneyValue[2], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
-                if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+                if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     moneyManagement.AddMoney(moneyValue[2]);
+                    UltimateController.FS.AddCharge();
                 }
 
-                UltimateController.FS.AddCharge();
                 CommunicationNet.FakeStatic.SendMinionHP((byte)gameObject.GetComponent<MinionNet>().Id, 0);
                 Destroy(gameObject);
                 break;
@@ -133,7 +134,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
                 FloatUpSpawner.GenerateFloatUp(moneyValue[1], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position), 30);
                 gameObject.GetComponentInChildren<TurretController>().Respawning = true;
-                if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+                if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     moneyManagement.AddMoney(moneyValue[1]);
                 }
                 

@@ -176,7 +176,9 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
 
         yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < ren.Length; i++) {
-            ren[i].material.color = Color.white;
+            if (ren[i] != null) {
+                ren[i].material.color = Color.white;
+            }
         }
     }
 }
