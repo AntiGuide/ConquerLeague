@@ -148,7 +148,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     moneyManagement.AddMoney(moneyValue[0]);
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
-                    FloatUpSpawner.GenerateFloatUp(30, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
+                    FloatUpSpawner.GenerateFloatUp(moneyValue[0], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
                 }
                 Instantiate(playerDestruction, transform.position, transform.rotation);
                 GetComponent<PlayerNet>().OnDeath();

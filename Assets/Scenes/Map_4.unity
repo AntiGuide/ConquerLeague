@@ -100873,6 +100873,12 @@ Prefab:
       value: 
       objectReference: {fileID: 1621370054503202, guid: 00d0fb6e18eca944fa0c8bbe7c44df52,
         type: 2}
+    - target: {fileID: 114421183319604472, guid: 1cc599bb524bd8b41a39befcd1a9c257,
+        type: 2}
+      propertyPath: playerDestruction
+      value: 
+      objectReference: {fileID: 1179389037525590, guid: b63a380a4b0b6c746b64c0cf423c740b,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1cc599bb524bd8b41a39befcd1a9c257, type: 2}
   m_IsPrefabParent: 0
