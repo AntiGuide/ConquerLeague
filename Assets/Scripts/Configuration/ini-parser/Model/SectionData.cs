@@ -65,8 +65,10 @@ namespace IniParser.Model
         /// </summary>
         public void ClearComments()
         {
+#pragma warning disable CS0618
             LeadingComments.Clear();
             TrailingComments.Clear();
+#pragma warning restore CS0618
             Keys.ClearComments();
         }
 
@@ -89,6 +91,7 @@ namespace IniParser.Model
         /// <param name="toMergeSection"></param>
         public void Merge(SectionData toMergeSection)
         {
+#pragma warning disable CS0618
             foreach (var comment in toMergeSection.LeadingComments) 
                 LeadingComments.Add(comment);
                 
@@ -96,9 +99,11 @@ namespace IniParser.Model
 
             foreach(var comment in toMergeSection.TrailingComments) 
                 TrailingComments.Add(comment);
+
+#pragma warning restore CS0618
         }
 
-		#endregion
+        #endregion
 
         #region Properties
 

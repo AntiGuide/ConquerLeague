@@ -427,7 +427,7 @@ namespace Lidgren.Network
 		/// <summary>
 		/// Returns how many bits are necessary to hold a certain number
 		/// </summary>
-		[CLSCompliant(false)]
+		
 		public static int BitsToHoldUInt(uint value)
 		{
 			int bits = 1;

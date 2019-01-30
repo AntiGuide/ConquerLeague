@@ -7,6 +7,8 @@ using System.Globalization;
 using System.IO;
 
 public class ConfigButton : MonoBehaviour {
+    public Text DebugText;
+
     public static HashSet<IConfigurable> ObjectsToUpdate = new HashSet<IConfigurable>();
 
     private static Dictionary<string, string> game              = new Dictionary<string, string>();
@@ -50,11 +52,13 @@ public class ConfigButton : MonoBehaviour {
     public static int   TowerRewardCapture   { get { return int.Parse(tower["REWARD_CAPTURE"]); } }
 
     public void OnButtonPress() {
+        //DebugText.text = Application.persistentDataPath + "/Config.ini";
         if (!File.Exists(Application.persistentDataPath + "/Config.ini")) {
+            DebugText.text = "Config.ini doesn't exist at \"" + Application.persistentDataPath + "/Config.ini\"";
             Debug.Log("Config.ini doesn't exist at \"" + Application.persistentDataPath + "/Config.ini\"");
             return;
         }
-
+        
         var parser = new FileIniDataParser();
         var data = parser.ReadFile(Application.persistentDataPath + "/Config.ini");
 
@@ -116,6 +120,10 @@ public class ConfigButton : MonoBehaviour {
     }
 
     private void Awake() {
+        OnButtonPress();
+    }
+
+    private void Start() {
         OnButtonPress();
     }
 }

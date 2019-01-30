@@ -149,6 +149,9 @@ public class CommunicationNet : MonoBehaviour {
         // 30 - 41
         var velocity = ByteArrayToVector3(input, 30);
 
+        if (minions[input[1]] == null || minions[input[1]]?.GetComponent<MinionNet>() == null) {
+            return;
+        }
         minions[input[1]].GetComponent<MinionNet>().SetNewMovementPack(position, quaternion, velocity);
     }
 
@@ -478,7 +481,8 @@ public class CommunicationNet : MonoBehaviour {
             outMessage = client.CreateMessage();
             outMessage.Write(sendQueue[0].Data.Length);
             outMessage.Write(sendQueue[0].Data);
-            var ret = client.SendMessage(outMessage, connection, sendQueue[0].DeliveryMethod);
+            //var ret = 
+            client.SendMessage(outMessage, connection, sendQueue[0].DeliveryMethod);
             sendQueue.RemoveAt(0);
         }
     }
@@ -518,7 +522,7 @@ public class CommunicationNet : MonoBehaviour {
                     Debug.Log("Reachability: " + Application.internetReachability.ToString() + Network.connectionTesterIP);
                     // DO NOT REMOVE (NEEDED TO CORRECTLY GENERATE ANDROID_MANIFEST)
 
-                    connection = client.Connect(message.SenderEndPoint);
+                    connection = connection ?? client.Connect(message.SenderEndPoint);
                     break;
                 case NetIncomingMessageType.Data:
                     var data = message.ReadBytes(message.ReadInt32());
@@ -605,6 +609,6 @@ public class CommunicationNet : MonoBehaviour {
     }
 
     private void OnApplicationPause(bool pause) {
-        client?.Disconnect("OnApplicationPause");
+        //client?.Disconnect("OnApplicationPause");
     }
 }

@@ -49,7 +49,7 @@ public class UltimateController : MonoBehaviour {
     }
 
     private void Update() {
-        if (CrossPlatformInputManager.GetButton("UltiShoot")) {
+        if (CrossPlatformInputManager.GetButtonDown("UltiShoot")) {
             UseUltimate();
         }
     }

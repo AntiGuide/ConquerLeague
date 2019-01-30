@@ -23,7 +23,7 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     private bool swappedTarget = false;
 
     /// <summary>References the Goalmanager</summary>
-    private GoalManager goalManager;
+    // private GoalManager goalManager;
 
     /// <summary>The minions Teamhandler</summary>
     private TeamHandler teamHandler;
@@ -55,7 +55,7 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     /// </summary>
     void Start() {
         teamHandler = gameObject.GetComponent<TeamHandler>();
-        goalManager = GameObject.Find("UIBackground").GetComponent<GoalManager>();
+        // goalManager = GameObject.Find("UIBackground").GetComponent<GoalManager>();
 
         if (teamHandler.TeamID == GameManager.LeftTeam) {
             agent.Warp(GameObject.Find("SpawnLeft").transform.position);

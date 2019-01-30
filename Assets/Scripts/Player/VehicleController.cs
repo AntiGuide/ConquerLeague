@@ -66,6 +66,10 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         }
 
         var rotation = new Vector2(horizontalAxis, verticalAxis);
+        if (rotation != Vector2.zero && tractionModifier < float.Epsilon && rb.velocity.sqrMagnitude < float.Epsilon) {
+            Debug.Log("Stuck");
+        }
+
         if (rotation == Vector2.zero || tractionModifier < float.Epsilon) {
             VehicleWheelControll.UpdateWheelsTurn(0f, false);
             for (int i = 0; i < particleSystems.Length; i++) {

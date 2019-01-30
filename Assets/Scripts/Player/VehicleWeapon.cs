@@ -105,15 +105,17 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     }
 
     public void Shoot(GameObject projectilePrefab, bool isUltimate = false) {
-        if (aktShootingTime > 0f) {
+        if (aktShootingTime > 0f && !isUltimate) {
             aktShootingTime -= Time.deltaTime;
             return;
         }
 
         if (!isUltimate) {
-            PlayerNet.PlayerIsShootingUltimate();
+            aktShootingTime += shootingTime;
             OverheatManager.FS.ShootFired();
             OverheatManager.FS.OverheatPercentage += overheatPerShot;
+        } else {
+            PlayerNet.PlayerIsShootingUltimate();
         }
 
         SoundController.FSSoundController.StartSound(SoundController.Sounds.MG_SHOT);
@@ -123,7 +125,6 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
         }
 
         FireVisualShot(projectilePrefab, shotSpawn.position, shotSpawn.rotation, teamHandler.TeamID, projectileSpeed);
-        aktShootingTime += shootingTime;
         var damage = isUltimate ? ultimateDamage : damagePerShot;
         ApplyDamageDirectly(vehicleAim.AktAimingAt, damage);
     }
@@ -162,9 +163,9 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     }
 
     public void UpdateConfig() {
-        shootingTime = 1 / ConfigButton.VehicleMGShotsPerSecond;
-        damagePerShot = ConfigButton.VehicleMGDamagePerShot;
-        overheatPerShot = ConfigButton.VehicleMGOverheatPerShot;
+        shootingTime = 1f / (float)ConfigButton.VehicleMGShotsPerSecond;
+        damagePerShot = IsEnemy ? (byte)0 : ConfigButton.VehicleMGDamagePerShot;
+        overheatPerShot = IsEnemy ? (byte)0 : ConfigButton.VehicleMGOverheatPerShot;
     }
 
     private IEnumerator Blink() {
@@ -175,7 +176,9 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
 
         yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < ren.Length; i++) {
-            ren[i].material.color = Color.white;
+            if (ren[i] != null) {
+                ren[i].material.color = Color.white;
+            }
         }
     }
 }
