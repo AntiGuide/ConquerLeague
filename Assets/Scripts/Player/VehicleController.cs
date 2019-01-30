@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 /// <summary>
@@ -35,6 +37,8 @@ public class VehicleController : MonoBehaviour, IConfigurable {
 
     /// <summary>The color which will be applied to conquered turrets</summary>
     public Color TeamColor { get; set; }
+
+    public Text debugText;
 
     /// <summary>
     /// Use this for initialization
@@ -96,6 +100,20 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         transform.rotation = Quaternion.RotateTowards(transform.rotation, quat, degreePerSecond * rotation.magnitude * Time.deltaTime);
         var newVelocity = transform.forward * rotation.magnitude * movementSpeed * boostFactor;
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+
+        var flatAngle = transform.rotation.eulerAngles;
+        flatAngle.x = 0;
+        flatAngle.z = 0;
+        var flatQuat = new Quaternion();
+        flatQuat.eulerAngles = flatAngle;
+
+        var steerValue = rotate - flatAngle.y;
+        steerValue += steerValue < -180f ? 360f : 0f;
+        steerValue -= steerValue > 180f ? 360f : 0f;
+        var maxDegree = 45f;
+        steerValue = Mathf.Clamp(steerValue, -maxDegree, maxDegree);
+        steerValue /= maxDegree;
+        var speedValue = rotation.magnitude;
     }
 
     public void Boost(float boostStrenght, float boostTime) {

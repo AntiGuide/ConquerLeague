@@ -9,6 +9,10 @@ TagManager:
   - Minion
   - Ground
   - Boost
+  - BattleButton
+  - Garage
+  - MenuBack
+  - CarSelection
   layers:
   - Default
   - TransparentFX
@@ -26,7 +30,7 @@ TagManager:
   - GroundOnly
   - Player
   - Ground
-  - 
+  - ButtonMainMenu
   - 
   - 
   - 

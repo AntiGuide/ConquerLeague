@@ -3296,7 +3296,8 @@ MonoBehaviour:
   HPBarPrefab: {fileID: 1141816620774866, guid: a2745317fb4ae9a4eaaf80bba2d568d5,
     type: 2}
   healthBarParent: {fileID: 0}
-  moneyValue: 1e0014000a00
+  minionDestruction: {fileID: 1621370054503202, guid: 00d0fb6e18eca944fa0c8bbe7c44df52,
+    type: 2}
 --- !u!136 &136608390953567898
 CapsuleCollider:
   m_ObjectHideFlags: 1
