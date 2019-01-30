@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public class Standard_Projectile : MonoBehaviour {
     /// <summary>This projectiles damage</summary>
-    [SerializeField]
-    private byte damage = 2;
+    // [SerializeField]
+    // private byte damage = 2;
 
     /// <summary>References the bullets attached Teamhandler</summary>
     [SerializeField]

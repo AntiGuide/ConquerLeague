@@ -17,7 +17,7 @@ public class TurretConquer : MonoBehaviour
 
     /// <summary>All of the turrets renderer</summary>
     [SerializeField]
-    private Renderer[] renderer;
+    private Renderer[] myRenderers;
 
     [SerializeField]
     private Renderer topRenderer;
@@ -49,9 +49,9 @@ public class TurretConquer : MonoBehaviour
     void Start() {
         towerNet.TurretC = this;
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
-        renderer = turret.GetComponentsInChildren<MeshRenderer>();
-        for (int i = 1; i < renderer.Length; i++) {
-            renderer[i].material.color = Color.gray;
+        myRenderers = turret.GetComponentsInChildren<MeshRenderer>();
+        for (int i = 1; i < myRenderers.Length; i++) {
+            myRenderers[i].material.color = Color.gray;
         }
     }
 
@@ -61,8 +61,8 @@ public class TurretConquer : MonoBehaviour
     /// <param name="other">The colliding object</param>
     void OnTriggerEnter(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player") {
-            for (int i = 1; i < renderer.Length; i++) {
-                renderer[i].material.color = Color.white;
+            for (int i = 1; i < myRenderers.Length; i++) {
+                myRenderers[i].material.color = Color.white;
             }
         }
     }
@@ -85,8 +85,8 @@ public class TurretConquer : MonoBehaviour
     /// <param name="other">The colliding object</param>
     void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Player" && Conquerable) {
-            for (int i = 1; i < renderer.Length; i++) {
-                renderer[i].material.color = Color.gray;
+            for (int i = 1; i < myRenderers.Length; i++) {
+                myRenderers[i].material.color = Color.gray;
             }
         }
     }

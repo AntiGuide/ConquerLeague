@@ -481,7 +481,8 @@ public class CommunicationNet : MonoBehaviour {
             outMessage = client.CreateMessage();
             outMessage.Write(sendQueue[0].Data.Length);
             outMessage.Write(sendQueue[0].Data);
-            var ret = client.SendMessage(outMessage, connection, sendQueue[0].DeliveryMethod);
+            //var ret = 
+            client.SendMessage(outMessage, connection, sendQueue[0].DeliveryMethod);
             sendQueue.RemoveAt(0);
         }
     }
