@@ -16,6 +16,9 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField]
     private float boostFactor = 1f;
 
+    [SerializeField]
+    private Transform raycastTrans;
+
     /// <summary>How many degrees per second the car can turn</summary>
     [SerializeField]
     private float degreePerSecond;
@@ -26,6 +29,8 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// <summary>The rotation goal</summary>
     private Vector2 goalRotate;
 
+    private float startMovementSpeed;
+
     [SerializeField]
     private VehicleWheelControll[] wheels;
 
@@ -34,6 +39,9 @@ public class VehicleController : MonoBehaviour, IConfigurable {
 
     [SerializeField]
     private TrailRenderer[] trailRenderer;
+
+    private Ray ray;
+    private RaycastHit hit;
 
     /// <summary>The color which will be applied to conquered turrets</summary>
     public Color TeamColor { get; set; }
@@ -44,6 +52,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// Use this for initialization
     /// </summary>    
     void Start() {
+        startMovementSpeed = movementSpeed;
         ConfigButton.ObjectsToUpdate.Add(this);
         rb = gameObject.GetComponent<Rigidbody>();
     }
@@ -52,8 +61,20 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// Update is called once per frame
     /// </summary>    
     void Update() {
+        if (Physics.Raycast(ray, out hit, 3f, LayerMask.GetMask("Wall", "Default"))) {
+            movementSpeed = 0;
+            print("stuck");
+        } else if (Physics.Raycast(ray, out hit, 5, LayerMask.GetMask("Wall", "Default"))) {
+            print(hit.transform.gameObject.name);
+            movementSpeed = 5;
+        } else {
+            movementSpeed = startMovementSpeed;
+        }
         Movement(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
         VehicleWheelControll.UpdateWheelsSpin(rb, false);
+        ray.origin = raycastTrans.position;
+        ray.direction = raycastTrans.forward;
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.red, 1f);
     }
 
     /// <summary>
@@ -100,24 +121,11 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         var quat = new Quaternion {
             eulerAngles = new Vector3(0, rotate, 0)
         };
-
+        
         transform.rotation = Quaternion.RotateTowards(transform.rotation, quat, degreePerSecond * rotation.magnitude * Time.deltaTime);
+        
         var newVelocity = transform.forward * rotation.magnitude * movementSpeed * boostFactor;
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
-
-        var flatAngle = transform.rotation.eulerAngles;
-        flatAngle.x = 0;
-        flatAngle.z = 0;
-        var flatQuat = new Quaternion();
-        flatQuat.eulerAngles = flatAngle;
-
-        var steerValue = rotate - flatAngle.y;
-        steerValue += steerValue < -180f ? 360f : 0f;
-        steerValue -= steerValue > 180f ? 360f : 0f;
-        var maxDegree = 45f;
-        steerValue = Mathf.Clamp(steerValue, -maxDegree, maxDegree);
-        steerValue /= maxDegree;
-        var speedValue = rotation.magnitude;
     }
 
     public void Boost(float boostStrenght, float boostTime) {
