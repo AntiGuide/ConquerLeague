@@ -39,14 +39,27 @@ sysinfo.txt
 # Builds
 *.apk
 
+
+Assets/Scenes/Map_1/
+
 Assets/Scenes/Map_2/
 
 Assets/Scenes/MainMenue/
 
-Assets/Scenes/Map_3\.unity\.meta
-
-Assets/Scenes/Map_3\.meta
-
 Assets/Scenes/Map_3/
 
 Assets/Scenes/Map_4/
+
+Assets/Scenes/Map_5/
+
+OcclusionCullingData\.asset
+
+OcclusionCullingData\.asset\.meta
+
+Assets/Scenes/Map_3\.meta
+
+Assets/Scenes/Map_3\.unity\.meta
+
+Assets/Scenes/Map_5\.meta
+
+Assets/Scenes/Map_5\.unity\.meta
