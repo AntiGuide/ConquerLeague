@@ -135,8 +135,10 @@ namespace IniParser.Parser
                     // Check if there are actually sections in the file
                     if (iniData.Sections.Count > 0)
                     {
+#pragma warning disable CS0618
                         iniData.Sections.GetSectionData(_currentSectionNameTemp).TrailingComments
                             .AddRange(_currentCommentListTemp);
+#pragma warning restore CS0618
                     }
                     // No sections, put the comment in the last key value pair
                     // but only if the ini file contains at least one key-value pair
@@ -329,7 +331,9 @@ namespace IniParser.Parser
             currentIniData.Sections.AddSection(sectionName);
 
             // Save comments read until now and assign them to this section
+#pragma warning disable CS0618
             currentIniData.Sections.GetSectionData(sectionName).LeadingComments = _currentCommentListTemp;
+#pragma warning restore CS0618
             _currentCommentListTemp.Clear();
 
         }
