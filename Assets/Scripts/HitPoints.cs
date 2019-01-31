@@ -30,6 +30,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
 
     [SerializeField] private GameObject playerDestruction;
 
+    [SerializeField] private GameObject overheatBar;
+
     /// <summary>References the Goalmanager</summary>
     private GoalManager goalManager;
 
@@ -112,6 +114,15 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         healthBar = bar.GetComponent<HealthBar>();
         healthBar.Offset = healthBarOffset;
         healthBar.Target = gameObject;
+        if (gameObject.CompareTag("Player") && teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+            overheatBar.transform.SetParent(bar.transform);
+            overheatBar.transform.localPosition = Vector3.zero;
+            var rectTrans = overheatBar.GetComponent<RectTransform>();
+            rectTrans.sizeDelta = new Vector2(100f,15f);
+            rectTrans.anchorMin = new Vector2(0.5f, 0f);
+            rectTrans.anchorMax = new Vector2(0.5f, 0f);
+            rectTrans.anchoredPosition = new Vector2(0f, -7.5f);
+        }
     }
 
     /// <summary>
