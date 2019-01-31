@@ -89,8 +89,8 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         }
 
         var rotation = new Vector2(horizontalAxis, verticalAxis);
-        if (rotation != Vector2.zero && tractionModifier < float.Epsilon && rb.velocity.sqrMagnitude < 0.001f) {
-            Debug.Log("Stuck");
+        if (rotation != Vector2.zero && tractionModifier < float.Epsilon && rb.velocity.sqrMagnitude < 0.1f) {
+            GetComponent<PlayerNet>()?.InitRespawn(true);
         }
 
         if (rotation == Vector2.zero || tractionModifier < float.Epsilon) {
@@ -128,7 +128,6 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         
         var newVelocity = transform.forward * rotation.magnitude * movementSpeed * boostFactor;
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
-        print(rb.velocity.magnitude);
     }
 
     public void Boost(float boostStrenght, float boostTime) {
