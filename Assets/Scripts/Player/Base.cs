@@ -61,7 +61,8 @@ public class Base : MonoBehaviour, IConfigurable {
     /// Use this for initialization
     /// </summary>
     void Start() {
-        startStrapColor = strapMaterial.color;
+        startStrapColor = Color.white;//strapMaterial.color;
+        strapMaterial.color = startStrapColor;
         ConfigButton.ObjectsToUpdate.Add(this);
         TeamHandler = GetComponent<TeamHandler>();
         //startColor = baseRenderer.material.color;

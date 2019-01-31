@@ -40,8 +40,11 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField]
     private TrailRenderer[] trailRenderer;
 
-    private Ray ray;
-    private RaycastHit hit;
+    [SerializeField]
+    private float minRamSpeed;
+
+    [SerializeField]
+    private bool safeDriving;
 
     /// <summary>The color which will be applied to conquered turrets</summary>
     public Color TeamColor { get; set; }
@@ -61,20 +64,19 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// Update is called once per frame
     /// </summary>    
     void Update() {
-        if (Physics.Raycast(ray, out hit, 3f, LayerMask.GetMask("Wall", "Default"))) {
-            movementSpeed = 0;
-            print("stuck");
-        } else if (Physics.Raycast(ray, out hit, 5, LayerMask.GetMask("Wall", "Default"))) {
-            print(hit.transform.gameObject.name);
-            movementSpeed = 5;
-        } else {
-            movementSpeed = startMovementSpeed;
+        if (safeDriving) {
+            Debug.DrawRay(raycastTrans.position, raycastTrans.forward * 10, Color.red, 1f);
+            if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 3f, LayerMask.GetMask("Wall", "Default"))) {
+                movementSpeed = 0;
+            } else if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 5f, LayerMask.GetMask("Wall", "Default"))) {
+                movementSpeed = 5;
+            } else {
+                movementSpeed = startMovementSpeed;
+            }
         }
+
         Movement(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
         VehicleWheelControll.UpdateWheelsSpin(rb, false);
-        ray.origin = raycastTrans.position;
-        ray.direction = raycastTrans.forward;
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.red, 1f);
     }
 
     /// <summary>
@@ -87,8 +89,8 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         }
 
         var rotation = new Vector2(horizontalAxis, verticalAxis);
-        if (rotation != Vector2.zero && tractionModifier < float.Epsilon && rb.velocity.sqrMagnitude < float.Epsilon) {
-            Debug.Log("Stuck");
+        if (rotation != Vector2.zero && tractionModifier < float.Epsilon && rb.velocity.sqrMagnitude < 0.1f) {
+            GetComponent<PlayerNet>()?.InitRespawn(true);
         }
 
         if (rotation == Vector2.zero || tractionModifier < float.Epsilon) {
@@ -141,6 +143,16 @@ public class VehicleController : MonoBehaviour, IConfigurable {
 
     public void UpdateConfig() {
         movementSpeed = ConfigButton.VehicleMGSpeed;
+        startMovementSpeed = movementSpeed;
         degreePerSecond = ConfigButton.VehicleMGTuningSpeed;
+    }
+
+    public void OnCollisionEnter(Collision collision) {
+        var go = collision.collider.gameObject;
+        if (!go.CompareTag("Player") || rb.velocity.magnitude < minRamSpeed) {
+            return;
+        }
+
+        VehicleWeapon.Kill(go);
     }
 }

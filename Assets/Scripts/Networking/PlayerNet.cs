@@ -98,30 +98,32 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     /// <summary>
     /// Initializes respawn
     /// </summary>
-    public IEnumerator InitRespawn() {
-        hitPoints.Visible = false;
+    public IEnumerator InitRespawn(bool resetOnly = false) {
         transform.position = StartPoint.position;
         transform.rotation = StartPoint.rotation;
-        transform.GetChild(0).gameObject.GetComponent<ParticleSystemRenderer>().enabled = false;
-        transform.GetChild(1).gameObject.SetActive(false);
-        var savedLayer = gameObject.layer;
-        gameObject.layer = 13;
-        if (!isEnemy) {
-            GetComponent<VehicleController>().enabled = false;
-        }
+        if (!resetOnly) {
+            hitPoints.Visible = false;
+            transform.GetChild(0).gameObject.GetComponent<ParticleSystemRenderer>().enabled = false;
+            transform.GetChild(1).gameObject.SetActive(false);
+            var savedLayer = gameObject.layer;
+            gameObject.layer = 13;
+            if (!isEnemy) {
+                GetComponent<VehicleController>().enabled = false;
+            }
         
-        if (!isEnemy) {
-            StartCoroutine(InitCountdown());
-        }
+            if (!isEnemy) {
+                StartCoroutine(InitCountdown());
+            }
 
-        hitPoints.SetFull();
-        yield return new WaitForSeconds(respawnTime);
-        hitPoints.Visible = true;
-        transform.GetChild(0).gameObject.GetComponent<ParticleSystemRenderer>().enabled = true;
-        transform.GetChild(1).gameObject.SetActive(true);
-        gameObject.layer = savedLayer;
-        if (!isEnemy) {
-            GetComponent<VehicleController>().enabled = true;
+            hitPoints.SetFull();
+            yield return new WaitForSeconds(respawnTime);
+            gameObject.layer = savedLayer;
+            hitPoints.Visible = true;
+            transform.GetChild(0).gameObject.GetComponent<ParticleSystemRenderer>().enabled = true;
+            transform.GetChild(1).gameObject.SetActive(true);
+            if (!isEnemy) {
+                GetComponent<VehicleController>().enabled = true;
+            }
         }
     }
 
