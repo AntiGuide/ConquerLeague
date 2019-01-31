@@ -7,6 +7,7 @@ using UnityEngine.AI;
 /// Controls the minions curent target and movement
 /// </summary>
 public class MinionMovement : MonoBehaviour, IConfigurable {
+    public static int lastLane;
     /// <summary>The minions attached hpbar</summary>
     [SerializeField]
     private GameObject healthBar;
@@ -56,16 +57,18 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     void Start() {
         teamHandler = gameObject.GetComponent<TeamHandler>();
         // goalManager = GameObject.Find("UIBackground").GetComponent<GoalManager>();
+        lastLane = lastLane == 0 ? 1 : 0;
 
         if (teamHandler.TeamID == GameManager.LeftTeam) {
             agent.Warp(GameObject.Find("SpawnLeft").transform.position);
             this.transform.eulerAngles = new Vector3(0, 90, 0);
-            movementOrder = GameObject.Find("Waypoint_F" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
+            movementOrder = GameObject.Find("Waypoint_F" + lastLane).GetComponentsInChildren<Transform>();
         } else {
             agent.Warp(GameObject.Find("SpawnRight").transform.position);
             this.transform.eulerAngles = new Vector3(0, -90, 0);
-            movementOrder = GameObject.Find("Waypoint_E" + Random.Range(0, 2)).GetComponentsInChildren<Transform>();
+            movementOrder = GameObject.Find("Waypoint_E" + lastLane).GetComponentsInChildren<Transform>();
         }
+
 
         if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
             agent.destination = movementOrder[currTarget].position;
