@@ -40,7 +40,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField]
     private TrailRenderer[] trailRenderer;
 
-    private Ray ray;
+    private Ray ray = new Ray();
     private RaycastHit hit;
 
     /// <summary>The color which will be applied to conquered turrets</summary>
@@ -61,20 +61,19 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// Update is called once per frame
     /// </summary>    
     void Update() {
+        ray.origin = raycastTrans.position;
+        ray.direction = raycastTrans.forward;
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.red, 1f);
         if (Physics.Raycast(ray, out hit, 3f, LayerMask.GetMask("Wall", "Default"))) {
             movementSpeed = 0;
-            print("stuck");
         } else if (Physics.Raycast(ray, out hit, 5, LayerMask.GetMask("Wall", "Default"))) {
-            print(hit.transform.gameObject.name);
             movementSpeed = 5;
         } else {
             movementSpeed = startMovementSpeed;
         }
+
         Movement(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
         VehicleWheelControll.UpdateWheelsSpin(rb, false);
-        ray.origin = raycastTrans.position;
-        ray.direction = raycastTrans.forward;
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.red, 1f);
     }
 
     /// <summary>
@@ -141,6 +140,15 @@ public class VehicleController : MonoBehaviour, IConfigurable {
 
     public void UpdateConfig() {
         movementSpeed = ConfigButton.VehicleMGSpeed;
+        startMovementSpeed = movementSpeed;
         degreePerSecond = ConfigButton.VehicleMGTuningSpeed;
+    }
+
+    public void OnCollisionEnter(Collision collision) {
+        if (collision.collider.gameObject.tag != "Player") {
+            return;
+        }
+
+
     }
 }
