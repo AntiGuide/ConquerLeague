@@ -162,6 +162,28 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
         hp.AktHp -= damage;
     }
 
+    public static void Kill(GameObject gameObject) {
+        var hp = gameObject?.GetComponent<HitPoints>();
+        if (hp == null) {
+            return;
+        }
+
+        switch (gameObject.tag) {
+            case "Player":
+                CommunicationNet.FakeStatic.SendPlayerDamage(hp.AktHp);
+                break;
+            case "Turret":
+                CommunicationNet.FakeStatic.SendTowerDamage(gameObject.GetComponent<TowerNet>().ID, hp.AktHp);
+                break;
+            case "Minion":
+                break;
+            default:
+                return;
+        }
+
+        hp.AktHp -= hp.AktHp;
+    }
+
     public void UpdateConfig() {
         shootingTime = 1f / (float)ConfigButton.VehicleMGShotsPerSecond;
         damagePerShot = IsEnemy ? (byte)0 : ConfigButton.VehicleMGDamagePerShot;

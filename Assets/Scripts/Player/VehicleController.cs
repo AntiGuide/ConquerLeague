@@ -40,6 +40,12 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField]
     private TrailRenderer[] trailRenderer;
 
+    [SerializeField]
+    private float minRamSpeed;
+
+    [SerializeField]
+    private bool safeDriving;
+
     /// <summary>The color which will be applied to conquered turrets</summary>
     public Color TeamColor { get; set; }
 
@@ -58,13 +64,15 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// Update is called once per frame
     /// </summary>    
     void Update() {
-        Debug.DrawRay(raycastTrans.position, raycastTrans.forward * 10, Color.red, 1f);
-        if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 3f, LayerMask.GetMask("Wall", "Default"))) {
-            movementSpeed = 0;
-        } else if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 5f, LayerMask.GetMask("Wall", "Default"))) {
-            movementSpeed = 5;
-        } else {
-            movementSpeed = startMovementSpeed;
+        if (safeDriving) {
+            Debug.DrawRay(raycastTrans.position, raycastTrans.forward * 10, Color.red, 1f);
+            if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 3f, LayerMask.GetMask("Wall", "Default"))) {
+                movementSpeed = 0;
+            } else if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 5f, LayerMask.GetMask("Wall", "Default"))) {
+                movementSpeed = 5;
+            } else {
+                movementSpeed = startMovementSpeed;
+            }
         }
 
         Movement(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
@@ -81,7 +89,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         }
 
         var rotation = new Vector2(horizontalAxis, verticalAxis);
-        if (rotation != Vector2.zero && tractionModifier < float.Epsilon && rb.velocity.sqrMagnitude < float.Epsilon) {
+        if (rotation != Vector2.zero && tractionModifier < float.Epsilon && rb.velocity.sqrMagnitude < 0.001f) {
             Debug.Log("Stuck");
         }
 
@@ -120,6 +128,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         
         var newVelocity = transform.forward * rotation.magnitude * movementSpeed * boostFactor;
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+        print(rb.velocity.magnitude);
     }
 
     public void Boost(float boostStrenght, float boostTime) {
@@ -140,10 +149,11 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     }
 
     public void OnCollisionEnter(Collision collision) {
-        if (collision.collider.gameObject.tag != "Player") {
+        var go = collision.collider.gameObject;
+        if (!go.CompareTag("Player") || rb.velocity.magnitude < minRamSpeed) {
             return;
         }
 
-
+        VehicleWeapon.Kill(go);
     }
 }
