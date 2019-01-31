@@ -68,6 +68,13 @@ Assets/FbxExporters/
 
 Assets/FbxExporters\.meta
 
-Assets/PostProcessing/
-
 Assets/Scenes/main_menu/
+
+# Now, whitelist anything that's a directory
+#!*/
+
+# And all the file types you're interested in.
+Assets/PostProcessing/*
+!Assets/PostProcessing/Runtime/
+Assets/PostProcessing/Runtime/*
+!Assets/PostProcessing/Runtime/PostProcessingBehaviour.cs.meta
