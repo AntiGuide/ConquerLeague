@@ -118,10 +118,11 @@ public class HitPoints : MonoBehaviour, IConfigurable {
             overheatBar.transform.SetParent(bar.transform);
             overheatBar.transform.localPosition = Vector3.zero;
             var rectTrans = overheatBar.GetComponent<RectTransform>();
-            rectTrans.sizeDelta = new Vector2(100f,15f);
+            var healthSize = bar.GetComponent<RectTransform>().sizeDelta;
+            rectTrans.sizeDelta = healthSize;
             rectTrans.anchorMin = new Vector2(0.5f, 0f);
             rectTrans.anchorMax = new Vector2(0.5f, 0f);
-            rectTrans.anchoredPosition = new Vector2(0f, -7.5f);
+            rectTrans.anchoredPosition = new Vector2(0f, -healthSize.y/2f);
         }
     }
 
