@@ -2732,6 +2732,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 149476, guid: e1cc8cde7e871d045947699d758a8c46, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1cc8cde7e871d045947699d758a8c46, type: 2}
   m_IsPrefabParent: 0
@@ -5117,6 +5121,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 06c7990d6002bfa4693b8a4bec4e75c9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06c7990d6002bfa4693b8a4bec4e75c9, type: 3}
   m_IsPrefabParent: 0
@@ -6239,6 +6247,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 06c7990d6002bfa4693b8a4bec4e75c9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06c7990d6002bfa4693b8a4bec4e75c9, type: 3}
   m_IsPrefabParent: 0
@@ -6939,6 +6951,10 @@ Prefab:
     - target: {fileID: 100000, guid: 3309a1216c9dcf34ab2dd71d0668a8df, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3309a1216c9dcf34ab2dd71d0668a8df, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3309a1216c9dcf34ab2dd71d0668a8df, type: 3}
@@ -7724,6 +7740,10 @@ Prefab:
     - target: {fileID: 457234, guid: 771ca9b5ef0d76f43b73bb2d7c0775b9, type: 2}
       propertyPath: m_LocalScale.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 197968, guid: 771ca9b5ef0d76f43b73bb2d7c0775b9, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 771ca9b5ef0d76f43b73bb2d7c0775b9, type: 2}
@@ -11265,6 +11285,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1a9a0595fabdbeb4396f1b7c4854d04e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a9a0595fabdbeb4396f1b7c4854d04e, type: 3}
   m_IsPrefabParent: 0
@@ -11769,7 +11793,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1523389568378986, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1979463928351246, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1107612779238848, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214508970309404, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173203903547514, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863164203666488, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845898012625964, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64d569a3b63a13e4f8f240d5052a5a9e, type: 2}
