@@ -51,10 +51,13 @@ public class VehicleController : MonoBehaviour, IConfigurable {
 
     public Text debugText;
 
+    private PlayerNet playerNet;
+
     /// <summary>
     /// Use this for initialization
     /// </summary>    
     void Start() {
+        playerNet = GetComponent<PlayerNet>();
         startMovementSpeed = movementSpeed;
         ConfigButton.ObjectsToUpdate.Add(this);
         rb = gameObject.GetComponent<Rigidbody>();
@@ -90,7 +93,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
 
         var rotation = new Vector2(horizontalAxis, verticalAxis);
         if (rotation != Vector2.zero && tractionModifier < float.Epsilon && rb.velocity.sqrMagnitude < 0.1f) {
-            GetComponent<PlayerNet>()?.InitRespawn(true);
+            StartCoroutine(playerNet.InitRespawn(true));
         }
 
         if (rotation == Vector2.zero || tractionModifier < float.Epsilon) {
@@ -132,6 +135,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
 
     public void Boost(float boostStrenght, float boostTime) {
         boostFactor = 1f + boostStrenght > boostFactor ? 1f + boostStrenght : boostFactor;
+        PlayerNet.PlayerIsUsingBoost = true;
         StopCoroutine(ResetBoost(boostTime));
         StartCoroutine(ResetBoost(boostTime));
     }
@@ -139,6 +143,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     private IEnumerator ResetBoost(float boostTime) {
         yield return new WaitForSeconds(boostTime);
         boostFactor = 1f;
+        PlayerNet.PlayerIsUsingBoost = false;
     }
 
     public void UpdateConfig() {
