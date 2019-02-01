@@ -11,6 +11,9 @@ using UnityEngine.UI;
 public class PlayerNet : MonoBehaviour, IConfigurable {
     [SerializeField] private int respawnTime = 5;
 
+    [SerializeField]
+    private ParticleSystem[] particleSystemsExhaust;
+
     /// <summary>Marks if the attached object is an enemy</summary>
     private bool isEnemy;
 
@@ -25,7 +28,11 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
 
     public static bool PlayerIsShooting { get; set; }
 
+    public static bool PlayerIsUsingBoost { get; set; }
+
     public static bool EnemyIsShooting { get; set; }
+
+    public static bool EnemyIsUsingBoost { get; set; }
 
     /// <summary>
     /// Handles new data from the network component
@@ -34,12 +41,13 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     /// <param name="quaternion">The new rotation of the player</param>
     /// <param name="velocity">The new velocity of the player</param>
     /// <param name="hp">The new hp of the player</param>
-    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp, bool shooting) {
+    public void SetNewMovementPack(Vector3 position, Quaternion quaternion, Vector3 velocity, byte hp, bool shooting, bool boosting) {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
         hitPoints.AktHp = hp;
         EnemyIsShooting = shooting;
+        EnemyIsUsingBoost = boosting;
     }
 
     /// <summary>
@@ -149,13 +157,20 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
         hitPoints = GetComponent<HitPoints>();
     }
 
+    private void Update() {
+        for (int i = 0; i < particleSystemsExhaust.Length; i++) {
+            var em = particleSystemsExhaust[i].emission;
+            em.enabled = isEnemy ? EnemyIsUsingBoost : PlayerIsUsingBoost;
+        }
+    }
+
     /// <summary>
     /// FixedUpdate is called on physics refresh
     /// </summary>
     void FixedUpdate() {
         if (!isEnemy) {
             try {
-                CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer, hitPoints.AktHp, PlayerIsShooting);
+                CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer, hitPoints.AktHp, PlayerIsShooting, PlayerIsUsingBoost);
             } catch (Exception) {
                 Debug.Log("CommunicationNet.FakeStatic.SendPlayerMovement(transform, rigidbodyPlayer); produced an error!");
                 throw;
