@@ -6,6 +6,9 @@ public class VehicleWheelControll : MonoBehaviour {
     [SerializeField]
     private bool isEnemy;
 
+    [SerializeField]
+    private bool isBackWheel;
+
     private static float wheelTurnSpeedFriend;
                   
     private static float wheelTurnSpeedEnemy;
@@ -16,11 +19,23 @@ public class VehicleWheelControll : MonoBehaviour {
 
     public bool WheelHasTraction { get; set; }
 
+    private Quaternion q = new Quaternion();
+
     /// <summary>Update is called once per frame</summary>
     void Update() {
-        if (isEnemy) {
+        if (isEnemy && !isBackWheel) {
+            q.eulerAngles = new Vector3(0, wheelTurnEnemy, 0);
             transform.Rotate(new Vector3(wheelTurnSpeedEnemy, 0f, 0f));
-        } else {
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, q, 45);
+        } else if(isEnemy && isBackWheel){
+            transform.Rotate(new Vector3(wheelTurnSpeedFriend, 0f, 0f));
+        }
+
+        if (!isEnemy && !isBackWheel) {
+            q.eulerAngles = new Vector3(0, wheelTurnFriend, 0);
+            transform.Rotate(new Vector3(wheelTurnSpeedFriend, 0f, 0f));
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, q, 45);
+        } else if(!isEnemy && isBackWheel){
             transform.Rotate(new Vector3(wheelTurnSpeedFriend, 0f, 0f));
         }
     }
@@ -33,7 +48,6 @@ public class VehicleWheelControll : MonoBehaviour {
         //if (!grounded) {
         //    Debug.Log(gameObject.name + " is in air!");
         //}
-        
     }
 
     public static void UpdateWheelsSpin(Rigidbody rb, bool isEnemy) {

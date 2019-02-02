@@ -109,6 +109,8 @@ public class VehicleController : MonoBehaviour, IConfigurable {
             
 
             return;
+        } else if(rotation != Vector2.zero) {
+
         }
 
         for (int i = 0; i < particleSystems.Length; i++) {
@@ -120,15 +122,23 @@ public class VehicleController : MonoBehaviour, IConfigurable {
             trailRenderer[i].enabled = true;
         }
 
+        var flatAngle = transform.rotation.eulerAngles;
         goalRotate = rotation;
         var rotate = Vector2.SignedAngle(goalRotate, Vector2.up);
-        VehicleWheelControll.UpdateWheelsTurn(Mathf.Max(-1f, Mathf.Min(1f, rotate / (degreePerSecond * rotation.magnitude * Time.deltaTime))), false);
+        var flatQuat = new Quaternion();
+        flatQuat.eulerAngles = flatAngle;
+        var steerValue = rotate - flatAngle.y;
+        steerValue += steerValue < -180f ? 360f : 0f;
+        steerValue -= steerValue > 180f ? 360f : 0f;
+        var maxDegree = 45f;
+        steerValue = Mathf.Clamp(steerValue, -maxDegree, maxDegree);
+        VehicleWheelControll.UpdateWheelsTurn(steerValue, false);
+        //VehicleWheelControll.UpdateWheelsTurn(Mathf.Max(-1f, Mathf.Min(1f, rotate / (degreePerSecond * rotation.magnitude * Time.deltaTime))), false);
         var quat = new Quaternion {
             eulerAngles = new Vector3(0, rotate, 0)
         };
         
         transform.rotation = Quaternion.RotateTowards(transform.rotation, quat, degreePerSecond * rotation.magnitude * Time.deltaTime);
-        
         var newVelocity = transform.forward * rotation.magnitude * movementSpeed * boostFactor;
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
     }
