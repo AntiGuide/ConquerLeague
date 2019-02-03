@@ -7,6 +7,9 @@ using UnityEngine.UI;
 /// This units HitPoints, gets destroyed when its reduced to zero
 /// </summary>
 public class HitPoints : MonoBehaviour, IConfigurable {
+    [HideInInspector]
+    public byte maxHp;
+
     /// <summary>The units current hitpoints</summary>
     public byte aktHp;
 
@@ -66,7 +69,6 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 }
             }
 
-            
             if (aktHp <= 0) {
                 aktHp = 0;
                 OnDeath(gameObject.tag);
@@ -124,6 +126,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
             rectTrans.anchorMax = new Vector2(0.5f, 0f);
             rectTrans.anchoredPosition = new Vector2(0f, -healthSize.y/2f);
         }
+        aktHp = maxHp;
     }
 
     /// <summary>
