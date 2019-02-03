@@ -9,15 +9,20 @@ using UnityStandardAssets.CrossPlatformInput;
 /// The vehicles controller, which defines how fast its moving and rotating
 /// </summary>
 public class VehicleController : MonoBehaviour, IConfigurable {
-    /// <summary>Defines how fast the vehicle moves</summary>
     [SerializeField]
-    private float movementSpeed;
+    private float maxMovementSpeed = 14;
 
     [SerializeField]
     private float boostFactor = 1f;
 
     [SerializeField]
     private Transform raycastTrans;
+
+    [SerializeField]
+    private float speedUpFactor = 3;
+
+    [SerializeField]
+    private float slowDownFactor = 4;
 
     /// <summary>How many degrees per second the car can turn</summary>
     [SerializeField]
@@ -29,7 +34,8 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// <summary>The rotation goal</summary>
     private Vector2 goalRotate;
 
-    private float startMovementSpeed;
+    /// <summary>Defines how fast the vehicle moves</summary>
+    private float aktMovementSpeed;
 
     [SerializeField]
     private VehicleWheelControll[] wheels;
@@ -58,7 +64,6 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// </summary>    
     void Start() {
         playerNet = GetComponent<PlayerNet>();
-        startMovementSpeed = movementSpeed;
         ConfigButton.ObjectsToUpdate.Add(this);
         rb = gameObject.GetComponent<Rigidbody>();
     }
@@ -70,11 +75,9 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         if (safeDriving) {
             Debug.DrawRay(raycastTrans.position, raycastTrans.forward * 10, Color.red, 1f);
             if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 2.5f, LayerMask.GetMask("Wall", "Default"))) {
-                movementSpeed = 0;
+                aktMovementSpeed = 0;
             } else if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 3f, LayerMask.GetMask("Wall", "Default"))) {
-                movementSpeed = 5;
-            } else {
-                movementSpeed = startMovementSpeed;
+                aktMovementSpeed = 5;
             }
         }
 
@@ -106,11 +109,15 @@ public class VehicleController : MonoBehaviour, IConfigurable {
             for (int i = 0; i < trailRenderer.Length; i++) {
                 trailRenderer[i].enabled = false;
             }
-            
+
+            if(aktMovementSpeed >= 0)
+            {
+                aktMovementSpeed -= Time.deltaTime * slowDownFactor;
+            }
 
             return;
-        } else if(rotation != Vector2.zero) {
-
+        } else if(rotation != Vector2.zero && aktMovementSpeed <= maxMovementSpeed) {
+            aktMovementSpeed += Time.deltaTime * speedUpFactor;
         }
 
         for (int i = 0; i < particleSystems.Length; i++) {
@@ -139,7 +146,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         };
         
         transform.rotation = Quaternion.RotateTowards(transform.rotation, quat, degreePerSecond * rotation.magnitude * Time.deltaTime);
-        var newVelocity = transform.forward * rotation.magnitude * movementSpeed * boostFactor;
+        var newVelocity = transform.forward * rotation.magnitude * aktMovementSpeed * boostFactor;
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
     }
 
@@ -157,8 +164,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     }
 
     public void UpdateConfig() {
-        movementSpeed = ConfigButton.VehicleMGSpeed;
-        startMovementSpeed = movementSpeed;
+        aktMovementSpeed = ConfigButton.VehicleMGSpeed;
         degreePerSecond = ConfigButton.VehicleMGTuningSpeed;
     }
 
