@@ -110,6 +110,10 @@ public class Base : MonoBehaviour, IConfigurable {
             if(other.GetComponent<HitPoints>().AktHp < other.GetComponent<HitPoints>().maxHp && other.GetComponent<HitPoints>().AktHp > 0)
             {
                 other.GetComponent<HitPoints>().AktHp += (byte)(Time.deltaTime * healFactor);
+
+                if(other.GetComponent<HitPoints>().AktHp > other.GetComponent<HitPoints>().maxHp) {
+                    other.GetComponent<HitPoints>().AktHp = other.GetComponent<HitPoints>().maxHp;
+                }
             }
         }
 

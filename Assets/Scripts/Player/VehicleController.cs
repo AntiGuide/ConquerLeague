@@ -10,6 +10,9 @@ using UnityStandardAssets.CrossPlatformInput;
 /// </summary>
 public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField]
+    private BoxCollider ramCollider;
+
+    [SerializeField]
     private float maxMovementSpeed = 14;
 
     [SerializeField]
@@ -150,15 +153,21 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
     }
 
-    public void Boost(float boostStrenght, float boostTime) {
+    public void Boost(float boostStrenght, float boostTime, bool isUltimate) {
         boostFactor = 1f + boostStrenght > boostFactor ? 1f + boostStrenght : boostFactor;
         PlayerNet.PlayerIsUsingBoost = true;
-        StopCoroutine(ResetBoost(boostTime));
-        StartCoroutine(ResetBoost(boostTime));
+        if (isUltimate) {
+            ramCollider.enabled = true;
+        }
+        StopCoroutine(ResetBoost(boostTime, isUltimate));
+        StartCoroutine(ResetBoost(boostTime, isUltimate));
     }
 
-    private IEnumerator ResetBoost(float boostTime) {
+    private IEnumerator ResetBoost(float boostTime, bool isUltimate) {
         yield return new WaitForSeconds(boostTime);
+        if (isUltimate) {
+            ramCollider.enabled = false;
+        }
         boostFactor = 1f;
         PlayerNet.PlayerIsUsingBoost = false;
     }

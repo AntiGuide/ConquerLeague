@@ -104,19 +104,15 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
         }
     }
 
-    public void Shoot(GameObject projectilePrefab, bool isUltimate = false) {
-        if (aktShootingTime > 0f && !isUltimate) {
+    public void Shoot(GameObject projectilePrefab) {
+        if (aktShootingTime > 0f) {
             aktShootingTime -= Time.deltaTime;
             return;
         }
 
-        if (!isUltimate) {
-            aktShootingTime += shootingTime;
-            OverheatManager.FS.ShootFired();
-            OverheatManager.FS.OverheatPercentage += overheatPerShot;
-        } else {
-            PlayerNet.PlayerIsShootingUltimate();
-        }
+         aktShootingTime += shootingTime;
+         OverheatManager.FS.ShootFired();
+         OverheatManager.FS.OverheatPercentage += overheatPerShot;
 
         SoundController.FSSoundController.StartSound(SoundController.Sounds.MG_SHOT);
         for (int i = 0; i < vfxSystems.Length; i++) {
@@ -125,8 +121,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
         }
 
         FireVisualShot(projectilePrefab, shotSpawn.position, shotSpawn.rotation, teamHandler.TeamID, projectileSpeed);
-        var damage = isUltimate ? ultimateDamage : damagePerShot;
-        ApplyDamageDirectly(vehicleAim.AktAimingAt, damage);
+        ApplyDamageDirectly(vehicleAim.AktAimingAt, damagePerShot);
     }
 
     private void FireVisualShot(GameObject prefab, Vector3 shotSpawnPosition, Quaternion shotSpawnRotation, TeamHandler.TeamState tID, float speed) {
