@@ -11,7 +11,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(TeamHandler))]
 public class Base : MonoBehaviour, IConfigurable {
     [SerializeField]
-    private float healFactor = 2;
+    private float healFactor = 1;
 
     /// <summary>How much currency it costs to build minion</summary>
     [SerializeField]
