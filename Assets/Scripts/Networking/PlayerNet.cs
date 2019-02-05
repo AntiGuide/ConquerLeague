@@ -69,6 +69,9 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     public void OnDeath() {
         if (!isEnemy) {
             CommunicationNet.FakeStatic.SendPlayerDeath();
+            KillfeedManager.FS.AddDeathEvent(TeamHandler.TeamState.ENEMY, KillfeedManager.DeathCategory.MG, TeamHandler.TeamState.FRIENDLY);
+        } else {
+            KillfeedManager.FS.AddDeathEvent(TeamHandler.TeamState.FRIENDLY, KillfeedManager.DeathCategory.MG, TeamHandler.TeamState.ENEMY);
         }
 
         StartCoroutine(InitRespawn());
