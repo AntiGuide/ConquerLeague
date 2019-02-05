@@ -52,6 +52,7 @@ public class KillfeedManager : MonoBehaviour {
     }
 
     [SerializeField] private int maxLines = 5;
+    public static KillfeedManager FS;
     private TextMeshProUGUI tmp;
     private StringBuilder sb = new StringBuilder();
     private List<KillFeedEvent> feed = new List<KillFeedEvent>();
@@ -72,6 +73,11 @@ public class KillfeedManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        if (FS != null) {
+            Application.Quit();
+        }
+
+        FS = this;
         tmp = GetComponent<TextMeshProUGUI>();
         AddDeathEvent(TeamHandler.TeamState.FRIENDLY, DeathCategory.MG, TeamHandler.TeamState.ENEMY);
     }
