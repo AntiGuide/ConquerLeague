@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
@@ -19,6 +20,9 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField]
     private GameObject backUI;
+
+    [SerializeField]
+    private GameObject tutorialUI;
 
     [SerializeField]
     private Collider garageCollider;
@@ -55,7 +59,7 @@ public class MenuManager : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0) && !cameraMoving) {
+        if (Input.GetMouseButtonDown(0) && !cameraMoving && !EventSystem.current.IsPointerOverGameObject()) {
             ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction);
             if (Physics.Raycast(ray, out hit, 50, LayerMask.GetMask("ButtonMainMenu"))) {
@@ -120,6 +124,10 @@ public class MenuManager : MonoBehaviour
 
             cameraMoving = true;
         }
+    }
+
+    public void OnClickTutorial() {
+        tutorialUI.SetActive(true);
     }
 
     private void LerpTransform(Vector3 startPos, Quaternion startRotation, Vector3 goalPos, Quaternion goalRotation, float movingTimer) {
