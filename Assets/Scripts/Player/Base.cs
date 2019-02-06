@@ -45,6 +45,8 @@ public class Base : MonoBehaviour, IConfigurable {
 
     private float timeBetweenMinions = 2f;
 
+    private float saveHeal;
+
     /// <summary>References the Bases attached Teamhandler</summary>
     public TeamHandler TeamHandler { get; set; }
 
@@ -110,11 +112,11 @@ public class Base : MonoBehaviour, IConfigurable {
             var hitPoints = other.GetComponent<HitPoints>();
             if (hitPoints.AktHp < hitPoints.maxHp && hitPoints.AktHp > 0)
             {
-                hitPoints.AktHp += (byte)(Time.deltaTime * healFactor);
-
-                if(hitPoints.AktHp > hitPoints.maxHp) {
-                    hitPoints.AktHp = hitPoints.maxHp;
-                }
+                var heal = Time.deltaTime * healFactor;
+                saveHeal += heal;
+                heal = Mathf.Min(saveHeal, hitPoints.maxHp - hitPoints.AktHp);
+                hitPoints.AktHp += (byte)heal;
+                saveHeal -= (byte)heal;
             }
         }
 
