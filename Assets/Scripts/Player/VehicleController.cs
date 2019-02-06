@@ -180,11 +180,11 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     }
 
     public void OnCollisionEnter(Collision collision) {
-        var go = collision.collider.gameObject;
-        if (!go.CompareTag("Player") || rb.velocity.magnitude < minRamSpeed) {
-            return;
-        }
+        //var go = collision.collider.gameObject;
+        //if (!go.CompareTag("Player") || rb.velocity.magnitude < minRamSpeed) {
+        //    return;
+        //}
 
-        VehicleWeapon.Kill(go);
+        //VehicleWeapon.Kill(go);
     }
 }

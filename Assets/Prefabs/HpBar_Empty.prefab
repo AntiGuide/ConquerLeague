@@ -159,6 +159,7 @@ MonoBehaviour:
   offset: {x: -2, y: 35, z: 0}
   fullHp: {fileID: 114498119148331600}
   hpBackground: {fileID: 114786795890159620}
+  hpBorder: {fileID: 114213214297088736}
 --- !u!222 &222298427931249632
 CanvasRenderer:
   m_ObjectHideFlags: 1

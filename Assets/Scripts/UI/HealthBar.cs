@@ -25,6 +25,10 @@ public class HealthBar : MonoBehaviour {
     [SerializeField]
     private Image hpBackground;
 
+    /// <summary>The hpBorder image</summary>
+    [SerializeField]
+    private Image hpBorder;
+
     /// <summary>The targets position in screenspace</summary>
     private Vector3 screenPos;
 
@@ -32,10 +36,13 @@ public class HealthBar : MonoBehaviour {
 
     public bool Active {
         set {
-            fullHp.enabled = value;
-            hpBackground.enabled = value;
+            foreach (var item in Images) {
+                item.enabled = value;
+            }
         }
     }
+
+    public List<Image> Images { get; } = new List<Image>();
 
     public Vector3 Offset {
         get {
@@ -55,6 +62,9 @@ public class HealthBar : MonoBehaviour {
     void Start() {
         hitPoints = Target.GetComponent<HitPoints>();
         maxHp = hitPoints.AktHp;
+        Images.Add(fullHp);
+        Images.Add(hpBackground);
+        Images.Add(hpBorder);
     }
 
     /// <summary>LateUpdate is called once per frame after update</summary>

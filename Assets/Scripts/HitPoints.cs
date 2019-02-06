@@ -125,6 +125,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
             rectTrans.anchorMin = new Vector2(0.5f, 0f);
             rectTrans.anchorMax = new Vector2(0.5f, 0f);
             rectTrans.anchoredPosition = new Vector2(0f, -healthSize.y/2f);
+            healthBar.Images.AddRange(overheatBar.GetComponents<Image>());
         }
         //aktHp = maxHp;
     }

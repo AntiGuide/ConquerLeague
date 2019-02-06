@@ -113,7 +113,8 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
         transform.position = StartPoint.position;
         transform.rotation = StartPoint.rotation;
         if (!resetOnly) {
-            hitPoints.Visible = false;
+            //hitPoints.Visible = false;
+            hitPoints.HealthBar.Active = false;
             transform.GetChild(0).gameObject.GetComponent<ParticleSystemRenderer>().enabled = false;
             transform.GetChild(1).gameObject.SetActive(false);
             var savedLayer = gameObject.layer;
@@ -129,7 +130,8 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
             hitPoints.SetFull();
             yield return new WaitForSeconds(respawnTime);
             gameObject.layer = savedLayer;
-            hitPoints.Visible = true;
+            //hitPoints.Visible = true;
+            hitPoints.HealthBar.Active = true;
             transform.GetChild(0).gameObject.GetComponent<ParticleSystemRenderer>().enabled = true;
             transform.GetChild(1).gameObject.SetActive(true);
             if (!isEnemy) {

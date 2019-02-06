@@ -127,7 +127,8 @@ public class GameManager : MonoBehaviour {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.DEFEATED, 1);
             FSGameManager.defeatScreen.SetActive(true);
         } else if (friendlyGoals == enemyGoals) {
-
+            SoundController.FSSoundController.StartSound(SoundController.Sounds.DEFEATED, 1);
+            FSGameManager.defeatScreen.SetActive(true);
         }
     }
 
