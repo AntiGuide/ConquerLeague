@@ -108,12 +108,12 @@ public class Base : MonoBehaviour, IConfigurable {
         if(other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamID)
         {
             var hitPoints = other.GetComponent<HitPoints>();
-            if (hitPoints.AktHp < hitPoints.maxHp && hitPoints.AktHp > 0)
+            if (hitPoints.AktHp < hitPoints.SaveHp && hitPoints.AktHp > 0)
             {
                 hitPoints.AktHp += (byte)(Time.deltaTime * healFactor);
 
-                if(hitPoints.AktHp > hitPoints.maxHp) {
-                    hitPoints.AktHp = hitPoints.maxHp;
+                if(hitPoints.AktHp > hitPoints.SaveHp) {
+                    hitPoints.AktHp = hitPoints.SaveHp;
                 }
             }
         }

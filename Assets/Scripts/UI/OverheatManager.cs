@@ -48,7 +48,7 @@ public class OverheatManager : MonoBehaviour, IConfigurable {
     public void ShootFired() {
         StopAllCoroutines();
         inactivityCooldown = false;
-        if (gameObject.active) {
+        if (gameObject.activeSelf) {
             StartCoroutine(ResetShootingState());
         }
     }

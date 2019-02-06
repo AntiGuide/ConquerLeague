@@ -79,15 +79,10 @@ public class KillfeedManager : MonoBehaviour {
 
         FS = this;
         tmp = GetComponent<TextMeshProUGUI>();
-        AddDeathEvent(TeamHandler.TeamState.FRIENDLY, DeathCategory.MG, TeamHandler.TeamState.ENEMY);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (CrossPlatformInputManager.GetButtonDown("Shoot")) {
-            AddDeathEvent(TeamHandler.TeamState.ENEMY, DeathCategory.MG, TeamHandler.TeamState.FRIENDLY);
-        }
-
         sb.Clear();
         var lines = feed.Count < maxLines ? feed.Count : maxLines;
         for (int i = 0; i < lines; i++) {

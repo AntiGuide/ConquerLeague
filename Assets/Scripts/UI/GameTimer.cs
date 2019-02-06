@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ using UnityEngine.UI;
 public class GameTimer : MonoBehaviour, IConfigurable {
     /// <summary>The text which displays the current Gametime</summary>
     [SerializeField]
-    private Text gameTimeText;
+    private TextMeshProUGUI gameTimeText;
 
     /// <summary>Defines how long one round will last</summary>
     [SerializeField, Tooltip("The Gameplay-Time in Seconds")]
@@ -47,8 +48,8 @@ public class GameTimer : MonoBehaviour, IConfigurable {
         minutes = (int)(Mathf.RoundToInt(playTime - timeElapsed) / 60f);
         seconds = Mathf.RoundToInt((playTime - timeElapsed) - minutes * 60);
 
-        gameTimeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-	}
+        gameTimeText.text = string.Format("<mspace=29>{0:00}</mspace><mspace=15>:</mspace><mspace=29>{1:00}</mspace>", minutes, seconds);
+    }
 
     public void UpdateConfig() {
         playTime = ConfigButton.GameTime;

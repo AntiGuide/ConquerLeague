@@ -104,13 +104,15 @@ public class VehicleController : MonoBehaviour, IConfigurable {
 
         if (rotation == Vector2.zero || tractionModifier < float.Epsilon) {
             VehicleWheelControll.UpdateWheelsTurn(0f, false);
-            for (int i = 0; i < particleSystems.Length; i++) {
-                var em = particleSystems[i].emission;
-                em.enabled = false;
-            }
+            if (tractionModifier < float.Epsilon) {
+                for (int i = 0; i < particleSystems.Length; i++) {
+                    var em = particleSystems[i].emission;
+                    em.enabled = false;
+                }
 
-            for (int i = 0; i < trailRenderer.Length; i++) {
-                trailRenderer[i].enabled = false;
+                for (int i = 0; i < trailRenderer.Length; i++) {
+                    trailRenderer[i].enabled = false;
+                }
             }
 
             if(aktMovementSpeed >= 0)
