@@ -107,12 +107,13 @@ public class Base : MonoBehaviour, IConfigurable {
     void OnTriggerStay(Collider other) {
         if(other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamID)
         {
-            if(other.GetComponent<HitPoints>().AktHp < other.GetComponent<HitPoints>().maxHp && other.GetComponent<HitPoints>().AktHp > 0)
+            var hitPoints = other.GetComponent<HitPoints>();
+            if (hitPoints.AktHp < hitPoints.maxHp && hitPoints.AktHp > 0)
             {
-                other.GetComponent<HitPoints>().AktHp += (byte)(Time.deltaTime * healFactor);
+                hitPoints.AktHp += (byte)(Time.deltaTime * healFactor);
 
-                if(other.GetComponent<HitPoints>().AktHp > other.GetComponent<HitPoints>().maxHp) {
-                    other.GetComponent<HitPoints>().AktHp = other.GetComponent<HitPoints>().maxHp;
+                if(hitPoints.AktHp > hitPoints.maxHp) {
+                    hitPoints.AktHp = hitPoints.maxHp;
                 }
             }
         }
