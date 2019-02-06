@@ -10,6 +10,9 @@ using UnityEngine.AI;
 /// </summary>
 [RequireComponent(typeof(TeamHandler))]
 public class Base : MonoBehaviour, IConfigurable {
+    [SerializeField]
+    private float healFactor = 1;
+
     /// <summary>How much currency it costs to build minion</summary>
     [SerializeField]
     private short minionCost = 20;
@@ -102,6 +105,19 @@ public class Base : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerStay(Collider other) {
+        if(other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamID)
+        {
+            var hitPoints = other.GetComponent<HitPoints>();
+            if (hitPoints.AktHp < hitPoints.maxHp && hitPoints.AktHp > 0)
+            {
+                hitPoints.AktHp += (byte)(Time.deltaTime * healFactor);
+
+                if(hitPoints.AktHp > hitPoints.maxHp) {
+                    hitPoints.AktHp = hitPoints.maxHp;
+                }
+            }
+        }
+
         if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost))
         {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS, 1);

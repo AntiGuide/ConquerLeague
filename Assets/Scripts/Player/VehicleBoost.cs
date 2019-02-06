@@ -15,6 +15,6 @@ public class VehicleBoost : MonoBehaviour {
             return;
         }
 
-        vc.Boost(boostStrength, boostTime);
+        vc.Boost(boostStrength, boostTime, false);
     }
 }

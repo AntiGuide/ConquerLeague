@@ -15,6 +15,15 @@ public class UltimateController : MonoBehaviour {
     private VehicleWeapon vehicleWeapon;
 
     [SerializeField]
+    private VehicleController vehicleController;
+
+    [SerializeField]
+    private float ultimateBoostStrength = 1.5f;
+
+    [SerializeField]
+    private float ultimateDuration = 1.5f;
+
+    [SerializeField]
     private byte maxCharge = 3;
 
     private Image image;
@@ -28,7 +37,8 @@ public class UltimateController : MonoBehaviour {
 
     private void UseUltimate() {
         if (charge == maxCharge) {
-            vehicleWeapon.Shoot(ultimateProjectilePrefab, true);
+            vehicleController.Boost(ultimateBoostStrength, ultimateDuration, true);
+            //vehicleWeapon.Shoot(ultimateProjectilePrefab, true);
             charge = 0;
             UpdateChargeUI(charge, maxCharge);
         }
