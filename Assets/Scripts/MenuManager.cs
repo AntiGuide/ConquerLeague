@@ -19,7 +19,7 @@ public class MenuManager : MonoBehaviour
     private Camera mainCamera;
 
     [SerializeField]
-    private GameObject backUI;
+    private GameObject startUI;
 
     [SerializeField]
     private GameObject tutorialUI;
@@ -48,6 +48,8 @@ public class MenuManager : MonoBehaviour
     private Ray ray;
 
     private void Start() {
+        startUI.SetActive(false);
+        tutorialUI.SetActive(false);
         cameraStartPosition = transform.position;
         cameraStartRotation = transform.rotation;
 
@@ -74,7 +76,7 @@ public class MenuManager : MonoBehaviour
                         destinationRotation = cameraGarageRotation;
                         break;
                     case "BattleButton":
-                        backUI.SetActive(true);
+                        startUI.SetActive(true);
                         destinationPos = cameraBattlePos;
                         destinationRotation = cameraBattleRotation;
                         break;
@@ -112,8 +114,8 @@ public class MenuManager : MonoBehaviour
 
     public void OnClickBack() {
         if (!cameraMoving) {
-            if (backUI.activeSelf) {
-                backUI.SetActive(false);
+            if (startUI.activeSelf) {
+                startUI.SetActive(false);
             }
 
             cameraStartMovingPosition = transform.position;
