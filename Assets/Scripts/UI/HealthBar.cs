@@ -34,11 +34,19 @@ public class HealthBar : MonoBehaviour {
 
     private byte maxHp;
 
+    private bool active = true;
+
     public bool Active {
         set {
             foreach (var item in Images) {
                 item.enabled = value;
             }
+
+            active = value;
+        }
+
+        get {
+            return active;
         }
     }
 
@@ -76,8 +84,9 @@ public class HealthBar : MonoBehaviour {
 
         screenPos = Camera.main.WorldToScreenPoint(Target.transform.position + offset);
         transform.position = screenPos;
-
-        Active = screenPos.z < 0 ? false : true;
+        if (Active) {
+            Active = screenPos.z < 0 ? false : true;
+        }
     }
 
     public void UpdateBar() {

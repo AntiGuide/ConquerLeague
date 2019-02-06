@@ -89,6 +89,7 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
             CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
             Destroy(gameObject);
+            UltimateController.FS.AddCharge();
             return;
         }
 
