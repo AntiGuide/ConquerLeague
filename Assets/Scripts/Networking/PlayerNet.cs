@@ -45,7 +45,10 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
         transform.position = position;
         transform.rotation = quaternion;
         rigidbodyPlayer.velocity = velocity;
-        hitPoints.AktHp = hp;
+        if (hitPoints.AktHp != hp) {
+            hitPoints.AktHp = hp;
+        }
+
         EnemyIsShooting = shooting;
         EnemyIsUsingBoost = boosting;
     }
@@ -127,8 +130,8 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
                 StartCoroutine(InitCountdown());
             }
 
-            hitPoints.SetFull();
             yield return new WaitForSeconds(respawnTime);
+            hitPoints.SetFull();
             gameObject.layer = savedLayer;
             //hitPoints.Visible = true;
             hitPoints.HealthBar.Active = true;

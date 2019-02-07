@@ -84,8 +84,10 @@ public class HealthBar : MonoBehaviour {
 
         screenPos = Camera.main.WorldToScreenPoint(Target.transform.position + offset);
         transform.position = screenPos;
-        if (Active) {
-            Active = screenPos.z < 0 ? false : true;
+        if (Active && screenPos.z < 0) {
+            Active = false;
+        } else if (!Active && screenPos.z >= 0) {
+            Active = true;
         }
     }
 

@@ -166,7 +166,9 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     FloatUpSpawner.GenerateFloatUp(moneyValue[0], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
                 }
-                Instantiate(playerDestruction, transform.position, transform.rotation);
+                var go = Instantiate(playerDestruction, transform.position, transform.rotation);
+                var destroyTime = playerDestruction.GetComponent<ParticleSystem>()?.main.duration ?? 1.2f;
+                Destroy(go, destroyTime);
                 GetComponent<PlayerNet>().OnDeath();
                 break;
             default:
