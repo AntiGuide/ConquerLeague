@@ -25,15 +25,12 @@ public class Flare : MonoBehaviour {
     [SerializeField]
     private Gradient smokeColorBlue;
 
-    private ParticleSystem.ColorOverLifetimeModule grad;
-
     private ParticleSystem smokeParticle;
 
 	// Use this for initialization
 	void Start () {
         CommunicationNet.FakeStatic.flares.Add(this);
-        smokeParticle = GetComponentInChildren<ParticleSystem>();
-        grad = smokeParticle.colorOverLifetime;
+        smokeParticle = transform.GetChild(0).GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -42,6 +39,7 @@ public class Flare : MonoBehaviour {
 	}
 
     public void InitialUpdateColor() {
+        var grad = smokeParticle.colorOverLifetime;
         switch (position) {
             case Position.LEFT:
                 if (GameManager.LeftTeam == TeamHandler.TeamState.FRIENDLY) {
@@ -70,6 +68,7 @@ public class Flare : MonoBehaviour {
     }
 
     public void UpdateColor(TeamHandler.TeamState teamState) {
+        var grad = smokeParticle.colorOverLifetime;
         switch (teamState) {
             case TeamHandler.TeamState.FRIENDLY:
                 GetComponent<Renderer>().material = matBlue;
