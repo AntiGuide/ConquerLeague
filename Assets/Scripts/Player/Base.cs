@@ -114,7 +114,7 @@ public class Base : MonoBehaviour, IConfigurable {
             {
                 var heal = Time.deltaTime * healFactor;
                 saveHeal += heal;
-                heal = Mathf.Min(saveHeal, hitPoints.maxHp - hitPoints.AktHp);
+                heal = Mathf.Min(saveHeal, hitPoints.SaveHp - hitPoints.AktHp);
                 hitPoints.AktHp += (byte)heal;
                 saveHeal -= (byte)heal;
             }
