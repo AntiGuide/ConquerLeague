@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Flare : MonoBehaviour {
+public class Flare : MonoBehaviour, ISideAware {
     private enum Position
     {
         LEFT = 0,
@@ -35,7 +35,7 @@ public class Flare : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        CommunicationNet.FakeStatic.flares.Add(this);
+        CommunicationNet.FakeStatic.sideAwares.Add(this);
         smokeParticle = transform.GetChild(0).GetComponent<ParticleSystem>();
     }
 

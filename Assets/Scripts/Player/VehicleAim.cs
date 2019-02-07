@@ -127,6 +127,10 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
         if (other.gameObject.GetComponent<TeamHandler>()?.TeamID != teamHandler.TeamID &&
             other.gameObject.GetComponent<TeamHandler>()?.TeamID != TeamHandler.TeamState.NEUTRAL) {
             if (Array.IndexOf(shootablesTags, other.tag) > -1) {
+                if (shootablesInRange.Contains(other.gameObject)) {
+                    return;
+                }
+
                 shootablesInRange.Add(other.gameObject);
             }
         }
