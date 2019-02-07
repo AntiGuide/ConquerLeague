@@ -33,6 +33,8 @@ public class TurretConquer : MonoBehaviour
     [SerializeField]
     private Material[] topMaterials = new Material[3];
 
+    private Flare[] flare;
+
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
 
@@ -50,9 +52,10 @@ public class TurretConquer : MonoBehaviour
         towerNet.TurretC = this;
         moneyManagement = GameObject.Find("Currency").GetComponent<MoneyManagement>();
         myRenderers = turret.GetComponentsInChildren<MeshRenderer>();
-        for (int i = 1; i < myRenderers.Length; i++) {
-            myRenderers[i].material.color = Color.gray;
-        }
+        //for (int i = 1; i < myRenderers.Length; i++) {
+        //    myRenderers[i].material.color = Color.gray;
+        //}
+        flare = GetComponentsInParent<Flare>();
     }
 
     /// <summary>
@@ -102,6 +105,10 @@ public class TurretConquer : MonoBehaviour
             moneyManagement.AddMoney(30);
         } else {
             topRenderer.material = topMaterials[2];
+        }
+
+        for (int i = 0; i < flare.Length; i++) {
+            flare[i].UpdateColor(teamID);
         }
 
         teamHandler.TeamID = teamID;

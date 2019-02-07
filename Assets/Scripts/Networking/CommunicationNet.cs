@@ -38,6 +38,9 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> Reference to the GoalManager displaying the score</summary>
     [SerializeField] private GoalManager goalManager;
 
+    [HideInInspector]
+    public List<Flare> flares = new List<Flare>();
+
     /// <summary> The config to connect to the server </summary>
     public NetClient client;
 
@@ -184,6 +187,10 @@ public class CommunicationNet : MonoBehaviour {
         GameManager.RightTeam = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
         leftBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.FRIENDLY : TeamHandler.TeamState.ENEMY;
         rightBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
+
+        for (int i = 0; i < flares.Count; i++) {
+            flares[i].InitialUpdateColor();
+        }
 
         // Set aside
         enemyPlayerNet?.SetNewMovementPack(startEnemy.position * 5, startEnemy.rotation, Vector3.zero);
