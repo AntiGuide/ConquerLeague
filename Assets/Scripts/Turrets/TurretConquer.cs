@@ -64,6 +64,20 @@ public class TurretConquer : MonoBehaviour
             for (int i = 1; i < myRenderers.Length; i++) {
                 myRenderers[i].material.color = Color.white;
             }
+
+            switch (teamHandler.TeamID) {
+                case TeamHandler.TeamState.FRIENDLY:
+                    topRenderer.material = topMaterials[1];
+                    break;
+                case TeamHandler.TeamState.ENEMY:
+                    topRenderer.material = topMaterials[2];
+                    break;
+                case TeamHandler.TeamState.NEUTRAL:
+                    topRenderer.material = topMaterials[0];
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -88,6 +102,20 @@ public class TurretConquer : MonoBehaviour
             for (int i = 1; i < myRenderers.Length; i++) {
                 myRenderers[i].material.color = Color.gray;
             }
+
+            switch (teamHandler.TeamID) {
+                case TeamHandler.TeamState.FRIENDLY:
+                    topRenderer.material = topMaterials[1];
+                    break;
+                case TeamHandler.TeamState.ENEMY:
+                    topRenderer.material = topMaterials[2];
+                    break;
+                case TeamHandler.TeamState.NEUTRAL:
+                    topRenderer.material = topMaterials[0];
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -109,6 +137,30 @@ public class TurretConquer : MonoBehaviour
         Conquerable = false;
     }
 
+    /// <summary>
+    /// Swap the turrets color and makes it not conquerable, which makes it attack enemy units
+    /// </summary>
+    /// <param name="teamColor"></param>
+    public void BuildTurretNoReward(TeamHandler.TeamState teamID) {
+        switch (teamID) {
+            case TeamHandler.TeamState.FRIENDLY:
+                topRenderer.material = topMaterials[1];
+                break;
+            case TeamHandler.TeamState.ENEMY:
+                topRenderer.material = topMaterials[2];
+                break;
+            case TeamHandler.TeamState.NEUTRAL:
+                topRenderer.material = topMaterials[0];
+                break;
+            default:
+                break;
+        }
+
+        teamHandler.TeamID = teamID;
+
+        Conquerable = teamID == TeamHandler.TeamState.NEUTRAL ? true : false;
+    }
+    
     public void ResetTowerNeutral() {
         topRenderer.material = topMaterials[0];
         teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;

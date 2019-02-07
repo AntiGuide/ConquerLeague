@@ -5,7 +5,16 @@ using UnityEngine;
 /// <summary>
 /// Controlls movement and shooting of a turret
 /// </summary>
-public class TurretController : MonoBehaviour, IConfigurable {
+public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
+    private enum Position {
+        LEFT = 0,
+        MID,
+        RIGHT
+    }
+
+    [SerializeField]
+    private Position position;
+
     /// <summary>The time it takes for the turret to shoot again</summary>
     public float ShootingTime;
 
@@ -72,6 +81,7 @@ public class TurretController : MonoBehaviour, IConfigurable {
         ConfigButton.ObjectsToUpdate.Add(this);
         aktShootingTime = ShootingTime;
         turretRenderers = turret.GetComponentsInChildren<MeshRenderer>();
+        CommunicationNet.FakeStatic.sideAwares.Add(this);
     }
 
     /// <summary>Update is called once per frame</summary>
@@ -140,5 +150,21 @@ public class TurretController : MonoBehaviour, IConfigurable {
         ShootingTime = 1 / ConfigButton.TowerShotsPerSecond;
         damagePerShot = ConfigButton.TowerDamagePerShot;
         respawnSpeed = hitPoints.SaveHp / ConfigButton.TowerRespawnTime;
+    }
+
+    public void InitialUpdateColor() {
+        switch (position) {
+            case Position.LEFT:
+                turretConquer.BuildTurretNoReward(GameManager.LeftTeam ?? TeamHandler.TeamState.NEUTRAL);
+                break;
+            case Position.MID:
+                turretConquer.BuildTurretNoReward(TeamHandler.TeamState.NEUTRAL);
+                break;
+            case Position.RIGHT:
+                turretConquer.BuildTurretNoReward(GameManager.RightTeam ?? TeamHandler.TeamState.NEUTRAL);
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -41,6 +41,8 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> The config to connect to the server </summary>
     public NetClient client;
 
+    public List<ISideAware> sideAwares = new List<ISideAware>();
+
     /// <summary> The open connection to the server </summary>
     private NetConnection connection;
 
@@ -184,6 +186,10 @@ public class CommunicationNet : MonoBehaviour {
         GameManager.RightTeam = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
         leftBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.FRIENDLY : TeamHandler.TeamState.ENEMY;
         rightBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
+
+        foreach (var item in sideAwares) {
+            item.InitialUpdateColor();
+        }
 
         // Set aside
         enemyPlayerNet?.SetNewMovementPack(startEnemy.position * 5, startEnemy.rotation, Vector3.zero);
@@ -441,15 +447,18 @@ public class CommunicationNet : MonoBehaviour {
         return output;
     }
 
-    /// <summary>
-    /// Use this for initialization
-    /// </summary>
-    void Start() {
+    private void Awake() {
         if (FakeStatic != null) {
             Application.Quit();
         }
 
         FakeStatic = this;
+    }
+
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start() {
         var config = new NetPeerConfiguration("ConquerLeague");
         config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse); // Enable DiscoveryResponse messages
         config.Port = 47410;
