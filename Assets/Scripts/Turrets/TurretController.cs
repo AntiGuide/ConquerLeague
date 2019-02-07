@@ -67,6 +67,8 @@ public class TurretController : MonoBehaviour, IConfigurable {
 
     private float respawnRest;
 
+    private bool flareSwapped = false;
+
     /// <summary>Use this for initialization</summary>
     void Start() {
         ConfigButton.ObjectsToUpdate.Add(this);
@@ -82,7 +84,13 @@ public class TurretController : MonoBehaviour, IConfigurable {
             respawnRest = respawnTimeTemp - roundedRespawnTimeTemp;
             hitPoints.AktHp += (byte)roundedRespawnTimeTemp;
             teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-            //print(hitPoints.AktHp);
+
+            if (!flareSwapped) {
+                for (int i = 0; i < turretConquer.flare.Length; i++) {
+                    turretConquer.flare[i].UpdateColor(teamHandler.TeamID);
+                }
+                flareSwapped = true;
+            }
 
             for (int i = 1; i < turretRenderers.Length; i++) {
                 turretRenderers[i].enabled = false;
@@ -100,6 +108,7 @@ public class TurretController : MonoBehaviour, IConfigurable {
                 turretConquer.ResetTowerNeutral();
                 destroyedTower.SetActive(false);
                 Respawning = false;
+                flareSwapped = false;
             }
         }
 

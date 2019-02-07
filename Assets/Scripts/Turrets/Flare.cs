@@ -20,10 +20,16 @@ public class Flare : MonoBehaviour {
     private Material matRed;
 
     [SerializeField]
+    private Material matWhite;
+
+    [SerializeField]
     private Gradient smokeColorRed;
 
     [SerializeField]
     private Gradient smokeColorBlue;
+
+    [SerializeField]
+    private Gradient smokeColorWhite;
 
     private ParticleSystem smokeParticle;
 
@@ -51,7 +57,8 @@ public class Flare : MonoBehaviour {
                 }
                 break;
             case Position.MID:
-
+                GetComponent<Renderer>().material = matWhite;
+                grad.color = smokeColorWhite;
                 break;
             case Position.RIGHT:
                 if (GameManager.RightTeam == TeamHandler.TeamState.FRIENDLY) {
@@ -79,8 +86,8 @@ public class Flare : MonoBehaviour {
                 grad.color = smokeColorRed;
                 break;
             case TeamHandler.TeamState.NEUTRAL:
-                GetComponent<Renderer>().material = matRed;
-                grad.color = smokeColorRed;
+                GetComponent<Renderer>().material = matWhite;
+                grad.color = smokeColorWhite;
                 break;
             default:
                 break;

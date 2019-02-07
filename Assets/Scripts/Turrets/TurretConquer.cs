@@ -34,7 +34,7 @@ public class TurretConquer : MonoBehaviour
     private Material[] topMaterials = new Material[3];
 
     [SerializeField]
-    private Flare[] flare;
+    public Flare[] flare;
 
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
