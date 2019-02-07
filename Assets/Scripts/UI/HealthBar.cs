@@ -86,7 +86,7 @@ public class HealthBar : MonoBehaviour {
         transform.position = screenPos;
         if (Active && screenPos.z < 0) {
             Active = false;
-        } else if (!Active && screenPos.z >= 0) {
+        } else if (!Active && screenPos.z >= 0 && hitPoints.AktHp > 0) {
             Active = true;
         }
     }
