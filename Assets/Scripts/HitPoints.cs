@@ -11,7 +11,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     //public byte maxHp;
 
     /// <summary>The units current hitpoints</summary>
-    public byte aktHp;
+    private byte aktHp;
 
     /// <summary>Saves the units hp so that it can reset it if a tower gets destroyed</summary>
     [SerializeField]

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
@@ -18,7 +19,10 @@ public class MenuManager : MonoBehaviour
     private Camera mainCamera;
 
     [SerializeField]
-    private GameObject backUI;
+    private GameObject startUI;
+
+    [SerializeField]
+    private GameObject tutorialUI;
 
     [SerializeField]
     private Collider garageCollider;
@@ -44,6 +48,8 @@ public class MenuManager : MonoBehaviour
     private Ray ray;
 
     private void Start() {
+        startUI.SetActive(false);
+        tutorialUI.SetActive(false);
         cameraStartPosition = transform.position;
         cameraStartRotation = transform.rotation;
 
@@ -55,7 +61,7 @@ public class MenuManager : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0) && !cameraMoving) {
+        if (Input.GetMouseButtonDown(0) && !cameraMoving && !EventSystem.current.IsPointerOverGameObject()) {
             ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction);
             if (Physics.Raycast(ray, out hit, 50, LayerMask.GetMask("ButtonMainMenu"))) {
@@ -70,7 +76,7 @@ public class MenuManager : MonoBehaviour
                         destinationRotation = cameraGarageRotation;
                         break;
                     case "BattleButton":
-                        backUI.SetActive(true);
+                        startUI.SetActive(true);
                         destinationPos = cameraBattlePos;
                         destinationRotation = cameraBattleRotation;
                         break;
@@ -108,8 +114,8 @@ public class MenuManager : MonoBehaviour
 
     public void OnClickBack() {
         if (!cameraMoving) {
-            if (backUI.activeSelf) {
-                backUI.SetActive(false);
+            if (startUI.activeSelf) {
+                startUI.SetActive(false);
             }
 
             cameraStartMovingPosition = transform.position;
@@ -120,6 +126,10 @@ public class MenuManager : MonoBehaviour
 
             cameraMoving = true;
         }
+    }
+
+    public void OnClickTutorial() {
+        tutorialUI.SetActive(true);
     }
 
     private void LerpTransform(Vector3 startPos, Quaternion startRotation, Vector3 goalPos, Quaternion goalRotation, float movingTimer) {

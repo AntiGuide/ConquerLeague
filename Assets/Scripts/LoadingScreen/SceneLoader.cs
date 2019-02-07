@@ -22,7 +22,7 @@ public class SceneLoader : MonoBehaviour {
     private void Update() {
         progressBar.fillAmount = progress;
         if (loadedScene) {
-            loadingText.text = "Tap to start";
+            loadingText.text = "START";
             loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
         }
 
@@ -38,6 +38,7 @@ public class SceneLoader : MonoBehaviour {
 
     // The coroutine runs on its own at the same time as Update() and takes an integer indicating which scene to load.
     private IEnumerator LoadNewScene() {
+        yield return new WaitForSeconds(0.1f);
         var async = SceneManager.LoadSceneAsync(scene);
         async.allowSceneActivation = false;
         while (!allowSceneActivationInCoroutine) {
@@ -50,6 +51,5 @@ public class SceneLoader : MonoBehaviour {
             yield return null;
         }
         async.allowSceneActivation = true;
-
     }
 }

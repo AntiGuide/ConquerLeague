@@ -31,6 +31,9 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     [SerializeField]
     private float degreePerSecond;
 
+    [SerializeField]
+    private GameObject ultimate;
+
     /// <summary>The vehicles rigidbody</summary>
     private Rigidbody rb;
 
@@ -159,6 +162,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         boostFactor = 1f + boostStrenght > boostFactor ? 1f + boostStrenght : boostFactor;
         PlayerNet.PlayerIsUsingBoost = true;
         if (isUltimate) {
+            ultimate.SetActive(true);
             ramCollider.enabled = true;
         }
         StopCoroutine(ResetBoost(boostTime, isUltimate));
@@ -168,6 +172,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     private IEnumerator ResetBoost(float boostTime, bool isUltimate) {
         yield return new WaitForSeconds(boostTime);
         if (isUltimate) {
+            ultimate.SetActive(false);
             ramCollider.enabled = false;
         }
         boostFactor = 1f;
