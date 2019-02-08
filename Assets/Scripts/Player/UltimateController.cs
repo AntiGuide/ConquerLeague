@@ -9,9 +9,6 @@ public class UltimateController : MonoBehaviour {
     public static UltimateController FS;
 
     [SerializeField]
-    private GameObject ultimateProjectilePrefab;
-
-    [SerializeField]
     private VehicleWeapon vehicleWeapon;
 
     [SerializeField]

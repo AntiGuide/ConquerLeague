@@ -65,7 +65,6 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
     private byte damagePerShot = 15;
 
     /// <summary>All of the turrets renderer</summary>
-    [SerializeField]
     private MeshRenderer[] turretRenderers;
 
     /// <summary>The transform of all GameObjects with a player tag</summary>
