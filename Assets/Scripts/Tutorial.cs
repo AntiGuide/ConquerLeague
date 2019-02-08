@@ -23,15 +23,19 @@ public class Tutorial : MonoBehaviour {
 	}
 
     public void OnClickNext() {
-        currSprite = currSprite >= tutorialSprites.Length-1 ? 0 : ++currSprite;
+        if(currSprite >= tutorialSprites.Length-1) {
+            currSprite = 0;
+            gameObject.SetActive(false);
+        } else {
+            ++currSprite;
+        }
+        //currSprite = currSprite >= tutorialSprites.Length-1 ? 0 : ++currSprite;
         tutorialImage.sprite = tutorialSprites[currSprite];
-        print(currSprite);
     }
 
     public void OnClickBack() {
         currSprite = currSprite <= 0 ? tutorialSprites.Length-1 : --currSprite;
         tutorialImage.sprite = tutorialSprites[currSprite];
-        print(currSprite);
     }
 
     public void OnClickReturn() {

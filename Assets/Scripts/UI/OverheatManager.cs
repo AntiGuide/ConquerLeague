@@ -23,6 +23,8 @@ public class OverheatManager : MonoBehaviour, IConfigurable {
 
     private bool inactivityCooldown = true;
 
+    private float blinkingImageTimer;
+
     public enum HeatState {
         SHOOTABLE,
         COOLING
@@ -68,6 +70,14 @@ public class OverheatManager : MonoBehaviour, IConfigurable {
     }
 
     private void Update() {
+        if(state == HeatState.COOLING) {
+            blinkingImageTimer += Time.deltaTime;
+            overheatFullImage.color = new Color(Mathf.PingPong(Time.time * 2, 1f), 0f, 0f);
+        } else {
+            blinkingImageTimer = 0;
+            overheatFullImage.color = Color.white;
+        }
+
         if (state == HeatState.COOLING || (inactivityCooldown && state == HeatState.SHOOTABLE)) {
             overheatPercentage -= cooldownPerSecond * Time.deltaTime;
             if (overheatPercentage <= 0f) {

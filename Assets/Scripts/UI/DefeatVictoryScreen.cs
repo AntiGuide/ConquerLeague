@@ -9,8 +9,8 @@ public class DefeatVictoryScreen : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
 
-    public void OnClickStartGame() {
+    public void OnClickRematch() {
         CommunicationNet.FakeStatic?.client?.Disconnect("OnClickStartGame");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }
