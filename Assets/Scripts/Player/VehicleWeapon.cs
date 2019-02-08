@@ -134,7 +134,8 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     private void ApplyDamageDirectly(GameObject target, byte damage) {
         var hp = target?.GetComponent<HitPoints>();
         if (hp == null ||
-            target.gameObject.GetComponent<TeamHandler>().TeamID == teamHandler.TeamID) {
+            target.gameObject.GetComponent<TeamHandler>().TeamID == teamHandler.TeamID ||
+            damage == 0) {
             return;
         }
         
@@ -154,6 +155,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
                 return;
         }
 
+        Debug.Log("Directly apply " + damage + " damage to " + target.gameObject.name + " (Full HP " + hp.AktHp + "). TH: " + teamHandler.TeamID.ToString());
         hp.AktHp -= damage;
     }
 

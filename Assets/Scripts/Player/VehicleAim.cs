@@ -31,6 +31,9 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
     /// <summary>List of all the GameObjects tagged with a shootable tag in range</summary>
     private List<GameObject> shootablesInRange = new List<GameObject>();
 
+    /// <summary>List of all the GameObjects tagged with a shootable tag</summary>
+    private List<GameObject> allShootables = new List<GameObject>();
+
     /// <summary>List of all the GameObjects tagged with a shootable tag in range</summary>
     private List<GameObject> shootablesInConeAndRange = new List<GameObject>();
 
@@ -38,6 +41,18 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
 
     /// <summary>The last target during last frame</summary>
     private GameObject lastTargeted;
+
+    // DEBUG ONLY
+    public GameObject[] debug0;
+
+    public GameObject[] debug1;
+
+    public GameObject[] debug2;
+
+    public GameObject[] debug3;
+
+    public GameObject[] debug4;
+    // DEBUG ONLY
 
     /// <summary>The shootable that is being aimed at</summary>
     public GameObject AktAimingAt {
@@ -73,10 +88,33 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
         teamHandler = GetComponent<VehicleWeapon>().TeamHandler;
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
         coneCosLimit = Mathf.Cos(coneDegrees / 2);
+
+        // New Aiming
+        var list = new List<GameObject>();
+        list.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        list.AddRange(GameObject.FindGameObjectsWithTag("Turret"));
+        list.AddRange(GameObject.FindGameObjectsWithTag("Minion"));
+        foreach (var other in list) {
+            //if (other.gameObject.GetComponent<TeamHandler>()?.TeamID != teamHandler.TeamID &&
+            //other.gameObject.GetComponent<TeamHandler>()?.TeamID != TeamHandler.TeamState.NEUTRAL) {
+                if (Array.IndexOf(shootablesTags, other.tag) > -1) {
+                    if (allShootables.Contains(other.gameObject)) {
+                        return;
+                    }
+
+                    allShootables.Add(other.gameObject);
+                }
+            //}
+        }
     }
 
     /// <summary>Update is called once  per frame</summary>
     private void Update() {
+        var sqrDist = targetRange * targetRange;
+        debug0 = allShootables.ToArray();
+        FilterByTeamAndDistance(allShootables, out shootablesInRange, sqrDist, player.transform.position);
+        FilterByAlive(ref shootablesInRange);
+        debug1 = shootablesInRange.ToArray();
         // Checks if gameobjects in the shootablesInRange-List are destroyed and removes them
         for (int i = 0; i < shootablesInRange.Count; i++) {
             if (shootablesInRange[i] == null || shootablesInRange[i].Equals(null)) {
@@ -86,10 +124,17 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
             }
         }
 
+        debug2 = shootablesInRange.ToArray();
+
         IsInCone(shootablesInRange, ref shootablesInConeAndRange);
-        
+
+
+        debug3 = shootablesInConeAndRange.ToArray();
+
         highestPriority = FilterByPriority(shootablesInConeAndRange, shootablesTags);
-        
+
+        debug4 = highestPriority.ToArray();
+
         if (highestPriority?.Count > 1) {
             OrderByCentral(ref highestPriority, player.transform); // NOT TESTED
         }
@@ -115,6 +160,29 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
 
             
             lastTargeted = AktAimingAt;
+        }
+    }
+
+    private void FilterByAlive(ref List<GameObject> shootablesInRange) {
+        var newList = new List<GameObject>();
+        foreach (var item in shootablesInRange) {
+            if (item.GetComponent<HitPoints>()?.AktHp != 0) {
+                newList.Add(item);
+            }
+        }
+
+        shootablesInRange = newList;
+    }
+
+    private void FilterByTeamAndDistance(List<GameObject> allGameObjects, out List<GameObject> filtered, float sqrDist, Vector3 referencePos) {
+        filtered = new List<GameObject>();
+        foreach (var item in allGameObjects) {
+            if (Vector3.SqrMagnitude(item.transform.position - referencePos) <= sqrDist) {
+                if (item.GetComponent<TeamHandler>()?.TeamID != teamHandler.TeamID &&
+                item.GetComponent<TeamHandler>()?.TeamID != TeamHandler.TeamState.NEUTRAL) {
+                    filtered.Add(item);
+                }
+            }
         }
     }
 

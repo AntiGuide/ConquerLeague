@@ -45,6 +45,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     /// <summary>References the MoneyManagement script</summary>
     private MoneyManagement moneyManagement;
 
+    private bool dead = false;
+
     /// <summary>The amount of money you get for killing</summary>
     //[SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     //private short[] moneyValue = new short[3];
@@ -61,6 +63,10 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         }
 
         set {
+            if (aktHp == value || value < 0 || dead) {
+                return;
+            }
+
             var oldHp = aktHp;
             aktHp = value;
             if (gameObject.tag == "Player" && teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
@@ -71,6 +77,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
 
             if (aktHp <= 0) {
                 aktHp = 0;
+                dead = true;
                 OnDeath(gameObject.tag);
             }
             healthBar?.UpdateBar();
@@ -96,6 +103,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     }
 
     public void SetFull() {
+        dead = false;
         AktHp = saveHp;
     }
 

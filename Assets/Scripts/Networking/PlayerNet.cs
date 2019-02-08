@@ -148,9 +148,11 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="damage"></param>
     public void DamageTaken(byte damage) {
+        Debug.Log("Damage taken over network " + damage + " damage to " + hitPoints.gameObject.name + " (Full HP " + hitPoints.AktHp + "). TH: FRIENDLY");
         if (hitPoints.AktHp - damage <= hitPoints.AktHp && hitPoints.AktHp - damage > 0) {
             hitPoints.AktHp -= damage;
         } else {
+            Debug.Log("Damage recieved and HP set to 0!");
             hitPoints.AktHp = 0;
         }
     }
