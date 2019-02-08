@@ -72,7 +72,7 @@ public class OverheatManager : MonoBehaviour, IConfigurable {
     private void Update() {
         if(state == HeatState.COOLING) {
             blinkingImageTimer += Time.deltaTime;
-            overheatFullImage.color = new Color(Mathf.PingPong(Time.time, 1f), 0f, 0f);
+            overheatFullImage.color = new Color(Mathf.PingPong(Time.time * 2, 1f), 0f, 0f);
         } else {
             blinkingImageTimer = 0;
             overheatFullImage.color = Color.white;
