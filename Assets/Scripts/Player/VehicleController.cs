@@ -80,9 +80,9 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     void Update() {
         if (safeDriving) {
             Debug.DrawRay(raycastTrans.position, raycastTrans.forward * 10, Color.red, 1f);
-            if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 2.5f, LayerMask.GetMask("Wall", "Default"))) {
+            if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 2.5f, LayerMask.GetMask("Wall", "Default", "Turret"))) {
                 aktMovementSpeed = 0;
-            } else if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 3f, LayerMask.GetMask("Wall", "Default"))) {
+            } else if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 3f, LayerMask.GetMask("Wall", "Default", "Turret"))) {
                 aktMovementSpeed = 5;
             }
         }
