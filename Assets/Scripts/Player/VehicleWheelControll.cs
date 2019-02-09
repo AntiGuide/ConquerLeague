@@ -23,31 +23,17 @@ public class VehicleWheelControll : MonoBehaviour {
 
     /// <summary>Update is called once per frame</summary>
     void Update() {
-        if (isEnemy && !isBackWheel) {
-            q.eulerAngles = new Vector3(0, wheelTurnEnemy, 0);
-            transform.Rotate(new Vector3(wheelTurnSpeedEnemy, 0f, 0f));
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, q, 45);
-        } else if(isEnemy && isBackWheel){
-            transform.Rotate(new Vector3(wheelTurnSpeedFriend, 0f, 0f));
-        }
-
-        if (!isEnemy && !isBackWheel) {
-            q.eulerAngles = new Vector3(0, wheelTurnFriend, 0);
-            transform.Rotate(new Vector3(wheelTurnSpeedFriend, 0f, 0f));
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, q, 45);
-        } else if(!isEnemy && isBackWheel){
-            transform.Rotate(new Vector3(wheelTurnSpeedFriend, 0f, 0f));
-        }
+        var wts = new Vector3();
+        var wt = new Vector3();
+        wts.x = isEnemy ? wheelTurnSpeedEnemy : wheelTurnSpeedFriend;
+        wt.y = isEnemy ? wheelTurnEnemy : wheelTurnFriend;
+        q.eulerAngles = wt;
+        transform.localRotation = isBackWheel ? transform.localRotation : Quaternion.RotateTowards(transform.localRotation, q, 45);
+        transform.Rotate(wts);
     }
 
     private void FixedUpdate() {
-        var r = new Ray(transform.position, Vector3.down);
-        //var hit = new RaycastHit();
-        var grounded = Physics.Raycast(r, 0.7f, LayerMask.GetMask("Ground"));
-        WheelHasTraction = grounded;
-        //if (!grounded) {
-        //    Debug.Log(gameObject.name + " is in air!");
-        //}
+        WheelHasTraction = Physics.Raycast(transform.position, Vector3.down, 0.7f, LayerMask.GetMask("Ground"));
     }
 
     public static void UpdateWheelsSpin(Rigidbody rb, bool isEnemy) {
