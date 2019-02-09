@@ -198,6 +198,11 @@ public class CommunicationNet : MonoBehaviour {
             flares[i].InitialUpdateColor();
         }
 
+        if (enemyPlayerNet != null && friendlyPlayerNet != null) {
+            enemyPlayerNet.gameObject.layer = LayerMask.NameToLayer("GroundOnly");
+            friendlyPlayerNet.gameObject.layer = LayerMask.NameToLayer("GroundOnly");
+        }
+
         // Set aside
         enemyPlayerNet?.SetNewMovementPack(startEnemy.position * 5, startEnemy.rotation, Vector3.zero);
 
@@ -206,6 +211,10 @@ public class CommunicationNet : MonoBehaviour {
 
         enemyPlayerNet?.SetNewMovementPack(startEnemy.position, startEnemy.rotation, Vector3.zero);
         enemyPlayerNet.StartPoint = startEnemy;
+        if (enemyPlayerNet != null && friendlyPlayerNet != null) {
+            enemyPlayerNet.gameObject.layer = LayerMask.NameToLayer("Player");
+            friendlyPlayerNet.gameObject.layer = LayerMask.NameToLayer("Player");
+        }
     }
 
     /// <summary>
