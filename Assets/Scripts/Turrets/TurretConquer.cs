@@ -34,6 +34,9 @@ public class TurretConquer : MonoBehaviour
     private Material[] topMaterials = new Material[3];
 
     [SerializeField]
+    private Renderer[] towerRangeIndicatorRenderer;
+
+    [SerializeField]
     public Flare[] flare;
 
     /// <summary>References the MoneyManagement script</summary>
@@ -57,6 +60,9 @@ public class TurretConquer : MonoBehaviour
         //    myRenderers[i].material.color = Color.gray;
         //}
         flare = turret.GetComponentsInChildren<Flare>();
+        foreach (var item in towerRangeIndicatorRenderer) {
+            item.material.color = Color.grey;
+        }
     }
 
     /// <summary>
@@ -82,6 +88,12 @@ public class TurretConquer : MonoBehaviour
                 default:
                     break;
             }
+        } else if(other.gameObject.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY) {
+            if(teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
+                foreach (var item in towerRangeIndicatorRenderer) {
+                    item.material.color = Color.red;
+                }
+            }
         }
     }
 
@@ -92,6 +104,9 @@ public class TurretConquer : MonoBehaviour
     void OnTriggerStay(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY) {
             if (CrossPlatformInputManager.GetButtonDown("Action")) {
+                foreach (var item in towerRangeIndicatorRenderer) {
+                    item.material.color = Color.grey;
+                }
                 BuildTurret(other.gameObject.GetComponent<TeamHandler>().TeamID);
             }
         }
@@ -119,6 +134,12 @@ public class TurretConquer : MonoBehaviour
                     break;
                 default:
                     break;
+            }
+        } else if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY) {
+            if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
+                foreach (var item in towerRangeIndicatorRenderer) {
+                    item.material.color = Color.grey;
+                }
             }
         }
     }
