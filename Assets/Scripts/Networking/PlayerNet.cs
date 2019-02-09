@@ -115,6 +115,7 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     public IEnumerator InitRespawn(bool resetOnly = false) {
         transform.position = StartPoint.position;
         transform.rotation = StartPoint.rotation;
+        rigidbodyPlayer.velocity = Vector3.zero;
         if (!resetOnly) {
             //hitPoints.Visible = false;
             hitPoints.HealthBar.Active = false;
