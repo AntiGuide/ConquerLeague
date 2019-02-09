@@ -18,6 +18,11 @@ public class TowerNet : MonoBehaviour {
     /// </summary>
     /// <param name="damage"></param>
     public void DamageTaken(byte damage) {
+        if (hitPoints.AktHp == 0) {
+            return;
+        }
+
+        hitPoints.LastDamager = HitPoints.Damager.TOWER;
         if (hitPoints.AktHp - damage <= hitPoints.AktHp && hitPoints.AktHp - damage > 0) {
             hitPoints.AktHp -= damage;
         } else {

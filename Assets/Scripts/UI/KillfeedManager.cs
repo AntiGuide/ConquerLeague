@@ -9,6 +9,8 @@ using UnityStandardAssets.CrossPlatformInput;
 public class KillfeedManager : MonoBehaviour {
     public enum DeathCategory : int {
         MG = 0,
+        TOWER = 1,
+        ULTIMATE = 2,
     }
 
     public struct KillFeedEvent {

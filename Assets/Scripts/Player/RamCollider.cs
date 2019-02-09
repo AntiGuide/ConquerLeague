@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TeamHandler.TeamState;
 
 public class RamCollider : MonoBehaviour {
     [SerializeField]
     private TeamHandler teamHandler;
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.GetComponent<HitPoints>() != null && other.gameObject.GetComponent<TeamHandler>()?.TeamID != teamHandler.TeamID && other.gameObject.GetComponent<TeamHandler>()?.TeamID != TeamHandler.TeamState.NEUTRAL) {
-            other.gameObject.GetComponent<HitPoints>().AktHp -= other.gameObject.GetComponent<HitPoints>().AktHp;
+        var hitPoints = other.gameObject.GetComponent<HitPoints>();
+        var otherTeam = other.gameObject.GetComponent<TeamHandler>();
+        if (hitPoints == null || otherTeam == null || otherTeam.TeamID == teamHandler.TeamID || otherTeam.TeamID == NEUTRAL) {
+            return;
         }
+
+        hitPoints.LastDamager = HitPoints.Damager.PLAYER_RAM;
+        hitPoints.AktHp = 0;
     }
 }

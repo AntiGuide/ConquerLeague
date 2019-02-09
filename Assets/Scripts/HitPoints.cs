@@ -57,6 +57,17 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         }
     }
 
+    public enum Damager {
+        PLAYER_MG,
+        PLAYER_RAM,
+        TOWER,
+    }
+
+    public Damager LastDamager {
+        get;
+        set;
+    }
+
     public byte AktHp {
         get {
             return aktHp;
@@ -169,7 +180,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 break;
             case "Player":
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
-                if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
+                if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY && LastDamager != Damager.TOWER) {
                     moneyManagement.AddMoney(moneyValue[0]);
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     FloatUpSpawner.GenerateFloatUp(moneyValue[0], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
