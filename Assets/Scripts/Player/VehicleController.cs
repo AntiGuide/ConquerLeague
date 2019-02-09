@@ -79,12 +79,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     /// </summary>    
     void Update() {
         if (safeDriving) {
-            Debug.DrawRay(raycastTrans.position, raycastTrans.forward * 10, Color.red, 1f);
-            if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 2.5f, LayerMask.GetMask("Wall", "Default", "Turret"))) {
-                aktMovementSpeed = 0;
-            } else if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 3f, LayerMask.GetMask("Wall", "Default", "Turret"))) {
-                aktMovementSpeed = 5;
-            }
+            SafeDriving(ultimate.activeSelf);
         }
 
         Movement(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
@@ -191,5 +186,24 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         //}
 
         //VehicleWeapon.Kill(go);
+    }
+
+    private void SafeDriving(bool ultimateOn) {
+        Debug.DrawRay(raycastTrans.position, raycastTrans.forward * 10, Color.red, 1f);
+        if (!ultimateOn) {
+            if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 2.5f, LayerMask.GetMask("Wall", "Default", "Turret"))) {
+                aktMovementSpeed = 0;
+            }
+            else if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 3f, LayerMask.GetMask("Wall", "Default", "Turret"))) {
+                aktMovementSpeed = 5;
+            }
+        } else {
+            if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 2.5f, LayerMask.GetMask("Wall", "Default"))) {
+                aktMovementSpeed = 0;
+            }
+            else if (Physics.Raycast(raycastTrans.position, raycastTrans.forward, 3f, LayerMask.GetMask("Wall", "Default"))) {
+                aktMovementSpeed = 5;
+            }
+        }
     }
 }
