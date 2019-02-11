@@ -155,8 +155,6 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
                 return;
         }
 
-        Debug.Log("Directly apply " + damage + " damage to " + target.gameObject.name + " (Full HP " + hp.AktHp + "). TH: " + teamHandler.TeamID.ToString());
-
         hp.LastDamager = HitPoints.Damager.PLAYER_MG;
         hp.AktHp -= damage;
     }
