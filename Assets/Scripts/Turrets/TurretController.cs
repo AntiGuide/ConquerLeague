@@ -93,7 +93,6 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
             respawnRest = respawnTimeTemp - roundedRespawnTimeTemp;
             hitPoints.AktHp += (byte)roundedRespawnTimeTemp;
             teamHandler.TeamID = TeamHandler.TeamState.NEUTRAL;
-
             if (!flareSwapped) {
                 for (int i = 0; i < turretConquer.flare.Length; i++) {
                     turretConquer.flare[i].UpdateColor(teamHandler.TeamID);
@@ -112,8 +111,7 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
                 for (int i = 1; i < turretRenderers.Length; i++) {
                     turretRenderers[i].enabled = true;
                 }
-                //print("hi");
-                //turretConquer.Conquerable = true;
+
                 turretConquer.ResetTowerNeutral();
                 destroyedTower.SetActive(false);
                 Respawning = false;
@@ -122,7 +120,7 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
         }
 
         // Sort Players by Magnitude
-        if (!turretConquer.Conquerable) {
+        if (!turretConquer.Conquerable && !Respawning) {
             if (turretAim.AktAimingAt != null && turretAim.Locked) {
                 ShootAtEnemy(turretAim.AktAimingAt.transform);
             } else {

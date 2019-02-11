@@ -173,6 +173,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
                 FloatUpSpawner.GenerateFloatUp(moneyValue[1], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position), 30);
                 gameObject.GetComponentInChildren<TurretController>().Respawning = true;
+                dead = false;
                 if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     moneyManagement.AddMoney(moneyValue[1]);
                 }
