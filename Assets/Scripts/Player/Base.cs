@@ -87,6 +87,7 @@ public class Base : MonoBehaviour, IConfigurable {
             var id = CommunicationNet.FakeStatic.RequestMinionID();
             CommunicationNet.FakeStatic.Minions[id] = SpawnMinion(minion, spawnPoint.position, minion.transform.rotation, id);
             CommunicationNet.FakeStatic.Minions[id].GetComponent<MinionNet>().InitNet();
+            VehicleAim.AllShootables.Add(CommunicationNet.FakeStatic.Minions[id]);
             minionsToSpawn--;
             spawnTimer -= timeBetweenMinions;
         }

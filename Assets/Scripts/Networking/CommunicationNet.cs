@@ -596,6 +596,7 @@ public class CommunicationNet : MonoBehaviour {
                 } else {
                     minions[data[1]] = leftBase.RecieveMinionInitialize(data);
                 }
+                VehicleAim.AllShootables.Add(minions[data[1]]);
 
                 break;
             case (byte)GameMessageType.MINION_DEINITIALIZE:

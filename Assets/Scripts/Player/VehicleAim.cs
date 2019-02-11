@@ -32,7 +32,7 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
     private List<GameObject> shootablesInRange = new List<GameObject>();
 
     /// <summary>List of all the GameObjects tagged with a shootable tag</summary>
-    private List<GameObject> allShootables = new List<GameObject>();
+    private static List<GameObject> allShootables = new List<GameObject>();
 
     /// <summary>List of all the GameObjects tagged with a shootable tag in range</summary>
     private List<GameObject> shootablesInConeAndRange = new List<GameObject>();
@@ -57,6 +57,16 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
     /// <summary>The shootable that is being aimed at</summary>
     public GameObject AktAimingAt {
         get { return highestPriority.Count >= 1 ? highestPriority[0] : null; }
+    }
+
+    public static List<GameObject> AllShootables {
+        get {
+            return allShootables;
+        }
+
+        set {
+            allShootables = value;
+        }
     }
 
     /// <summary>
@@ -88,6 +98,10 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
         teamHandler = GetComponent<VehicleWeapon>().TeamHandler;
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
         coneCosLimit = Mathf.Cos(coneDegrees / 2);
+
+        if (allShootables.Count > 0) {
+            return;
+        }
 
         // New Aiming
         var list = new List<GameObject>();
@@ -176,6 +190,12 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
 
     private void FilterByTeamAndDistance(List<GameObject> allGameObjects, out List<GameObject> filtered, float sqrDist, Vector3 referencePos) {
         filtered = new List<GameObject>();
+        for (int i = 0; i < allGameObjects.Count; i++) {
+            if (allGameObjects[i] == null) {
+                allGameObjects.RemoveAt(i);
+                i--;
+            }
+        }
         foreach (var item in allGameObjects) {
             if (Vector3.SqrMagnitude(item.transform.position - referencePos) <= sqrDist) {
                 if (item.GetComponent<TeamHandler>()?.TeamID != teamHandler.TeamID &&
