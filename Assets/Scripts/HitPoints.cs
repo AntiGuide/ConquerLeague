@@ -74,10 +74,11 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         }
 
         set {
-            if (aktHp == value || value < 0 || dead) {
+            if (aktHp == value || value < 0 || dead || value > saveHp) {
                 return;
             }
 
+            //Debug.Log("HP set to " + value);
             var oldHp = aktHp;
             aktHp = value;
             if (gameObject.tag == "Player" && teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
@@ -116,6 +117,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     public void SetFull() {
         dead = false;
         AktHp = saveHp;
+        //Debug.Log("Set to full.");
     }
 
     /// <summary>

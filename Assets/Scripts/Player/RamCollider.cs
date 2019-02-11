@@ -15,6 +15,7 @@ public class RamCollider : MonoBehaviour {
         }
 
         hitPoints.LastDamager = HitPoints.Damager.PLAYER_RAM;
+        CommunicationNet.FakeStatic.SendPlayerDamage(hitPoints.AktHp);
         hitPoints.AktHp = 0;
     }
 }
