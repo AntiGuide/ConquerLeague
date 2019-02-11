@@ -64,6 +64,8 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
     [SerializeField]
     private byte damagePerShot = 15;
 
+    private SphereCollider aimCollider;
+
     /// <summary>All of the turrets renderer</summary>
     private MeshRenderer[] turretRenderers;
 
@@ -79,6 +81,7 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
 
     /// <summary>Use this for initialization</summary>
     void Start() {
+        aimCollider = GetComponent<SphereCollider>();
         ConfigButton.ObjectsToUpdate.Add(this);
         aktShootingTime = ShootingTime;
         turretRenderers = turret.GetComponentsInChildren<MeshRenderer>();
@@ -97,6 +100,7 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
                 for (int i = 0; i < turretConquer.flare.Length; i++) {
                     turretConquer.flare[i].UpdateColor(teamHandler.TeamID);
                 }
+                aimCollider.enabled = false;
                 flareSwapped = true;
             }
 
@@ -114,6 +118,7 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
 
                 turretConquer.ResetTowerNeutral();
                 destroyedTower.SetActive(false);
+                aimCollider.enabled = true;
                 Respawning = false;
                 flareSwapped = false;
             }
