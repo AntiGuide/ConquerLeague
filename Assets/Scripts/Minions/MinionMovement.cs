@@ -20,9 +20,6 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     [SerializeField]
     private float swapDistance;
 
-    /// <summary>True if minion swapped target</summary>
-    private bool swappedTarget = false;
-
     /// <summary>References the Goalmanager</summary>
     // private GoalManager goalManager;
 
@@ -31,8 +28,6 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
 
     /// <summary>The array index of the currently chased target</summary>
     private int currTarget = 1;
-
-    private Vector3 lastTargetPosition;
 
     /// <summary>References the minions attached NavMeshAgent</summary>
     [SerializeField]
@@ -93,19 +88,12 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
             return;
         }
 
-        if (agent.remainingDistance <= swapDistance && !swappedTarget) {
-            lastTargetPosition = agent.destination;
+        if (agent.remainingDistance <= swapDistance) {
             currTarget++;
 
             if (currTarget < movementOrder.Length) {
                 agent.destination = movementOrder[currTarget].position;
             }
-
-            swappedTarget = true;
-        }
-
-        if (lastTargetPosition != agent.destination && swappedTarget) {
-            swappedTarget = false;
         }
     }
 }
