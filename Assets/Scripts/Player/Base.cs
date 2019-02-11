@@ -9,7 +9,11 @@ using UnityEngine.AI;
 /// The players base, which spawns minion
 /// </summary>
 [RequireComponent(typeof(TeamHandler))]
-public class Base : MonoBehaviour, IConfigurable {
+public class Base : MonoBehaviour, IConfigurable
+{
+    [SerializeField]
+    private ButtonChanger buttonChanger;
+
     [SerializeField]
     private float healFactor = 1;
 
@@ -38,7 +42,7 @@ public class Base : MonoBehaviour, IConfigurable {
     private Material strapMaterial;
 
     private Color startStrapColor;
-    
+
     private float spawnTimer = 0;
 
     private int minionsToSpawn = 0;
@@ -98,6 +102,7 @@ public class Base : MonoBehaviour, IConfigurable {
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
+            buttonChanger.ChangeButton(ButtonChanger.ButtonState.BUY_WARTRUCKS);
             strapMaterial.color = Color.green;
         }
     }
@@ -107,30 +112,30 @@ public class Base : MonoBehaviour, IConfigurable {
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerStay(Collider other) {
-        if(other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamID)
-        {
-            var hitPoints = other.GetComponent<HitPoints>();
-            if (hitPoints.AktHp < hitPoints.SaveHp && hitPoints.AktHp > 0)
-            {
-                var heal = Time.deltaTime * healFactor;
-                saveHeal += heal;
-                heal = Mathf.Min(saveHeal, hitPoints.SaveHp - hitPoints.AktHp);
-                hitPoints.AktHp += (byte)heal;
-                saveHeal -= (byte)heal;
-            }
+        if (other.tag != "Player" || other.gameObject.GetComponent<TeamHandler>().TeamID != TeamHandler.TeamID) {
+            return;
         }
 
-        if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && MoneyManagement.HasMoney(minionCost))
-        {
-            SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS, 1);
-            minionsToSpawn++;
-            moneyManagement.SubMoney(minionCost);
+        var hp = other.GetComponent<HitPoints>();
+        HealPlayer(hp);
+
+        if (TeamHandler.TeamID != TeamHandler.TeamState.FRIENDLY) {
+            return;
         }
-        else if (TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY && other.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY && CrossPlatformInputManager.GetButtonDown("Action") && !MoneyManagement.HasMoney(minionCost))
-        {
-            if(!SoundController.FSSoundController.AudioSource1.isPlaying)
-            {
-                SoundController.FSSoundController.StartSound(SoundController.Sounds.CANTBUY_WARTRUCKS, 1);
+
+        if (MoneyManagement.HasMoney(minionCost)) {
+            buttonChanger.SetTransparent(false);
+            if (CrossPlatformInputManager.GetButtonDown("Action")) {
+                SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS, 1);
+                minionsToSpawn++;
+                moneyManagement.SubMoney(minionCost);
+            }
+        } else {
+            buttonChanger.SetTransparent(true);
+            if(CrossPlatformInputManager.GetButtonDown("Action")) {
+                if (!SoundController.FSSoundController.AudioSource1.isPlaying) {
+                    SoundController.FSSoundController.StartSound(SoundController.Sounds.CANTBUY_WARTRUCKS, 1);
+                }
             }
         }
     }
@@ -142,6 +147,7 @@ public class Base : MonoBehaviour, IConfigurable {
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
             strapMaterial.color = startStrapColor;
+            buttonChanger.SetTransparent(true);
         }
     }
 
@@ -167,5 +173,15 @@ public class Base : MonoBehaviour, IConfigurable {
 
     public void UpdateConfig() {
         minionCost = ConfigButton.MinionsBuyValue;
+    }
+
+    private void HealPlayer(HitPoints hp) {
+        if (hp.AktHp < hp.SaveHp && hp.AktHp > 0) {
+            var heal = Time.deltaTime * healFactor;
+            saveHeal += heal;
+            heal = Mathf.Min(saveHeal, hp.SaveHp - hp.AktHp);
+            hp.AktHp += (byte)heal;
+            saveHeal -= (byte)heal;
+        }
     }
 }
