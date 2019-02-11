@@ -168,7 +168,6 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 Destroy(gameObject);
                 break;
             case "Turret":
-                aktHp += 1;
                 CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
                 FloatUpSpawner.GenerateFloatUp(moneyValue[1], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position), 30);
@@ -177,6 +176,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     moneyManagement.AddMoney(moneyValue[1]);
                 }
+                aktHp += 1;
                 
                 break;
             case "Player":
