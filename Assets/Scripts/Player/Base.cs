@@ -70,7 +70,7 @@ public class Base : MonoBehaviour, IConfigurable
     /// Use this for initialization
     /// </summary>
     void Start() {
-        startStrapColor = Color.white;//strapMaterial.color;
+        startStrapColor = Color.yellow;//strapMaterial.color;
         strapMaterial.color = startStrapColor;
         ConfigButton.ObjectsToUpdate.Add(this);
         TeamHandler = GetComponent<TeamHandler>();
@@ -104,7 +104,7 @@ public class Base : MonoBehaviour, IConfigurable
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
             buttonChanger.ChangeButton(ButtonChanger.ButtonState.BUY_WARTRUCKS);
-            strapMaterial.color = Color.green;
+            strapMaterial.color = Color.blue;
         }
     }
 

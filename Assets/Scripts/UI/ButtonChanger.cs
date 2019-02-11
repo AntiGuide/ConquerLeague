@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonChanger : MonoBehaviour {
+public class ButtonChanger : MonoBehaviour
+{
     [SerializeField]
     private Image actionButtonImage;
 
     [SerializeField]
     private Sprite[] actionButtonSprites = new Sprite[2];
-    
+
     public enum ButtonState
     {
         BUY_WARTRUCKS,
@@ -18,10 +19,10 @@ public class ButtonChanger : MonoBehaviour {
 
     private ButtonState actButtonState;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    // Use this for initialization
+    void Start() {
+
+    }
 
     public void ChangeButton(ButtonState buttonState) {
         switch (buttonState) {
