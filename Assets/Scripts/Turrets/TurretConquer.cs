@@ -6,8 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 /// <summary>
 /// This class lets players conquer a tower for their team
 /// </summary>
-public class TurretConquer : MonoBehaviour
-{
+public class TurretConquer : MonoBehaviour {
     [SerializeField]
     private ButtonChanger buttonChanger;
 
@@ -36,8 +35,7 @@ public class TurretConquer : MonoBehaviour
     [SerializeField]
     private Material[] topMaterials = new Material[3];
 
-    [SerializeField]
-    private Renderer[] towerRangeIndicatorRenderer;
+    public Renderer[] towerRangeIndicatorRenderer;
 
     [SerializeField]
     public Flare[] flare;

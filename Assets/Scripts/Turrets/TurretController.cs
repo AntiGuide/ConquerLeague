@@ -108,6 +108,10 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
                 turretRenderers[i].enabled = false;
             }
 
+            for (int i = 0; i < turretConquer.towerRangeIndicatorRenderer.Length; i++) {
+                turretConquer.towerRangeIndicatorRenderer[i].material.color = Color.gray;
+            }
+
             destroyedTower.SetActive(true);
 
             if (hitPoints.AktHp >= hitPoints.SaveHp) {

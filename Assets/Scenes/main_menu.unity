@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 810047}
   - component: {fileID: 810046}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CL_Schrift
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,13 +180,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 810045}
-  m_LocalRotation: {x: -0.043820135, y: -0.07956497, z: 0.008156597, w: 0.99583274}
-  m_LocalPosition: {x: -0.06, y: 5.31, z: 3.56}
+  m_LocalRotation: {x: 0.023385705, y: 0.18021192, z: 0.011172212, w: 0.9832863}
+  m_LocalPosition: {x: 3.34, y: 6.23, z: 7.52}
   m_LocalScale: {x: 0.94930816, y: 0.949308, z: 0.949308}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 22
-  m_LocalEulerAnglesHint: {x: -175.068, y: 170.806, z: -178.665}
+  m_LocalEulerAnglesHint: {x: -182.405, y: 200.808, z: -178.256}
 --- !u!1001 &4221261
 Prefab:
   m_ObjectHideFlags: 0
@@ -2827,7 +2827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &370368149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6412,7 +6412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &969144844
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6455,6 +6455,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5426c0233287a104bbc44678da9298a8, type: 3}
   - {fileID: 21300000, guid: 84cdc0b4d9482b940999bcdb6e8bbe8b, type: 3}
   - {fileID: 21300000, guid: 8833c4a5177f1fa49beeeb96552a545d, type: 3}
+  - {fileID: 21300000, guid: 7201feae15dea664f86217b20b8f8865, type: 3}
 --- !u!1 &992207447
 GameObject:
   m_ObjectHideFlags: 0
