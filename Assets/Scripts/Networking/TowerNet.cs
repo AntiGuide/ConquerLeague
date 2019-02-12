@@ -22,7 +22,6 @@ public class TowerNet : MonoBehaviour {
             return;
         }
 
-        hitPoints.LastDamager = HitPoints.Damager.TOWER;
         if (hitPoints.AktHp - damage <= hitPoints.AktHp && hitPoints.AktHp - damage > 0) {
             hitPoints.AktHp -= damage;
         } else {
