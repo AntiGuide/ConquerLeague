@@ -139,6 +139,7 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
     /// </summary>
     /// <param name="target">The target to shoot at</param>
     void ShootAtEnemy(Transform target) {
+        turretAim.AktAimingAt.GetComponent<HitPoints>().LastDamager = HitPoints.Damager.TOWER;
         aktShootingTime -= Time.deltaTime;
         if (aktShootingTime <= 0f) {
             Debug.DrawLine(shootingPoint.position, target.position, Color.red, 0.05f);
