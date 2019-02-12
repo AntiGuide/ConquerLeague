@@ -154,6 +154,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     }
 
     public void Boost(float boostStrenght, float boostTime, bool isUltimate) {
+        aktMovementSpeed = maxMovementSpeed;
         boostFactor = 1f + boostStrenght > boostFactor ? 1f + boostStrenght : boostFactor;
         PlayerNet.PlayerIsUsingBoost = true;
         if (isUltimate) {
