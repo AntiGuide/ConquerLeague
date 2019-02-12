@@ -20,8 +20,8 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     [SerializeField]
     private float swapDistance;
 
-    /// <summary>References the Goalmanager</summary>
-    // private GoalManager goalManager;
+    [SerializeField]
+    private MinionCloth[] minionCloth = new MinionCloth[2];
 
     /// <summary>The minions Teamhandler</summary>
     private TeamHandler teamHandler;
@@ -37,9 +37,10 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     /// Instantiates the minions hpbar when it spawns
     /// </summary>
     /// <param name="parent"></param>
-    public void OnInitialize(Transform parent) {
-        //var aktHpBar = Instantiate(healthBar, parent);
-        //aktHpBar.GetComponent<HealthBar>().Target = gameObject;
+    public void OnInitialize() {
+        for (int i = 0; i < minionCloth.Length; i++) {
+            minionCloth[i].InitializeColor();
+        }
     }
 
     public void UpdateConfig() {
@@ -51,7 +52,6 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     /// </summary>
     void Start() {
         teamHandler = gameObject.GetComponent<TeamHandler>();
-        // goalManager = GameObject.Find("UIBackground").GetComponent<GoalManager>();
         lastLane = lastLane == 0 ? 1 : 0;
 
         if (teamHandler.TeamID == GameManager.LeftTeam) {

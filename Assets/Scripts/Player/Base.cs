@@ -164,7 +164,7 @@ public class Base : MonoBehaviour, IConfigurable
         var spawnedMinion = Instantiate(minion, spawnPoint.position, spawnPoint.transform.rotation);
         spawnedMinion.GetComponent<TeamHandler>().TeamID = TeamHandler.TeamID;
         spawnedMinion.GetComponent<MinionNet>().Id = id;
-        spawnedMinion.GetComponent<MinionMovement>().OnInitialize(canvasTrans);
+        spawnedMinion.GetComponent<MinionMovement>().OnInitialize();
         if (remoteSpawn) {
             spawnedMinion.GetComponent<NavMeshAgent>().enabled = false;
         }
