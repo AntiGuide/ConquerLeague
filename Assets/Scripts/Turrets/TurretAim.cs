@@ -66,6 +66,12 @@ public class TurretAim : MonoBehaviour, IConfigurable {
     /// Update is called once per frame
     /// </summary>
     void Update() {
+        FilterByTeamAndDistance(VehicleAim.AllShootables, out shootablesInRange, targetRange + 4.5f, transform.position + GetComponent<SphereCollider>().center);
+
+        if (turretConquer.Conquerable) {
+            shootablesInRange.Clear();
+        }
+
         // Checks if gameobjects in the shootablesInRange-List are destroyed and removes them
         for (int i = 0; i < shootablesInRange.Count; i++) {
             if (shootablesInRange[i] == null || shootablesInRange[i].Equals(null)) {
@@ -83,10 +89,6 @@ public class TurretAim : MonoBehaviour, IConfigurable {
             if (progress >= 1) {
                 Locked = true;
             }
-        }
-
-        if (turretConquer.Conquerable) {
-            shootablesInRange.Clear();
         }
 
         if (shootablesInRange.Count > 1) {
@@ -151,6 +153,24 @@ public class TurretAim : MonoBehaviour, IConfigurable {
                     shootablesInRange[i2 - 1] = shootablesInRange[i2];
                     shootablesInRange[i2] = switchGameObject;
                     hasSorted = true;
+                }
+            }
+        }
+    }
+
+    private void FilterByTeamAndDistance(List<GameObject> allGameObjects, out List<GameObject> filtered, float dist, Vector3 referencePos) {
+        filtered = new List<GameObject>();
+        for (int i = 0; i < allGameObjects.Count; i++) {
+            if (allGameObjects[i] == null) {
+                allGameObjects.RemoveAt(i);
+                i--;
+            }
+        }
+        foreach (var item in allGameObjects) {
+            if (Vector3.Distance(item.transform.position, referencePos) <= dist) {
+                if (item.GetComponent<TeamHandler>()?.TeamID != teamHandler.TeamID &&
+                item.GetComponent<TeamHandler>()?.TeamID != TeamHandler.TeamState.NEUTRAL) {
+                    filtered.Add(item);
                 }
             }
         }
