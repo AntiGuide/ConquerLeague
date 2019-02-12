@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -92,5 +93,11 @@ public class OverheatManager : MonoBehaviour, IConfigurable {
     public void UpdateConfig() {
         cooldownPerSecond = ConfigButton.VehicleMGCooldownPerSecond;
         cooldownAfter = ConfigButton.VehicleMGCooldownDelay;
+    }
+
+    public void Reset() {
+        overheatPercentage = 0f;
+        state = HeatState.SHOOTABLE;
+        overheatFullImage.fillAmount = overheatPercentage;
     }
 }

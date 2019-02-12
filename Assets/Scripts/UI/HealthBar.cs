@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -98,5 +99,9 @@ public class HealthBar : MonoBehaviour {
             fullHp.fillAmount = hitPoints.AktHp / (float)maxHp;
         }
 
+    }
+
+    public void ResetOverheat() {
+        GetComponentInChildren<OverheatManager>()?.Reset();
     }
 }
