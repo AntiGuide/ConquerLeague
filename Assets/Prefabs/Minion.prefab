@@ -1292,8 +1292,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1223543560484158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.264748, y: -0.4013481, z: -13.093195}
-  m_LocalScale: {x: 0.1434026, y: 0.1434026, z: 0.1434026}
+  m_LocalPosition: {x: -62.9222, y: 2.1296256, z: -9.240304}
+  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_Children:
   - {fileID: 4823109197255566}
   - {fileID: 4116802452885830}
@@ -3288,7 +3288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72256d8a4d812584a84fb6eaeca5c4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aktHp: 0
   saveHp: 60
   teamHandler: {fileID: 114769131902855430}
   healthBar: {fileID: 0}
@@ -3298,6 +3297,8 @@ MonoBehaviour:
   healthBarParent: {fileID: 0}
   minionDestruction: {fileID: 1621370054503202, guid: 00d0fb6e18eca944fa0c8bbe7c44df52,
     type: 2}
+  playerDestruction: {fileID: 0}
+  overheatBar: {fileID: 0}
 --- !u!136 &136608390953567898
 CapsuleCollider:
   m_ObjectHideFlags: 1

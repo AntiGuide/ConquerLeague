@@ -182,7 +182,9 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 
                 break;
             case "Player":
-                SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
+                if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
+                    SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
+                }
                 if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY && LastDamager != Damager.TOWER) {
                     moneyManagement.AddMoney(moneyValue[0]);
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
