@@ -30,6 +30,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private Collider garageCollider;
 
+    private bool isBattle = false;
 
     private Vector3 cameraGaragePos;
     private Quaternion cameraGarageRotation;
@@ -78,11 +79,14 @@ public class MenuManager : MonoBehaviour
                         garageCollider.enabled = false;
                         destinationPos = cameraGaragePos;
                         destinationRotation = cameraGarageRotation;
+                        cameraMoving = true;
                         break;
                     case "BattleButton":
-                        startUI.SetActive(true);
+                        isBattle = true;
+                        //startUI.SetActive(true);
                         destinationPos = cameraBattlePos;
                         destinationRotation = cameraBattleRotation;
+                        cameraMoving = true;
                         break;
                     case "CarSelection":
                         rayTarget.GetComponent<CarSelection>().SwapCarRenderer();
@@ -90,9 +94,12 @@ public class MenuManager : MonoBehaviour
                     case "MenuBack":
                         garageCollider.enabled = true;
                         OnClickBack();
+                        cameraMoving = true;
+                        break;
+                    case "TutorialSign":
+                        OnClickTutorial();
                         break;
                 }
-                cameraMoving = true;
             }
         }
 
@@ -100,6 +107,9 @@ public class MenuManager : MonoBehaviour
             movingTimer += Time.deltaTime * cameraSpeed;
             LerpTransform(cameraStartMovingPosition, cameraStartMovingRotation, destinationPos, destinationRotation, movingTimer);
             if (movingTimer >= 1) {
+                if (isBattle) {
+                    OnClickStartGame();
+                }
                 movingTimer = 0;
                 cameraMoving = false;
             }
@@ -134,7 +144,7 @@ public class MenuManager : MonoBehaviour
 
     public void OnClickTutorial() {
         tutorialUI.SetActive(true);
-        tutorialButton.SetActive(false);
+        //tutorialButton.SetActive(false);
     }
 
     private void LerpTransform(Vector3 startPos, Quaternion startRotation, Vector3 goalPos, Quaternion goalRotation, float movingTimer) {
