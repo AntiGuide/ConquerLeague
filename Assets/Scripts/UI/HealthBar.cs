@@ -19,8 +19,7 @@ public class HealthBar : MonoBehaviour {
     [SerializeField] private Vector3 offset;
 
     /// <summary>The fullHp image</summary>
-    [SerializeField]
-    private Image fullHp;
+    public Image fullHp;
 
     /// <summary>The hpBackground image</summary>
     [SerializeField]

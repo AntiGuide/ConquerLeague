@@ -47,6 +47,10 @@ public class HitPoints : MonoBehaviour, IConfigurable {
 
     private bool dead = false;
 
+    private float colorTimer;
+
+    private bool swappedColor;
+
     /// <summary>The amount of money you get for killing</summary>
     //[SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     //private short[] moneyValue = new short[3];
@@ -114,6 +118,20 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         }
     }
 
+    private void Update() {
+        if (gameObject.CompareTag("Player")) {
+            float hpPro = (float)aktHp/(float)saveHp;
+
+            if(hpPro <= 0.33f) {
+                healthBar.fullHp.color = Color.red;
+            } else if (hpPro <= 0.66f) {
+                healthBar.fullHp.color = Color.yellow;
+            } else {
+                healthBar.fullHp.color = Color.green;
+            }
+        }
+    }
+
     public void SetFull() {
         dead = false;
         AktHp = saveHp;
@@ -138,6 +156,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
         healthBar = bar.GetComponent<HealthBar>();
         healthBar.Offset = healthBarOffset;
         healthBar.Target = gameObject;
+        healthBar.fullHp.color = Color.green;
         if (gameObject.CompareTag("Player") && teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
             overheatBar.transform.SetParent(bar.transform);
             overheatBar.transform.localPosition = Vector3.zero;
