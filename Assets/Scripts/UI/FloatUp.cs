@@ -70,7 +70,6 @@ public class FloatUp : MonoBehaviour {
         }
 
         transform.position = Vector2.Lerp(this.startPos, this.destination, this.percentage);
-        this.text.color = new Color(this.text.color.r, this.text.color.g, this.text.color.b, 1f - this.percentage);
         foreach (var shadow in this.shadows) {
             shadow.effectColor = new Color(shadow.effectColor.r, shadow.effectColor.g, shadow.effectColor.b, 1f - this.percentage);
         }
@@ -78,9 +77,11 @@ public class FloatUp : MonoBehaviour {
         if (this.value > 0) {
             this.color = Color.green;
             this.text.text = "<color=#" + ColorToHex(new Color(this.color.r, this.color.g, this.color.b, 1 - this.percentage)) + ">+</color>";
+            this.text.color = new Color(this.color.r, this.color.g, this.color.b, 1 - this.percentage);
         } else {
             this.color = new Color(0.8f, 0f, 0f);
             this.text.text = "<color=#" + ColorToHex(new Color(this.color.r, this.color.g, this.color.b, 1 - this.percentage)) + ">-</color>";
+            this.text.color = new Color(this.color.r, this.color.g, this.color.b, 1 - this.percentage);
         }
 
         this.text.text += " " + Math.Abs(this.value);
