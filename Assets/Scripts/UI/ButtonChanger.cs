@@ -34,22 +34,22 @@ public class ButtonChanger : MonoBehaviour
             Application.Quit();
         }
         FSButtonChanger = this;
-        SetTransparent(true, Buttons.ULTIMATE_BUTTON);
 #if UNITY_STANDALONE
-        var go = GameObject.Find("/Canvas/ActionButton");
-        if (go == null) {
-            Debug.Log("ActionButton not found");
+        var go = new GameObject[3];
+        go[0] = GameObject.Find("/Canvas/ActionButton");
+        go[1] = GameObject.Find("/Canvas/ShootButton");
+        go[2] = GameObject.Find("/Canvas/UltiShootButton");
+
+        for (int i = 0; i < buttonImages.Length; i++) {
+            if (go[i] == null) {
+                Debug.Log("Button" + i + " in ButtonChanger not found");
+                break;
+            }
+
+            buttonImages[i] = go[i].GetComponent<Image>();
         }
-
-        actionButtonImage = go.GetComponent<Image>();
-
-        go = GameObject.Find("/Canvas/ShootButton");
-        if (go == null) {
-            Debug.Log("ShootButton not found");
-        }
-
-        actionButtonImage = go.GetComponent<Image>();
 #endif
+        SetTransparent(true, Buttons.ULTIMATE_BUTTON);
     }
 
     public void ChangeButton(ActionButtonState buttonState) {
