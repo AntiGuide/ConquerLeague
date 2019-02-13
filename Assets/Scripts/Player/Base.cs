@@ -145,6 +145,7 @@ public class Base : MonoBehaviour, IConfigurable
         if (MoneyManagement.HasMoney(minionCost)) {
             ButtonChanger.FSButtonChanger.SetTransparent(false, ButtonChanger.Buttons.ACTION_BUTTON);
             if (CrossPlatformInputManager.GetButtonDown("Action")) {
+                ButtonChanger.FSButtonChanger.SetColor(ButtonChanger.Buttons.ACTION_BUTTON, Color.gray, true);
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS, 1);
                 FloatUpSpawner.GenerateFloatUp(-minionCost, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(other.transform.position), 30);
                 minionBuyFeedback.text = "";

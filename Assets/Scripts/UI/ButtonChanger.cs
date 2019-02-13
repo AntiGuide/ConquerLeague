@@ -59,6 +59,19 @@ public class ButtonChanger : MonoBehaviour
 
     public void SetTransparent(bool isTransparent, Buttons button) {
         var image = buttonImages[(int)button];
-        image.color = new Color(image.color.r, image.color.g, image.color.b, isTransparent ? 0.5f : 1f);
+        image.color = isTransparent ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);
+    }
+
+    public void SetColor(Buttons button, Color color, bool reset) {
+        buttonImages[(int)button].color = color;
+        if (reset) {
+            StartCoroutine(ResetColor(button, Color.white));
+        }
+    }
+
+    private IEnumerator ResetColor(Buttons button, Color color) {
+        yield return new WaitForSeconds(0.25f);
+        buttonImages[(int)button].color = color;
     }
 }
+        image.color = new Color(image.color.r, image.color.g, image.color.b, isTransparent ? 0.5f : 1f);
