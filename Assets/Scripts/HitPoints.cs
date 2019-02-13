@@ -117,6 +117,7 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     public void SetFull() {
         dead = false;
         AktHp = saveHp;
+        healthBar?.ResetOverheat();
         //Debug.Log("Set to full.");
     }
 

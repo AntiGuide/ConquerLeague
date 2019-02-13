@@ -23,6 +23,7 @@ public class UltimateController : MonoBehaviour {
     [SerializeField]
     private byte maxCharge = 3;
 
+    [SerializeField]
     private Image image;
 
     private byte charge;
@@ -42,12 +43,16 @@ public class UltimateController : MonoBehaviour {
     }
 
     private void UpdateChargeUI(float charge, float maxCharge) {
+        if (image == null) {
+            return;
+        }
+
         image.fillAmount = charge / maxCharge;
     }
 
 	private void Start () {
-        image = GetComponent<Image>();
-        if (image.type != Image.Type.Filled || FS != null) {
+        //image = GetComponent<Image>();
+        if (FS != null) {
             Application.Quit();
         }
 
