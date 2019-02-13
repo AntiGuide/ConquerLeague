@@ -32,6 +32,7 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     /// <summary>References the minions attached NavMeshAgent</summary>
     [SerializeField]
     private NavMeshAgent agent;
+    private GoalManager goalManager;
 
     /// <summary>
     /// Instantiates the minions hpbar when it spawns
@@ -68,6 +69,9 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
         if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
             agent.destination = movementOrder[currTarget].position;
         }
+
+
+        goalManager = GameObject.Find("UIBackground").GetComponent<GoalManager>();
     }
 
     /// <summary>
@@ -84,6 +88,7 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
             SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
             CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
             Destroy(gameObject);
+            goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
             UltimateController.FS.AddCharge();
             return;
         }

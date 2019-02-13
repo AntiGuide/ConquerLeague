@@ -205,8 +205,9 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                 if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
                 }
-                if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY && LastDamager != Damager.TOWER) {
+                if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     moneyManagement.AddMoney(moneyValue[0]);
+                    goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     FloatUpSpawner.GenerateFloatUp(moneyValue[0], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
                 }
