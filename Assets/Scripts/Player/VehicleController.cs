@@ -63,13 +63,10 @@ public class VehicleController : MonoBehaviour, IConfigurable {
 
     public Text debugText;
 
-    private PlayerNet playerNet;
-
     /// <summary>
     /// Use this for initialization
     /// </summary>    
     void Start() {
-        playerNet = GetComponent<PlayerNet>();
         ConfigButton.ObjectsToUpdate.Add(this);
         rb = gameObject.GetComponent<Rigidbody>();
         SoundController.FSSoundController.StartLoopingSound(SoundController.Sounds.PLAYER_ENGINE, 0.4f);
