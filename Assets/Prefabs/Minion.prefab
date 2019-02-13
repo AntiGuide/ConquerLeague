@@ -3441,7 +3441,8 @@ MonoBehaviour:
   minionCloth:
   - {fileID: 114089702384651842}
   - {fileID: 114043739750134420}
-  minionDestruction: {fileID: 0}
+  minionDestruction: {fileID: 1621370054503202, guid: 00d0fb6e18eca944fa0c8bbe7c44df52,
+    type: 2}
   agent: {fileID: 195236028553959254}
 --- !u!114 &114769131902855430
 MonoBehaviour:
