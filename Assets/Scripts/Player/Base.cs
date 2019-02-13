@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.AI;
+using TMPro;
 
 /// <summary>
 /// The players base, which spawns minion
@@ -37,6 +38,9 @@ public class Base : MonoBehaviour, IConfigurable
     /// <summary></summary>
     [SerializeField]
     private Material strapMaterial;
+
+    [SerializeField]
+    private TextMeshProUGUI minionBuyFeedback;
 
     private Color startStrapColor;
 
@@ -125,6 +129,8 @@ public class Base : MonoBehaviour, IConfigurable
             ButtonChanger.FSButtonChanger.SetTransparent(false, ButtonChanger.Buttons.ACTION_BUTTON);
             if (CrossPlatformInputManager.GetButtonDown("Action")) {
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS, 1);
+                FloatUpSpawner.GenerateFloatUp(-minionCost, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(other.transform.position), 30);
+                minionBuyFeedback.text = "";
                 minionsToSpawn++;
                 moneyManagement.SubMoney(minionCost);
             }
@@ -134,8 +140,16 @@ public class Base : MonoBehaviour, IConfigurable
                 if (!SoundController.FSSoundController.AudioSource1.isPlaying) {
                     SoundController.FSSoundController.StartSound(SoundController.Sounds.CANTBUY_WARTRUCKS, 1);
                 }
+                StopCoroutine(ClearText(minionBuyFeedback));
+                minionBuyFeedback.text = "Not enough currency";
+                StartCoroutine(ClearText(minionBuyFeedback));
             }
         }
+    }
+
+    private IEnumerator ClearText(TextMeshProUGUI minionBuyFeedback) {
+        yield return new WaitForSeconds(3f);
+        minionBuyFeedback.text = "";
     }
 
     /// <summary>

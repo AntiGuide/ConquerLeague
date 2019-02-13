@@ -26,8 +26,25 @@ public class UltimateController : MonoBehaviour {
     [SerializeField]
     private Image image;
 
+    [SerializeField]
+    private float shakeFactor = 10f;
+
     private byte charge;
-	
+
+    private RectTransform rectTrans;
+
+    private Vector2 startLocation;
+
+    public float UltimateDuration {
+        get {
+            return ultimateDuration;
+        }
+
+        set {
+            ultimateDuration = value;
+        }
+    }
+
     public void AddCharge() {
         charge += charge < maxCharge ? (byte)1 : (byte)0;
         UpdateChargeUI(charge, maxCharge);
@@ -36,6 +53,7 @@ public class UltimateController : MonoBehaviour {
     private void UseUltimate() {
         if (charge == maxCharge) {
             vehicleController.Boost(ultimateBoostStrength, ultimateDuration, true);
+            CommunicationNet.FakeStatic.SendPlayerUltimate();
             //vehicleWeapon.Shoot(ultimateProjectilePrefab, true);
             charge = 0;
             UpdateChargeUI(charge, maxCharge);
@@ -68,11 +86,23 @@ public class UltimateController : MonoBehaviour {
 #endif
 
         UpdateChargeUI(charge, maxCharge);
+
+        rectTrans = image.transform.parent.GetComponent<RectTransform>();
+        startLocation = rectTrans.anchoredPosition;
     }
 
     private void Update() {
         if (CrossPlatformInputManager.GetButtonDown("UltiShoot")) {
             UseUltimate();
+        }
+
+        if (charge == maxCharge) {
+            var x = startLocation.x + (Random.value * shakeFactor);
+            var y = startLocation.y + (Random.value * shakeFactor);
+
+            rectTrans.anchoredPosition = new Vector2(x, y);
+
+            image.color = new Color(Mathf.PingPong(Time.time, 1f), Mathf.PingPong(Time.time, 1f), 0f);
         }
     }
 }
