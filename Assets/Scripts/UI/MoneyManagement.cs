@@ -87,7 +87,7 @@ public class MoneyManagement : MonoBehaviour {
 
     /// <summary>Sets the money to 600 in the beginning</summary>
     private void Start() {
-        var initValue = 0;
+        var initValue = 30;
         SetMoney(initValue);
     }
 
