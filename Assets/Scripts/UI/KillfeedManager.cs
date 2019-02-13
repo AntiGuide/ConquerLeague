@@ -30,7 +30,7 @@ public class KillfeedManager : MonoBehaviour {
 
         public string ToString(string trans = "FF") {
             var sb = new StringBuilder();
-            sb.Append("<color=#");
+            sb.Append("<color=#");//"<color=#3C5EFF"
             sb.Append(murderer == TeamHandler.TeamState.FRIENDLY ? "3C5EFF" : "FF0000");
             sb.Append(trans);
             sb.Append(">");
@@ -57,10 +57,10 @@ public class KillfeedManager : MonoBehaviour {
     public static KillfeedManager FS;
     private TextMeshProUGUI tmp;
     private StringBuilder sb = new StringBuilder();
-    private List<KillFeedEvent> feed = new List<KillFeedEvent>();
+    private List<string> feed = new List<string>();
 
     public void AddDeathEvent(KillFeedEvent killFeedEvent) {
-        feed.Insert(0, killFeedEvent);
+        feed.Insert(0, killFeedEvent.ToString());
         StartCoroutine(RemoveLast());
     }
 
@@ -88,12 +88,14 @@ public class KillfeedManager : MonoBehaviour {
         sb.Clear();
         var lines = feed.Count < maxLines ? feed.Count : maxLines;
         for (int i = 0; i < lines; i++) {
-            var transparency = i < maxLines - 1 ? 0x88 : 0x44;
-            transparency = i < maxLines - 2 ? 0xFF : transparency;
-            var tranStr = transparency.ToString("X2");
-            sb.AppendLine(feed[i].ToString(tranStr));
+            sb.AppendLine(feed[i]);
         }
 
         tmp.text = sb.ToString();
+    }
+
+    public void AddCustomLine(string line) {
+        feed.Insert(0, line);
+        StartCoroutine(RemoveLast());
     }
 }

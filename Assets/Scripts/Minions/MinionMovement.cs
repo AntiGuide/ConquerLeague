@@ -89,6 +89,7 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
             CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
             Destroy(gameObject);
             goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
+            KillfeedManager.FS.AddCustomLine("<color=#3C5EFFFF>A minion earned you a point</color>");
             UltimateController.FS.AddCharge();
             return;
         }

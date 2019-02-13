@@ -199,17 +199,19 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                     moneyManagement.AddMoney(moneyValue[1]);
                 }
                 aktHp += 1;
-                
+
+                KillfeedManager.FS.AddCustomLine("<color=#3C5EFFFF>You destroyed a tower</color>");
+
                 break;
             case "Player":
                 if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     SoundController.FSSoundController.StartSound(SoundController.Sounds.PLAYER_DESTRUCTION);
-                }
-                if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     moneyManagement.AddMoney(moneyValue[0]);
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     FloatUpSpawner.GenerateFloatUp(moneyValue[0], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
+                } else {
+                    KillfeedManager.FS.AddCustomLine("<color=#FF0000FF>You got killed by a tower</color>");
                 }
                 var go = Instantiate(playerDestruction, transform.position, transform.rotation);
                 var destroyTime = playerDestruction.GetComponent<ParticleSystem>()?.main.duration ?? 1.2f;
