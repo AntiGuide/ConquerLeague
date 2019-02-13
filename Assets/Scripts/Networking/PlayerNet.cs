@@ -120,6 +120,7 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
         transform.rotation = StartPoint.rotation;
         rigidbodyPlayer.velocity = Vector3.zero;
         if (!resetOnly) {
+            CameraController.camAttached = false;
             //hitPoints.Visible = false;
             hitPoints.HealthBar.Active = false;
             transform.GetChild(0).gameObject.GetComponent<ParticleSystemRenderer>().enabled = false;
@@ -144,6 +145,8 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
             if (!isEnemy) {
                 GetComponent<VehicleController>().enabled = true;
             }
+
+            CameraController.camAttached = true;
         }
     }
 

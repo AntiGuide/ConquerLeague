@@ -118,7 +118,6 @@ public class Base : MonoBehaviour, IConfigurable
             for (int i = 0; i < strapMaterial.Length; i++) {
                 strapMaterial[i].color = Color.blue;
             }
-            Debug.Log("Enter --> " + gameObject.name);
         }
     }
 

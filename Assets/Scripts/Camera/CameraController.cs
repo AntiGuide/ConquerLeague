@@ -15,11 +15,13 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private Vector3 offset;
 
+    public static bool camAttached { get; set; } = true;
+
     /// <summary>
     /// Update is called once per frame
     /// </summary>
     void Update() {
-        if (playerVehicleTransform != null) {
+        if (playerVehicleTransform != null && camAttached) {
             transform.position = playerVehicleTransform.position + offset + (-transform.forward * camDistance);
         }
     }
