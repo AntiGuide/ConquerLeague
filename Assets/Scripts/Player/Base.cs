@@ -125,14 +125,14 @@ public class Base : MonoBehaviour, IConfigurable
         }
 
         if (MoneyManagement.HasMoney(minionCost)) {
-            buttonChanger.SetTransparent(false);
+            buttonChanger.SetTransparent(false, true);
             if (CrossPlatformInputManager.GetButtonDown("Action")) {
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS, 1);
                 minionsToSpawn++;
                 moneyManagement.SubMoney(minionCost);
             }
         } else {
-            buttonChanger.SetTransparent(true);
+            buttonChanger.SetTransparent(true, true);
             if(CrossPlatformInputManager.GetButtonDown("Action")) {
                 if (!SoundController.FSSoundController.AudioSource1.isPlaying) {
                     SoundController.FSSoundController.StartSound(SoundController.Sounds.CANTBUY_WARTRUCKS, 1);
@@ -148,7 +148,7 @@ public class Base : MonoBehaviour, IConfigurable
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
             strapMaterial.color = startStrapColor;
-            buttonChanger.SetTransparent(true);
+            buttonChanger.SetTransparent(true, true);
         }
     }
 

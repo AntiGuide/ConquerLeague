@@ -9,6 +9,9 @@ public class ButtonChanger : MonoBehaviour
     private Image actionButtonImage;
 
     [SerializeField]
+    private Image shootButtonImage;
+
+    [SerializeField]
     private Sprite[] actionButtonSprites = new Sprite[2];
 
     public enum ButtonState
@@ -28,6 +31,13 @@ public class ButtonChanger : MonoBehaviour
         }
 
         actionButtonImage = go.GetComponent<Image>();
+
+        go = GameObject.Find("/Canvas/ShootButton");
+        if (go == null) {
+            Debug.Log("ShootButton not found");
+        }
+
+        actionButtonImage = go.GetComponent<Image>();
 #endif
     }
 
@@ -42,11 +52,8 @@ public class ButtonChanger : MonoBehaviour
         }
     }
 
-    public void SetTransparent(bool transparent) {
-        if (transparent) {
-            actionButtonImage.color = new Color(1, 1, 1, 0.5f);
-        } else {
-            actionButtonImage.color = new Color(1, 1, 1, 1);
-        }
+    public void SetTransparent(bool isTransparent, bool isActionButton) {
+        var image = isActionButton ? actionButtonImage : shootButtonImage;
+        image.color = isTransparent ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);
     }
 }
