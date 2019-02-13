@@ -95,6 +95,7 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
 
     /// <summary>Use this for initialization</summary>
     private void Start() {
+        ConfigButton.ObjectsToUpdate.Add(this);
         teamHandler = GetComponent<VehicleWeapon>().TeamHandler;
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
         coneCosLimit = Mathf.Cos(coneDegrees / 2);
