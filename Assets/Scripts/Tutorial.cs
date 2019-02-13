@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour {
     [SerializeField]
+    private GameObject tutorialButton;
+
+    [SerializeField]
     private Image tutorialImage;
 
     [SerializeField]
@@ -25,6 +28,7 @@ public class Tutorial : MonoBehaviour {
     public void OnClickNext() {
         if(currSprite >= tutorialSprites.Length-1) {
             currSprite = 0;
+            tutorialButton.SetActive(true);
             gameObject.SetActive(false);
         } else {
             ++currSprite;

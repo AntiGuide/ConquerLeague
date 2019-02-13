@@ -2827,7 +2827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &370368149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2843,8 +2843,8 @@ RectTransform:
   m_Father: {fileID: 813150249}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.8, y: 0.8}
-  m_AnchorMax: {x: 0.9, y: 0.9}
+  m_AnchorMin: {x: 0.1, y: 0.8}
+  m_AnchorMax: {x: 0.2, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6412,7 +6412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &969144844
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6448,11 +6448,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dfe37b2f8e42c649b298850e1fb9b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialButton: {fileID: 370368148}
   tutorialImage: {fileID: 95366361}
   tutorialSprites:
   - {fileID: 21300000, guid: 1f1ad3abf5f521a48929da91b7103e8f, type: 3}
   - {fileID: 21300000, guid: c1eca064b76dc8a49a37226dfc44b83d, type: 3}
-  - {fileID: 21300000, guid: 5426c0233287a104bbc44678da9298a8, type: 3}
+  - {fileID: 21300000, guid: 95957e285ed2f1f4a89451a9b8c7e845, type: 3}
   - {fileID: 21300000, guid: 84cdc0b4d9482b940999bcdb6e8bbe8b, type: 3}
   - {fileID: 21300000, guid: 8833c4a5177f1fa49beeeb96552a545d, type: 3}
   - {fileID: 21300000, guid: 7201feae15dea664f86217b20b8f8865, type: 3}
@@ -14250,6 +14251,7 @@ MonoBehaviour:
   mainCamera: {fileID: 2083650858}
   startUI: {fileID: 1449490612}
   tutorialUI: {fileID: 969144843}
+  tutorialButton: {fileID: 370368148}
   garageCollider: {fileID: 1396102151}
 --- !u!114 &2083650862
 MonoBehaviour:

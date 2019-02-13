@@ -25,7 +25,11 @@ public class MenuManager : MonoBehaviour
     private GameObject tutorialUI;
 
     [SerializeField]
+    private GameObject tutorialButton;
+
+    [SerializeField]
     private Collider garageCollider;
+
 
     private Vector3 cameraGaragePos;
     private Quaternion cameraGarageRotation;
@@ -130,6 +134,7 @@ public class MenuManager : MonoBehaviour
 
     public void OnClickTutorial() {
         tutorialUI.SetActive(true);
+        tutorialButton.SetActive(false);
     }
 
     private void LerpTransform(Vector3 startPos, Quaternion startRotation, Vector3 goalPos, Quaternion goalRotation, float movingTimer) {
