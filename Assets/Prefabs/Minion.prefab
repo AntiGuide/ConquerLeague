@@ -1261,7 +1261,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1401111700055924}
   m_LocalRotation: {x: 0, y: 0.7088755, z: 0, w: 0.7053337}
-  m_LocalPosition: {x: -4.37, y: 4.539999, z: -20.489147}
+  m_LocalPosition: {x: -4.9, y: 4.539999, z: -20.489147}
   m_LocalScale: {x: 3.656667, y: 3.656666, z: 3.656667}
   m_Children: []
   m_Father: {fileID: 4687689974473322}
@@ -1354,7 +1354,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1223543560484158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.0201435, y: -0.4564829, z: 8.419899}
+  m_LocalPosition: {x: 11.545244, y: 103.50173, z: -136.80443}
   m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_Children:
   - {fileID: 4823109197255566}
@@ -3441,6 +3441,7 @@ MonoBehaviour:
   minionCloth:
   - {fileID: 114089702384651842}
   - {fileID: 114043739750134420}
+  minionDestruction: {fileID: 0}
   agent: {fileID: 195236028553959254}
 --- !u!114 &114769131902855430
 MonoBehaviour:
