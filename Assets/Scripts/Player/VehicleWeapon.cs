@@ -99,9 +99,11 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
 
         if (CrossPlatformInputManager.GetButton("Shoot") &&
             OverheatManager.FS.state == OverheatManager.HeatState.SHOOTABLE) {
+            ButtonChanger.FSButtonChanger.SetColor(ButtonChanger.Buttons.SHOOT_BUTTON, Color.gray, false);
             PlayerNet.PlayerIsShooting = true;
             Shoot(weaponType);
         } else {
+            ButtonChanger.FSButtonChanger.SetColor(ButtonChanger.Buttons.SHOOT_BUTTON, Color.white, false);
             PlayerNet.PlayerIsShooting = false;
         }
     }
