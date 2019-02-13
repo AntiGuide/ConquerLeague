@@ -29,6 +29,8 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
     /// <summary>The shot vfx</summary>
     [SerializeField] private GameObject shotVFX;
 
+    [SerializeField] private Transform carTrans;
+
     [SerializeField] private byte damagePerShot;
 
     [SerializeField] private byte ultimateDamage;
@@ -126,6 +128,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
 
     private void FireVisualShot(GameObject prefab, Vector3 shotSpawnPosition, Quaternion shotSpawnRotation, TeamHandler.TeamState tID, float speed) {
         var shot = Instantiate(prefab, shotSpawnPosition, shotSpawnRotation);
+        shot.GetComponent<Transform>().localEulerAngles = carTrans.localEulerAngles - new Vector3(0, -90, 0);
         shot.GetComponent<TeamHandler>().TeamID = tID;
         shot.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
         shot.GetComponent<Standard_Projectile>().Damage = 0;
