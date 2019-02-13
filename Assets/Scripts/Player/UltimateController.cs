@@ -34,6 +34,7 @@ public class UltimateController : MonoBehaviour {
     private RectTransform rectTrans;
 
     private Vector2 startLocation;
+    private Color startColor;
 
     public float UltimateDuration {
         get {
@@ -89,6 +90,8 @@ public class UltimateController : MonoBehaviour {
 
         rectTrans = image.transform.parent.GetComponent<RectTransform>();
         startLocation = rectTrans.anchoredPosition;
+
+        startColor = image.color;
     }
 
     private void Update() {
@@ -103,6 +106,8 @@ public class UltimateController : MonoBehaviour {
             rectTrans.anchoredPosition = new Vector2(x, y);
 
             image.color = new Color(Mathf.PingPong(Time.time, 1f), Mathf.PingPong(Time.time, 1f), 0f);
+        } else {
+            image.color = startColor;
         }
     }
 }

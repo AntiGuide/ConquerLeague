@@ -59,6 +59,6 @@ public class ButtonChanger : MonoBehaviour
 
     public void SetTransparent(bool isTransparent, Buttons button) {
         var image = buttonImages[(int)button];
-        image.color = isTransparent ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);
+        image.color = new Color(image.color.r, image.color.g, image.color.b, isTransparent ? 0.5f : 1f);
     }
 }
