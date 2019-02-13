@@ -72,9 +72,11 @@ public class OverheatManager : MonoBehaviour, IConfigurable {
 
     private void Update() {
         if(state == HeatState.COOLING) {
+            ButtonChanger.FSButtonChanger.SetTransparent(true, ButtonChanger.Buttons.SHOOT_BUTTON);
             blinkingImageTimer += Time.deltaTime;
             overheatFullImage.color = new Color(Mathf.PingPong(Time.time * 2, 1f), 0f, 0f);
         } else {
+            ButtonChanger.FSButtonChanger.SetTransparent(false, ButtonChanger.Buttons.SHOOT_BUTTON);
             blinkingImageTimer = 0;
             overheatFullImage.color = Color.white;
         }
