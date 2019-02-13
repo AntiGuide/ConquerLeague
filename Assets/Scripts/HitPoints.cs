@@ -210,12 +210,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
                     FloatUpSpawner.GenerateFloatUp(moneyValue[0], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position));
-                } else {
-                    if (LastDamager == Damager.TOWER) {
-                        KillfeedManager.FS.AddCustomLine("<color=#FF0000FF>You got killed by a tower</color>");
-
-                    }
                 }
+
                 var go = Instantiate(playerDestruction, transform.position, transform.rotation);
                 var destroyTime = playerDestruction.GetComponent<ParticleSystem>()?.main.duration ?? 1.2f;
                 Destroy(go, destroyTime);
