@@ -128,6 +128,7 @@ public class Base : MonoBehaviour, IConfigurable
             buttonChanger.SetTransparent(false);
             if (CrossPlatformInputManager.GetButtonDown("Action")) {
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS, 1);
+                FloatUpSpawner.GenerateFloatUp(-minionCost, FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(other.transform.position), 30);
                 minionsToSpawn++;
                 moneyManagement.SubMoney(minionCost);
             }
