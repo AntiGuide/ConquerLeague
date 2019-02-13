@@ -12,9 +12,6 @@ using UnityEngine.AI;
 public class Base : MonoBehaviour, IConfigurable
 {
     [SerializeField]
-    private ButtonChanger buttonChanger;
-
-    [SerializeField]
     private float healFactor = 1;
 
     /// <summary>How much currency it costs to build minion</summary>
@@ -103,7 +100,7 @@ public class Base : MonoBehaviour, IConfigurable
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-            buttonChanger.ChangeButton(ButtonChanger.ButtonState.BUY_WARTRUCKS);
+            ButtonChanger.FSButtonChanger.ChangeButton(ButtonChanger.ActionButtonState.BUY_WARTRUCKS);
             strapMaterial.color = Color.blue;
         }
     }
@@ -125,14 +122,14 @@ public class Base : MonoBehaviour, IConfigurable
         }
 
         if (MoneyManagement.HasMoney(minionCost)) {
-            buttonChanger.SetTransparent(false, true);
+            ButtonChanger.FSButtonChanger.SetTransparent(false, ButtonChanger.Buttons.ACTION_BUTTON);
             if (CrossPlatformInputManager.GetButtonDown("Action")) {
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.BUY_WARTRUCKS, 1);
                 minionsToSpawn++;
                 moneyManagement.SubMoney(minionCost);
             }
         } else {
-            buttonChanger.SetTransparent(true, true);
+            ButtonChanger.FSButtonChanger.SetTransparent(true, ButtonChanger.Buttons.ACTION_BUTTON);
             if(CrossPlatformInputManager.GetButtonDown("Action")) {
                 if (!SoundController.FSSoundController.AudioSource1.isPlaying) {
                     SoundController.FSSoundController.StartSound(SoundController.Sounds.CANTBUY_WARTRUCKS, 1);
@@ -148,7 +145,7 @@ public class Base : MonoBehaviour, IConfigurable
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
             strapMaterial.color = startStrapColor;
-            buttonChanger.SetTransparent(true, true);
+            ButtonChanger.FSButtonChanger.SetTransparent(true, ButtonChanger.Buttons.ACTION_BUTTON);
         }
     }
 

@@ -8,9 +8,6 @@ using UnityStandardAssets.CrossPlatformInput;
 /// </summary>
 public class TurretConquer : MonoBehaviour {
     [SerializeField]
-    private ButtonChanger buttonChanger;
-
-    [SerializeField]
     private GameObject turret;
 
     /// <summary>References the TeamHandler script</summary>
@@ -72,8 +69,8 @@ public class TurretConquer : MonoBehaviour {
     /// <param name="other">The colliding object</param>
     void OnTriggerEnter(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player") {
-            buttonChanger.ChangeButton(ButtonChanger.ButtonState.CAPTURE_TURRET);
-            buttonChanger.SetTransparent(false, true);
+            ButtonChanger.FSButtonChanger.ChangeButton(ButtonChanger.ActionButtonState.CAPTURE_TURRET);
+            ButtonChanger.FSButtonChanger.SetTransparent(false, ButtonChanger.Buttons.ACTION_BUTTON);
 
 
             for (int i = 1; i < myRenderers.Length; i++) {
@@ -109,7 +106,7 @@ public class TurretConquer : MonoBehaviour {
     void OnTriggerStay(Collider other) {
         if (Conquerable && other.gameObject.tag == "Player" && other.gameObject.GetComponent<TeamHandler>().TeamID == TeamHandler.TeamState.FRIENDLY) {
             if (CrossPlatformInputManager.GetButtonDown("Action")) {
-                buttonChanger.SetTransparent(true, true);
+                ButtonChanger.FSButtonChanger.SetTransparent(true, ButtonChanger.Buttons.ACTION_BUTTON);
 
                 foreach (var item in towerRangeIndicatorRenderer) {
                     item.material.color = Color.grey;
@@ -128,7 +125,7 @@ public class TurretConquer : MonoBehaviour {
             for (int i = 1; i < myRenderers.Length; i++) {
                 myRenderers[i].material.color = Color.gray;
             }
-            buttonChanger.SetTransparent(true, true);
+            ButtonChanger.FSButtonChanger.SetTransparent(true, ButtonChanger.Buttons.ACTION_BUTTON);
             switch (teamHandler.TeamID) {
                 case TeamHandler.TeamState.FRIENDLY:
                     topRenderer.material = topMaterials[1];
