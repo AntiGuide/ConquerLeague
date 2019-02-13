@@ -38,6 +38,8 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary> Reference to the GoalManager displaying the score</summary>
     [SerializeField] private GoalManager goalManager;
 
+    [SerializeField] private GameObject minionExplosion;
+
     [HideInInspector]
     public List<Flare> flares = new List<Flare>();
 
@@ -601,6 +603,8 @@ public class CommunicationNet : MonoBehaviour {
                 break;
             case (byte)GameMessageType.MINION_DEINITIALIZE:
                 Destroy(minions[data[1]]);
+                var expl = Instantiate(minionExplosion, minions[data[1]].transform.position, minions[data[1]].transform.rotation);
+                expl.transform.localScale = new Vector3(3, 3, 3);
                 minions[data[1]] = null;
                 break;
             case (byte)GameMessageType.MINION_MOVE:
