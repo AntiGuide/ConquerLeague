@@ -37,7 +37,9 @@ public class Base : MonoBehaviour, IConfigurable
 
     /// <summary></summary>
     [SerializeField]
-    private Material strapMaterial;
+    private Renderer[] rendererMaterialStraps;
+
+    private Material[] strapMaterial;
 
     [SerializeField]
     private TextMeshProUGUI minionBuyFeedback;
@@ -72,7 +74,12 @@ public class Base : MonoBehaviour, IConfigurable
     /// </summary>
     void Start() {
         startStrapColor = Color.yellow;//strapMaterial.color;
-        strapMaterial.color = startStrapColor;
+        strapMaterial = new Material[rendererMaterialStraps.Length];
+        for (int i = 0; i < rendererMaterialStraps.Length; i++) {
+            strapMaterial[i] = rendererMaterialStraps[i].material;
+            strapMaterial[i].color = startStrapColor;
+        }
+        
         ConfigButton.ObjectsToUpdate.Add(this);
         TeamHandler = GetComponent<TeamHandler>();
         //startColor = baseRenderer.material.color;
@@ -105,7 +112,9 @@ public class Base : MonoBehaviour, IConfigurable
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
             ButtonChanger.FSButtonChanger.ChangeButton(ButtonChanger.ActionButtonState.BUY_WARTRUCKS);
-            strapMaterial.color = Color.blue;
+            for (int i = 0; i < strapMaterial.Length; i++) {
+                strapMaterial[i].color = Color.blue;
+            }
         }
     }
 
@@ -158,7 +167,10 @@ public class Base : MonoBehaviour, IConfigurable
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Player" && TeamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-            strapMaterial.color = startStrapColor;
+            for (int i = 0; i < strapMaterial.Length; i++) {
+                strapMaterial[i].color = startStrapColor;
+            }
+
             ButtonChanger.FSButtonChanger.SetTransparent(true, ButtonChanger.Buttons.ACTION_BUTTON);
         }
     }
