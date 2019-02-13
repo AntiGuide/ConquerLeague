@@ -23,6 +23,9 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
     [SerializeField]
     private MinionCloth[] minionCloth = new MinionCloth[2];
 
+    [SerializeField]
+    private GameObject minionDestruction;
+
     /// <summary>The minions Teamhandler</summary>
     private TeamHandler teamHandler;
 
@@ -87,6 +90,8 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
             gameObject.SetActive(false);
             SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
             CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
+            var explosion = Instantiate(minionDestruction, transform.position, transform.rotation);
+            explosion.transform.localScale = new Vector3(3, 3, 3);
             Destroy(gameObject);
             goalManager.AddPoint(TeamHandler.TeamState.FRIENDLY);
             KillfeedManager.FS.AddCustomLine("<color=#3C5EFFFF>A minion earned you a point</color>");
