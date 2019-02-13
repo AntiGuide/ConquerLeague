@@ -14,6 +14,9 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     [SerializeField]
     private ParticleSystem[] particleSystemsExhaust;
 
+    [SerializeField]
+    private GameObject ultimate;
+
     /// <summary>Marks if the attached object is an enemy</summary>
     private bool isEnemy;
 
@@ -195,6 +198,13 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     }
 
     public void OnNetUltimate() {
+        ultimate.SetActive(true);
+        StartCoroutine(ResetUltimate(UltimateController.FS.UltimateDuration));
         //Visual Ultimate for this player
+    }
+
+    private IEnumerator ResetUltimate(float ultiTime) {
+        yield return new WaitForSeconds(ultiTime);
+        ultimate.SetActive(false);
     }
 }

@@ -27,7 +27,17 @@ public class UltimateController : MonoBehaviour {
     private Image image;
 
     private byte charge;
-	
+
+    public float UltimateDuration {
+        get {
+            return ultimateDuration;
+        }
+
+        set {
+            ultimateDuration = value;
+        }
+    }
+
     public void AddCharge() {
         charge += charge < maxCharge ? (byte)1 : (byte)0;
         UpdateChargeUI(charge, maxCharge);
@@ -36,6 +46,7 @@ public class UltimateController : MonoBehaviour {
     private void UseUltimate() {
         if (charge == maxCharge) {
             vehicleController.Boost(ultimateBoostStrength, ultimateDuration, true);
+            CommunicationNet.FakeStatic.SendPlayerUltimate();
             //vehicleWeapon.Shoot(ultimateProjectilePrefab, true);
             charge = 0;
             UpdateChargeUI(charge, maxCharge);
