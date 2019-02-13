@@ -72,6 +72,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         playerNet = GetComponent<PlayerNet>();
         ConfigButton.ObjectsToUpdate.Add(this);
         rb = gameObject.GetComponent<Rigidbody>();
+        SoundController.FSSoundController.StartLoopingSound(SoundController.Sounds.PLAYER_ENGINE, 0.4f);
     }
 
     /// <summary>
@@ -154,6 +155,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     }
 
     public void Boost(float boostStrenght, float boostTime, bool isUltimate) {
+        SoundController.FSSoundController.StartSound(SoundController.Sounds.BOOST);
         aktMovementSpeed = maxMovementSpeed;
         boostFactor = 1f + boostStrenght > boostFactor ? 1f + boostStrenght : boostFactor;
         PlayerNet.PlayerIsUsingBoost = true;

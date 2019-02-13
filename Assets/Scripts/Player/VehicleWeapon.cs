@@ -114,7 +114,7 @@ public class VehicleWeapon : MonoBehaviour, IConfigurable {
          OverheatManager.FS.ShootFired();
          OverheatManager.FS.OverheatPercentage += overheatPerShot;
 
-        SoundController.FSSoundController.StartSound(SoundController.Sounds.MG_SHOT);
+            SoundController.FSSoundController.StartSound(SoundController.Sounds.MG_SHOT);
         for (int i = 0; i < vfxSystems.Length; i++) {
             vfxSystems[i].Stop();
             vfxSystems[i].Play();

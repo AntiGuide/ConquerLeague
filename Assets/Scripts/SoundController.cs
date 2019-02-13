@@ -32,6 +32,8 @@ public class SoundController : MonoBehaviour
         WARTRUCK_DESTRUCTION,
         TURRET_DESTRUCTION,
         GOAL,
+        BOOST,
+        PLAYER_ENGINE
     }
 
     public static void StopLoopingSound(ref AudioSource inpAudioSource) {
@@ -54,7 +56,7 @@ public class SoundController : MonoBehaviour
         retAudioSource.clip = this.Clips[(int)sound];
         retAudioSource.volume = volume;
         retAudioSource.Play();
-        this.StartCoroutine(StopLoopingSoundDelayed(retAudioSource, 1f));
+        //this.StartCoroutine(StopLoopingSoundDelayed(retAudioSource, 1f));
         return retAudioSource;
     }
 
