@@ -30,9 +30,10 @@ public class ButtonChanger : MonoBehaviour
 
     // Use this for initialization
     void Start() {
-        if(FSButtonChanger == null) {
+        if(FSButtonChanger != null) {
             Application.Quit();
         }
+
         FSButtonChanger = this;
 #if UNITY_STANDALONE
         var go = new GameObject[3];

@@ -101,6 +101,8 @@ public class UltimateController : MonoBehaviour {
             var y = startLocation.y + (Random.value * shakeFactor);
 
             rectTrans.anchoredPosition = new Vector2(x, y);
+
+            image.color = new Color(Mathf.PingPong(Time.time, 1f), Mathf.PingPong(Time.time, 1f), 0f);
         }
     }
 }

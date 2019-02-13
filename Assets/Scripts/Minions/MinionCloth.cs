@@ -14,21 +14,11 @@ public class MinionCloth : MonoBehaviour {
 
     private bool isEnemy;
 
-	// Use this for initialization
-	void Start () {
-
-    }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
     public void InitializeColor() {
-        if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-            GetComponent<MeshRenderer>().material = matBlue;
-        } else if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
-            GetComponent<MeshRenderer>().material = matRed;
+        if (teamHandler.TeamID == TeamHandler.TeamState.NEUTRAL) {
+            return;
         }
+
+        GetComponent<MeshRenderer>().material = teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY ? matBlue : matRed;
     }
 }
