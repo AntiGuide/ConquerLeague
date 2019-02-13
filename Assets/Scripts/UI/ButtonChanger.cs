@@ -21,7 +21,14 @@ public class ButtonChanger : MonoBehaviour
 
     // Use this for initialization
     void Start() {
+#if UNITY_STANDALONE
+        var go = GameObject.Find("/Canvas/ActionButton");
+        if (go == null) {
+            Debug.Log("ActionButton not found");
+        }
 
+        actionButtonImage = go.GetComponent<Image>();
+#endif
     }
 
     public void ChangeButton(ButtonState buttonState) {
