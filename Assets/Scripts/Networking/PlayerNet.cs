@@ -73,13 +73,14 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
     /// Triggered when this player dies
     /// </summary>
     public void OnDeath() {
-        if (!isEnemy) {
-            CommunicationNet.FakeStatic.SendPlayerDeath();
-            KillfeedManager.FS.AddDeathEvent(TeamHandler.TeamState.ENEMY, KillfeedManager.DeathCategory.MG, TeamHandler.TeamState.FRIENDLY);
-        } else {
-            KillfeedManager.FS.AddDeathEvent(TeamHandler.TeamState.FRIENDLY, KillfeedManager.DeathCategory.MG, TeamHandler.TeamState.ENEMY);
+        if (hitPoints.LastDamager == HitPoints.Damager.PLAYER_MG || hitPoints.LastDamager == HitPoints.Damager.PLAYER_RAM) {
+            if (!isEnemy) {
+                CommunicationNet.FakeStatic.SendPlayerDeath();
+                KillfeedManager.FS.AddDeathEvent(TeamHandler.TeamState.ENEMY, KillfeedManager.DeathCategory.MG, TeamHandler.TeamState.FRIENDLY);
+            } else {
+                KillfeedManager.FS.AddDeathEvent(TeamHandler.TeamState.FRIENDLY, KillfeedManager.DeathCategory.MG, TeamHandler.TeamState.ENEMY);
+            }
         }
-
         StartCoroutine(InitRespawn());
     }
 
@@ -120,7 +121,6 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
         transform.rotation = StartPoint.rotation;
         rigidbodyPlayer.velocity = Vector3.zero;
         if (!resetOnly) {
-            CameraController.camAttached = false;
             //hitPoints.Visible = false;
             hitPoints.HealthBar.Active = false;
             transform.GetChild(0).gameObject.GetComponent<ParticleSystemRenderer>().enabled = false;
@@ -129,9 +129,7 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
             gameObject.layer = 13;
             if (!isEnemy) {
                 GetComponent<VehicleController>().enabled = false;
-            }
-        
-            if (!isEnemy) {
+                CameraController.camAttached = false;
                 StartCoroutine(InitCountdown());
             }
 
@@ -144,9 +142,8 @@ public class PlayerNet : MonoBehaviour, IConfigurable {
             transform.GetChild(1).gameObject.SetActive(true);
             if (!isEnemy) {
                 GetComponent<VehicleController>().enabled = true;
+                CameraController.camAttached = true;
             }
-
-            CameraController.camAttached = true;
         }
     }
 

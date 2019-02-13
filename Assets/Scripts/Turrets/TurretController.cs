@@ -148,7 +148,17 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
         if (aktShootingTime <= 0f) {
             Debug.DrawLine(shootingPoint.position, target.position, Color.red, 0.05f);
             if (teamHandler.TeamID == TeamHandler.TeamState.FRIENDLY) {
-                CommunicationNet.FakeStatic.SendPlayerDamage(damagePerShot);
+                if (target.gameObject.GetComponent<MinionNet>() != null) {
+                    //Minion
+                    var id = target.gameObject.GetComponent<MinionNet>().Id ?? 0;
+                    var damage = (byte)Mathf.Max(target.gameObject.GetComponent<HitPoints>().AktHp - damagePerShot, 0);
+                    CommunicationNet.FakeStatic.SendMinionHP(id, damage);
+
+                } else if (target.gameObject.GetComponent<PlayerNet>() != null) {
+                    //Player
+                    CommunicationNet.FakeStatic.SendPlayerDamage(damagePerShot);
+                }
+                
                 target.gameObject.GetComponent<HitPoints>().AktHp -= damagePerShot;
             }
             SoundController.FSSoundController.StartSound(SoundController.Sounds.TOWER_MG);
