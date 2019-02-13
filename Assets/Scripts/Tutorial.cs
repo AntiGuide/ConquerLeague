@@ -28,7 +28,6 @@ public class Tutorial : MonoBehaviour {
     public void OnClickNext() {
         if(currSprite >= tutorialSprites.Length-1) {
             currSprite = 0;
-            tutorialButton.SetActive(true);
             gameObject.SetActive(false);
         } else {
             ++currSprite;

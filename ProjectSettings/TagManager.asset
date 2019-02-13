@@ -13,6 +13,7 @@ TagManager:
   - Garage
   - MenuBack
   - CarSelection
+  - TutorialSign
   layers:
   - Default
   - TransparentFX
