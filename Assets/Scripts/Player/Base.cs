@@ -54,6 +54,9 @@ public class Base : MonoBehaviour, IConfigurable
 
     private float saveHeal;
 
+    [SerializeField]
+    private Base otherBase;
+
     /// <summary>References the Bases attached Teamhandler</summary>
     public TeamHandler TeamHandler { get; set; }
 
@@ -115,6 +118,7 @@ public class Base : MonoBehaviour, IConfigurable
             for (int i = 0; i < strapMaterial.Length; i++) {
                 strapMaterial[i].color = Color.blue;
             }
+            Debug.Log("Enter --> " + gameObject.name);
         }
     }
 
@@ -132,6 +136,11 @@ public class Base : MonoBehaviour, IConfigurable
 
         if (TeamHandler.TeamID != TeamHandler.TeamState.FRIENDLY) {
             return;
+        }
+
+        ButtonChanger.FSButtonChanger.ChangeButton(ButtonChanger.ActionButtonState.BUY_WARTRUCKS);
+        for (int i = 0; i < strapMaterial.Length; i++) {
+            strapMaterial[i].color = Color.blue;
         }
 
         if (MoneyManagement.HasMoney(minionCost)) {
@@ -171,7 +180,14 @@ public class Base : MonoBehaviour, IConfigurable
                 strapMaterial[i].color = startStrapColor;
             }
 
+            otherBase.ExitVehicle();
             ButtonChanger.FSButtonChanger.SetTransparent(true, ButtonChanger.Buttons.ACTION_BUTTON);
+        }
+    }
+
+    public void ExitVehicle() {
+        for (int i = 0; i < strapMaterial.Length; i++) {
+            strapMaterial[i].color = startStrapColor;
         }
     }
 
