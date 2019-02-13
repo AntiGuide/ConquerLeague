@@ -57,6 +57,16 @@ public class UltimateController : MonoBehaviour {
         }
 
         FS = this;
+
+#if UNITY_STANDALONE
+        var go = GameObject.Find("/Canvas/UltiShootButton/Ultimeter");
+        if (go == null) {
+            Debug.Log("Ultimeter not found");
+        }
+
+        image = go.GetComponent<Image>();
+#endif
+
         UpdateChargeUI(charge, maxCharge);
     }
 
