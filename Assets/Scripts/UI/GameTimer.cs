@@ -23,6 +23,8 @@ public class GameTimer : MonoBehaviour, IConfigurable {
 
     public static bool TimerPaused { get; set; }
 
+    private bool changedSize = false;
+
     /// <summary>Playtime in minutes</summary>
     private int minutes;
 
@@ -48,10 +50,13 @@ public class GameTimer : MonoBehaviour, IConfigurable {
         minutes = (int)(Mathf.RoundToInt(playTime - timeElapsed) / 60f);
         seconds = Mathf.RoundToInt((playTime - timeElapsed) - minutes * 60);
 
-        if(playTime - timeElapsed <= 10) {
+        if (playTime - timeElapsed <= 10 && !changedSize) {
             gameTimeText.color = Color.yellow;
             gameTimeText.fontSize += 10;
-            gameTimeText.text = string.Format("<mspace=29>{0:00}</mspace>", seconds);
+            gameTimeText.text = string.Format("<mspace=29>" + seconds + "</mspace>", seconds);
+            changedSize = true;
+        }else if(playTime - timeElapsed <= 10) {
+            gameTimeText.text = string.Format("<mspace=29>" + seconds + "</mspace>", seconds);
         } else {
             gameTimeText.text = string.Format("<mspace=29>{0:00}</mspace><mspace=15>:</mspace><mspace=29>{1:00}</mspace>", minutes, seconds);
         }
