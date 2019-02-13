@@ -26,7 +26,14 @@ public class UltimateController : MonoBehaviour {
     [SerializeField]
     private Image image;
 
+    [SerializeField]
+    private float shakeFactor = 10f;
+
     private byte charge;
+
+    private RectTransform rectTrans;
+
+    private Vector2 startLocation;
 
     public float UltimateDuration {
         get {
@@ -79,11 +86,21 @@ public class UltimateController : MonoBehaviour {
 #endif
 
         UpdateChargeUI(charge, maxCharge);
+
+        rectTrans = image.transform.parent.GetComponent<RectTransform>();
+        startLocation = rectTrans.anchoredPosition;
     }
 
     private void Update() {
         if (CrossPlatformInputManager.GetButtonDown("UltiShoot")) {
             UseUltimate();
+        }
+
+        if (charge == maxCharge) {
+            var x = startLocation.x + (Random.value * shakeFactor);
+            var y = startLocation.y + (Random.value * shakeFactor);
+
+            rectTrans.anchoredPosition = new Vector2(x, y);
         }
     }
 }
