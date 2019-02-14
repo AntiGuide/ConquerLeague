@@ -1423,7 +1423,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1994244063390184}
-  m_LocalRotation: {x: -2.1198267e-23, y: -0.000000025063137, z: -1.0188608e-16, w: 1}
+  m_LocalRotation: {x: -2.9950452e-23, y: -0.000000035411023, z: -1.4395206e-16, w: 1}
   m_LocalPosition: {x: 0.8106343, y: -1.1458437, z: 2.7829056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2491,7 +2491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRange: 8
-  coneDegrees: 180
+  coneDegrees: 240
   shootablesTags:
   - Player
   - Minion
@@ -2549,7 +2549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747cc33ba69e884439fc97df2d285656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnTime: 5
+  respawnTime: 3
   particleSystemsExhaust:
   - {fileID: 198826919266425238}
   - {fileID: 198122808644786832}
@@ -2683,7 +2683,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 7.09
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136621285828070770
 CapsuleCollider:

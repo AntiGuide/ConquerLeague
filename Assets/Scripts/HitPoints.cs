@@ -205,11 +205,9 @@ public class HitPoints : MonoBehaviour, IConfigurable
                 dead = false;
                 if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
                     moneyManagement.AddMoney(moneyValue[1]);
+                    KillfeedManager.FS.AddCustomLine("<color=#3C5EFFFF>You destroyed a tower</color>");
                 }
                 aktHp += 1;
-
-                KillfeedManager.FS.AddCustomLine("<color=#3C5EFFFF>You destroyed a tower</color>");
-
                 break;
             case "Player":
                 if (teamHandler.TeamID == TeamHandler.TeamState.ENEMY) {
