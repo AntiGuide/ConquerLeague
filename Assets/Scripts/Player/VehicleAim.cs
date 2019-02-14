@@ -100,7 +100,9 @@ public class VehicleAim : MonoBehaviour, IConfigurable {
         gameObject.GetComponent<SphereCollider>().radius = targetRange;
         coneCosLimit = Mathf.Cos(coneDegrees / 2);
 
-        allShootables.Clear();
+        if (allShootables.Count > 0) {
+            return;
+        }
 
         // New Aiming
         var list = new List<GameObject>();
