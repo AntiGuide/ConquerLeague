@@ -69,7 +69,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
     void Start() {
         ConfigButton.ObjectsToUpdate.Add(this);
         rb = gameObject.GetComponent<Rigidbody>();
-        SoundController.FSSoundController.StartLoopingSound(SoundController.Sounds.PLAYER_ENGINE, 0.4f);
+        SoundController.FSSoundController.StartLoopingSound(SoundController.Sounds.PLAYER_ENGINE, 0.1f);
     }
 
     /// <summary>
