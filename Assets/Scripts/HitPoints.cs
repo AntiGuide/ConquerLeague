@@ -143,7 +143,11 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     /// Use this for initialization
     /// </summary>
     void Start() {
-        if(gameObject.tag == "Player") {
+        moneyValue[0] = 40;
+        moneyValue[1] = 10;
+        moneyValue[2] = 10;
+
+        if (gameObject.tag == "Player") {
             hitFeedBackImage = GameObject.Find("hitFeedBackImage").GetComponent<Image>();
         }
 
@@ -224,9 +228,9 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     }
 
     public void UpdateConfig() {
-        moneyValue[0] = ConfigButton.VehicleDestroyValue;
-        moneyValue[1] = ConfigButton.TowerReward;
-        moneyValue[2] = ConfigButton.MinionsDestroyValue;
+        //moneyValue[0] = ConfigButton.VehicleDestroyValue;
+        //moneyValue[1] = ConfigButton.TowerReward;
+        //moneyValue[2] = ConfigButton.MinionsDestroyValue;
     }
 
     private IEnumerator HitFeedback() {

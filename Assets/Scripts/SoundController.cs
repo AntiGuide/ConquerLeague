@@ -72,7 +72,6 @@ public class SoundController : MonoBehaviour
 
         FSSoundController = this;
         this.AudioSourceBGM.volume = this.startVolumeBGM;
-        this.AudioSourceBGM.loop = false;
         aktTrackNumber = -1;
     }
 
