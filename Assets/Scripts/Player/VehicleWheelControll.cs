@@ -28,7 +28,7 @@ public class VehicleWheelControll : MonoBehaviour {
         wts.x = isEnemy ? wheelTurnSpeedEnemy : wheelTurnSpeedFriend;
         wt.y = isEnemy ? wheelTurnEnemy : wheelTurnFriend;
         q.eulerAngles = wt;
-        transform.localRotation = isBackWheel ? transform.localRotation : Quaternion.RotateTowards(transform.localRotation, q, 45);
+        //transform.localRotation = isBackWheel ? transform.localRotation : Quaternion.RotateTowards(transform.localRotation, q, 45);
         transform.Rotate(wts);
     }
 

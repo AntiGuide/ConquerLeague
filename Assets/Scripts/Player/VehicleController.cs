@@ -94,6 +94,7 @@ public class VehicleController : MonoBehaviour, IConfigurable {
         }
 
         var rotation = new Vector2(horizontalAxis, verticalAxis);
+        rotation = Vector2.ClampMagnitude(rotation, 1f);
         //if (rotation != Vector2.zero && tractionModifier < float.Epsilon && rb.velocity.sqrMagnitude < 0.1f) {
         //    StartCoroutine(playerNet.InitRespawn(true));
         //}
