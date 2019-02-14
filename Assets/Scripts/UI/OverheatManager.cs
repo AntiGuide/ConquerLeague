@@ -16,7 +16,7 @@ public class OverheatManager : MonoBehaviour, IConfigurable {
     [SerializeField]
     private float cooldownPerSecond;
 
-    private float cooldownAfter = 1f;
+    private float cooldownAfter = 0.35f;
 
     private float overheatPercentage;
 

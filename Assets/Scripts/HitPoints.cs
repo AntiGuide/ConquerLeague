@@ -6,7 +6,8 @@ using UnityEngine.UI;
 /// <summary>
 /// This units HitPoints, gets destroyed when its reduced to zero
 /// </summary>
-public class HitPoints : MonoBehaviour, IConfigurable {
+public class HitPoints : MonoBehaviour, IConfigurable
+{
     //[HideInInspector]
     //public byte maxHp;
 
@@ -55,24 +56,28 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     //[SerializeField, Tooltip("From top to bottom: Player, tower, minion")]
     //private short[] moneyValue = new short[3];
 
-    public bool Visible {
+    public bool Visible
+    {
         set {
             healthBar.gameObject.SetActive(value);
         }
     }
 
-    public enum Damager {
+    public enum Damager
+    {
         PLAYER_MG,
         PLAYER_RAM,
         TOWER,
     }
 
-    public Damager LastDamager {
+    public Damager LastDamager
+    {
         get;
         set;
     }
 
-    public byte AktHp {
+    public byte AktHp
+    {
         get {
             return aktHp;
         }
@@ -102,7 +107,8 @@ public class HitPoints : MonoBehaviour, IConfigurable {
 
     public HealthBar HealthBar { get { return healthBar; } set { healthBar = value; } }
 
-    public byte SaveHp {
+    public byte SaveHp
+    {
         get {
             return saveHp;
         }
@@ -119,16 +125,14 @@ public class HitPoints : MonoBehaviour, IConfigurable {
     }
 
     private void Update() {
-        if (gameObject.CompareTag("Player")) {
-            float hpPro = (float)aktHp/(float)saveHp;
+        float hpPro = (float)aktHp/(float)saveHp;
 
-            if(hpPro <= 0.33f) {
-                healthBar.fullHp.color = Color.red;
-            } else if (hpPro <= 0.66f) {
-                healthBar.fullHp.color = Color.yellow;
-            } else {
-                healthBar.fullHp.color = Color.green;
-            }
+        if (hpPro <= 0.33f) {
+            healthBar.fullHp.color = Color.red;
+        } else if (hpPro <= 0.66f) {
+            healthBar.fullHp.color = Color.yellow;
+        } else {
+            healthBar.fullHp.color = Color.green;
         }
     }
 
