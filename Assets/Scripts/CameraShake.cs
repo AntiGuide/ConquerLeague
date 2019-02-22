@@ -1,33 +1,57 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A simple implementation for a camera shake
+/// </summary>
 public class CameraShake : MonoBehaviour {
+    /// <summary>The static reference to the single instance of this class</summary>
+    public static CameraShake Instance;
 
-    public static CameraShake FSCameraShake;
+    /// <summary>Determines if the camera is shaking</summary>
+    private bool shaking = false;
 
-    private void Start() {
-        FSCameraShake = this;
+    /// <summary>The magnitude of the camera shake</summary>
+    private float magnitude;
+
+    /// <summary>The original position of the camera</summary>
+    private Vector3 originalPos;
+
+    /// <summary>
+    /// Makes the camera shake
+    /// </summary>
+    /// <param name="duration">The duration of the shake</param>
+    /// <param name="magnitude">The magnitude of the camera shake</param>
+    public IEnumerator Shake(float duration = 0.5f, float magnitude = 0.5f) {
+        originalPos = Instance.transform.localPosition;
+        this.magnitude = magnitude;
+        shaking = true;
+        yield return new WaitForSeconds(duration);
+        shaking = false;
+        Instance.transform.localPosition = originalPos;
     }
 
-    public static IEnumerator Shake (float duration, float magnitude)
-    {
-        Vector3 originalPos = FSCameraShake.transform.localPosition;
-
-        float elapsed = 0.0f;
-
-        while(elapsed < duration)
-        {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1, 1f) * magnitude;
-
-            FSCameraShake.transform.localPosition = new Vector3(x, y, originalPos.z);
-
-            elapsed += Time.deltaTime;
-
-            yield return null;
+    /// <summary>
+    /// Start is called on object initialization by Unity
+    /// </summary>
+    private void Start() {
+        if (Instance != null) {
+            Application.Quit();
         }
-        
-        FSCameraShake.transform.localPosition = originalPos;
+
+        Instance = this;
+    }
+
+    /// <summary>
+    /// Update is called once per frame by Unity
+    /// </summary>
+    private void Update() {
+        if (!shaking) {
+            return;
+        }
+
+        var x = Random.Range(-1f, 1f) * magnitude;
+        var y = Random.Range(-1, 1f) * magnitude;
+        Instance.transform.localPosition = originalPos + new Vector3(x, y);
     }
 }

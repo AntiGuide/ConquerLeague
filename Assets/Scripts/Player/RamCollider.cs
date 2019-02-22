@@ -13,7 +13,7 @@ public class RamCollider : MonoBehaviour {
         if (hitPoints == null || otherTeam == null || otherTeam.TeamID == teamHandler.TeamID || otherTeam.TeamID == NEUTRAL) {
             return;
         }
-        
+
         hitPoints.LastDamager = HitPoints.Damager.PLAYER_RAM;
         if (other.gameObject.GetComponent<MinionNet>() != null) {
             //Minion

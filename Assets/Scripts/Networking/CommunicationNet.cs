@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Lidgren.Network;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// ONLY INITIALIZE ONE TIME!

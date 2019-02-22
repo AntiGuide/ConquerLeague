@@ -89,7 +89,7 @@ public class MinionMovement : MonoBehaviour, IConfigurable {
             GetComponent<MinionNet>().DeInitNet();
             gameObject.SetActive(false);
             SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
-            CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
+            CameraShake.Instance.StartCoroutine(CameraShake.Instance.Shake());
             var explosion = Instantiate(minionDestruction, transform.position, transform.rotation);
             explosion.transform.localScale = new Vector3(3, 3, 3);
             Destroy(gameObject);

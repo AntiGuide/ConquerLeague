@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class KillfeedManager : MonoBehaviour {
@@ -74,7 +73,7 @@ public class KillfeedManager : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         if (FS != null) {
             Application.Quit();
         }
@@ -82,9 +81,9 @@ public class KillfeedManager : MonoBehaviour {
         FS = this;
         tmp = GetComponent<TextMeshProUGUI>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         sb.Clear();
         var lines = feed.Count < maxLines ? feed.Count : maxLines;
         for (int i = 0; i < lines; i++) {

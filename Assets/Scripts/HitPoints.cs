@@ -198,7 +198,7 @@ public class HitPoints : MonoBehaviour, IConfigurable
                 Destroy(gameObject);
                 break;
             case "Turret":
-                CameraShake.FSCameraShake.StartCoroutine(CameraShake.Shake(0.5f, 0.5f));
+                CameraShake.Instance.StartCoroutine(CameraShake.Instance.Shake());
                 SoundController.FSSoundController.StartSound(SoundController.Sounds.TURRET_DESTRUCTION);
                 FloatUpSpawner.GenerateFloatUp(moneyValue[1], FloatUp.ResourceType.GAS, Camera.main.WorldToScreenPoint(transform.position), 30);
                 gameObject.GetComponentInChildren<TurretController>().Respawning = true;
