@@ -85,7 +85,7 @@ public class TurretController : MonoBehaviour, IConfigurable, ISideAware{
         ConfigButton.ObjectsToUpdate.Add(this);
         aktShootingTime = ShootingTime;
         turretRenderers = turret.GetComponentsInChildren<MeshRenderer>();
-        CommunicationNet.FakeStatic.sideAwares.Add(this);
+        CommunicationNet.FakeStatic.SideAwares.Add(this);
     }
 
     /// <summary>Update is called once per frame</summary>

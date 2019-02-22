@@ -12,77 +12,64 @@ public class CommunicationNet : MonoBehaviour {
     /// <summary>Gets set on start and allows static access to the one instance of CommunicationNet</summary>
     public static CommunicationNet FakeStatic;
 
-    /// <summary> Reference to the networking component of the enemy </summary>
+    /// <summary>Reference to all flares for updating their color</summary>
+    [HideInInspector] public List<Flare> Flares = new List<Flare>();
+
+    /// <summary>The config to connect to the server</summary>
+    [HideInInspector] public NetClient Client;
+
+    /// <summary>Reference to all SideAwares for updating their color</summary>
+    [HideInInspector] public List<ISideAware> SideAwares = new List<ISideAware>();
+
+    /// <summary>Reference to the networking component of the enemy</summary>
     [SerializeField] private PlayerNet enemyPlayerNet;
 
-    /// <summary> Reference to the networking component of the local player </summary>
+    /// <summary>Reference to the networking component of the local player</summary>
     [SerializeField] private PlayerNet friendlyPlayerNet;
 
-    /// <summary> Reference to the left base </summary>
+    /// <summary>Reference to the left base</summary>
     [SerializeField] private Base leftBase;
 
-    /// <summary> Reference to the right base </summary>
+    /// <summary>Reference to the right base</summary>
     [SerializeField] private Base rightBase;
 
-    /// <summary> The spawn point of the player on the left side </summary>
+    /// <summary>The spawn point of the player on the left side</summary>
     [SerializeField] private Transform startPointLeft;
 
-    /// <summary> The spawn point of the player on the right side </summary>
+    /// <summary>The spawn point of the player on the right side</summary>
     [SerializeField] private Transform startPointRight;
 
-    /// <summary> The port the server listens on</summary>
+    /// <summary>The port the server listens on</summary>
     [SerializeField] private int portNumber;
 
-    /// <summary> Reference to the GoalManager displaying the score</summary>
+    /// <summary>Reference to the GoalManager displaying the score</summary>
     [SerializeField] private GoalManager goalManager;
 
+    /// <summary>Prefab for minion explosion VFX</summary>
     [SerializeField] private GameObject minionExplosion;
 
-    [HideInInspector]
-    public List<Flare> flares = new List<Flare>();
-
-    /// <summary> The config to connect to the server </summary>
-    public NetClient client;
-
-    public List<ISideAware> sideAwares = new List<ISideAware>();
-
-    /// <summary> The open connection to the server </summary>
+    /// <summary>The open connection to the server</summary>
     private NetConnection connection;
 
-    /// <summary> The queue that is sent out as fast as possible. Also contains the delivery method for each item in the queue </summary>
+    /// <summary>The queue that is sent out as fast as possible. Also contains the delivery method for each item in the queue</summary>
     private List<SendData> sendQueue = new List<SendData>();
 
-    /// <summary> Marks if this player is on the left or the right side</summary>
+    /// <summary>Marks if this player is on the left or the right side</summary>
     private bool isLeft;
 
-    /// <summary> A running number for minion identification. Reset after byte.Max. If minion ID not deinitialized when reused bad things happen.</summary>
+    /// <summary>A running number for minion identification. Reset after byte.Max. If minion ID not deinitialized when reused bad things happen.</summary>
     private byte aktMinionID = 0;
 
-    /// <summary> Reference to all minions</summary>
+    /// <summary>Reference to all minions</summary>
     private GameObject[] minions = new GameObject[byte.MaxValue];
 
-    /// <summary> Temporary variable for incoming messages as member to take stress of GC</summary>
+    /// <summary>Temporary variable for incoming messages as member to take stress of GC</summary>
     private NetIncomingMessage message;
 
-    /// <summary> Temporary variable for outgoing messages as member to take stress of GC</summary>
+    /// <summary>Temporary variable for outgoing messages as member to take stress of GC</summary>
     private NetOutgoingMessage outMessage;
 
-    public GameObject[] Minions {
-        get {
-            return minions;
-        }
-
-        set {
-            minions = value;
-        }
-    }
-
-    private struct SendData{
-        public byte[] Data;
-        public NetDeliveryMethod DeliveryMethod;
-    }
-
-    /// <summary> The different message types that can arrive </summary>
+    /// <summary>The different message types that can arrive</summary>
     private enum GameMessageType : byte {
         PLAYER_MOVEMENT = 0,
         SESSION_INITIALITZE = 1, // Don't change (has to be the same between client and server)
@@ -96,6 +83,17 @@ public class CommunicationNet : MonoBehaviour {
         TOWER_CONQUERED = 9,
         MINION_HP = 10,
         PLAYER_ULTIMATE = 11
+    }
+
+    /// <summary>Gets/Sets the minions array</summary>
+    public GameObject[] Minions {
+        get {
+            return minions;
+        }
+
+        set {
+            minions = value;
+        }
     }
 
     /// <summary>
@@ -159,9 +157,14 @@ public class CommunicationNet : MonoBehaviour {
         if (minions[input[1]] == null || minions[input[1]]?.GetComponent<MinionNet>() == null) {
             return;
         }
+
         minions[input[1]].GetComponent<MinionNet>().SetNewMovementPack(position, quaternion, velocity);
     }
 
+    /// <summary>
+    /// Triggered if new HP data for a minion arrives
+    /// </summary>
+    /// <param name="input">The incoming data</param>
     public void RecieveMinionHP(byte[] input) {
         // 0 = GameMessageType
         // 1 = id
@@ -169,6 +172,7 @@ public class CommunicationNet : MonoBehaviour {
         if (minions[input[1]] == null || minions[input[1]]?.GetComponent<MinionNet>() == null) {
             return;
         }
+
         minions[input[1]]?.GetComponent<MinionNet>()?.SetNewHP(input[2]);
     }
 
@@ -190,12 +194,12 @@ public class CommunicationNet : MonoBehaviour {
         leftBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.FRIENDLY : TeamHandler.TeamState.ENEMY;
         rightBase.TeamHandler.TeamID = isLeft ? TeamHandler.TeamState.ENEMY : TeamHandler.TeamState.FRIENDLY;
 
-        foreach (var item in sideAwares) {
+        foreach (var item in SideAwares) {
             item.InitialUpdateColor();
         }
 
-        for (int i = 0; i < flares.Count; i++) {
-            flares[i].InitialUpdateColor();
+        for (int i = 0; i < Flares.Count; i++) {
+            Flares[i].InitialUpdateColor();
         }
 
         if (enemyPlayerNet != null && friendlyPlayerNet != null) {
@@ -238,16 +242,26 @@ public class CommunicationNet : MonoBehaviour {
         GameManager.towers[input[1]].DamageTaken(input[2]);
     }
 
+    /// <summary>
+    /// Triggered when a tower got conquered
+    /// </summary>
+    /// <param name="input">The incoming data</param>
     public void RecieveTowerConquered(byte[] input) {
         // 0 = GameMessageType
         // 1 = TowerID
         GameManager.towers[input[1]].TurretConquered();
     }
 
+    /// <summary>
+    /// Triggered when a player triggered his ultimate
+    /// </summary>
     public void RecievePlayerUltimate() {
         enemyPlayerNet?.OnNetUltimate(); // 0 = GameMessageType
     }
 
+    /// <summary>
+    /// Sent when the player triggered his ultimate
+    /// </summary>
     public void SendPlayerUltimate() {
         Send(new byte[] { (byte)GameMessageType.PLAYER_ULTIMATE }, NetDeliveryMethod.ReliableUnordered);
     }
@@ -282,6 +296,10 @@ public class CommunicationNet : MonoBehaviour {
         Send(MergeArrays(send), NetDeliveryMethod.ReliableUnordered);
     }
 
+    /// <summary>
+    /// Sends an event if a tower got conquered
+    /// </summary>
+    /// <param name="id"></param>
     public void SendTowerConquered(byte id) {
         var send = new byte[2][];
         send[0] = new byte[] { (byte)GameMessageType.TOWER_CONQUERED }; // 0 = GameMessageType
@@ -323,6 +341,11 @@ public class CommunicationNet : MonoBehaviour {
         Send(MergeArrays(send));
     }
 
+    /// <summary>
+    /// Sends new minion HP
+    /// </summary>
+    /// <param name="id">ID of the minion</param>
+    /// <param name="hp">HP of the minion</param>
     public void SendMinionHP(byte id, byte hp) {
         Send(new byte[] { (byte)GameMessageType.MINION_HP, id, hp });
     }
@@ -463,6 +486,9 @@ public class CommunicationNet : MonoBehaviour {
         return output;
     }
 
+    /// <summary>
+    /// Awake is called on object initialization befor Start by Unity
+    /// </summary>
     private void Awake() {
         if (FakeStatic != null) {
             Application.Quit();
@@ -478,9 +504,9 @@ public class CommunicationNet : MonoBehaviour {
         var config = new NetPeerConfiguration("ConquerLeague");
         config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse); // Enable DiscoveryResponse messages
         config.Port = 47410;
-        client = new NetClient(config);
-        client.Start();
-        client.DiscoverLocalPeers(portNumber); // Emit a discovery signal
+        Client = new NetClient(config);
+        Client.Start();
+        Client.DiscoverLocalPeers(portNumber); // Emit a discovery signal
     }
 
     /// <summary>
@@ -488,7 +514,7 @@ public class CommunicationNet : MonoBehaviour {
     /// </summary>
     void Update() {
         SendFromQueue();
-        ReadMessages(client);
+        ReadMessages(Client);
     }
 
     /// <summary>
@@ -506,11 +532,10 @@ public class CommunicationNet : MonoBehaviour {
     /// <returns>IEnumerator for coroutine</returns>
     void SendFromQueue() {
         while (connection != null && sendQueue.Count > 0) {
-            outMessage = client.CreateMessage();
+            outMessage = Client.CreateMessage();
             outMessage.Write(sendQueue[0].Data.Length);
             outMessage.Write(sendQueue[0].Data);
-            //var ret = 
-            client.SendMessage(outMessage, connection, sendQueue[0].DeliveryMethod);
+            Client.SendMessage(outMessage, connection, sendQueue[0].DeliveryMethod);
             sendQueue.RemoveAt(0);
         }
     }
@@ -545,11 +570,7 @@ public class CommunicationNet : MonoBehaviour {
             switch (message.MessageType) {
                 case NetIncomingMessageType.DiscoveryResponse:
                     Debug.Log("Found server at " + message.SenderEndPoint + " name: " + message.ReadString());
-                    
-                    // DO NOT REMOVE (NEEDED TO CORRECTLY GENERATE ANDROID_MANIFEST)
-                    Debug.Log("Reachability: " + Application.internetReachability.ToString() + Network.connectionTesterIP);
-                    // DO NOT REMOVE (NEEDED TO CORRECTLY GENERATE ANDROID_MANIFEST)
-
+                    Debug.Log("Reachability: " + Application.internetReachability.ToString() + Network.connectionTesterIP); // DO NOT REMOVE (NEEDED TO CORRECTLY GENERATE ANDROID_MANIFEST)
                     connection = connection ?? client.Connect(message.SenderEndPoint);
                     break;
                 case NetIncomingMessageType.Data:
@@ -571,8 +592,7 @@ public class CommunicationNet : MonoBehaviour {
                 default:
                     break;
             }
-
-            //debugText.text += "Message came in " + message?.SenderEndPoint?.ToString();
+            
             client.Recycle(message);
         }
     }
@@ -596,8 +616,8 @@ public class CommunicationNet : MonoBehaviour {
                 } else {
                     minions[data[1]] = leftBase.RecieveMinionInitialize(data);
                 }
-                VehicleAim.AllShootables.Add(minions[data[1]]);
 
+                VehicleAim.AllShootables.Add(minions[data[1]]);
                 break;
             case (byte)GameMessageType.MINION_DEINITIALIZE:
                 Destroy(minions[data[1]]);
@@ -635,11 +655,21 @@ public class CommunicationNet : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Triggered if application get terminated
+    /// </summary>
     private void OnApplicationQuit() {
-        client?.Disconnect("OnApplicationQuit");
+        Client?.Disconnect("OnApplicationQuit");
     }
 
-    private void OnApplicationPause(bool pause) {
-        //client?.Disconnect("OnApplicationPause");
+    /// <summary>
+    /// Struct to easily queue data to sent out over network
+    /// </summary>
+    private struct SendData {
+        /// <summary>The data sent out</summary>
+        public byte[] Data;
+
+        /// <summary>The DeliveryMethod trough the UDP framework</summary>
+        public NetDeliveryMethod DeliveryMethod;
     }
 }

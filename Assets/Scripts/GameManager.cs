@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour {
 
     public void BackToMenue() {
         SceneManager.LoadScene("MainMenue");
-        CommunicationNet.FakeStatic.client.Disconnect("BackToMenue");
+        CommunicationNet.FakeStatic.Client.Disconnect("BackToMenue");
     }
 
     public static IEnumerator SlowMotion(float value, float slowTime) {

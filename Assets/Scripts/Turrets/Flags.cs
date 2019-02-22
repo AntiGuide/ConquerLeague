@@ -21,7 +21,7 @@ public class Flags : MonoBehaviour, ISideAware {
 
     // Use this for initialization
     void Start() {
-        CommunicationNet.FakeStatic.sideAwares.Add(this);
+        CommunicationNet.FakeStatic.SideAwares.Add(this);
         meshRenderer = GetComponent<MeshRenderer>();
     }
 

@@ -35,7 +35,7 @@ public class Flare : MonoBehaviour, ISideAware {
 
 	// Use this for initialization
 	void Start () {
-        CommunicationNet.FakeStatic.sideAwares.Add(this);
+        CommunicationNet.FakeStatic.SideAwares.Add(this);
         smokeParticle = transform.GetChild(0).GetComponent<ParticleSystem>();
     }
 

@@ -117,12 +117,12 @@ public class MenuManager : MonoBehaviour
     }
 
     public void OnClickMainMenue() {
-        CommunicationNet.FakeStatic?.client?.Disconnect("OnClickMainMenue");
+        CommunicationNet.FakeStatic?.Client?.Disconnect("OnClickMainMenue");
         SceneManager.LoadScene(0);
     }
 
     public void OnClickStartGame() {
-        CommunicationNet.FakeStatic?.client?.Disconnect("OnClickStartGame");
+        CommunicationNet.FakeStatic?.Client?.Disconnect("OnClickStartGame");
         SceneManager.LoadScene(1);
     }
 

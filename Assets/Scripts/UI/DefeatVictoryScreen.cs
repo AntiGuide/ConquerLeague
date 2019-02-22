@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class DefeatVictoryScreen : MonoBehaviour {
     public void OnClickMainMenue() {
-        CommunicationNet.FakeStatic?.client?.Shutdown("OnClickMainMenue");
+        CommunicationNet.FakeStatic?.Client?.Shutdown("OnClickMainMenue");
         SceneManager.LoadScene(0);
     }
 
     public void OnClickRematch() {
-        CommunicationNet.FakeStatic?.client?.Shutdown("OnClickStartGame");
+        CommunicationNet.FakeStatic?.Client?.Shutdown("OnClickStartGame");
         SceneManager.LoadScene(2);
     }
 }
